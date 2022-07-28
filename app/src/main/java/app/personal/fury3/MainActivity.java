@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
     //comment2
+    //comment3
     //this is a comment
     //this is also a comment
     @Override
