@@ -1,4 +1,4 @@
-package app.personal.fury3;
+package app.personal.fury;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("app.personal.fury3", appContext.getPackageName());
+        assertEquals("app.personal.fury", appContext.getPackageName());
     }
 }
