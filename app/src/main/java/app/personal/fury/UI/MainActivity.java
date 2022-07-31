@@ -18,6 +18,7 @@ import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Entity.salaryEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
+import app.personal.Utls.Constants;
 import app.personal.Utls.ViewPager.viewPager;
 import app.personal.fury.R;
 import app.personal.fury.ViewPagerAdapter.vpAdapter;
@@ -80,10 +81,10 @@ public class MainActivity extends AppCompatActivity {
         vpAdapter adapter = new vpAdapter(getSupportFragmentManager());
 
         //Add fragments here
-        adapter.addFragment(new Dues_Debt(),"Dues");
-        adapter.addFragment(new Exp_Tracker(),"Expenses");
-        adapter.addFragment(new Salary_Planner(),"Salary");
-
+        adapter.addFragment(new Dues_Debt(), Constants.Dues);
+        adapter.addFragment(new Exp_Tracker(),Constants.Exp);
+        adapter.addFragment(new Salary_Planner(),Constants.Salary);
+        adapter.setPrimaryItem(vp,2,new Exp_Tracker());
         vp.setAdapter(adapter);
         vp.setPagingEnabled(false);
         tl.setupWithViewPager(vp, true);
@@ -107,7 +108,11 @@ public class MainActivity extends AppCompatActivity {
 
         //Setting icons for items in tabLayout
         for (int i = 0; i < tl.getTabCount(); i++) {
-            Objects.requireNonNull(tl.getTabAt(i)).setIcon(R.drawable.ic_home);
+//            Use after all icons available
+//            if(tl.getTabAt(i).getText()=="Home"){
+//
+//            }
+            //Objects.requireNonNull(tl.getTabAt(i)).setIcon(R.drawable.ic_home);
         }
     }
 }
