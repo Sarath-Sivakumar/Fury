@@ -1,4 +1,4 @@
-package app.personal.fury3;
+package app.personal.fury;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
@@ -14,6 +14,7 @@ import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Entity.salaryEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
+import app.personal.fury3.R;
 
 public class MainActivity extends AppCompatActivity {
 
