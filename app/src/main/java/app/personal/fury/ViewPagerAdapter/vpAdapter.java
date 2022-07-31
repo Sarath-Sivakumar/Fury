@@ -1,5 +1,7 @@
 package app.personal.fury.ViewPagerAdapter;
 
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -31,6 +33,12 @@ public class vpAdapter extends FragmentPagerAdapter{
     public void addFragment(Fragment fragment, String title){
         fragments.add(fragment);
         titles.add(title);
+    }
+
+    @Override
+    public void setPrimaryItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        super.setPrimaryItem(container, position, object);
+        
     }
 
     @Override
