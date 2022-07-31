@@ -11,5 +11,5 @@ public class Constants {
             dbName = "Fury_Database";
     public static final int DB_VERSION = 1;
     //--------------------------------------------------------------
-
+    public static final int ActivityCount = 5;
 }
