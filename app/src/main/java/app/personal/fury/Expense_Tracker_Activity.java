@@ -1,4 +1,4 @@
-package app.personal.fury3;
+package app.personal.fury;
 
 import androidx.appcompat.app.AppCompatActivity;
 

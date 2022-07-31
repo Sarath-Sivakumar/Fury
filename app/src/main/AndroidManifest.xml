@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="app.personal.fury3">
+    package="app.personal.fury">
 
     <application
         android:allowBackup="true"
@@ -14,19 +14,19 @@
         android:theme="@style/Theme.Fury3"
         tools:targetApi="31">
         <activity
-            android:name=".FutureStatus_Prediction_Activity"
+            android:name="app.personal.fury.FutureStatus_Prediction_Activity"
             android:exported="false" />
         <activity
-            android:name=".DueDebt_Activity"
+            android:name="app.personal.fury.DueDebt_Activity"
             android:exported="false" />
         <activity
-            android:name=".Salary_Planner_Activity"
+            android:name="app.personal.fury.Salary_Planner_Activity"
             android:exported="false" />
         <activity
-            android:name=".Expense_Tracker_Activity"
+            android:name="app.personal.fury.Expense_Tracker_Activity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="app.personal.fury.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
