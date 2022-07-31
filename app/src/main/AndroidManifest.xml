@@ -14,19 +14,7 @@
         android:theme="@style/Theme.Fury"
         tools:targetApi="31">
         <activity
-            android:name="app.personal.fury.FutureStatus_Prediction_Activity"
-            android:exported="false" />
-        <activity
-            android:name="app.personal.fury.DueDebt_Activity"
-            android:exported="false" />
-        <activity
-            android:name="app.personal.fury.Salary_Planner_Activity"
-            android:exported="false" />
-        <activity
-            android:name="app.personal.fury.Expense_Tracker_Activity"
-            android:exported="false" />
-        <activity
-            android:name="app.personal.fury.MainActivity"
+            android:name="app.personal.fury.UI.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
