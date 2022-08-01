@@ -42,13 +42,13 @@ public class MainActivity extends AppCompatActivity {
         init();
     }
 
-    private void init(){
+    private void init() {
         //init AD here..
         findView();
         initViewPager();
     }
 
-    private void findView(){
+    private void findView() {
         vp = findViewById(R.id.viewPager);
         tl = findViewById(R.id.tabLayout);
         toolbarTitle = findViewById(R.id.ab_title);
@@ -59,32 +59,35 @@ public class MainActivity extends AppCompatActivity {
                 .get(mainViewModel.class);
         vm.getBalance().observe(this, entity -> {
             //Balance updates here..
-            Log.e("VM","Balance");
+            Log.e("VM", "Balance");
         });
 
         vm.getDebt().observe(this, entity -> {
             //Debt updates here
-            Log.e("VM","Debt");
+            Log.e("VM", "Debt");
         });
 
         vm.getExp().observe(this, entity -> {
             //Exp updates here
-            Log.e("VM","Exp");
+            Log.e("VM", "Exp");
         });
 
         vm.getSalary().observe(this, entity -> {
             //Salary updates here
-            Log.e("VM","Salary");
+            Log.e("VM", "Salary");
         });
     }
-    private void initViewPager(){
+
+    private void initViewPager() {
         vpAdapter adapter = new vpAdapter(getSupportFragmentManager());
 
         //Add fragments here
         adapter.addFragment(new Dues_Debt(), Constants.Dues);
-        adapter.addFragment(new Exp_Tracker(),Constants.Exp);
-        adapter.addFragment(new Salary_Planner(),Constants.Salary);
-        adapter.setPrimaryItem(vp,2,new Exp_Tracker());
+        adapter.addFragment(new Exp_Tracker(), Constants.Exp);
+        adapter.addFragment(new Salary_Planner(), Constants.Salary);
+        adapter.addFragment(new Salary_Planner(), Constants.Salary);
+        adapter.addFragment(new Salary_Planner(), Constants.Salary);
+
         vp.setAdapter(adapter);
         vp.setPagingEnabled(false);
         tl.setupWithViewPager(vp, true);
@@ -92,12 +95,12 @@ public class MainActivity extends AppCompatActivity {
         tl.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                vp.setCurrentItem(tab.getPosition());
                 toolbarTitle.setText(tab.getText());
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
@@ -106,13 +109,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Setting icons for items in tabLayout
+//        Setting icons for items in tabLayout
         for (int i = 0; i < tl.getTabCount(); i++) {
 //            Use after all icons available
-//            if(tl.getTabAt(i).getText()=="Home"){
-//
-//            }
-            //Objects.requireNonNull(tl.getTabAt(i)).setIcon(R.drawable.ic_home);
+            CharSequence text = Objects.requireNonNull(tl.getTabAt(i)).getText();
+            if (text != null) {
+                if (Constants.Exp.contentEquals(text)) {
+                    Objects.requireNonNull(tl.getTabAt(i)).setIcon(R.drawable.ic_home);
+                } else if (Constants.Dues.contentEquals(text)) {
+                    Objects.requireNonNull(tl.getTabAt(i)).setIcon(R.drawable.ic_home);
+                } else if (Constants.Salary.contentEquals(text)) {
+                    Objects.requireNonNull(tl.getTabAt(i)).setIcon(R.drawable.ic_home);
+                }
+            }else{
+                Log.e(Constants.mActivityLog,"Tab text null");
+            }
         }
     }
 }

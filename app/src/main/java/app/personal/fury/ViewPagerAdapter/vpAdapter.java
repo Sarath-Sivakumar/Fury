@@ -10,8 +10,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 
 public class vpAdapter extends FragmentPagerAdapter{
-    private ArrayList<Fragment> fragments;
-    private ArrayList<String> titles;
+    private final ArrayList<Fragment> fragments;
+    private final ArrayList<String> titles;
 
     public vpAdapter(FragmentManager fm){
         super(fm);
@@ -38,11 +38,10 @@ public class vpAdapter extends FragmentPagerAdapter{
     @Override
     public void setPrimaryItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         super.setPrimaryItem(container, position, object);
-        
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return titles.get(position);
-    }
+//    @Override
+//    public CharSequence getPageTitle(int position) {
+//        return titles.get(position);
+//    }
 }
