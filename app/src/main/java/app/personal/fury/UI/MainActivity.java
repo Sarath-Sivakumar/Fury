@@ -25,6 +25,7 @@ import app.personal.fury.ViewPagerAdapter.vpAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
+    //this is a comment
     private mainViewModel vm;
     private viewPager vp;
     private TabLayout tl;
