@@ -14,6 +14,6 @@ public class Constants {
     public static final String Dues = "Dues & Debts",
             Exp = "Daily Expenses",
             Salary = "Salary Planner";
-    //--------------------------------------------------------------
-
+    //Activity Log Constants-----------------------------------------
+    public static final String mActivityLog = "MAIN ACTIVITY";
 }
