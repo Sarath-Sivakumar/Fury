@@ -40,8 +40,8 @@ public class vpAdapter extends FragmentPagerAdapter{
         super.setPrimaryItem(container, position, object);
     }
 
-//    @Override
-//    public CharSequence getPageTitle(int position) {
-//        return titles.get(position);
-//    }
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return titles.get(position);
+    }
 }
