@@ -8,11 +8,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
@@ -21,8 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp"
-            android:layout_marginLeft="12dp"
-            android:fontFamily="@font/kanit_semibold"
+            android:layout_marginStart="12dp"
             android:text="Total Expense Today"
             android:textSize="20sp" />
 
@@ -39,27 +39,64 @@
             android:text="₹5746200"
             android:textSize="34sp" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginLeft="12dp"
-            android:fontFamily="@font/kanit_semibold"
-            android:text="Account Balance"
-            android:textSize="18sp" />
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
-        <TextView
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="12dp"
-            android:text="₹23200"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:background="@drawable/tv_back"
-            android:fontFamily="@font/signika_negative_bold"
-            android:textSize="24sp" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="12dp"
+                    android:text="Account Balance"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="12dp"
+                    android:text="₹23200"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:background="@drawable/tv_back"
+
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Expense Limit"
+                    android:textSize="18sp" />
+
+                <ProgressBar
+                    android:id="@+id/progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:progress="50"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+
+            </LinearLayout>
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -67,8 +104,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp"
             android:text="Expense History"
-            android:layout_marginLeft="12dp"
-            android:fontFamily="@font/kanit_semibold"
+            android:layout_marginStart="12dp"
             android:textSize="16sp" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -86,5 +122,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="12dp"
-        android:src="@drawable/ic_home" />
-</FrameLayout>
+        android:src="@drawable/ic_add"
+        android:contentDescription="@null" />
+    </FrameLayout>
