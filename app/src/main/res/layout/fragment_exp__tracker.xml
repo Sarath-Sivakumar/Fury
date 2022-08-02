@@ -52,8 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:padding="6dp"
-            tools:listitem="@layout/exp_list_item"/>
-
+            tools:listitem="@layout/exp_list_item" />
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
