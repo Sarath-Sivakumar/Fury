@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import app.personal.Utls.Commons;
 import app.personal.fury.R;
 
 /**
@@ -21,6 +24,7 @@ public class Exp_Tracker extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private FloatingActionButton fltBtn;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -57,10 +61,17 @@ public class Exp_Tracker extends Fragment {
         }
     }
 
+    private void init(View v){
+        fltBtn = v.findViewById(R.id.exp_actionBtn);
+        fltBtn.setOnClickListener(v1-> Commons.SnackBar(v,"Replace with a actual method"));
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_exp__tracker, container, false);
+        View v = inflater.inflate(R.layout.fragment_exp__tracker, container, false);
+        init(v);
+        return v;
     }
 }
