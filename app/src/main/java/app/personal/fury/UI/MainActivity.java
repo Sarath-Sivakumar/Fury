@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         tl.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                vp.setCurrentItem(tab.getPosition());
+                //vp.setCurrentItem(tab.getPosition());
                 toolbarTitle.setText(tab.getText());
             }
 
