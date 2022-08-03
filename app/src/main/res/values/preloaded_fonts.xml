@@ -2,6 +2,7 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/kanit_semibold</item>
+        <item>@font/sen_extrabold</item>
         <item>@font/signika_negative_bold</item>
         <item>@font/signika_negative_light</item>
     </array>
