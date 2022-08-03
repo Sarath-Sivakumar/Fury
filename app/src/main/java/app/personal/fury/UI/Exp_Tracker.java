@@ -2,6 +2,7 @@ package app.personal.fury.UI;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -54,16 +55,14 @@ public class Exp_Tracker extends Fragment {
     private float finalBalance;
     private EditText expenseName, expenseAmt;
     private TextView balanceView, dateView, expView;
-    salaryEntity Entity = new salaryEntity();
-    private LiveData<balanceEntity> getBalance;
-    private LiveData<List<expEntity>> getExp;
+    private salaryEntity Entity = new salaryEntity();
+    private RecyclerView.ViewHolder ViewHolder;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public Exp_Tracker() {
-    }
+    public Exp_Tracker() {}
 
     public static Exp_Tracker newInstance(String param1, String param2) {
         Exp_Tracker fragment = new Exp_Tracker();
@@ -91,8 +90,8 @@ public class Exp_Tracker extends Fragment {
         limiter = v.findViewById(R.id.progress);
         expView = v.findViewById(R.id.todayExp);
         limiter.setMax(Constants.LIMITER_MAX);
-        touchHelper();
         adapter = new expAdapter();
+        touchHelper();
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
@@ -122,21 +121,37 @@ public class Exp_Tracker extends Fragment {
         vm.getBalance().observe(requireActivity(), entity -> {
             //Balance updates here..
             if (entity != null) {
-                balanceView.setText(Constants.RUPEE + entity.getBalance());
-                limiter.setProgress(setProgress(adapter.getTotalExp(), Entity.getSalary()), true);
+                balanceEntity bal = new balanceEntity(entity.getId(), entity.getBalance());
+                finalBalance = bal.getBalance();
+                if (vm.getExp().getValue() != null) {
+                    if (finalBalance == 0 && vm.getExp().getValue().isEmpty()) {
+                        //Can redirect to salary planner
+                        Commons.SnackBar(getView(),"Please set your income..");
+                    }
+                } else {
+                    //Can redirect to salary planner
+                    Commons.SnackBar(getView(),"Please set your income..");
+                }
             } else {
-                vm.InsertBalance(new balanceEntity(Entity.getSalary()));
-                Commons.SnackBar(getView(), "Please update your current balance..");
+                //Can redirect to salary planner
+                balanceEntity bal = new balanceEntity();
+                bal.setBalance(1000);
+                vm.InsertBalance(bal);
+                Commons.SnackBar(getView(),"Please set your income..");
             }
+            String b = "₹" + finalBalance;
+            balanceView.setText(b);
         });
 
         vm.getExp().observe(requireActivity(), entity -> {
             //Exp updates here
             if (entity != null) {
-                dateView.setText(getDate());
                 adapter.setExp(entity, true);
                 expView.setText(Constants.RUPEE  + adapter.getTotalExp());
+            } else {
+                Commons.SnackBar(getView(),"No registered Expenses yet!");
             }
+            limiter.setProgress(setProgress(adapter.getTotalExp(), Entity.getSalary()),true);
         });
     }
 
@@ -149,8 +164,25 @@ public class Exp_Tracker extends Fragment {
         if (layout == Constants.itemDelete) {
             View view = inflater.inflate(R.layout.delete_exp_item, null);
             popupWindow.setContentView(view);
-            //Code here...
-            popupWindow.dismiss();
+            Button del = view.findViewById(R.id.del_yes);
+            Button cancel = view.findViewById(R.id.del_no);
+
+            del.setOnClickListener(v -> {
+                expEntity entity = adapter.getExpAt(ViewHolder.getAdapterPosition());
+                float amt = entity.getExpenseAmt();
+                finalBalance = finalBalance + amt;
+                balanceEntity entity1 = new balanceEntity();
+                entity1.setBalance(finalBalance);
+                balanceView.setText(String.valueOf(finalBalance));
+                vm.DeleteBalance(entity1);
+                vm.DeleteExp(adapter.getExpAt(ViewHolder.getAdapterPosition()));
+                adapter.clear();
+                adapter.notifyDataSetChanged();
+                popupWindow.dismiss();
+                Commons.SnackBar(getView(),"Expense data deleted");
+            });
+            cancel.setOnClickListener(v -> popupWindow.dismiss());
+
         } else if (layout == Constants.itemAdd) {
             View view = inflater.inflate(R.layout.add_exp_item, null);
             popupWindow.setContentView(view);
@@ -158,6 +190,7 @@ public class Exp_Tracker extends Fragment {
             Button add = view.findViewById(R.id.add_yes);
             expenseName = view.findViewById(R.id.expName);
             expenseAmt = view.findViewById(R.id.expAmt);
+
             cancel.setOnClickListener(v -> popupWindow.dismiss());
             add.setOnClickListener(v -> {
                 addExp(expenseName.getText().toString(), expenseAmt.getText().toString());
@@ -230,32 +263,26 @@ public class Exp_Tracker extends Fragment {
                 | ItemTouchHelper.RIGHT) {
 
             @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
+                                  @NonNull RecyclerView.ViewHolder target) {
                 return false;
             }
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                expEntity entity = adapter.getExpAt(viewHolder.getAdapterPosition());
-                float amt = entity.getExpenseAmt();
-                finalBalance = finalBalance + amt;
-                balanceEntity entity1 = new balanceEntity();
-                entity1.setBalance(finalBalance);
-                vm.DeleteBalance(entity1);
-                vm.DeleteExp(adapter.getExpAt(viewHolder.getAdapterPosition()));
-                adapter.clear();
-                adapter.notifyDataSetChanged();
-                Snackbar.make(recyclerView, "Expense data deleted", Snackbar.LENGTH_SHORT).show();
+                ViewHolder = viewHolder;
+                callPopupWindow(Constants.itemDelete);
             }
+
         }).attachToRecyclerView(recyclerView);
 
-//        adapter.setOnItemClickListener(exp -> {
-//            Intent intent = new Intent(requireActivity(), exp_details.class);
-//            intent.putExtra(EXP_NAME, exp.getExpenseName());
-//            intent.putExtra(EXP_AMT, exp.getExpenseAmt());
-//            intent.putExtra(EXP_DATE, exp.getDate());
-//            intent.putExtra(EXP_TIME, exp.getTime());
-//            startActivity(intent);
-//        });
+        adapter.setOnItemClickListener(exp -> {
+            Intent intent = new Intent(requireActivity(), exp_details.class);
+            intent.putExtra(Constants.EXP_NAME, exp.getExpenseName());
+            intent.putExtra(Constants.EXP_AMT, exp.getExpenseAmt());
+            intent.putExtra(Constants.EXP_DATE, exp.getDate());
+            intent.putExtra(Constants.EXP_TIME, exp.getTime());
+            startActivity(intent);
+        });
     }
 }
