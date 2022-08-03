@@ -135,7 +135,7 @@ public class Exp_Tracker extends Fragment {
             if (entity != null) {
                 dateView.setText(getDate());
                 adapter.setExp(entity, true);
-                expView.setText(Constants.RUPEE + adapter.getTotalExp());
+                expView.setText(Constants.RUPEE  + adapter.getTotalExp());
             }
         });
     }
