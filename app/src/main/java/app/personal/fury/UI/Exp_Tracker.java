@@ -47,7 +47,7 @@ public class Exp_Tracker extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private FloatingActionButton fltBtn;
-    private ProgressBar limiter;
+    //private ProgressBar limiter;
     private mainViewModel vm;
     private RecyclerView recyclerView;
     private expAdapter adapter;
@@ -88,9 +88,9 @@ public class Exp_Tracker extends Fragment {
         recyclerView = v.findViewById(R.id.exp_list);
         balanceView = v.findViewById(R.id.expBalance);
         dateView = v.findViewById(R.id.exp_trac_date);
-        limiter = v.findViewById(R.id.progress);
+        //limiter = v.findViewById(R.id.progress);
         expView = v.findViewById(R.id.todayExp);
-        limiter.setMax(Constants.LIMITER_MAX);
+        //limiter.setMax(Constants.LIMITER_MAX);
         touchHelper();
         adapter = new expAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -123,7 +123,7 @@ public class Exp_Tracker extends Fragment {
             //Balance updates here..
             if (entity != null) {
                 balanceView.setText(Constants.RUPEE + entity.getBalance());
-                limiter.setProgress(setProgress(adapter.getTotalExp(), Entity.getSalary()), true);
+                //limiter.setProgress(setProgress(adapter.getTotalExp(), Entity.getSalary()), true);
             } else {
                 vm.InsertBalance(new balanceEntity(Entity.getSalary()));
                 Commons.SnackBar(getView(), "Please update your current balance..");
