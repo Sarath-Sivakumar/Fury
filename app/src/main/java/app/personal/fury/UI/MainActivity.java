@@ -25,21 +25,18 @@ import app.personal.fury.ViewPagerAdapter.vpAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    //this is a comment
-    private mainViewModel vm;
     private viewPager vp;
     private TabLayout tl;
     private TextView toolbarTitle;
-    private LiveData<balanceEntity> getBalance;
-    private LiveData<debtEntity> getDebt;
-    private LiveData<List<expEntity>> getExp;
-    private LiveData<salaryEntity> getSalary;
+//    private LiveData<balanceEntity> getBalance;
+//    private LiveData<List<expEntity>> getExp;
+//    private LiveData<debtEntity> getDebt;
+//    private LiveData<salaryEntity> getSalary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initViewModel();
         init();
     }
 
@@ -53,30 +50,6 @@ public class MainActivity extends AppCompatActivity {
         vp = findViewById(R.id.viewPager);
         tl = findViewById(R.id.tabLayout);
         toolbarTitle = findViewById(R.id.ab_title);
-    }
-
-    private void initViewModel() {
-        vm = new ViewModelProvider(this)
-                .get(mainViewModel.class);
-        vm.getBalance().observe(this, entity -> {
-            //Balance updates here..
-            Log.e("VM", "Balance");
-        });
-
-        vm.getDebt().observe(this, entity -> {
-            //Debt updates here
-            Log.e("VM", "Debt");
-        });
-
-        vm.getExp().observe(this, entity -> {
-            //Exp updates here
-            Log.e("VM", "Exp");
-        });
-
-        vm.getSalary().observe(this, entity -> {
-            //Salary updates here
-            Log.e("VM", "Salary");
-        });
     }
 
     private void initViewPager() {
@@ -127,4 +100,29 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+//    private void initViewModel() {
+//        //this is a comment
+//        vm = new ViewModelProvider(this).get(mainViewModel.class);
+//
+//        vm.getBalance().observe(requireActivity(), entity -> {
+//            //Balance updates here..
+//            Log.e("VM", "Balance");
+//        });
+//
+//        vm.getDebt().observe(this, entity -> {
+//            //Debt updates here
+//            Log.e("VM", "Debt");
+//        });
+//
+//        vm.getExp().observe(requireActivity(), entity -> {
+//            //Exp updates here
+//            Log.e("VM", "Exp");
+//        });
+//
+//        vm.getSalary().observe(this, entity -> {
+//            //Salary updates here
+//            Log.e("VM", "Salary");
+//        });
+//    }
 }

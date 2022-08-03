@@ -31,25 +31,47 @@ public class mainViewModel extends AndroidViewModel {
         getSalary = repo.getSalary();
     }
 
-    public void PutExp(expEntity entity) {
-        repo.PutExp(entity);
+    public void InsertExp(expEntity entity) {
+        repo.InsertExp(entity);
+    }
+
+    public void UpdateExp(expEntity entity) {
+        repo.UpdateExp(entity);
     }
 
     public void DeleteExp(expEntity entity) {
         repo.DeleteExp(entity);
     }
 
-    public void PutBalance(balanceEntity entity) {
-        repo.PutBalance(entity);
+    public void InsertBalance(balanceEntity entity) {
+        repo.InsertBalance(entity);
     }
 
-    public void PutSalary(salaryEntity entity) {
-        repo.PutSalary(entity);
+    public void UpdateBalance(balanceEntity entity) {
+        repo.UpdateBalance(entity);
     }
 
-    public void PutDebt(debtEntity entity) {
-        repo.PutDebt(entity);
+    public void DeleteBalance(balanceEntity entity){repo.DeleteBalance(entity);}
+
+    public void InsertSalary(salaryEntity entity) {
+        repo.InsertSalary(entity);
     }
+
+    public void UpdateSalary(salaryEntity entity) {
+        repo.UpdateSalary(entity);
+    }
+
+    public void DeleteSalary(salaryEntity entity){repo.DeleteSalary(entity);}
+
+    public void InsertDebt(debtEntity entity) {
+        repo.InsertDebt(entity);
+    }
+
+    public void UpdateDebt(debtEntity entity) {
+        repo.UpdateDebt(entity);
+    }
+
+    public void DeleteDebt(debtEntity entity){repo.DeleteDebt(entity);}
 
     public LiveData<balanceEntity> getBalance() {
         return getBalance;

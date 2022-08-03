@@ -13,7 +13,6 @@ import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Entity.salaryEntity;
-import app.personal.Utls.Constants;
 
 @Dao
 public interface localDao {
@@ -39,6 +38,9 @@ public interface localDao {
     @Update
     void UpdateBal(balanceEntity entity);
 
+    @Delete
+    void DeleteBal(balanceEntity entity);
+
     @Query("SELECT * FROM Balance_Table ORDER BY id DESC")
     LiveData<balanceEntity> getBalData();
 
@@ -50,6 +52,9 @@ public interface localDao {
     @Update
     void UpdateSal(salaryEntity entity);
 
+    @Delete
+    void DeleteSal(salaryEntity entity);
+
     @Query("SELECT * FROM Salary_Table ORDER BY id DESC")
     LiveData<salaryEntity> getSalData();
 
@@ -60,6 +65,9 @@ public interface localDao {
 
     @Update
     void UpdateDebt(debtEntity entity);
+
+    @Delete
+    void DeleteDebt(debtEntity entity);
 
     @Query("SELECT * FROM Debt_Table ORDER BY id DESC")
     LiveData<debtEntity> getDebtData();

@@ -18,7 +18,7 @@ public class expEntity implements Parcelable{
     private String ExpenseName, Date, Time;
 
     @Ignore
-    public expEntity(int expenseAmt, String expenseName,
+    public expEntity(float expenseAmt, String expenseName,
                      String Date, String Time) {
         ExpenseAmt = expenseAmt;
         ExpenseName = expenseName;
@@ -27,7 +27,7 @@ public class expEntity implements Parcelable{
     }
 
     @Ignore
-    public expEntity(int id, int expenseAmt, String expenseName,
+    public expEntity(int id, float expenseAmt, String expenseName,
                      String date, String time) {
         this.id = id;
         ExpenseAmt = expenseAmt;
