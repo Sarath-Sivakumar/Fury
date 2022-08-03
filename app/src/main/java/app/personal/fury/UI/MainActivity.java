@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new Exp_Tracker(), Constants.Exp);
         adapter.addFragment(new Salary_Planner(), Constants.Salary);
         adapter.addFragment(new Salary_Planner(), Constants.Salary);
-        adapter.addFragment(new Salary_Planner(), Constants.Salary);
+        //adapter.addFragment(new Salary_Planner(), Constants.Salary);
 
         vp.setAdapter(adapter);
         vp.setPagingEnabled(false);

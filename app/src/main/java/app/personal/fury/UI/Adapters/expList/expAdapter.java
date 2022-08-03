@@ -37,7 +37,7 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
         expEntity currentExp = todayExp.get(position);
         String amt = String.valueOf(currentExp.getExpenseAmt());
         String DisplayAmt = "₹" + amt;
-        holder.expAmt.setText(DisplayAmt);
+        holder.expAmt.setText("+ " + DisplayAmt);
         holder.expName.setText(currentExp.getExpenseName());
         if (filter) {
             holder.expTime.setText(currentExp.getTime());
