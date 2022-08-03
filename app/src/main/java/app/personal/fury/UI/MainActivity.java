@@ -28,10 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private viewPager vp;
     private TabLayout tl;
     private TextView toolbarTitle;
-//    private LiveData<balanceEntity> getBalance;
-//    private LiveData<List<expEntity>> getExp;
-//    private LiveData<debtEntity> getDebt;
-//    private LiveData<salaryEntity> getSalary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +52,10 @@ public class MainActivity extends AppCompatActivity {
         vpAdapter adapter = new vpAdapter(getSupportFragmentManager());
 
         //Add fragments here
-        adapter.addFragment(new Dues_Debt(), Constants.Dues);
         adapter.addFragment(new Exp_Tracker(), Constants.Exp);
         adapter.addFragment(new Salary_Planner(), Constants.Salary);
-        adapter.addFragment(new Salary_Planner(), Constants.Salary);
+        adapter.addFragment(new Dues_Debt(), Constants.Dues);
+        //adapter.addFragment(new Salary_Planner(), Constants.Salary);
         //adapter.addFragment(new Salary_Planner(), Constants.Salary);
 
         vp.setAdapter(adapter);

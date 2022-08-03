@@ -1,8 +1,10 @@
-package app.personal.fury;
+package app.personal.fury.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import app.personal.fury.R;
 
 public class exp_details extends AppCompatActivity {
 
