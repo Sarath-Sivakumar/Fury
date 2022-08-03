@@ -23,7 +23,7 @@ public class localRepository {
 
     public localRepository(Application application) {
         localDB db = localDB.getInstance(application);
-        localDao dao = db.dao();
+        dao = db.dao();
         getBalance = dao.getBalData();
         getDebt = dao.getDebtData();
         getExp = dao.getExpData();
@@ -31,44 +31,52 @@ public class localRepository {
     }
 
     //----------------------------------------------------------------------------------------------
-    public void PutBalance(balanceEntity balance) {
-        try{
-            new UpdateBalAsyncTask(dao).execute(balance);
-        }catch (Exception e) {
-            new InsertBalAsyncTask(dao).execute(balance);
-            e.printStackTrace();
-        }
+    public void InsertBalance(balanceEntity balance) {
+        new InsertBalAsyncTask(dao).execute(balance);
     }
 
-    public void PutDebt(debtEntity debt) {
-        try{
-            new UpdateDebtAsyncTask(dao).execute(debt);
-        }catch (Exception e) {
-            new InsertDebtAsyncTask(dao).execute(debt);
-            e.printStackTrace();
-        }
+    public void UpdateBalance(balanceEntity balance){
+        new UpdateBalAsyncTask(dao).execute(balance);
     }
 
-    public void PutExp(expEntity exp) {
-        try{
-            new UpdateExpAsyncTask(dao).execute(exp);
-        }catch (Exception e){
-            new InsertExpAsyncTask(dao).execute(exp);
-            e.printStackTrace();
-        }
+    public void DeleteBalance(balanceEntity balance){
+        new DeleteBalAsyncTask(dao).execute(balance);
+    }
+
+    public void InsertDebt(debtEntity debt) {
+        new InsertDebtAsyncTask(dao).execute(debt);
+    }
+
+    public void UpdateDebt(debtEntity debt){
+        new UpdateDebtAsyncTask(dao).execute(debt);
+    }
+
+    public void DeleteDebt(debtEntity debt){
+        new DeleteDebtAsyncTask(dao).execute(debt);
+    }
+
+    public void InsertSalary(salaryEntity salary) {
+        new InsertSalAsyncTask(dao).execute(salary);
+    }
+
+    public void UpdateSalary(salaryEntity salary){
+        new UpdateSalAsyncTask(dao).execute(salary);
+    }
+
+    public void DeleteSalary(salaryEntity salary){
+        new DeleteSalAsyncTask(dao).execute(salary);
+    }
+
+    public void InsertExp(expEntity exp) {
+        new InsertExpAsyncTask(dao).execute(exp);
+    }
+
+    public void UpdateExp(expEntity exp){
+        new UpdateExpAsyncTask(dao).execute(exp);
     }
 
     public void DeleteExp(expEntity exp){
         new DeleteExpAsyncTask(dao).execute(exp);
-    }
-
-    public void PutSalary(salaryEntity salary) {
-        try{
-            new UpdateSalAsyncTask(dao).execute(salary);
-        }catch (Exception e) {
-            new InsertSalAsyncTask(dao).execute(salary);
-            e.printStackTrace();
-        }
     }
 
     public LiveData<balanceEntity> getBalance(){
@@ -153,6 +161,19 @@ public class localRepository {
             return null;
         }
     }
+
+    private static class DeleteBalAsyncTask extends AsyncTask<balanceEntity,Void,Void> {
+        private  localDao dao;
+        private DeleteBalAsyncTask(localDao dao){
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(balanceEntity... entities) {
+            dao.DeleteBal(entities[0]);
+            return null;
+        }
+    }
     //----------------------------------------------------------------------------------------------
     //Salary background task------------------------------------------------------------------------
     private static class InsertSalAsyncTask extends AsyncTask<salaryEntity,Void,Void> {
@@ -180,6 +201,19 @@ public class localRepository {
             return null;
         }
     }
+
+    private static class DeleteSalAsyncTask extends AsyncTask<salaryEntity,Void,Void> {
+        private  localDao dao;
+        private DeleteSalAsyncTask(localDao dao){
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(salaryEntity... entities) {
+            dao.DeleteSal(entities[0]);
+            return null;
+        }
+    }
     //----------------------------------------------------------------------------------------------
     //Debt background task------------------------------------------------------------------------
     private static class InsertDebtAsyncTask extends AsyncTask<debtEntity,Void,Void> {
@@ -204,6 +238,19 @@ public class localRepository {
         @Override
         protected Void doInBackground(debtEntity... entities) {
             dao.UpdateDebt(entities[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteDebtAsyncTask extends AsyncTask<debtEntity,Void,Void> {
+        private  localDao dao;
+        private DeleteDebtAsyncTask(localDao dao){
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(debtEntity... entities) {
+            dao.DeleteDebt(entities[0]);
             return null;
         }
     }
