@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
-        <item>@font/josefin_sans_bold</item>
         <item>@font/kanit_semibold</item>
         <item>@font/sen_extrabold</item>
         <item>@font/signika_negative_bold</item>
