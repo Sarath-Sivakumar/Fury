@@ -18,17 +18,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:padding="12dp"
-                android:src="@drawable/ic_warning"/>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="12dp"
-                android:text="Add item"
+                android:layout_weight=".5"
+                android:text="New expense"
                 android:textColor="@color/white"
                 android:textSize="24sp" />
 
@@ -42,7 +37,7 @@
             android:singleLine="true"
             android:inputType="text"
             style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox.Dense"
-            android:hint="Expense name"/>
+            android:hint="Expense Category"/>
 
         <EditText
             android:id="@+id/expAmt"
@@ -52,7 +47,7 @@
             android:inputType="numberDecimal"
             android:singleLine="true"
             style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox.Dense"
-            android:hint="Amount-₹"/>
+            android:hint="Amount"/>
 
         <LinearLayout
             android:layout_width="match_parent"

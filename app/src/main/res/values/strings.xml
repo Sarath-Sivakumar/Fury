@@ -3,4 +3,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Addition_symbol">+</string>
+    <string name="account_balance">Account Balance</string>
+    <string name="total_expense_today">Total Expense Today</string>
+    <string name="expense_limit">Expense Limit</string>
+    <string name="expense_history">Expense History</string>
 </resources>
