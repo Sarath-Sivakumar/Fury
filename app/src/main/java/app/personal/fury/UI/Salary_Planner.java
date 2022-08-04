@@ -10,11 +10,6 @@ import android.view.ViewGroup;
 
 import app.personal.fury.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Salary_Planner#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Salary_Planner extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -30,14 +25,6 @@ public class Salary_Planner extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Salary_Planner.
-     */
     // TODO: Rename and change types and number of parameters
     public static Salary_Planner newInstance(String param1, String param2) {
         Salary_Planner fragment = new Salary_Planner();
