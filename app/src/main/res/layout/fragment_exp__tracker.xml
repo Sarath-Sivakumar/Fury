@@ -31,7 +31,7 @@
                 android:layout_marginBottom="12dp"
                 android:layout_weight=".8"
                 android:textColor="@color/white"
-                android:text="Total Expense Today"
+                android:text="@string/total_expense_today"
                 android:textSize="18sp" />
 
             <TextView
@@ -41,7 +41,6 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="12dp"
                 android:textColor="@color/white"
-                android:fontFamily="@font/signika_negative_light"
                 android:gravity="center"
                 android:textSize="12sp" />
 
@@ -51,14 +50,12 @@
             android:id="@+id/todayExp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:textColor="@color/black"
+            android:layout_marginBottom="12dp"
             android:gravity="center"
-            android:background="@drawable/tv_back"
-            android:fontFamily="@font/signika_negative_bold"
-            android:textSize="32sp" />
+            android:textColor="@color/white"
+            android:textSize="34sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -78,7 +75,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginStart="12dp"
-                    android:text="Account Balance"
+                    android:text="@string/account_balance"
                     android:textSize="18sp" />
 
                 <TextView
@@ -86,11 +83,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="12dp"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginEnd="22dp"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/tv_back"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="22sp" />
 
             </LinearLayout>
@@ -108,7 +103,7 @@
                     android:layout_marginEnd="12dp"
                     android:layout_gravity="top"
                     android:gravity="end"
-                    android:text="Expense Limit"
+                    android:text="@string/expense_limit"
                     android:textSize="18sp" />
 
                 <ProgressBar
@@ -126,14 +121,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp"
-            android:text="Expense History"
+            android:text="@string/expense_history"
             android:layout_marginStart="12dp"
             android:textSize="16sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/exp_list"
             android:layout_width="match_parent"
-            android:layout_height="450dp"
+            android:layout_height="490dp"
             android:padding="6dp"
             tools:listitem="@layout/exp_list_item" />
     </LinearLayout>
@@ -142,7 +137,7 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/exp_actionBtn"
         app:rippleColor="@color/white"
-        android:backgroundTint="@color/theme_gold"
+        android:backgroundTint="#008080"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

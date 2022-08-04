@@ -65,6 +65,6 @@
         android:gravity="center|end"
         android:padding="12dp"
         android:textSize="22sp"
-        android:textColor="@color/theme_gold"/>
+        android:textColor="@color/theme_green"/>
 
 </LinearLayout>
