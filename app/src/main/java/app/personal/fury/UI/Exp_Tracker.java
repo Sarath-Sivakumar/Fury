@@ -19,18 +19,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.expEntity;
@@ -125,15 +122,15 @@ public class Exp_Tracker extends Fragment {
                 finalBalance = bal.getBalance();
                 if (vm.getExp().getValue() != null) {
                     if (finalBalance == 0 && vm.getExp().getValue().isEmpty()) {
-                        //Can redirect to salary planner
+                        //Can redirect here to salary planner
                         Commons.SnackBar(getView(),"Please set your income..");
                     }
                 } else {
-                    //Can redirect to salary planner
+                    //Can redirect here to salary planner
                     Commons.SnackBar(getView(),"Please set your income..");
                 }
             } else {
-                //Can redirect to salary planner
+                //Can redirect here to salary planner
                 balanceEntity bal = new balanceEntity();
                 bal.setBalance(1000);
                 vm.InsertBalance(bal);
