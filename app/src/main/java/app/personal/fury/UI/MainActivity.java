@@ -1,9 +1,10 @@
 package app.personal.fury.UI;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         vpAdapter adapter = new vpAdapter(getSupportFragmentManager());
 
         //Add fragments here
+        adapter.addFragment(new fragment_main(), Constants.main);
         adapter.addFragment(new Exp_Tracker(), Constants.Exp);
         adapter.addFragment(new Salary_Planner(), Constants.Salary);
         adapter.addFragment(new Dues_Debt(), Constants.Dues);
@@ -72,7 +74,9 @@ public class MainActivity extends AppCompatActivity {
 //            Use after all icons available
             CharSequence text = Objects.requireNonNull(tl.getTabAt(i)).getText();
             if (text != null) {
-                if (Constants.Exp.contentEquals(text)) {
+                if (Constants.main.contentEquals(text)) {
+                    Objects.requireNonNull(tl.getTabAt(i)).setIcon(R.drawable.ic_home);
+                } else if (Constants.Exp.contentEquals(text)) {
                     Objects.requireNonNull(tl.getTabAt(i)).setIcon(R.drawable.ic_home);
                 } else if (Constants.Dues.contentEquals(text)) {
                     Objects.requireNonNull(tl.getTabAt(i)).setIcon(R.drawable.ic_add);
