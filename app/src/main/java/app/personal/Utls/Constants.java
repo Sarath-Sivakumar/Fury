@@ -26,5 +26,8 @@ public class Constants {
     //Internal Constants---------------------------------------------
     public static final int itemDelete = 0,
             itemAdd = 1,
-            LIMITER_MAX = 100;
+            LIMITER_MAX = 100,
+            monthly = 0,
+            daily = 1,
+            hourly = -1;
 }
