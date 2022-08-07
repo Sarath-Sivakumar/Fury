@@ -9,18 +9,26 @@
     android:paddingBottom="0dp">
 
     <TextView
+        android:id="@+id/salName"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:text="SplitName"
         android:gravity="center|start"
         android:padding="6dp"
         android:textColor="@color/white"/>
 
     <TextView
+        android:id="@+id/salTyp"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="SplitAmt"
+        android:gravity="center"
+        android:padding="6dp"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/salAmt"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center|end"
         android:padding="6dp"
         android:textColor="@color/white"/>

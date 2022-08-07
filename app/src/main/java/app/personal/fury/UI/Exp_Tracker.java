@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,7 +32,6 @@ import java.util.Date;
 
 import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.expEntity;
-import app.personal.MVVM.Entity.salaryEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
@@ -40,10 +40,6 @@ import app.personal.fury.UI.Adapters.expList.expAdapter;
 
 public class Exp_Tracker extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     private FloatingActionButton fltBtn;
     private ProgressBar limiter;
     private mainViewModel vm;
@@ -52,33 +48,20 @@ public class Exp_Tracker extends Fragment {
     private float finalBalance;
     private EditText expenseName, expenseAmt;
     private TextView balanceView, dateView, expView;
-    private salaryEntity Entity = new salaryEntity();
     private RecyclerView.ViewHolder ViewHolder;
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public Exp_Tracker() {}
 
-    public static Exp_Tracker newInstance(String param1, String param2) {
-        Exp_Tracker fragment = new Exp_Tracker();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static Exp_Tracker newInstance() {
+        return new Exp_Tracker();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void init(View v) {
         fltBtn = v.findViewById(R.id.exp_actionBtn);
         recyclerView = v.findViewById(R.id.exp_list);
@@ -106,15 +89,6 @@ public class Exp_Tracker extends Fragment {
     private void initViewModel() {
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
 
-        vm.getSalary().observe(requireActivity(), entity -> {
-            if (entity!=null){
-                Entity = entity;
-            }else{
-                //Redirect to salary planner here..
-                Entity.setSalary(1000);
-                finalBalance = 1000;
-            }
-        });
         vm.getBalance().observe(requireActivity(), entity -> {
             //Balance updates here..
             if (entity != null) {
@@ -122,36 +96,49 @@ public class Exp_Tracker extends Fragment {
                 finalBalance = bal.getBalance();
                 if (vm.getExp().getValue() != null) {
                     if (finalBalance == 0 && vm.getExp().getValue().isEmpty()) {
-                        //Can redirect here to salary planner
-                        Commons.SnackBar(getView(),"Please set your income..");
+                        finalBalance = ((MainActivity) requireActivity()).getTotalSalary();
+                        balanceEntity entity1 = new balanceEntity(finalBalance);
+                        vm.InsertBalance(entity1);
+                    }else{
+                        finalBalance = ((MainActivity) requireActivity()).getTotalSalary() - adapter.getTotalExp();
                     }
                 } else {
-                    //Can redirect here to salary planner
-                    Commons.SnackBar(getView(),"Please set your income..");
+                    finalBalance = ((MainActivity) requireActivity()).getTotalSalary();
+                    balanceEntity entity1 = new balanceEntity(finalBalance);
+                    vm.InsertBalance(entity1);
                 }
             } else {
                 //Can redirect here to salary planner
-                balanceEntity bal = new balanceEntity();
-                bal.setBalance(1000);
-                vm.InsertBalance(bal);
-                Commons.SnackBar(getView(),"Please set your income..");
+                try {
+                    finalBalance = ((MainActivity) requireActivity()).getTotalSalary();
+                    balanceEntity entity1 = new balanceEntity(finalBalance);
+                    vm.InsertBalance(entity1);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    finalBalance = 0.0F;
+                    ((MainActivity) requireActivity()).redirectTo(2);
+                }
             }
-            String b = "₹" + finalBalance;
+            String b = Constants.RUPEE + finalBalance;
             balanceView.setText(b);
+            limiter.setProgress(setProgress(adapter.getTotalExp(),
+                    ((MainActivity) requireActivity()).getTotalSalary()), true);
         });
 
         vm.getExp().observe(requireActivity(), entity -> {
             //Exp updates here
             if (entity != null) {
                 adapter.setExp(entity, true);
-                expView.setText(Constants.RUPEE  + adapter.getTotalExp());
+                expView.setText(Constants.RUPEE + adapter.getTotalExp());limiter.setProgress(setProgress(adapter.getTotalExp(),
+                        ((MainActivity) requireActivity()).getTotalSalary()), true);
             } else {
                 Commons.SnackBar(getView(),"No registered Expenses yet!");
             }
-            limiter.setProgress(setProgress(adapter.getTotalExp(), Entity.getSalary()),true);
+            //limiter.setProgress(setProgress(adapter.getTotalExp(), ),true);
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint("UseCompatLoadingForDrawables")
     private void callPopupWindow(int layout) {
         //Value of layout in Constants
@@ -175,8 +162,11 @@ public class Exp_Tracker extends Fragment {
                 vm.DeleteExp(adapter.getExpAt(ViewHolder.getAdapterPosition()));
                 adapter.clear();
                 adapter.notifyDataSetChanged();
+                expView.setText(Constants.RUPEE + adapter.getTotalExp());
+                limiter.setProgress(setProgress(adapter.getTotalExp(),
+                        ((MainActivity) requireActivity()).getTotalSalary()), true);
                 popupWindow.dismiss();
-                Commons.SnackBar(getView(),"Expense data deleted");
+                Commons.SnackBar(getView(), "Expense data deleted");
             });
             cancel.setOnClickListener(v -> popupWindow.dismiss());
 
@@ -187,6 +177,12 @@ public class Exp_Tracker extends Fragment {
             Button add = view.findViewById(R.id.add_yes);
             expenseName = view.findViewById(R.id.expName);
             expenseAmt = view.findViewById(R.id.expAmt);
+            //------------------------------------------------------
+            TextView v1 = view.findViewById(R.id.radioTitle);
+            v1.setVisibility(View.GONE);
+            RadioGroup grp = view.findViewById(R.id.RadioGroup);
+            grp.setVisibility(View.GONE);
+            //------------------------------------------------------
 
             cancel.setOnClickListener(v -> popupWindow.dismiss());
             add.setOnClickListener(v -> {
@@ -205,6 +201,8 @@ public class Exp_Tracker extends Fragment {
         popupWindow.showAsDropDown(fltBtn);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
     private void addExp(String expName, String expAmt) {
         //VM setter here..
         if (finalBalance > 0) {
@@ -221,6 +219,7 @@ public class Exp_Tracker extends Fragment {
                     bal.setBalance(finalBalance - Float.parseFloat(expAmt));
                     vm.InsertBalance(bal);
                     adapter.notifyDataSetChanged();
+                    expView.setText(Constants.RUPEE + adapter.getTotalExp());
                     expenseName.setText("");
                     expenseAmt.setText("");
                 } else {
@@ -265,6 +264,7 @@ public class Exp_Tracker extends Fragment {
                 return false;
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 ViewHolder = viewHolder;
