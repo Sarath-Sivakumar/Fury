@@ -33,13 +33,13 @@ import app.personal.fury.UI.Adapters.salaryList.salaryAdapter;
 
 public class Salary_Planner extends Fragment {
     //Daily = 1, Monthly = 0, Hourly = -1(To be implemented in a future update).
-    private static int count = 0;
 
     private TextView salAmt;
     private RecyclerView salSplitList;
     private FloatingActionButton addSal;
     private mainViewModel vm;
     private salaryAdapter adapter;
+    private int count = 0;
 
     public Salary_Planner() {
     }
@@ -155,18 +155,6 @@ public class Salary_Planner extends Fragment {
                if (!entity.isEmpty()){
                    adapter.setSal(entity);
                    salAmt.setText(Constants.RUPEE + adapter.getTotalSal());
-                }else {
-                   salAmt.setText(Constants.RUPEE + 0.0);
-                   if (Commons.OneTimeSnackBar(getView(), "Set Salary.", count)==0) {
-                       count++;
-                       addSal.callOnClick();
-                   }
-               }
-            } else {
-                salAmt.setText(Constants.RUPEE + 0.0);
-                if (Commons.OneTimeSnackBar(getView(), "Set Salary.", count)==0) {
-                    count++;
-                    addSal.callOnClick();
                 }
             }
         });
