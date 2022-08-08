@@ -13,7 +13,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
-import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -26,12 +25,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.expEntity;
+import app.personal.MVVM.Entity.salaryEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
@@ -41,14 +42,16 @@ import app.personal.fury.UI.Adapters.expList.expAdapter;
 public class Exp_Tracker extends Fragment {
 
     private FloatingActionButton fltBtn;
-    private ProgressBar limiter;
+    private LinearProgressIndicator limiter;
     private mainViewModel vm;
     private RecyclerView recyclerView;
     private expAdapter adapter;
     private float finalBalance;
     private EditText expenseName, expenseAmt;
-    private TextView balanceView, dateView, expView;
+    private TextView balanceView;
+    private TextView expView;
     private RecyclerView.ViewHolder ViewHolder;
+    private float finalTotalSalary;
 
     public Exp_Tracker() {}
 
@@ -66,7 +69,8 @@ public class Exp_Tracker extends Fragment {
         fltBtn = v.findViewById(R.id.exp_actionBtn);
         recyclerView = v.findViewById(R.id.exp_list);
         balanceView = v.findViewById(R.id.expBalance);
-        dateView = v.findViewById(R.id.exp_trac_date);
+        TextView dateView = v.findViewById(R.id.exp_trac_date);
+        dateView.setText(Commons.getDate());
         limiter = v.findViewById(R.id.progress);
         expView = v.findViewById(R.id.todayExp);
         limiter.setMax(Constants.LIMITER_MAX);
@@ -75,9 +79,7 @@ public class Exp_Tracker extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
-        fltBtn.setOnClickListener(v1 -> {
-            callPopupWindow(Constants.itemAdd);
-        });
+        fltBtn.setOnClickListener(v1 -> callPopupWindow(Constants.itemAdd));
     }
 
     private int setProgress(float exp, float sal) {
@@ -89,57 +91,55 @@ public class Exp_Tracker extends Fragment {
     private void initViewModel() {
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
 
-        vm.getBalance().observe(requireActivity(), entity -> {
-            //Balance updates here..
-            if (entity != null) {
-                balanceEntity bal = new balanceEntity(entity.getId(), entity.getBalance());
-                finalBalance = bal.getBalance();
-                if (vm.getExp().getValue() != null) {
-                    if (finalBalance == 0 && vm.getExp().getValue().isEmpty()) {
-                        finalBalance = ((MainActivity) requireActivity()).getTotalSalary();
-                        balanceEntity entity1 = new balanceEntity(finalBalance);
-                        vm.InsertBalance(entity1);
-                    }else{
-                        finalBalance = ((MainActivity) requireActivity()).getTotalSalary() - adapter.getTotalExp();
-                    }
-                } else {
-                    finalBalance = ((MainActivity) requireActivity()).getTotalSalary();
-                    balanceEntity entity1 = new balanceEntity(finalBalance);
-                    vm.InsertBalance(entity1);
+        vm.getSalary().observe(requireActivity(), entities -> {
+            float totalSalary = 0;
+            try {
+                int salSize = entities.size();
+                List<salaryEntity> salList = new ArrayList<>(entities);
+                for (int i = 0; i < salSize; i++) {
+                    totalSalary = totalSalary + salList.get(i).getSalary();
                 }
-            } else {
-                //Can redirect here to salary planner
-                try {
-                    finalBalance = ((MainActivity) requireActivity()).getTotalSalary();
-                    balanceEntity entity1 = new balanceEntity(finalBalance);
-                    vm.InsertBalance(entity1);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    finalBalance = 0.0F;
-                    ((MainActivity) requireActivity()).redirectTo(2);
-                }
+                Log.e("Exp", "total salary: " + totalSalary);
+                finalTotalSalary = totalSalary;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                finalBalance = finalTotalSalary;
+                ((MainActivity) requireActivity()).redirectTo(2);
+                Log.e("Exp", "getSal null");
             }
-            String b = Constants.RUPEE + finalBalance;
-            balanceView.setText(b);
-            limiter.setProgress(setProgress(adapter.getTotalExp(),
-                    ((MainActivity) requireActivity()).getTotalSalary()), true);
         });
 
         vm.getExp().observe(requireActivity(), entity -> {
-            //Exp updates here
             if (entity != null) {
                 adapter.setExp(entity, true);
-                expView.setText(Constants.RUPEE + adapter.getTotalExp());limiter.setProgress(setProgress(adapter.getTotalExp(),
-                        ((MainActivity) requireActivity()).getTotalSalary()), true);
+                limiter.setProgress(setProgress(adapter.getTotalExp(), finalTotalSalary), true);
+                expView.setText(Constants.RUPEE + adapter.getTotalExp());
             } else {
-                Commons.SnackBar(getView(),"No registered Expenses yet!");
+                Log.e("Exp", "getExp null");
             }
-            //limiter.setProgress(setProgress(adapter.getTotalExp(), ),true);
+        });
+
+        vm.getBalance().observe(requireActivity(), entity -> {
+            try {
+                finalBalance = entity.getBalance();
+                if (entity.getBalance() == 0) {
+                    finalBalance = finalTotalSalary - adapter.getTotalExp();
+                    balanceEntity entity1 = new balanceEntity(finalBalance);
+                    vm.InsertBalance(entity1);
+                }
+                balanceView.setText(Constants.RUPEE + finalBalance);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("Exp", "getBalance exception");
+                balanceEntity entity1 = new balanceEntity(finalTotalSalary - adapter.getTotalExp());
+                vm.InsertBalance(entity1);
+            }
         });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    @SuppressLint("UseCompatLoadingForDrawables")
+    @SuppressLint({"UseCompatLoadingForDrawables", "SetTextI18n"})
     private void callPopupWindow(int layout) {
         //Value of layout in Constants
         PopupWindow popupWindow = new PopupWindow(getContext());
@@ -154,17 +154,15 @@ public class Exp_Tracker extends Fragment {
             del.setOnClickListener(v -> {
                 expEntity entity = adapter.getExpAt(ViewHolder.getAdapterPosition());
                 float amt = entity.getExpenseAmt();
-                finalBalance = finalBalance + amt;
                 balanceEntity entity1 = new balanceEntity();
                 entity1.setBalance(finalBalance);
-                balanceView.setText(String.valueOf(finalBalance));
                 vm.DeleteBalance(entity1);
+                finalBalance = finalBalance + amt;
+                entity1.setBalance(finalBalance);
+                vm.InsertBalance(entity1);
                 vm.DeleteExp(adapter.getExpAt(ViewHolder.getAdapterPosition()));
                 adapter.clear();
                 adapter.notifyDataSetChanged();
-                expView.setText(Constants.RUPEE + adapter.getTotalExp());
-                limiter.setProgress(setProgress(adapter.getTotalExp(),
-                        ((MainActivity) requireActivity()).getTotalSalary()), true);
                 popupWindow.dismiss();
                 Commons.SnackBar(getView(), "Expense data deleted");
             });
@@ -209,19 +207,20 @@ public class Exp_Tracker extends Fragment {
             if (expAmt != null && expName != null) {
                 if (!expName.trim().isEmpty() && !expAmt.trim().isEmpty()) {
                     adapter.clear();
+                    finalBalance = finalBalance - Float.parseFloat(expAmt);
                     expEntity entity = new expEntity();
                     entity.setExpenseName(expName);
                     entity.setExpenseAmt(Float.parseFloat(expAmt));
-                    entity.setTime(getTime());
-                    entity.setDate(getDate());
+                    entity.setTime(Commons.getTime());
+                    entity.setDate(Commons.getDate());
                     vm.InsertExp(entity);
                     balanceEntity bal = new balanceEntity();
-                    bal.setBalance(finalBalance - Float.parseFloat(expAmt));
+                    bal.setBalance(finalBalance);
                     vm.InsertBalance(bal);
                     adapter.notifyDataSetChanged();
                     expView.setText(Constants.RUPEE + adapter.getTotalExp());
-                    expenseName.setText("");
-                    expenseAmt.setText("");
+                    float balance = finalTotalSalary - Float.parseFloat(expAmt);
+                    balanceView.setText(Constants.RUPEE + balance);
                 } else {
                     Commons.SnackBar(getView(), "Empty field(s)");
                 }
@@ -231,16 +230,6 @@ public class Exp_Tracker extends Fragment {
         } else {
             Commons.SnackBar(getView(), "No money to spend..(-_-)");
         }
-    }
-
-    public static String getDate() {
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        return sdf.format(new Date());
-    }
-
-    private String getTime() {
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
-        return sdf.format(new Date());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

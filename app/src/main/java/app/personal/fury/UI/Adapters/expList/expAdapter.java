@@ -1,7 +1,5 @@
 package app.personal.fury.UI.Adapters.expList;
 
-import static app.personal.fury.UI.Exp_Tracker.getDate;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.personal.MVVM.Entity.expEntity;
+import app.personal.Utls.Commons;
 import app.personal.fury.R;
 
 public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
     private List<expEntity> exp = new ArrayList<>();
-    private List<expEntity> todayExp = new ArrayList<>();
+    private final List<expEntity> todayExp = new ArrayList<>();
     private onItemClickListener listener;
     private boolean filter;
     private Float totalSum;
@@ -36,14 +35,11 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
     public void onBindViewHolder(@NonNull expHolder holder, int position) {
         expEntity currentExp = todayExp.get(position);
         String amt = String.valueOf(currentExp.getExpenseAmt());
-        String DisplayAmt = "₹" + amt;
-        holder.expAmt.setText("+ " + DisplayAmt);
+        String DisplayAmt = "- ₹" + amt;
+        holder.expAmt.setText(DisplayAmt);
         holder.expName.setText(currentExp.getExpenseName());
-        if (filter) {
-            holder.expTime.setText(currentExp.getTime());
-        } else {
-            holder.expTime.setText(currentExp.getDate());
-        }
+        holder.expDate.setText(currentExp.getDate());
+        holder.expTime.setText(currentExp.getTime());
     }
 
     @Override
@@ -64,10 +60,10 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
         if (filter) {
             this.exp = exp;
             int size = exp.size();
-            totalSum = Float.valueOf(0);
+            totalSum = 0.0F;
             for (int i = 0; i < size; i++) {
                 expEntity entity = exp.get(i);
-                if (entity.getDate().equals(getDate()) && !todayExp.contains(entity)) {
+                if (entity.getDate().equals(Commons.getDate()) && !todayExp.contains(entity)) {
                     todayExp.add(entity);
                     totalSum = totalSum + entity.getExpenseAmt();
                 }
@@ -81,10 +77,6 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
     public void clear() {
         todayExp.clear();
         exp.clear();
-    }
-
-    public List<expEntity> getExpList() {
-        return new ArrayList<expEntity>(exp);
     }
 
     public expEntity getExpAt(int position) {

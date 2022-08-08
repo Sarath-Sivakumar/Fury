@@ -34,14 +34,6 @@ public class MainActivity extends AppCompatActivity {
         initViewPager();
     }
 
-    public void setTotalSalary(float salary){
-        TotalSalary = salary;
-    }
-
-    public float getTotalSalary(){
-        return TotalSalary;
-    }
-
     private void findView() {
         vp = findViewById(R.id.viewPager);
         tl = findViewById(R.id.tabLayout);
