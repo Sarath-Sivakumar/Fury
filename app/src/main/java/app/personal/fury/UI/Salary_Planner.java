@@ -20,8 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import app.personal.MVVM.Entity.balanceEntity;
@@ -126,6 +124,16 @@ public class Salary_Planner extends Fragment {
                     entity.setIncType(Constants.hourly);
                 }
                 vm.InsertSalary(entity);
+
+                int size = Objects.requireNonNull(vm.getExp().getValue()).size();
+                float expense = 0;
+                for (int i = 0;i<size;i++){
+                    expEntity exp = vm.getExp().getValue().get(i);
+                    if (exp != null) {
+                        expense = expense + exp.getExpenseAmt();
+                    }
+                }
+                vm.InsertBalance(new balanceEntity(entity.getSalary()-expense));
                 popupWindow.dismiss();
             }
         });
@@ -145,8 +153,8 @@ public class Salary_Planner extends Fragment {
         vm.getSalary().observe(requireActivity(), entity -> {
             if (entity != null) {
                if (!entity.isEmpty()){
-                    adapter.setSal(entity);
-                    salAmt.setText(String.valueOf(adapter.getTotalSal()));
+                   adapter.setSal(entity);
+                   salAmt.setText(Constants.RUPEE + adapter.getTotalSal());
                 }else {
                    salAmt.setText(Constants.RUPEE + 0.0);
                    if (Commons.OneTimeSnackBar(getView(), "Set Salary.", count)==0) {

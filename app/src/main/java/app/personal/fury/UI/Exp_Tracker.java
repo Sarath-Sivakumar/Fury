@@ -99,8 +99,9 @@ public class Exp_Tracker extends Fragment {
                 for (int i = 0; i < salSize; i++) {
                     totalSalary = totalSalary + salList.get(i).getSalary();
                 }
-                Log.e("Exp", "total salary: " + totalSalary);
                 finalTotalSalary = totalSalary;
+                finalBalance = finalTotalSalary - adapter.getTotalExp();
+                vm.InsertBalance(new balanceEntity(finalBalance));
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -128,13 +129,14 @@ public class Exp_Tracker extends Fragment {
                     balanceEntity entity1 = new balanceEntity(finalBalance);
                     vm.InsertBalance(entity1);
                 }
-                balanceView.setText(Constants.RUPEE + finalBalance);
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.e("Exp", "getBalance exception");
-                balanceEntity entity1 = new balanceEntity(finalTotalSalary - adapter.getTotalExp());
+                finalBalance = finalTotalSalary - adapter.getTotalExp();
+                balanceEntity entity1 = new balanceEntity(finalBalance);
                 vm.InsertBalance(entity1);
             }
+            balanceView.setText(Constants.RUPEE + finalBalance);
         });
     }
 
