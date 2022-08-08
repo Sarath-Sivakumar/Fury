@@ -47,4 +47,8 @@ public class Commons {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
         return sdf.format(new Date());
     }
+
+    public static int setProgress(float exp, float sal) {
+        return (int) ((exp / sal) * 100);
+    }
 }

@@ -41,6 +41,8 @@ import app.personal.fury.UI.Adapters.expList.expAdapter;
 
 public class Exp_Tracker extends Fragment {
 
+    private int count = 0;
+
     private FloatingActionButton fltBtn;
     private LinearProgressIndicator limiter;
     private mainViewModel vm;
@@ -82,10 +84,6 @@ public class Exp_Tracker extends Fragment {
         fltBtn.setOnClickListener(v1 -> callPopupWindow(Constants.itemAdd));
     }
 
-    private int setProgress(float exp, float sal) {
-        return (int) ((exp / sal) * 100);
-    }
-
     @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void initViewModel() {
@@ -106,7 +104,6 @@ public class Exp_Tracker extends Fragment {
             } catch (Exception e) {
                 e.printStackTrace();
                 finalBalance = finalTotalSalary;
-                ((MainActivity) requireActivity()).redirectTo(2);
                 Log.e("Exp", "getSal null");
             }
         });
@@ -114,7 +111,7 @@ public class Exp_Tracker extends Fragment {
         vm.getExp().observe(requireActivity(), entity -> {
             if (entity != null) {
                 adapter.setExp(entity, true);
-                limiter.setProgress(setProgress(adapter.getTotalExp(), finalTotalSalary), true);
+                limiter.setProgress(Commons.setProgress(adapter.getTotalExp(), finalTotalSalary), true);
                 expView.setText(Constants.RUPEE + adapter.getTotalExp());
             } else {
                 Log.e("Exp", "getExp null");
@@ -135,6 +132,8 @@ public class Exp_Tracker extends Fragment {
                 finalBalance = finalTotalSalary - adapter.getTotalExp();
                 balanceEntity entity1 = new balanceEntity(finalBalance);
                 vm.InsertBalance(entity1);
+                Commons.OneTimeSnackBar(getView(), "Set Salary.", count);
+                count++;
             }
             balanceView.setText(Constants.RUPEE + finalBalance);
         });
@@ -221,7 +220,7 @@ public class Exp_Tracker extends Fragment {
                     vm.InsertBalance(bal);
                     adapter.notifyDataSetChanged();
                     expView.setText(Constants.RUPEE + adapter.getTotalExp());
-                    float balance = finalTotalSalary - Float.parseFloat(expAmt);
+                    float balance = finalBalance - Float.parseFloat(expAmt);
                     balanceView.setText(Constants.RUPEE + balance);
                 } else {
                     Commons.SnackBar(getView(), "Empty field(s)");

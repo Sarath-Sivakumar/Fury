@@ -2,79 +2,95 @@ package app.personal.fury.UI;
 
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
+import app.personal.MVVM.Viewmodel.mainViewModel;
+import app.personal.Utls.Commons;
+import app.personal.Utls.Constants;
 import app.personal.fury.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link fragment_main#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class fragment_main extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private ProgressBar mainProgressBar;
+    private CircularProgressIndicator mainProgressBar;
+    private TextView mainProgressText;
+    private mainViewModel vm;
+    private TextView expView;
+    private float salary = 0, expense = 0;
+    private int progress;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    public fragment_main() {}
 
-    public fragment_main() {
-        // Required empty public constructor
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void findView(View v) {
+        mainProgressBar = v.findViewById(R.id.indicator);
+        mainProgressText = v.findViewById(R.id.mainText);
+        expView = v.findViewById(R.id.expText);
+        mainProgressBar.setMax(100);
+        setMain(progress);
     }
 
-    public void findView(View v){
-        CircularProgressIndicator indicator = v.findViewById(R.id.indicator);
-        indicator.setMax(100);
-        indicator.setProgress(50);
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_main.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static fragment_main newInstance(String param1, String param2) {
-        fragment_main fragment = new fragment_main();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static fragment_main newInstance() {
+        return new fragment_main();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_main, container, false);
+        initViewModel();
         findView(v);
         return v;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void initViewModel() {
+        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+        vm.getSalary().observe(requireActivity(), salaryEntity -> {
+            salary = 0;
+            int size = salaryEntity.size();
+            for (int i = 0; i < size; i++) {
+                salary = salary + salaryEntity.get(i).getSalary();
+            }
+        });
+        vm.getExp().observe(requireActivity(), expEntities -> {
+            expense = 0;
+            int size = expEntities.size();
+            for (int i = 0; i < size; i++) {
+                expense = expense + expEntities.get(i).getExpenseAmt();
+            }
+            progress = Commons.setProgress(expense, salary);
+            setMain(progress);
+        });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void setMain(int progress){
+        mainProgressBar.setProgress(progress, true);
+        if (progress > 0) {
+            String prg = progress + "%\nTotal";
+            mainProgressText.setText(prg);
+        } else {
+            int pro = 0;
+            String prg = pro + "%\nTotal";
+            mainProgressText.setText(prg);
+        }
+        String p = Constants.RUPEE + expense;
+        expView.setText(p);
     }
 }
