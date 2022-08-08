@@ -16,24 +16,24 @@ import app.personal.MVVM.Entity.salaryEntity;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
 
-public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.expHolder> {
-    private List<salaryEntity> exp = new ArrayList<>();
+public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.salHolder> {
+    private final List<salaryEntity> salList = new ArrayList<>();
     private onItemClickListener listener;
-    private Float totalSum=0.0F;
+    private float totalSum=0;
 
     @NonNull
     @Override
-    public expHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public salHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.sal_list_item, parent, false);
-        return new expHolder(itemView);
+        return new salHolder(itemView);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull expHolder holder, int position) {
-        salaryEntity entity = exp.get(position);
+    public void onBindViewHolder(@NonNull salHolder holder, int position) {
+        salaryEntity entity = salList.get(position);
         holder.incAmt.setText(Constants.RUPEE + entity.getSalary());
         holder.incName.setText(entity.getIncName());
         if (entity.getIncType()==Constants.monthly){
@@ -47,19 +47,17 @@ public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.expHolder>
 
     @Override
     public int getItemCount() {
-        return exp.size();
+        return salList.size();
     }
 
-    public Float getTotalSal() {
-        if (totalSum != null) {
-            return totalSum;
-        } else {
-            return (float) 0;
-        }
+    public float getTotalSal() {
+        return totalSum;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setSal(List<salaryEntity> exp) {
-        this.exp.addAll(exp);
+        totalSum = 0;
+        this.salList.addAll(exp);
         int size = exp.size();
         for (int i=0;i<size;i++){
             totalSum = totalSum + exp.get(i).getSalary();
@@ -68,23 +66,15 @@ public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.expHolder>
     }
 
     public void clear() {
-        exp.clear();
+        salList.clear();
     }
 
-    public List<salaryEntity> getExpList() {
-        return new ArrayList<salaryEntity>(exp);
-    }
-
-    public salaryEntity getExpAt(int position) {
-        return exp.get(position);
-    }
-
-    class expHolder extends RecyclerView.ViewHolder {
+    class salHolder extends RecyclerView.ViewHolder {
         private final TextView incAmt;
         private final TextView incName;
         private final TextView incTyp;
 
-        public expHolder(@NonNull View itemView) {
+        public salHolder(@NonNull View itemView) {
             super(itemView);
             incAmt = itemView.findViewById(R.id.salAmt);
             incName = itemView.findViewById(R.id.salName);
@@ -93,7 +83,7 @@ public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.expHolder>
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 if (listener != null && pos != RecyclerView.NO_POSITION) {
-                    listener.onItemClick(exp.get(pos));
+                    listener.onItemClick(salList.get(pos));
                 }
             });
         }
