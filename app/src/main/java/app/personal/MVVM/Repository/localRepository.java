@@ -19,7 +19,7 @@ public class localRepository {
     private LiveData<balanceEntity> getBalance;
     private LiveData<debtEntity> getDebt;
     private LiveData<List<expEntity>> getExp;
-    private LiveData<salaryEntity> getSalary;
+    private LiveData<List<salaryEntity>> getSalary;
 
     public localRepository(Application application) {
         localDB db = localDB.getInstance(application);
@@ -87,7 +87,7 @@ public class localRepository {
         return getExp;
     }
 
-    public LiveData<salaryEntity> getSalary(){
+    public LiveData<List<salaryEntity>> getSalary(){
         return getSalary;
     }
 

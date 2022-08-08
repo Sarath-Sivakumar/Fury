@@ -1,7 +1,6 @@
 package app.personal.fury.UI;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private viewPager vp;
     private TabLayout tl;
     private TextView toolbarTitle;
+    private float TotalSalary=0.0F;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
         //init AD here..
         findView();
         initViewPager();
+    }
+
+    public void setTotalSalary(float salary){
+        TotalSalary = salary;
+    }
+
+    public float getTotalSalary(){
+        return TotalSalary;
     }
 
     private void findView() {
@@ -68,24 +76,8 @@ public class MainActivity extends AppCompatActivity {
                 toolbarTitle.setText(tab.getText());
             }
         });
-
-//        Setting icons for items in tabLayout
-        for (int i = 0; i < tl.getTabCount(); i++) {
-//            Use after all icons available
-            CharSequence text = Objects.requireNonNull(tl.getTabAt(i)).getText();
-            if (text != null) {
-                if (Constants.main.contentEquals(text)) {
-                    Objects.requireNonNull(tl.getTabAt(i)).setIcon(R.drawable.ic_home);
-                } else if (Constants.Exp.contentEquals(text)) {
-                    Objects.requireNonNull(tl.getTabAt(i)).setIcon(R.drawable.ic_home);
-                } else if (Constants.Dues.contentEquals(text)) {
-                    Objects.requireNonNull(tl.getTabAt(i)).setIcon(R.drawable.ic_add);
-                } else if (Constants.Salary.contentEquals(text)) {
-                    Objects.requireNonNull(tl.getTabAt(i)).setIcon(R.drawable.ic_warning);
-                }
-            }else{
-                Log.e(Constants.mActivityLog,"Tab text null");
-            }
-        }
+    }
+    public void redirectTo(int i){
+        vp.setCurrentItem(i);
     }
 }

@@ -56,7 +56,7 @@ public interface localDao {
     void DeleteSal(salaryEntity entity);
 
     @Query("SELECT * FROM Salary_Table ORDER BY id DESC")
-    LiveData<salaryEntity> getSalData();
+    LiveData<List<salaryEntity>> getSalData();
 
     //Debt-------
 
