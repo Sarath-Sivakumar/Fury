@@ -117,7 +117,7 @@
                                     app:indicatorColor="@android:color/holo_orange_dark"
                                     app:indicatorSize="150dp"
                                     app:trackColor="@color/white"
-                                    app:trackThickness="10dp" />
+                                    app:trackThickness="20dp" />
 
                                 <TextView
                                     android:layout_width="match_parent"

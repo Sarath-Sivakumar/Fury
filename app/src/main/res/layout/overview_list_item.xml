@@ -19,7 +19,7 @@
             app:indicatorSize="100dp"
             app:trackColor="@color/white"
             app:indicatorColor="@android:color/holo_orange_dark"
-            app:trackThickness="10dp"
+            app:trackThickness="15dp"
             android:progress="45"/>
 
         <TextView
