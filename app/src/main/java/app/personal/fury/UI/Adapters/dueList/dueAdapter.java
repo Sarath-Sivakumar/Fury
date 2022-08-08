@@ -1,7 +1,5 @@
 package app.personal.fury.UI.Adapters.dueList;
 
-import static app.personal.fury.UI.Exp_Tracker.getDate;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.personal.MVVM.Entity.expEntity;
+import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
 
@@ -68,7 +67,7 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
             totalSum = Float.valueOf(0);
             for (int i = 0; i < size; i++) {
                 expEntity entity = exp.get(i);
-                if (entity.getDate().equals(getDate()) && !todayExp.contains(entity)) {
+                if (entity.getDate().equals(Commons.getDate()) && !todayExp.contains(entity)) {
                     todayExp.add(entity);
                     totalSum = totalSum + entity.getExpenseAmt();
                 }

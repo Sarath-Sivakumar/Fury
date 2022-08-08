@@ -106,12 +106,14 @@
                     android:text="@string/expense_limit"
                     android:textSize="18sp" />
 
-                <ProgressBar
-                    android:id="@+id/progress"
+                <com.google.android.material.progressindicator.LinearProgressIndicator
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="12dp"
-                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+                    android:id="@+id/progress"
+                    app:indicatorColor="@color/theme_red"
+                    app:trackColor="@color/white"
+                    app:trackThickness="12dp" />
 
             </LinearLayout>
         </LinearLayout>
