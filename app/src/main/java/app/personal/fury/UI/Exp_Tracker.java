@@ -97,12 +97,12 @@ public class Exp_Tracker extends Fragment {
                 finalTotalSalary = 0;
                 int salSize = entities.size();
                 List<salaryEntity> salList = new ArrayList<>(entities);
-                for (int i = 0; i <= salSize; i++) {
+                for (int i = 0; i < salSize; i++) {
                     finalTotalSalary = finalTotalSalary + salList.get(i).getSalary();
                 }
                 Log.e("Exp", "getSal null");
                 finalBalance = Math.subtractExact((long)finalTotalSalary, (long)finalTotalExpense);
-                Log.e("Exp", Constants.RUPEE+finalBalance);
+                Log.e("sal", Constants.RUPEE+finalBalance);
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.e("Exp", "getSal null");
@@ -114,6 +114,7 @@ public class Exp_Tracker extends Fragment {
             if (entity != null) {
                 adapter.setExp(entity, true);
                 finalTotalExpense = adapter.getTotalExp();
+                Log.e("Exp", Constants.RUPEE+finalTotalExpense);
                 limiter.setProgress(Commons.setProgress("ExpTracker",
                         finalTotalExpense, finalTotalSalary), true);
                 String s = Constants.RUPEE + finalTotalExpense;
