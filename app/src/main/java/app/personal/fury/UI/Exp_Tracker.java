@@ -3,6 +3,7 @@ package app.personal.fury.UI;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -117,13 +118,29 @@ public class Exp_Tracker extends Fragment {
             if (entity != null) {
                 adapter.setExp(entity, true);
                 finalTotalExpense = adapter.getTotalExp();
-                limiter.setProgress(Commons.setProgress("ExpTracker",
-                        finalTotalExpense, finalTotalSalary), true);
+                int prg = Commons.setProgress("ExpTracker",
+                        finalTotalExpense, finalTotalSalary);
+                if (prg>0&&prg<33.33){
+                    limiter.setIndicatorColor(Color.GREEN);
+                }else if(prg>33.33&&prg<66.66){
+                    limiter.setIndicatorColor(Color.YELLOW);
+                }else{
+                    limiter.setIndicatorColor(Color.RED);
+                }
+                limiter.setProgress(prg, true);
                 String s = Constants.RUPEE + finalTotalExpense;
                 expView.setText(s);
             } else {
-                limiter.setProgress(Commons.setProgress("ExpTracker",
-                        finalTotalExpense, finalTotalSalary), true);
+                int prg = Commons.setProgress("ExpTracker",
+                        finalTotalExpense, finalTotalSalary);
+                if (prg>0&&prg<33.33){
+                    limiter.setIndicatorColor(Color.GREEN);
+                }else if(prg>33.33&&prg<66.66){
+                    limiter.setIndicatorColor(Color.YELLOW);
+                }else{
+                    limiter.setIndicatorColor(Color.RED);
+                }
+                limiter.setProgress(prg, true);
                 String s = Constants.RUPEE + finalTotalExpense;
                 expView.setText(s);
             }
@@ -179,7 +196,10 @@ public class Exp_Tracker extends Fragment {
                 popupWindow.dismiss();
                 Commons.SnackBar(getView(), "Expense data deleted");
             });
-            cancel.setOnClickListener(v -> popupWindow.dismiss());
+            cancel.setOnClickListener(v -> {
+                adapter.notifyDataSetChanged();
+                popupWindow.dismiss();
+            });
 
         } else if (layout == Constants.itemAdd) {
             View view = inflater.inflate(R.layout.add_exp_item, null);
