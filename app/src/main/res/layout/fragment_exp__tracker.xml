@@ -30,8 +30,9 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:layout_weight=".8"
-                android:textColor="@color/white"
                 android:text="@string/total_expense_today"
+                android:fontFamily="@font/merriweather_sans"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <TextView
