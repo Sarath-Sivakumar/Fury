@@ -25,9 +25,9 @@
                 android:textColor="@color/white"/>
 
             <TextView
+                android:id="@+id/dueTotalText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:textSize="24sp"
                 android:textColor="@color/white"/>
 
@@ -39,6 +39,7 @@
                 android:textColor="@color/white"/>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dueList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:listitem="@layout/due_item"/>

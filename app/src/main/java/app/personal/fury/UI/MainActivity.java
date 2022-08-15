@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
     private viewPager vp;
     private TabLayout tl;
     private TextView toolbarTitle;
-    private float TotalSalary=0.0F;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         tl.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                //vp.setCurrentItem(tab.getPosition());
+                vp.setCurrentItem(tab.getPosition());
                 toolbarTitle.setText(tab.getText());
             }
 
