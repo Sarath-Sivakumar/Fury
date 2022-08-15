@@ -53,21 +53,27 @@ public class Exp_Tracker extends Fragment {
     private TextView balanceView;
     private TextView expView;
     private RecyclerView.ViewHolder ViewHolder;
-    private float finalTotalSalary;
+    private float finalTotalSalary = 0;
+    private float finalTotalExpense = 0;
 
-    public Exp_Tracker() {}
+    public Exp_Tracker() {
+    }
 
     public static Exp_Tracker newInstance() {
         return new Exp_Tracker();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        adapter = new expAdapter();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void init(View v) {
+        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+
         fltBtn = v.findViewById(R.id.exp_actionBtn);
         recyclerView = v.findViewById(R.id.exp_list);
         balanceView = v.findViewById(R.id.expBalance);
@@ -76,7 +82,6 @@ public class Exp_Tracker extends Fragment {
         limiter = v.findViewById(R.id.progress);
         expView = v.findViewById(R.id.todayExp);
         limiter.setMax(Constants.LIMITER_MAX);
-        adapter = new expAdapter();
         touchHelper();
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setHasFixedSize(true);
@@ -84,63 +89,69 @@ public class Exp_Tracker extends Fragment {
         fltBtn.setOnClickListener(v1 -> callPopupWindow(Constants.itemAdd));
     }
 
-    @SuppressLint("SetTextI18n")
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void initViewModel() {
-        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-
         vm.getSalary().observe(requireActivity(), entities -> {
-            float totalSalary = 0;
             try {
+                finalTotalSalary = 0;
                 int salSize = entities.size();
                 List<salaryEntity> salList = new ArrayList<>(entities);
-                for (int i = 0; i < salSize; i++) {
-                    totalSalary = totalSalary + salList.get(i).getSalary();
+                for (int i = 0; i <= salSize; i++) {
+                    finalTotalSalary = finalTotalSalary + salList.get(i).getSalary();
                 }
-                finalTotalSalary = totalSalary;
-                finalBalance = finalTotalSalary - adapter.getTotalExp();
-                vm.InsertBalance(new balanceEntity(finalBalance));
-
+                Log.e("Exp", "getSal null");
+                finalBalance = Math.subtractExact((long)finalTotalSalary, (long)finalTotalExpense);
+                Log.e("Exp", Constants.RUPEE+finalBalance);
             } catch (Exception e) {
                 e.printStackTrace();
-                finalBalance = finalTotalSalary;
                 Log.e("Exp", "getSal null");
+                vm.InsertBalance(new balanceEntity(finalBalance));
             }
         });
 
         vm.getExp().observe(requireActivity(), entity -> {
             if (entity != null) {
                 adapter.setExp(entity, true);
-                limiter.setProgress(Commons.setProgress(adapter.getTotalExp(), finalTotalSalary), true);
-                expView.setText(Constants.RUPEE + adapter.getTotalExp());
+                finalTotalExpense = adapter.getTotalExp();
+                limiter.setProgress(Commons.setProgress("ExpTracker",
+                        finalTotalExpense, finalTotalSalary), true);
+                String s = Constants.RUPEE + finalTotalExpense;
+                expView.setText(s);
             } else {
                 Log.e("Exp", "getExp null");
+                limiter.setProgress(Commons.setProgress("ExpTracker",
+                        finalTotalExpense, finalTotalSalary), true);
+                String s = Constants.RUPEE + finalTotalExpense;
+                expView.setText(s);
             }
         });
 
         vm.getBalance().observe(requireActivity(), entity -> {
             try {
                 finalBalance = entity.getBalance();
-                if (entity.getBalance() == 0) {
-                    finalBalance = finalTotalSalary - adapter.getTotalExp();
-                    balanceEntity entity1 = new balanceEntity(finalBalance);
-                    vm.InsertBalance(entity1);
-                }
+                limiter.setProgress(Commons.setProgress("ExpTracker",
+                        finalTotalExpense, finalTotalSalary), true);
+                String s = Constants.RUPEE + finalBalance;
+                balanceView.setText(s);
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.e("Exp", "getBalance exception");
-                finalBalance = finalTotalSalary - adapter.getTotalExp();
                 balanceEntity entity1 = new balanceEntity(finalBalance);
                 vm.InsertBalance(entity1);
                 Commons.OneTimeSnackBar(getView(), "Set Salary.", count);
                 count++;
+                String s = Constants.RUPEE + finalBalance;
+                balanceView.setText(s);
+                limiter.setProgress(Commons.setProgress("ExpTracker",
+                        finalTotalExpense, finalTotalSalary), true);
             }
-            balanceView.setText(Constants.RUPEE + finalBalance);
+            String s = Constants.RUPEE + finalBalance;
+            balanceView.setText(s);
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    @SuppressLint({"UseCompatLoadingForDrawables", "SetTextI18n"})
+    @SuppressLint({"UseCompatLoadingForDrawables"})
     private void callPopupWindow(int layout) {
         //Value of layout in Constants
         PopupWindow popupWindow = new PopupWindow(getContext());
@@ -200,7 +211,6 @@ public class Exp_Tracker extends Fragment {
         popupWindow.showAsDropDown(fltBtn);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
     private void addExp(String expName, String expAmt) {
         //VM setter here..
@@ -219,9 +229,7 @@ public class Exp_Tracker extends Fragment {
                     bal.setBalance(finalBalance);
                     vm.InsertBalance(bal);
                     adapter.notifyDataSetChanged();
-                    expView.setText(Constants.RUPEE + adapter.getTotalExp());
-                    float balance = finalBalance - Float.parseFloat(expAmt);
-                    balanceView.setText(Constants.RUPEE + balance);
+                    balanceView.setText(String.valueOf(vm.getBalance().getValue()));
                 } else {
                     Commons.SnackBar(getView(), "Empty field(s)");
                 }

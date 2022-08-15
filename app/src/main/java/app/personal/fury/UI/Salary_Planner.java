@@ -3,6 +3,7 @@ package app.personal.fury.UI;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,37 +33,26 @@ import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.salaryList.salaryAdapter;
 
 public class Salary_Planner extends Fragment {
-    //Daily = 1, Monthly = 0, Hourly = -1(To be implemented in a future update).
+    //Daily = 1, Monthly = 0, Hourly = -1, oneTime = ?(To be implemented in a future update).
 
-    private TextView salAmt;
     private RecyclerView salSplitList;
     private FloatingActionButton addSal;
     private mainViewModel vm;
     private salaryAdapter adapter;
-    private int count = 0;
+    private TextView salAmt;
+    private float finalTotalSalary = 0;
 
-    public Salary_Planner() {
-    }
+    public Salary_Planner() {}
 
     public static Salary_Planner newInstance(String param1, String param2) {
-        Salary_Planner fragment = new Salary_Planner();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-        return fragment;
+        return new Salary_Planner();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Comes before onCreateView
-        initAd();
-//        Use if necessary
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
+        //initialise methods that don't require activity or context
     }
 
     private void initAd() {
@@ -74,17 +64,19 @@ public class Salary_Planner extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_salary__planner, container, false);
+        initAd();
         findView(v);
         initViewModel();
         return v;
     }
 
     private void findView(View v) {
+        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+        adapter = new salaryAdapter();
         salAmt = v.findViewById(R.id.salAmt);
         salSplitList = v.findViewById(R.id.salList);
         addSal = v.findViewById(R.id.addSal);
         addSal.setOnClickListener(v1 -> callPopUpWindow());
-        adapter = new salaryAdapter();
         salSplitList.setLayoutManager(new LinearLayoutManager(requireContext()));
         salSplitList.setHasFixedSize(true);
         salSplitList.setAdapter(adapter);
@@ -115,7 +107,9 @@ public class Salary_Planner extends Fragment {
                 adapter.clear();
                 salaryEntity entity = new salaryEntity();
                 entity.setIncName(name.getText().toString());
+                Log.e("sp",String.valueOf(finalTotalSalary));
                 entity.setSalary(Float.parseFloat(amt.getText().toString()));
+                Log.e("sp",String.valueOf(entity.getSalary()));
                 if (grp.getCheckedRadioButtonId() == R.id.daily) {
                     entity.setIncType(Constants.daily);
                 } else if (grp.getCheckedRadioButtonId() == R.id.monthly) {
@@ -129,11 +123,12 @@ public class Salary_Planner extends Fragment {
                 float expense = 0;
                 for (int i = 0;i<size;i++){
                     expEntity exp = vm.getExp().getValue().get(i);
-                    if (exp != null) {
+                    if (exp != null && exp.getDate().equals(Commons.getDate())) {
                         expense = expense + exp.getExpenseAmt();
                     }
                 }
-                vm.InsertBalance(new balanceEntity(entity.getSalary()-expense));
+                vm.InsertBalance(new balanceEntity(entity.getSalary() - expense));
+                Log.e("Bal", String.valueOf(entity.getSalary() - expense));
                 popupWindow.dismiss();
             }
         });
@@ -146,16 +141,17 @@ public class Salary_Planner extends Fragment {
         popupWindow.showAsDropDown(addSal);
     }
 
-    @SuppressLint("SetTextI18n")
     private void initViewModel() {
-        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-
         vm.getSalary().observe(requireActivity(), entity -> {
             if (entity != null) {
-               if (!entity.isEmpty()){
-                   adapter.setSal(entity);
-                   salAmt.setText(Constants.RUPEE + adapter.getTotalSal());
-                }
+                adapter.setSal(entity);
+                finalTotalSalary = adapter.getTotalSal();
+                Log.e("vm",Constants.RUPEE+finalTotalSalary);
+                String s = Constants.RUPEE + finalTotalSalary;
+                salAmt.setText(s);
+            } else {
+                String s = Constants.RUPEE + finalTotalSalary;
+                salAmt.setText(s);
             }
         });
     }

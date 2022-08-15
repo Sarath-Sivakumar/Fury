@@ -3,6 +3,7 @@ package app.personal.Utls;
 import static java.lang.Thread.sleep;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -23,15 +24,7 @@ public class Commons {
 //        if (Commons.OneTimeSnackBar(getView(),"Set Salary.",count)){
 //            count++;
 //        }
-        Thread t = new Thread(() -> {
-            try {
-                sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        t.start();
-        while (t.getState() == Thread.State.TERMINATED && count == 0){
+        while (count == 0){
                 Snackbar.make(v, Text, Snackbar.LENGTH_SHORT).show();
                 count = count + 1;
         }
@@ -48,7 +41,9 @@ public class Commons {
         return sdf.format(new Date());
     }
 
-    public static int setProgress(float exp, float sal) {
+    public static int setProgress(String fragName, float exp, float sal) {
+        Log.e("exp: "+fragName,String.valueOf(exp));
+        Log.e("sal: "+fragName,String.valueOf(sal));
         return (int) ((exp / sal) * 100);
     }
 }

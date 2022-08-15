@@ -57,6 +57,7 @@ public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.salHolder>
     @SuppressLint("NotifyDataSetChanged")
     public void setSal(List<salaryEntity> exp) {
         totalSum = 0;
+        this.salList.clear();
         this.salList.addAll(exp);
         int size = exp.size();
         for (int i=0;i<size;i++){

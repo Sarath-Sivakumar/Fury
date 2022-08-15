@@ -21,11 +21,11 @@ import app.personal.fury.R;
 public class fragment_main extends Fragment {
 
     private CircularProgressIndicator mainProgressBar;
+    private TextView expView;
     private TextView mainProgressText;
     private mainViewModel vm;
-    private TextView expView;
     private float salary = 0, expense = 0;
-    private int progress;
+    private int progress = 0;
 
     public fragment_main() {}
 
@@ -34,14 +34,10 @@ public class fragment_main extends Fragment {
         mainProgressBar = v.findViewById(R.id.indicator);
         mainProgressText = v.findViewById(R.id.mainText);
         expView = v.findViewById(R.id.expText);
-        mainProgressBar.setMax(100);
-        setMain(progress);
+        mainProgressBar.setMax(Constants.LIMITER_MAX);
     }
 
-    public static fragment_main newInstance() {
-        return new fragment_main();
-    }
-
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,28 +49,28 @@ public class fragment_main extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_main, container, false);
-        initViewModel();
         findView(v);
+        initViewModel();
         return v;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void initViewModel() {
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-        vm.getSalary().observe(requireActivity(), salaryEntity -> {
-            salary = 0;
-            int size = salaryEntity.size();
-            for (int i = 0; i < size; i++) {
-                salary = salary + salaryEntity.get(i).getSalary();
-            }
-        });
         vm.getExp().observe(requireActivity(), expEntities -> {
             expense = 0;
-            int size = expEntities.size();
-            for (int i = 0; i < size; i++) {
+            for (int i = 0; i < expEntities.size(); i++) {
                 expense = expense + expEntities.get(i).getExpenseAmt();
+                progress = Commons.setProgress("FragmentMain", expense, salary);
             }
-            progress = Commons.setProgress(expense, salary);
+            setMain(progress);
+        });
+        vm.getSalary().observe(requireActivity(), salaryEntity -> {
+            salary = 0;
+            for (int i = 0; i <= salaryEntity.size(); i++) {
+                salary = salary + salaryEntity.get(i).getSalary();
+                progress = Commons.setProgress("FragmentMain", expense, salary);
+            }
             setMain(progress);
         });
     }
