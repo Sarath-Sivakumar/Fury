@@ -97,15 +97,18 @@ public class Exp_Tracker extends Fragment {
                 finalTotalSalary = 0;
                 int salSize = entities.size();
                 List<salaryEntity> salList = new ArrayList<>(entities);
-                for (int i = 0; i < salSize; i++) {
-                    finalTotalSalary = finalTotalSalary + salList.get(i).getSalary();
+                if (salSize>=0){
+                    for (int i = 0; i < salSize; i++) {
+                        finalTotalSalary = finalTotalSalary + salList.get(i).getSalary();
+                    }
                 }
-                Log.e("Exp", "getSal null");
                 finalBalance = Math.subtractExact((long)finalTotalSalary, (long)finalTotalExpense);
                 Log.e("sal", Constants.RUPEE+finalBalance);
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("Exp", "getSal null");
+                finalTotalSalary = 0;
+                finalBalance = 0;
+                finalTotalExpense = 0;
                 vm.InsertBalance(new balanceEntity(finalBalance));
             }
         });
@@ -114,13 +117,11 @@ public class Exp_Tracker extends Fragment {
             if (entity != null) {
                 adapter.setExp(entity, true);
                 finalTotalExpense = adapter.getTotalExp();
-                Log.e("Exp", Constants.RUPEE+finalTotalExpense);
                 limiter.setProgress(Commons.setProgress("ExpTracker",
                         finalTotalExpense, finalTotalSalary), true);
                 String s = Constants.RUPEE + finalTotalExpense;
                 expView.setText(s);
             } else {
-                Log.e("Exp", "getExp null");
                 limiter.setProgress(Commons.setProgress("ExpTracker",
                         finalTotalExpense, finalTotalSalary), true);
                 String s = Constants.RUPEE + finalTotalExpense;
@@ -137,7 +138,6 @@ public class Exp_Tracker extends Fragment {
                 balanceView.setText(s);
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("Exp", "getBalance exception");
                 balanceEntity entity1 = new balanceEntity(finalBalance);
                 vm.InsertBalance(entity1);
                 Commons.OneTimeSnackBar(getView(), "Set Salary.", count);

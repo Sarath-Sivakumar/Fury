@@ -67,9 +67,12 @@ public class fragment_main extends Fragment {
         });
         vm.getSalary().observe(requireActivity(), salaryEntity -> {
             salary = 0;
-            for (int i = 0; i < salaryEntity.size(); i++) {
-                salary = salary + salaryEntity.get(i).getSalary();
-                progress = Commons.setProgress("FragmentMain", expense, salary);
+            int size = salaryEntity.size();
+            if (size>=0){
+                for (int i = 0; i < size; i++) {
+                    salary = salary + salaryEntity.get(i).getSalary();
+                    progress = Commons.setProgress("FragmentMain", expense, salary);
+                }
             }
             setMain(progress);
         });

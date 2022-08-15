@@ -107,9 +107,8 @@ public class Salary_Planner extends Fragment {
                 adapter.clear();
                 salaryEntity entity = new salaryEntity();
                 entity.setIncName(name.getText().toString());
-                Log.e("sp",String.valueOf(finalTotalSalary));
                 entity.setSalary(Float.parseFloat(amt.getText().toString()));
-                Log.e("sp",String.valueOf(entity.getSalary()));
+                finalTotalSalary = finalTotalSalary+Float.parseFloat(amt.getText().toString());
                 if (grp.getCheckedRadioButtonId() == R.id.daily) {
                     entity.setIncType(Constants.daily);
                 } else if (grp.getCheckedRadioButtonId() == R.id.monthly) {
@@ -127,8 +126,7 @@ public class Salary_Planner extends Fragment {
                         expense = expense + exp.getExpenseAmt();
                     }
                 }
-                vm.InsertBalance(new balanceEntity(entity.getSalary() - expense));
-                Log.e("Bal", String.valueOf(entity.getSalary() - expense));
+                vm.InsertBalance(new balanceEntity(finalTotalSalary - expense));
                 popupWindow.dismiss();
             }
         });
@@ -146,7 +144,6 @@ public class Salary_Planner extends Fragment {
             if (entity != null) {
                 adapter.setSal(entity);
                 finalTotalSalary = adapter.getTotalSal();
-                Log.e("vm",Constants.RUPEE+finalTotalSalary);
                 String s = Constants.RUPEE + finalTotalSalary;
                 salAmt.setText(s);
             } else {
