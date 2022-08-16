@@ -39,15 +39,32 @@
 
                 </LinearLayout>
 
-                <EditText
-                    android:id="@+id/expName"
-                    style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox.Dense"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Expense Category"
-                    android:inputType="text"
-                    android:padding="12dp"
-                    android:singleLine="true" />
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/expName"
+                        style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox.Dense"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:hint="Expense Category"
+                        android:inputType="text"
+                        android:paddingStart="12dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp"
+                        android:paddingEnd="0dp"
+                        android:singleLine="true" />
+
+                    <Spinner
+                        android:id="@+id/expOptions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|end"
+                        android:spinnerMode="dropdown" />
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/expAmt"

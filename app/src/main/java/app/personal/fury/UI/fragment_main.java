@@ -19,6 +19,7 @@ import app.personal.Utls.Constants;
 import app.personal.fury.R;
 
 public class fragment_main extends Fragment {
+    //Color contains 6 usable colors...
 
     private CircularProgressIndicator mainProgressBar;
     private TextView expView;

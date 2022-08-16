@@ -3,11 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Rohith Roy/Desktop/Fury/app/src/main/res/drawable/back_grad.xml" value="0.17" />
         <entry key="..\:/Users/Rohith Roy/Desktop/Fury/app/src/main/res/drawable/due_item_bg.xml" value="0.14" />
+        <entry key="..\:/Users/Rohith Roy/Desktop/Fury/app/src/main/res/drawable/home_list_bg.xml" value="0.1645" />
         <entry key="..\:/Users/Rohith Roy/Desktop/Fury/app/src/main/res/drawable/ic_add.xml" value="0.14" />
         <entry key="..\:/Users/Rohith Roy/Desktop/Fury/app/src/main/res/drawable/ic_home.xml" value="0.17" />
         <entry key="..\:/Users/Rohith Roy/Desktop/Fury/app/src/main/res/drawable/popup_bg.xml" value="0.14" />
         <entry key="..\:/Users/Rohith Roy/Desktop/Fury/app/src/main/res/drawable/popup_bg_shader.xml" value="0.14" />
+        <entry key="..\:/Users/Rohith Roy/Desktop/Fury/app/src/main/res/drawable/sal_list_bg.xml" value="0.1645" />
         <entry key="..\:/Users/Rohith Roy/Desktop/Fury/app/src/main/res/layout/activity_exp_details.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Rohith Roy/Desktop/Fury/app/src/main/res/layout/activity_expense_tracker.xml" value="0.2" />
         <entry key="..\:/Users/Rohith Roy/Desktop/Fury/app/src/main/res/layout/activity_main.xml" value="0.4066390041493776" />
@@ -18,7 +21,10 @@
         <entry key="..\:/Users/Rohith Roy/Desktop/Fury/app/src/main/res/layout/exp_list_item.xml" value="0.203125" />
         <entry key="..\:/Users/Rohith Roy/Desktop/Fury/app/src/main/res/layout/fragment_dues__debt.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Rohith Roy/Desktop/Fury/app/src/main/res/layout/fragment_exp__tracker.xml" value="0.2" />
+        <entry key="..\:/Users/Rohith Roy/Desktop/Fury/app/src/main/res/layout/fragment_main.xml" value="0.22" />
         <entry key="..\:/Users/Rohith Roy/Desktop/Fury/app/src/main/res/layout/fragment_salary__planner.xml" value="0.25" />
+        <entry key="..\:/Users/Rohith Roy/Desktop/Fury/app/src/main/res/layout/overview_list_item.xml" value="0.5" />
+        <entry key="..\:/Users/Rohith Roy/Desktop/Fury/app/src/main/res/layout/sal_list_item.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Rohith Roy/Desktop/Fury/app/src/main/res/menu/main_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/sarat/AndroidStudioProjects/Fury/app/src/main/res/drawable/fastfood.xml" value="0.193" />
         <entry key="..\:/Users/sarat/AndroidStudioProjects/Fury/app/src/main/res/drawable/home_list_bg.xml" value="0.173" />
