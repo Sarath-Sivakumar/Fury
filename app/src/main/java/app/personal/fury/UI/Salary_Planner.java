@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -91,11 +92,14 @@ public class Salary_Planner extends Fragment {
         popupWindow.setContentView(view);
 
         TextView title = view.findViewById(R.id.title);
+        Spinner spinner = view.findViewById(R.id.expOptions);
+//        spinner.setVisibility(View.GONE);
 //        @SuppressLint("CutPasteId") EditText name = view.findViewById(R.id.expName);
         @SuppressLint("CutPasteId") EditText amt = view.findViewById(R.id.expAmt);
         Button yes = view.findViewById(R.id.add_yes);
         Button no = view.findViewById(R.id.add_no);
         RadioGroup grp = view.findViewById(R.id.RadioGroup);
+
         grp.clearCheck();
 
         title.setText("New Income");

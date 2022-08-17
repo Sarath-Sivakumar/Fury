@@ -24,12 +24,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="12dp"
-                android:background="@drawable/home_list_bg"
+                android:gravity="center"
+                android:background="@drawable/gradiant"
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
                     android:layout_margin="12dp"
                     app:cardCornerRadius="150dp"
                     app:cardBackgroundColor="#7E7E7E33">
@@ -45,10 +46,10 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:progress="45"
-                            app:indicatorColor="@android:color/holo_orange_dark"
-                            app:indicatorSize="150dp"
+                            app:indicatorColor="@android:color/holo_green_light"
+                            app:indicatorSize="125dp"
                             app:trackColor="@color/white"
-                            android:elevation="6dp"
+                            android:elevation="8dp"
                             app:trackThickness="12dp" />
 
                         <TextView
@@ -63,7 +64,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -78,33 +79,43 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
+                                android:textSize="16sp"
+                                android:textColor="@color/black"
                                 android:layout_height="wrap_content"
                                 android:text="Expense" />
 
                             <TextView
                                 android:id="@+id/expText"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="@font/kanit_semibold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="21sp" />
+                                android:textSize="22sp" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="0dp"
+                            android:layout_marginLeft="20dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
                             android:layout_weight="0.33"
                             android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:textColor="@color/black"
                                 android:text="Budget" />
 
                             <TextView
+                                android:id="@+id/budgetText"
+                                android:gravity="center"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="@font/kanit_semibold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="21sp" />
+                                android:textSize="22sp" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -117,37 +128,24 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="16dp"
                             android:layout_weight="0.33"
                             android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:textColor="@color/black"
                                 android:text="Daily Average" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="₹200/Day"
-                                android:textSize="21sp" />
+                                android:fontFamily="@font/kanit_semibold"
+                                android:textSize="20sp" />
                         </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="end|bottom"
-                        android:orientation="horizontal">
-
-                        <Button
-                            style="@style/Widget.AppCompat.Button.Borderless"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom|end"
-                            android:gravity="bottom|end"
-                            android:text="More Info"
-                            android:textAllCaps="false" />
                     </LinearLayout>
                 </LinearLayout>
 
