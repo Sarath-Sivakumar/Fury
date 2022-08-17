@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/popup_bg_shader"
     android:padding="33dp">
 
@@ -45,14 +44,19 @@
 <!--                        style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox.Dense"-->
 <!--                        android:layout_width="0dp"-->
 <!--                        android:layout_weight="1"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:hint="Expense Category"-->
-<!--                        android:inputType="text"-->
-<!--                        android:paddingStart="12dp"-->
-<!--                        android:paddingTop="12dp"-->
-<!--                        android:paddingBottom="12dp"-->
-<!--                        android:paddingEnd="0dp"-->
-<!--                        android:singleLine="true" />-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:hint="Expense Category"-->
+                <!--                        android:inputType="text"-->
+                <!--                        android:paddingStart="12dp"-->
+                <!--                        android:paddingTop="12dp"-->
+                <!--                        android:paddingBottom="12dp"-->
+                <!--                        android:paddingEnd="0dp"-->
+                <!--                        android:singleLine="true" />-->
+
+                <FrameLayout
+                    android:id="@+id/expNameTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <Spinner
                         android:id="@+id/expOptions"
@@ -62,16 +66,37 @@
                         android:entries="@array/ExpenseItems"
                         style="@android:style/Widget.Material.Spinner.Underlined"
                         android:padding="12dp"
+                        android:visibility="gone"
                         android:layout_gravity="center|end"
                         android:spinnerMode="dropdown" />
 
+                    <TextView
+                        android:id="@+id/expTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="start|center"
+                        android:hint="Expense Name"
+                        android:padding="12dp"
+                        android:textSize="18sp" />
+                </FrameLayout>
+
+                <EditText
+                    android:id="@+id/salSrc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Salary Source"
+                    android:inputType="text"
+                    android:padding="12dp"
+                    android:singleLine="true" />
+
                 <EditText
                     android:id="@+id/expAmt"
-                    style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Amount"
                     android:inputType="numberDecimal"
+                    android:background="@android:color/transparent"
                     android:padding="12dp"
                     android:singleLine="true" />
 
@@ -85,29 +110,36 @@
                 <RadioGroup
                     android:id="@+id/RadioGroup"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
 
-                    <RadioButton
-                        android:id="@+id/hourly"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="6dp"
-                        android:text="Hourly" />
+                        <RadioButton
+                            android:id="@+id/hourly"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:text="Hourly" />
 
-                    <RadioButton
-                        android:id="@+id/daily"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="6dp"
-                        android:text="Daily" />
+                        <RadioButton
+                            android:id="@+id/daily"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:text="Daily" />
 
-                    <RadioButton
-                        android:id="@+id/monthly"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="6dp"
-                        android:text="Monthly" />
+                        <RadioButton
+                            android:id="@+id/monthly"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:text="Monthly" />
+
+                        <RadioButton
+                            android:id="@+id/oneTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:text="One Time" />
+
                 </RadioGroup>
 
                 <LinearLayout

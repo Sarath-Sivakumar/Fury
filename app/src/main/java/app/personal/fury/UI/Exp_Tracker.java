@@ -53,7 +53,8 @@ public class Exp_Tracker extends Fragment {
     private RecyclerView recyclerView;
     private expAdapter adapter;
     private float finalBalance;
-    private EditText expenseName, expenseAmt;
+    private EditText expenseAmt;
+    private String expName = null;
     private TextView balanceView;
     private TextView expView;
     private RecyclerView.ViewHolder ViewHolder;
@@ -210,21 +211,30 @@ public class Exp_Tracker extends Fragment {
             Button cancel = view.findViewById(R.id.add_no);
             Button add = view.findViewById(R.id.add_yes);
             Spinner sp = view.findViewById(R.id.expOptions);
-//            expenseName = view.findViewById(R.id.expName);
+            TextView expTitle = view.findViewById(R.id.expTitle);
+            expTitle.setOnClickListener(v -> {
+                sp.setVisibility(View.VISIBLE);
+                sp.performClick();
+            });
+
             expenseAmt = view.findViewById(R.id.expAmt);
-            sp.setPrompt("Expense Name");
+
             sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                     parent.getSelectedItem();
+                     expName = parent.getSelectedItem().toString();
+                     expTitle.setVisibility(View.GONE);
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
-
+                    sp.setVisibility(View.GONE);
+                    expTitle.setVisibility(View.VISIBLE);
                 }
             });
             //------------------------------------------------------
+            EditText salNm = view.findViewById(R.id.salSrc);
+            salNm.setVisibility(View.GONE);
             TextView v1 = view.findViewById(R.id.radioTitle);
             v1.setVisibility(View.GONE);
             RadioGroup grp = view.findViewById(R.id.RadioGroup);
@@ -233,7 +243,7 @@ public class Exp_Tracker extends Fragment {
 
             cancel.setOnClickListener(v -> popupWindow.dismiss());
             add.setOnClickListener(v -> {
-                addExp(expenseName.getText().toString(), expenseAmt.getText().toString());
+                addExp(expName, expenseAmt.getText().toString());
                 popupWindow.dismiss();
             });
         } else {

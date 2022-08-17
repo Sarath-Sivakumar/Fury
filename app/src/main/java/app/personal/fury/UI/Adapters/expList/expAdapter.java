@@ -1,11 +1,16 @@
 package app.personal.fury.UI.Adapters.expList;
 
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -40,6 +45,42 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
         holder.expName.setText(currentExp.getExpenseName());
         holder.expDate.setText(currentExp.getDate());
         holder.expTime.setText(currentExp.getTime());
+
+
+        switch(currentExp.getExpenseName()){
+            case "Food":
+                holder.expIcon.setImageResource(R.drawable.icon_food);
+                break;
+            case "Travel":
+                holder.expIcon.setImageResource(R.drawable.icon_transportation);
+                break;
+            case "Rent":
+                holder.expIcon.setImageResource(R.drawable.ic_home);
+                break;
+            case "Gas":
+                holder.expIcon.setImageResource(R.drawable.icon_gas);
+                break;
+            case "Electricity":
+                holder.expIcon.setImageResource(R.drawable.icon_electricity);
+                break;
+            case "Recharge":
+                holder.expIcon.setImageResource(R.drawable.ic_home);
+                break;
+            case "Fees":
+                holder.expIcon.setImageResource(R.drawable.ic_home);
+                break;
+            case "Subscriptions":
+                holder.expIcon.setImageResource(R.drawable.icon_subscription);
+                break;
+            case "Health Care":
+                holder.expIcon.setImageResource(R.drawable.icon_health);
+                break;
+            case "Bills":
+                holder.expIcon.setImageResource(R.drawable.icon_bills);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -88,6 +129,7 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
         private final TextView expName;
         private final TextView expTime;
         private final TextView expDate;
+        private final ImageView expIcon;
 
         public expHolder(@NonNull View itemView) {
             super(itemView);
@@ -95,6 +137,7 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
             expName = itemView.findViewById(R.id.itemTitle);
             expTime = itemView.findViewById(R.id.itemTime);
             expDate = itemView.findViewById(R.id.itemDate);
+            expIcon = itemView.findViewById(R.id.itemIcon);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
