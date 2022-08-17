@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -96,6 +97,7 @@ public class Salary_Planner extends Fragment {
         Button yes = view.findViewById(R.id.add_yes);
         Button no = view.findViewById(R.id.add_no);
         RadioGroup grp = view.findViewById(R.id.RadioGroup);
+
         grp.clearCheck();
 
         title.setText("New Income");
