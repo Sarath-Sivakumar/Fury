@@ -91,7 +91,7 @@ public class Salary_Planner extends Fragment {
         popupWindow.setContentView(view);
 
         TextView title = view.findViewById(R.id.title);
-        @SuppressLint("CutPasteId") EditText name = view.findViewById(R.id.expName);
+//        @SuppressLint("CutPasteId") EditText name = view.findViewById(R.id.expName);
         @SuppressLint("CutPasteId") EditText amt = view.findViewById(R.id.expAmt);
         Button yes = view.findViewById(R.id.add_yes);
         Button no = view.findViewById(R.id.add_no);
@@ -99,37 +99,37 @@ public class Salary_Planner extends Fragment {
         grp.clearCheck();
 
         title.setText("New Income");
-        name.setHint("Income Name");
-        amt.setHint("Income Amount");
-        no.setOnClickListener(v -> popupWindow.dismiss());
-        yes.setOnClickListener(v -> {
-            if (!name.getText().toString().trim().isEmpty() && !amt.getText().toString().trim().isEmpty()) {
-                adapter.clear();
-                salaryEntity entity = new salaryEntity();
-                entity.setIncName(name.getText().toString());
-                entity.setSalary(Float.parseFloat(amt.getText().toString()));
-                finalTotalSalary = finalTotalSalary+Float.parseFloat(amt.getText().toString());
-                if (grp.getCheckedRadioButtonId() == R.id.daily) {
-                    entity.setIncType(Constants.daily);
-                } else if (grp.getCheckedRadioButtonId() == R.id.monthly) {
-                    entity.setIncType(Constants.monthly);
-                } else {
-                    entity.setIncType(Constants.hourly);
-                }
-                vm.InsertSalary(entity);
-
-                int size = Objects.requireNonNull(vm.getExp().getValue()).size();
-                float expense = 0;
-                for (int i = 0;i<size;i++){
-                    expEntity exp = vm.getExp().getValue().get(i);
-                    if (exp != null && exp.getDate().equals(Commons.getDate())) {
-                        expense = expense + exp.getExpenseAmt();
-                    }
-                }
-                vm.InsertBalance(new balanceEntity(finalTotalSalary - expense));
-                popupWindow.dismiss();
-            }
-        });
+//        name.setHint("Income Name");
+//        amt.setHint("Income Amount");
+//        no.setOnClickListener(v -> popupWindow.dismiss());
+//        yes.setOnClickListener(v -> {
+//            if (!name.getText().toString().trim().isEmpty() && !amt.getText().toString().trim().isEmpty()) {
+//                adapter.clear();
+//                salaryEntity entity = new salaryEntity();
+//                entity.setIncName(name.getText().toString());
+//                entity.setSalary(Float.parseFloat(amt.getText().toString()));
+//                finalTotalSalary = finalTotalSalary+Float.parseFloat(amt.getText().toString());
+//                if (grp.getCheckedRadioButtonId() == R.id.daily) {
+//                    entity.setIncType(Constants.daily);
+//                } else if (grp.getCheckedRadioButtonId() == R.id.monthly) {
+//                    entity.setIncType(Constants.monthly);
+//                } else {
+//                    entity.setIncType(Constants.hourly);
+//                }
+//                vm.InsertSalary(entity);
+//
+//                int size = Objects.requireNonNull(vm.getExp().getValue()).size();
+//                float expense = 0;
+//                for (int i = 0;i<size;i++){
+//                    expEntity exp = vm.getExp().getValue().get(i);
+//                    if (exp != null && exp.getDate().equals(Commons.getDate())) {
+//                        expense = expense + exp.getExpenseAmt();
+//                    }
+//                }
+//                vm.InsertBalance(new balanceEntity(finalTotalSalary - expense));
+//                popupWindow.dismiss();
+//            }
+//        });
 
         popupWindow.setFocusable(true);
         popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
