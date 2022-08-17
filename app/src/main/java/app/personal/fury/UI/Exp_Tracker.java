@@ -11,10 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -206,8 +209,20 @@ public class Exp_Tracker extends Fragment {
             popupWindow.setContentView(view);
             Button cancel = view.findViewById(R.id.add_no);
             Button add = view.findViewById(R.id.add_yes);
-            expenseName = view.findViewById(R.id.expName);
+            Spinner sp = view.findViewById(R.id.expOptions);
+//            expenseName = view.findViewById(R.id.expName);
             expenseAmt = view.findViewById(R.id.expAmt);
+            sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                     parent.getSelectedItem();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
             //------------------------------------------------------
             TextView v1 = view.findViewById(R.id.radioTitle);
             v1.setVisibility(View.GONE);
