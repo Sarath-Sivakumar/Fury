@@ -92,6 +92,7 @@ public class Salary_Planner extends Fragment {
         popupWindow.setContentView(view);
 
         TextView title = view.findViewById(R.id.title);
+
         @SuppressLint("CutPasteId") EditText name = view.findViewById(R.id.salSrc);
         @SuppressLint("CutPasteId") EditText amt = view.findViewById(R.id.expAmt);
         Button yes = view.findViewById(R.id.add_yes);
