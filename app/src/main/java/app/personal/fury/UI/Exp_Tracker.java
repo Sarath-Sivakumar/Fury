@@ -212,6 +212,7 @@ public class Exp_Tracker extends Fragment {
             Spinner sp = view.findViewById(R.id.expOptions);
 //            expenseName = view.findViewById(R.id.expName);
             expenseAmt = view.findViewById(R.id.expAmt);
+            sp.setPrompt("Expense Name");
             sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

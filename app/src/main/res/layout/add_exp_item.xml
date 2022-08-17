@@ -60,6 +60,7 @@
                         android:layout_height="wrap_content"
                         android:dropDownWidth="match_parent"
                         android:entries="@array/ExpenseItems"
+                        style="@android:style/Widget.Material.Spinner.Underlined"
                         android:padding="12dp"
                         android:layout_gravity="center|end"
                         android:spinnerMode="dropdown" />
