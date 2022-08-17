@@ -14,7 +14,7 @@ public class Constants {
     public static final String Dues = "Dues & Debts",
             Exp = "Daily Expenses",
             Salary = "Salary Planner",
-            main = "Fury Overview",
+            main = "Overview",
             EXP_NAME = "EXPENSE_NAME",
             EXP_AMT = "EXPENSE_AMOUNT",
             EXP_DATE = "EXPENSE_DATE",
@@ -27,6 +27,7 @@ public class Constants {
     public static final int itemDelete = 0,
             itemAdd = 1,
             LIMITER_MAX = 100,
+            oneTime = 2,
             monthly = 0,
             daily = 1,
             hourly = -1;

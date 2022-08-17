@@ -40,8 +40,10 @@ public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.salHolder>
             holder.incTyp.setText("Monthly");
         }else if (entity.getIncType()==Constants.daily){
             holder.incTyp.setText("Daily");
-        }else{
+        }else if (entity.getIncType()==Constants.hourly){
             holder.incTyp.setText("Hourly");
+        }else if (entity.getIncType()==Constants.oneTime){
+            holder.incTyp.setText("One Time");
         }
     }
 
