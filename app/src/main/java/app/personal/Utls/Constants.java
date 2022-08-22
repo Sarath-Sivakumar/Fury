@@ -20,8 +20,8 @@ public class Constants {
             EXP_DATE = "EXPENSE_DATE",
             EXP_TIME = "EXPENSE_TIME",
             RUPEE = "₹",
-            DEBT_PAID = "DebtPaid",
-            DEBT_NOT_PAID = "DebtNotPaid";
+            DEBT_PAID = "Paid",
+            DEBT_NOT_PAID = "Not Paid";
     //Activity Log Constants-----------------------------------------
     public static final String mActivityLog = "MAIN ACTIVITY",
             expFragLog = "EXP FRAGMENT";

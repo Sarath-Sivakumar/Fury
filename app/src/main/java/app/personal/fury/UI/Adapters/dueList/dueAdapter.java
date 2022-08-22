@@ -22,55 +22,35 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     private onMarkClickListener markListener;
     private boolean filter;
     private Float totalSum = 0.00F;
-    int i = 0;
 
     @NonNull
     @Override
     public expHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.exp_list_item, parent, false);
+                .inflate(R.layout.due_item, parent, false);
         return new expHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull expHolder holder, int position) {
         debtEntity entity = debt.get(position);
-//        holder.dPaidDate.setText(entity.getDate());
-//        if (filter) {
-//            holder.dPaidDateTitle.setVisibility(View.GONE);
-//            holder.dPaidDate.setVisibility(View.GONE);
-//        }
-//        String amt = Constants.RUPEE+entity.getAmount();
-//        holder.dAmt.setText(amt);
-//        holder.dName.setText(entity.getSource());
-//
-//        //To get first letter in source name--------------------------------------
-//        String ico = String.valueOf(entity.getSource().charAt(0)).toUpperCase();
-//        holder.icoText.setText(ico);
-//        //------------------------------------------------------------------------
-//
-//        holder.dFinalDate.setText(entity.getFinalDate());
-//        holder.dStatus.setText(entity.getStatus());
-        if (i==0) {
-            holder.dPaidDate.setText("1/12/2022");
-            if (filter) {
-                holder.dPaidDateTitle.setVisibility(View.GONE);
-                holder.dPaidDate.setVisibility(View.GONE);
-            }
-            String amt = Constants.RUPEE + "2000";
-            holder.dAmt.setText(amt);
-            holder.dName.setText("keseb");
-
-            //To get first letter in source name--------------------------------------
-            String ico = String.valueOf(entity.getSource().charAt(0)).toUpperCase();
-            holder.icoText.setText(ico);
-            //------------------------------------------------------------------------
-
-            holder.dFinalDate.setText("1/1/2023");
-            holder.dStatus.setText(Constants.DEBT_NOT_PAID);
-            i=i+1;
+        holder.dPaidDate.setText(entity.getDate());
+        if (filter) {
+            holder.dPaidDateTitle.setVisibility(View.GONE);
+            holder.dPaidDate.setVisibility(View.GONE);
         }
+        String amt = Constants.RUPEE+entity.getAmount();
+        holder.dAmt.setText(amt);
+        holder.dName.setText(entity.getSource());
+
+        //To get first letter in source name--------------------------------------
+        String ico = String.valueOf(entity.getSource().charAt(0)).toUpperCase();
+        holder.icoText.setText(ico);
+        //------------------------------------------------------------------------
+
+        holder.dFinalDate.setText(entity.getFinalDate());
+        holder.dStatus.setText(entity.getStatus());
     }
 
     @Override

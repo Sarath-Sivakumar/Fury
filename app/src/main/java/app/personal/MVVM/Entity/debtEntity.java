@@ -11,25 +11,23 @@ public class debtEntity {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String Source, date, time, finalDate, status;
+    private String Source, date, finalDate, status;
     private float Amount;
 
     @Ignore
-    public debtEntity(int id, String Source, String date, String time, String finalDate, float Amount, String status) {
+    public debtEntity(int id, String Source, String date, String finalDate, float Amount, String status) {
         this.id = id;
         this.Source = Source;
         this.date = date;
-        this.time = time;
         this.finalDate = finalDate;
         this.Amount = Amount;
         this.status = status;
     }
 
     @Ignore
-    public debtEntity(String Source, String date, String time, String finalDate, float Amount, String status) {
+    public debtEntity(String Source, String date, String finalDate, float Amount, String status) {
         this.Source = Source;
         this.date = date;
-        this.time = time;
         this.finalDate = finalDate;
         this.Amount = Amount;
         this.status = status;
@@ -47,10 +45,6 @@ public class debtEntity {
 
     public String getDate() {
         return date;
-    }
-
-    public String getTime() {
-        return time;
     }
 
     public String getFinalDate() {
@@ -83,10 +77,6 @@ public class debtEntity {
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 
     public void setFinalDate(String finalDate) {
