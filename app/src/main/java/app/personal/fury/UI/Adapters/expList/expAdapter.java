@@ -65,10 +65,10 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
                 holder.expIcon.setImageResource(R.drawable.icon_electricity);
                 break;
             case "Recharge":
-                holder.expIcon.setImageResource(R.drawable.ic_home);
+                holder.expIcon.setImageResource(R.drawable.icon_recharge);
                 break;
             case "Fees":
-                holder.expIcon.setImageResource(R.drawable.ic_home);
+                holder.expIcon.setImageResource(R.drawable.icon_fees);
                 break;
             case "Subscriptions":
                 holder.expIcon.setImageResource(R.drawable.icon_subscription);
