@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
@@ -119,7 +118,9 @@ public class Exp_Tracker extends Fragment {
         });
 
         vm.getExp().observe(requireActivity(), entity -> {
+            finalTotalExpense = 0F;
             if (entity != null) {
+                Log.e("EXPENSE","ENTITY NOT NULL");
                 adapter.setExp(entity, true);
                 finalTotalExpense = adapter.getTotalExp();
                 int prg = Commons.setProgress("ExpTracker",
@@ -132,9 +133,9 @@ public class Exp_Tracker extends Fragment {
                     limiter.setIndicatorColor(Color.RED);
                 }
                 limiter.setProgress(prg, true);
-                String s = Constants.RUPEE + finalTotalExpense;
-                expView.setText(s);
+
             } else {
+               Log.e("EXPENSE","ENTITY NULL");
                 int prg = Commons.setProgress("ExpTracker",
                         finalTotalExpense, finalTotalSalary);
                 if (prg>0&&prg<33.33){
@@ -145,26 +146,23 @@ public class Exp_Tracker extends Fragment {
                     limiter.setIndicatorColor(Color.RED);
                 }
                 limiter.setProgress(prg, true);
-                String s = Constants.RUPEE + finalTotalExpense;
-                expView.setText(s);
             }
+            String s = Constants.RUPEE + finalTotalExpense;
+            expView.setText(s);
         });
 
         vm.getBalance().observe(requireActivity(), entity -> {
+            finalBalance = 0F;
             try {
                 finalBalance = entity.getBalance();
                 limiter.setProgress(Commons.setProgress("ExpTracker",
                         finalTotalExpense, finalTotalSalary), true);
-                String s = Constants.RUPEE + finalBalance;
-                balanceView.setText(s);
             } catch (Exception e) {
                 e.printStackTrace();
                 balanceEntity entity1 = new balanceEntity(finalBalance);
                 vm.InsertBalance(entity1);
                 Commons.OneTimeSnackBar(getView(), "Set Salary.", count);
                 count++;
-                String s = Constants.RUPEE + finalBalance;
-                balanceView.setText(s);
                 limiter.setProgress(Commons.setProgress("ExpTracker",
                         finalTotalExpense, finalTotalSalary), true);
             }
@@ -176,6 +174,8 @@ public class Exp_Tracker extends Fragment {
     @SuppressLint({"UseCompatLoadingForDrawables"})
     private void callPopupWindow(int layout) {
         //Value of layout in Constants
+        String s = Constants.RUPEE+vm.getBalance();
+        balanceView.setText(s);
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
@@ -258,6 +258,12 @@ public class Exp_Tracker extends Fragment {
         popupWindow.showAsDropDown(fltBtn);
     }
 
+    private void getExp(){
+        finalTotalExpense = adapter.getTotalExp();
+        String s = Constants.RUPEE+finalTotalExpense;
+        expView.setText(s);
+    }
+
     @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
     private void addExp(String expName, String expAmt) {
         //VM setter here..
@@ -276,7 +282,12 @@ public class Exp_Tracker extends Fragment {
                     bal.setBalance(finalBalance);
                     vm.InsertBalance(bal);
                     adapter.notifyDataSetChanged();
-                    balanceView.setText(String.valueOf(vm.getBalance().getValue()));
+                    getExp();
+                    String b = Constants.RUPEE+vm.getBalance();
+                    balanceView.setText(b);
+                    String e = Constants.RUPEE+finalTotalExpense;
+                    expView.setText(e);
+
                 } else {
                     Commons.SnackBar(getView(), "Empty field(s)");
                 }
@@ -314,6 +325,7 @@ public class Exp_Tracker extends Fragment {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 ViewHolder = viewHolder;
                 callPopupWindow(Constants.itemDelete);
+                getExp();
             }
 
         }).attachToRecyclerView(recyclerView);
@@ -326,5 +338,12 @@ public class Exp_Tracker extends Fragment {
             intent.putExtra(Constants.EXP_TIME, exp.getTime());
             startActivity(intent);
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onResume() {
+        super.onResume();
+        getExp();
     }
 }

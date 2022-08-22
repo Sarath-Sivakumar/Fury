@@ -36,15 +36,24 @@
                 android:layout_height="wrap_content"
                 android:text="Due List"
                 android:layout_marginTop="24dp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dueList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/due_item"/>
+                tools:listitem="@layout/due_item" />
             <!--Hide paid date textview in adapter-->
         </LinearLayout>
     </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addDue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="12dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_add" />
 
 </FrameLayout>

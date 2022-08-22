@@ -16,11 +16,11 @@ import app.personal.MVVM.Repository.localRepository;
 
 public class mainViewModel extends AndroidViewModel {
 
-    private localRepository repo;
-    private LiveData<balanceEntity> getBalance;
-    private LiveData<debtEntity> getDebt;
-    private LiveData<List<expEntity>> getExp;
-    private LiveData<List<salaryEntity>> getSalary;
+    private final localRepository repo;
+    private final LiveData<balanceEntity> getBalance;
+    private final LiveData<List<debtEntity>> getDebt;
+    private final LiveData<List<expEntity>> getExp;
+    private final LiveData<List<salaryEntity>> getSalary;
 
     public mainViewModel(@NonNull Application application) {
         super(application);
@@ -81,7 +81,7 @@ public class mainViewModel extends AndroidViewModel {
         return getSalary;
     }
 
-    public LiveData<debtEntity> getDebt() {
+    public LiveData<List<debtEntity>> getDebt() {
         return getDebt;
     }
 
