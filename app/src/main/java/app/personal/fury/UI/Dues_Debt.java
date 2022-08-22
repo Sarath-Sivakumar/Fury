@@ -149,7 +149,11 @@ public class Dues_Debt extends Fragment {
                 finalTotalDue = adapter.getTotalDebt();
                 String size;
                 try {
-                    size = "0"+vm.getDebt().getValue().size();
+                    if (vm.getDebt().getValue().size()<10){
+                        size = "0" + vm.getDebt().getValue().size();
+                    }else{
+                        size = String.valueOf(vm.getDebt().getValue().size());
+                    }
                 }catch (Exception e){
                     e.printStackTrace();
                     size= "0";

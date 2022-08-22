@@ -9,7 +9,7 @@
     android:paddingEnd="12dp"
     tools:context=".UI.Dues_Debt">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
@@ -76,7 +76,7 @@
                 tools:listitem="@layout/due_item" />
             <!--Hide paid date textview in adapter-->
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addDue"
