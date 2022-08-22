@@ -22,6 +22,7 @@
             app:cardCornerRadius="50dp">
 
             <TextView
+                android:id="@+id/icoText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -44,6 +45,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/dStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
@@ -77,6 +79,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/finalDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
@@ -88,6 +91,7 @@
                 android:textSize="12sp" />
             <!--Hide in Due fragment-->
             <TextView
+                android:id="@+id/paidDateTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
@@ -99,6 +103,7 @@
                 android:textSize="12sp" />
             <!--Hide in Due fragment-->
             <TextView
+                android:id="@+id/paidDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
@@ -116,6 +121,7 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/dAmt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center|end"
@@ -133,6 +139,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/mark"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -140,12 +147,12 @@
             android:textAllCaps="false"
             android:textSize="12sp" />
 
-        <Button
-            style="@style/Widget.AppCompat.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete"
-            android:textAllCaps="false"
-            android:textSize="12sp" />
+<!--        <Button-->
+<!--            style="@style/Widget.AppCompat.Button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Delete"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textSize="12sp" />-->
     </LinearLayout>
 </LinearLayout>

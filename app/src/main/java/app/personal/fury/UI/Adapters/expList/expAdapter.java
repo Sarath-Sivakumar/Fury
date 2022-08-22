@@ -18,6 +18,7 @@ import java.util.List;
 
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.Utls.Commons;
+import app.personal.Utls.Constants;
 import app.personal.fury.R;
 
 public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
@@ -40,7 +41,7 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
     public void onBindViewHolder(@NonNull expHolder holder, int position) {
         expEntity currentExp = todayExp.get(position);
         String amt = String.valueOf(currentExp.getExpenseAmt());
-        String DisplayAmt = "- ₹" + amt;
+        String DisplayAmt = "- "+ Constants.RUPEE + amt;
         holder.expAmt.setText(DisplayAmt);
         holder.expName.setText(currentExp.getExpenseName());
         holder.expDate.setText(currentExp.getDate());

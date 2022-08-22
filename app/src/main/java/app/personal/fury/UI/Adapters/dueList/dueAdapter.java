@@ -3,6 +3,7 @@ package app.personal.fury.UI.Adapters.dueList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,17 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.personal.MVVM.Entity.expEntity;
-import app.personal.Utls.Commons;
-import app.personal.Utls.Constants;
+import app.personal.MVVM.Entity.debtEntity;
 import app.personal.fury.R;
 
 public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
-    private List<expEntity> exp = new ArrayList<>();
-    private List<expEntity> todayExp = new ArrayList<>();
+    private List<debtEntity> debt = new ArrayList<>();
     private onItemClickListener listener;
     private boolean filter;
-    private Float totalSum;
+    private Float totalSum = 0.00F;
 
     @NonNull
     @Override
@@ -34,87 +32,71 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull expHolder holder, int position) {
-        expEntity currentExp = todayExp.get(position);
-        String amt = String.valueOf(currentExp.getExpenseAmt());
-        String DisplayAmt = Constants.RUPEE + amt;
-        holder.expAmt.setText("+ " + DisplayAmt);
-        holder.expName.setText(currentExp.getExpenseName());
+        debtEntity entity = debt.get(position);
+//        holder.expAmt.setText();
         if (filter) {
-            holder.expTime.setText(currentExp.getTime());
-        } else {
-            holder.expTime.setText(currentExp.getDate());
+
         }
     }
 
     @Override
     public int getItemCount() {
-        return todayExp.size();
+        return debt.size();
     }
 
-    public Float getTotalExp() {
-        if (totalSum!=null){
-            return totalSum;
-        }else{
-            return (float) 0;
-        }
+    public Float getTotalDebt() {
+        return totalSum;
     }
 
-    public void setExp(List<expEntity> exp, boolean filter) {
+    public void setDebt(List<debtEntity> debt, boolean filter) {
         this.filter = filter;
-        if (filter) {
-            this.exp = exp;
-            int size = exp.size();
-            totalSum = Float.valueOf(0);
-            for (int i = 0; i < size; i++) {
-                expEntity entity = exp.get(i);
-                if (entity.getDate().equals(Commons.getDate()) && !todayExp.contains(entity)) {
-                    todayExp.add(entity);
-                    totalSum = totalSum + entity.getExpenseAmt();
-                }
-            }
-        } else {
-            todayExp.addAll(exp);
+        this.debt = debt;
+        int size = debt.size();
+        totalSum = 0F;
+        for (int i = 0; i < size; i++) {
+            totalSum = totalSum + debt.get(i).getAmount();
         }
         notifyDataSetChanged();
     }
 
     public void clear() {
-        todayExp.clear();
-        exp.clear();
+        debt.clear();
     }
 
-    public List<expEntity> getExpList() {
-        return new ArrayList<expEntity>(exp);
+    public List<debtEntity> getDebtList() {
+        return new ArrayList<debtEntity>(debt);
     }
 
-    public expEntity getExpAt(int position) {
-        return todayExp.get(position);
+    public debtEntity getDebtAt(int position) {
+        return debt.get(position);
     }
 
     class expHolder extends RecyclerView.ViewHolder {
-        private final TextView expAmt;
-        private final TextView expName;
-        private final TextView expTime;
-        private final TextView expDate;
+        private final TextView dAmt, dStatus, dFinalDate, dPaidDateTitle, dPaidDate, icoText;
+        private Button mark;
+
 
         public expHolder(@NonNull View itemView) {
             super(itemView);
-            expAmt = itemView.findViewById(R.id.itemAmt);
-            expName = itemView.findViewById(R.id.itemTitle);
-            expTime = itemView.findViewById(R.id.itemTime);
-            expDate = itemView.findViewById(R.id.itemDate);
+            dAmt = itemView.findViewById(R.id.dAmt);
+            dStatus = itemView.findViewById(R.id.dStatus);
+            dFinalDate = itemView.findViewById(R.id.finalDate);
+            dPaidDate = itemView.findViewById(R.id.paidDate);
+            dPaidDateTitle = itemView.findViewById(R.id.paidDateTitle);
+            icoText = itemView.findViewById(R.id.icoText);
+            mark = itemView.findViewById(R.id.mark);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 if (listener != null && pos != RecyclerView.NO_POSITION) {
-                    listener.onItemClick(todayExp.get(pos));
+                    listener.onItemClick(debt.get(pos));
                 }
             });
         }
     }
 
     public interface onItemClickListener {
-        void onItemClick(expEntity exp);
+        void onItemClick(debtEntity exp);
     }
 
     public void setOnItemClickListener(onItemClickListener listener) {

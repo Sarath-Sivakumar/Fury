@@ -15,11 +15,11 @@ import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Entity.salaryEntity;
 
 public class localRepository {
-    private localDao dao;
-    private LiveData<balanceEntity> getBalance;
-    private LiveData<debtEntity> getDebt;
-    private LiveData<List<expEntity>> getExp;
-    private LiveData<List<salaryEntity>> getSalary;
+    private final localDao dao;
+    private final LiveData<balanceEntity> getBalance;
+    private final LiveData<List<debtEntity>> getDebt;
+    private final LiveData<List<expEntity>> getExp;
+    private final LiveData<List<salaryEntity>> getSalary;
 
     public localRepository(Application application) {
         localDB db = localDB.getInstance(application);
@@ -91,7 +91,7 @@ public class localRepository {
         return getSalary;
     }
 
-    public LiveData<debtEntity> getDebt(){
+    public LiveData<List<debtEntity>> getDebt(){
         return getDebt;
     }
     //----------------------------------------------------------------------------------------------

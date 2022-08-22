@@ -70,5 +70,5 @@ public interface localDao {
     void DeleteDebt(debtEntity entity);
 
     @Query("SELECT * FROM Debt_Table ORDER BY id DESC")
-    LiveData<debtEntity> getDebtData();
+    LiveData<List<debtEntity>> getDebtData();
 }
