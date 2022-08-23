@@ -21,7 +21,12 @@ public class Constants {
             EXP_TIME = "EXPENSE_TIME",
             RUPEE = "₹",
             DEBT_PAID = "Paid",
-            DEBT_NOT_PAID = "Not Paid";
+            DEBT_NOT_PAID = "Not Paid",
+            DUE_SRC = "DueSource",
+            DUE_AMT = "DueAmount",
+            DUE_FINAL_DATE = "DueFinalDate",
+            DUE_STATUS = "DueStatus",
+            DUE_PAID_DATE = "DuePaidDate";
     //Activity Log Constants-----------------------------------------
     public static final String mActivityLog = "MAIN ACTIVITY",
             expFragLog = "EXP FRAGMENT";
