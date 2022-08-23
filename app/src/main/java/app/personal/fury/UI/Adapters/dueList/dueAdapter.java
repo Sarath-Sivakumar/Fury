@@ -1,5 +1,6 @@
 package app.personal.fury.UI.Adapters.dueList;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.personal.MVVM.Entity.debtEntity;
+import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
 
@@ -48,7 +50,13 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
         String ico = String.valueOf(entity.getSource().charAt(0)).toUpperCase();
         holder.icoText.setText(ico);
         //------------------------------------------------------------------------
-
+        holder.mark.setOnClickListener(v -> {
+            if (markListener != null && holder.getLayoutPosition() != RecyclerView.NO_POSITION) {
+                debtEntity debtEntity = debt.get(holder.getAdapterPosition());
+                debtEntity.setStatus(Constants.DEBT_PAID);
+                markListener.onMarkClick(holder.getAdapterPosition(), debtEntity);
+            }
+        });
         holder.dFinalDate.setText(entity.getFinalDate());
         holder.dStatus.setText(entity.getStatus());
     }
@@ -105,14 +113,6 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
                 int pos = getAdapterPosition();
                 if (listener != null && pos != RecyclerView.NO_POSITION) {
                     listener.onItemClick(debt.get(pos));
-                }
-            });
-
-            mark.setOnClickListener(v -> {
-                if (markListener != null && getAdapterPosition() != RecyclerView.NO_POSITION) {
-                    debtEntity debtEntity = debt.get(getAdapterPosition());
-                    debtEntity.setStatus(Constants.DEBT_PAID);
-                    markListener.onMarkClick(getAdapterPosition(), debtEntity);
                 }
             });
         }
