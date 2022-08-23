@@ -30,10 +30,10 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:layout_weight=".8"
+                android:fontFamily="@font/krona_one"
                 android:text="@string/total_expense_today"
-                android:fontFamily="@font/merriweather_sans"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/exp_trac_date"

@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:padding="12dp"
                 android:gravity="center"
-                android:background="@drawable/gradiant"
+                android:background="@drawable/card_view_theme"
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
@@ -33,7 +33,7 @@
                     android:layout_height="125dp"
                     android:layout_margin="12dp"
                     app:cardCornerRadius="150dp"
-                    app:cardBackgroundColor="#7E7E7E33">
+                    app:cardBackgroundColor="#000000">
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -54,6 +54,7 @@
 
                         <TextView
                             android:id="@+id/mainText"
+                            android:textColor="@color/white"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
@@ -80,14 +81,16 @@
 
                             <TextView
                                 android:layout_width="match_parent"
-                                android:textSize="16sp"
+                                android:textSize="12sp"
                                 android:textColor="@color/black"
+                                android:fontFamily="@font/krona_one"
                                 android:layout_height="wrap_content"
                                 android:text="Expense" />
 
                             <TextView
                                 android:id="@+id/expText"
                                 android:layout_marginTop="4dp"
+                                android:textColor="@color/theme_gold"
                                 android:fontFamily="@font/kanit_semibold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -104,7 +107,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="16sp"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/krona_one"
                                 android:textColor="@color/black"
                                 android:text="Budget" />
 
@@ -135,14 +139,18 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="16sp"
+                                android:textSize="12sp"
+                                android:fontFamily="@font/krona_one"
                                 android:textColor="@color/black"
                                 android:text="Daily Average" />
 
                             <TextView
+                                android:id="@+id/daily_avg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
                                 android:text="₹200/Day"
+                                android:textColor="@color/theme_gold"
                                 android:fontFamily="@font/kanit_semibold"
                                 android:textSize="20sp" />
                         </LinearLayout>
