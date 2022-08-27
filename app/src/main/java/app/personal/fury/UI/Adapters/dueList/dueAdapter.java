@@ -1,6 +1,5 @@
 package app.personal.fury.UI.Adapters.dueList;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.personal.MVVM.Entity.debtEntity;
-import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
 
