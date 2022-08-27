@@ -16,8 +16,9 @@
         android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:background="?attr/colorOnSecondary"
             app:cardCornerRadius="50dp">
 
@@ -41,16 +42,17 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
                 android:paddingEnd="0dp"
+                android:layout_marginTop="12dp"
                 android:text="Due_Name"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/dStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
-                android:paddingTop="12dp"
+                android:paddingTop="6dp"
                 android:paddingEnd="0dp"
                 android:text="Due_Status"
                 android:textColor="@android:color/holo_red_light"
@@ -60,22 +62,26 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
                 android:paddingTop="12dp"
-                android:paddingEnd="0dp"
+                android:paddingEnd="12dp"
                 android:paddingBottom="0dp"
-                android:text="Due Final Date"
+                android:text="Due Date"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 
@@ -84,50 +90,60 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
+                android:layout_marginTop="6dp"
                 android:paddingTop="0dp"
                 android:paddingEnd="0dp"
-                android:paddingBottom="12dp"
                 android:text="Due_Date"
                 android:textColor="@android:color/holo_red_light"
                 android:textSize="12sp" />
+
+            </LinearLayout>
             <!--Hide in Due fragment-->
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
             <TextView
                 android:id="@+id/paidDateTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
+                android:paddingEnd="12dp"
                 android:paddingTop="12dp"
-                android:paddingEnd="0dp"
                 android:paddingBottom="0dp"
                 android:text="Due Paid Date"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
             <!--Hide in Due fragment-->
-            <TextView
-                android:id="@+id/paidDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="12dp"
-                android:paddingTop="0dp"
-                android:paddingEnd="0dp"
-                android:paddingBottom="12dp"
-                android:text="Due_Date"
-                android:textColor="@android:color/holo_red_light"
-                android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/paidDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="12dp"
+                    android:layout_marginTop="6dp"
+                    android:paddingTop="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="Due_Date"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:gravity="end"
+            android:layout_height="100dp">
 
             <TextView
                 android:id="@+id/dAmt"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center|end"
+                android:layout_width="200dp"
+                android:layout_height="80dp"
+                android:gravity="end"
                 android:paddingStart="0dp"
-                android:paddingEnd="12dp"
+                android:textSize="24sp"
                 android:text="Due_AMOUNT"
                 android:textColor="@color/white" />
         </LinearLayout>
@@ -142,8 +158,9 @@
         <Button
             android:id="@+id/mark"
             style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Mark as paid"
             android:textAllCaps="false"
             android:textSize="12sp" />

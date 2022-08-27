@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
-    android:background="@drawable/gradiant"
+    android:layout_height="75dp"
+    android:background="@drawable/card_view_theme2"
     android:layout_margin="6dp"
     android:orientation="horizontal">
 
+    <LinearLayout
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:gravity="center" >
     <ImageView
         android:id="@+id/itemIcon"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="12dp"
         android:contentDescription="@null" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -21,14 +27,15 @@
         <TextView
             android:id="@+id/itemTitle"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:paddingTop="20dp"
-            android:fontFamily="@font/sen_extrabold"
+            android:fontFamily="@font/merriweather_sans"
+            android:paddingTop="15dp"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
         <LinearLayout
+            android:layout_marginTop="2dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
@@ -40,6 +47,7 @@
                 android:paddingStart="12dp"
                 android:paddingEnd="0dp"
                 android:textSize="12sp"
+                android:fontFamily="@font/work_sans_semibold"
                 android:textColor="@color/black" />
 
             <TextView
@@ -48,6 +56,7 @@
                 android:layout_height="match_parent"
                 android:textColor="@color/black"
                 android:paddingStart="12dp"
+                android:fontFamily="@font/work_sans_semibold"
                 android:paddingEnd="0dp"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -57,9 +66,10 @@
         android:id="@+id/itemAmt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fontFamily="@font/work_sans_semibold"
         android:gravity="center|end"
         android:padding="12dp"
-        android:textSize="22sp"
-        android:textColor="@color/theme_green"/>
+        android:textColor="@color/theme_green"
+        android:textSize="22sp" />
 
 </LinearLayout>
