@@ -3,6 +3,7 @@ package app.personal.fury.UI;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -86,6 +87,18 @@ public class Exp_Tracker extends Fragment {
         fltBtn.setOnClickListener(v1 -> callPopupWindow(Constants.itemAdd));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void setColor(LinearProgressIndicator progressIndicator){
+        int prog = Commons.setProgress("ExpTracker", finalTotalExpense, finalTotalSalary);
+        limiter.setProgress(prog, true);
+        if (prog<34){
+            limiter.setIndicatorColor(Color.GREEN);
+        }else if (prog<67){
+            limiter.setIndicatorColor(Color.YELLOW);
+        }else{
+            limiter.setIndicatorColor(Color.RED);
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void initViewModel() {
@@ -109,8 +122,7 @@ public class Exp_Tracker extends Fragment {
             finalTotalExpense = adapter.getTotalExpFloat();
             Log.e("Exp", "TotalExp " + finalTotalExpense);
             expView.setText(adapter.getTotalExpStr());
-            limiter.setProgress(Commons.setProgress("ExpTracker",
-                    finalTotalExpense, finalTotalSalary), true);
+            setColor(limiter);
         });
 
         vm.getBalance().observe(requireActivity(), entity -> {
