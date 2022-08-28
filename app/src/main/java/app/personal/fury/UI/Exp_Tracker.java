@@ -49,18 +49,13 @@ public class Exp_Tracker extends Fragment {
     private mainViewModel vm;
     private RecyclerView recyclerView;
     private expAdapter adapter;
-    private float finalBalance;
-    private TextView balanceView;
-    private TextView expView;
+    private TextView balanceView, expView;
     private RecyclerView.ViewHolder ViewHolder;
+    private float finalBalance;
     private float finalTotalSalary = 0F;
     private float finalTotalExpense = 0F;
 
     public Exp_Tracker() {
-    }
-
-    public static Exp_Tracker newInstance() {
-        return new Exp_Tracker();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -89,11 +84,11 @@ public class Exp_Tracker extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setColor(LinearProgressIndicator progressIndicator){
-        int prog = Commons.setProgress("ExpTracker", finalTotalExpense, finalTotalSalary);
-        limiter.setProgress(prog, true);
-        if (prog<34){
+        int progress = Commons.setProgress("ExpTracker", finalTotalExpense, finalTotalSalary);
+        limiter.setProgress(progress, true);
+        if (progress<34){
             limiter.setIndicatorColor(Color.GREEN);
-        }else if (prog<67){
+        }else if (progress<67){
             limiter.setIndicatorColor(Color.YELLOW);
         }else{
             limiter.setIndicatorColor(Color.RED);

@@ -77,6 +77,10 @@ public class fragment_main extends Fragment {
             }
             setMain(progress);
         });
+
+        vm.getDebt().observe(requireActivity(), debtEntities -> {
+
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
