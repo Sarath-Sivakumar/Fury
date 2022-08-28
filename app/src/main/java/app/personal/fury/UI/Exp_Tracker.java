@@ -287,7 +287,7 @@ public class Exp_Tracker extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        String s = Constants.RUPEE+ Objects.requireNonNull(vm.getBalance().getValue()).getBalance();
+        String s = Constants.RUPEE+ finalBalance;
         balanceView.setText(s);
         expView.setText(adapter.getTotalExpStr());
     }
