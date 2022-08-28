@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:orientation="vertical"
-    android:layout_margin="24dp"
+    android:layout_margin="12dp"
     android:padding="12dp"
     android:elevation="6dp"
     android:background="@drawable/card_view_theme3"
@@ -37,7 +37,7 @@
                     android:progress="45"
                     app:indicatorColor="@android:color/holo_orange_dark"
                     app:indicatorSize="72dp"
-                    app:trackColor="@android:color/darker_gray"
+                    app:trackColor="@android:color/white"
                     app:trackThickness="5dp" />
 
                 <TextView
