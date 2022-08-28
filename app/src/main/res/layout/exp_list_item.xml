@@ -69,7 +69,7 @@
         android:fontFamily="@font/work_sans_semibold"
         android:gravity="center|end"
         android:padding="12dp"
-        android:textColor="@color/theme_green"
-        android:textSize="22sp" />
+        android:textSize="22sp"
+        android:textColor="@color/theme_red"/>
 
 </LinearLayout>

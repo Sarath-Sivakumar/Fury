@@ -1,8 +1,5 @@
 package app.personal.fury.UI.Adapters.expList;
 
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -22,11 +18,8 @@ import app.personal.Utls.Constants;
 import app.personal.fury.R;
 
 public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
-    private List<expEntity> exp = new ArrayList<>();
-    private final List<expEntity> todayExp = new ArrayList<>();
+    private final List<expEntity> exp = new ArrayList<>();
     private onItemClickListener listener;
-    private boolean filter;
-    private Float totalSum;
 
     @NonNull
     @Override
@@ -39,7 +32,7 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull expHolder holder, int position) {
-        expEntity currentExp = todayExp.get(position);
+        expEntity currentExp = exp.get(position);
         String amt = String.valueOf(currentExp.getExpenseAmt());
         String DisplayAmt = " "+ Constants.RUPEE + amt;
         holder.expAmt.setText(DisplayAmt);
@@ -86,43 +79,43 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
 
     @Override
     public int getItemCount() {
-        return todayExp.size();
+        return exp.size();
     }
 
-    public Float getTotalExp() {
-        if (totalSum!=null){
-            return totalSum;
-        }else{
-            return (float) 0;
+    public Float getTotalExpFloat() {
+        float totalSum = 0F;
+        for (int i = 0; i < exp.size(); i++) {
+            totalSum = totalSum + exp.get(i).getExpenseAmt();
         }
+        return totalSum;
+    }
+
+    public String getTotalExpStr() {
+        return Constants.RUPEE + getTotalExpFloat();
     }
 
     public void setExp(List<expEntity> exp, boolean filter) {
-        this.filter = filter;
+        clear();
         if (filter) {
-            this.exp = exp;
             int size = exp.size();
-            totalSum = 0.0F;
             for (int i = 0; i < size; i++) {
                 expEntity entity = exp.get(i);
-                if (entity.getDate().equals(Commons.getDate()) && !todayExp.contains(entity)) {
-                    todayExp.add(entity);
-                    totalSum = totalSum + entity.getExpenseAmt();
+                if (entity.getDate().equals(Commons.getDate())) {
+                    this.exp.add(entity);
                 }
             }
         } else {
-            todayExp.addAll(exp);
+            this.exp.addAll(exp);
         }
         notifyDataSetChanged();
     }
 
     public void clear() {
-        todayExp.clear();
         exp.clear();
     }
 
     public expEntity getExpAt(int position) {
-        return todayExp.get(position);
+        return this.exp.get(position);
     }
 
     class expHolder extends RecyclerView.ViewHolder {
@@ -143,7 +136,7 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
                 if (listener != null && pos != RecyclerView.NO_POSITION) {
-                    listener.onItemClick(todayExp.get(pos));
+                    listener.onItemClick(exp.get(pos));
                 }
             });
         }

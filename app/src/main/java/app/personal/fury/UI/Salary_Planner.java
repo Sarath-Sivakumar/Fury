@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;

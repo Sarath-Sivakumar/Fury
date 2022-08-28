@@ -3,7 +3,6 @@ package app.personal.fury.UI;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,12 +29,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.expEntity;
-import app.personal.MVVM.Entity.salaryEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
@@ -52,13 +49,11 @@ public class Exp_Tracker extends Fragment {
     private RecyclerView recyclerView;
     private expAdapter adapter;
     private float finalBalance;
-    private EditText expenseAmt;
-    private String expName = null;
     private TextView balanceView;
     private TextView expView;
     private RecyclerView.ViewHolder ViewHolder;
-    private float finalTotalSalary = 0;
-    private float finalTotalExpense = 0;
+    private float finalTotalSalary = 0F;
+    private float finalTotalExpense = 0F;
 
     public Exp_Tracker() {
     }
@@ -71,13 +66,11 @@ public class Exp_Tracker extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adapter = new expAdapter();
+        initViewModel();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void init(View v) {
-        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-
         fltBtn = v.findViewById(R.id.exp_actionBtn);
         recyclerView = v.findViewById(R.id.exp_list);
         balanceView = v.findViewById(R.id.expBalance);
@@ -96,75 +89,39 @@ public class Exp_Tracker extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void initViewModel() {
+        adapter = new expAdapter();
+        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         vm.getSalary().observe(requireActivity(), entities -> {
-            try {
-                finalTotalSalary = 0;
-                int salSize = entities.size();
-                List<salaryEntity> salList = new ArrayList<>(entities);
-                if (salSize>=0){
-                    for (int i = 0; i < salSize; i++) {
-                        finalTotalSalary = finalTotalSalary + salList.get(i).getSalary();
-                    }
+            finalTotalSalary = 0F;
+            if (entities != null) {
+                for (int i = 0; i < entities.size(); i++) {
+                    finalTotalSalary = finalTotalSalary + entities.get(i).getSalary();
                 }
-                finalBalance = Math.subtractExact((long)finalTotalSalary, (long)finalTotalExpense);
-                Log.e("sal", Constants.RUPEE+finalBalance);
-            } catch (Exception e) {
-                e.printStackTrace();
-                finalTotalSalary = 0;
-                finalBalance = 0;
-                finalTotalExpense = 0;
-                vm.InsertBalance(new balanceEntity(finalBalance));
+            } else {
+                Log.e("Sal", "Null");
             }
         });
 
         vm.getExp().observe(requireActivity(), entity -> {
             finalTotalExpense = 0F;
-            if (entity != null) {
-                Log.e("EXPENSE","ENTITY NOT NULL");
-                adapter.setExp(entity, true);
-                finalTotalExpense = adapter.getTotalExp();
-                int prg = Commons.setProgress("ExpTracker",
-                        finalTotalExpense, finalTotalSalary);
-                if (prg>0&&prg<33.33){
-                    limiter.setIndicatorColor(Color.GREEN);
-                }else if(prg>33.33&&prg<66.66){
-                    limiter.setIndicatorColor(Color.YELLOW);
-                }else{
-                    limiter.setIndicatorColor(Color.RED);
-                }
-                limiter.setProgress(prg, true);
-
-            } else {
-               Log.e("EXPENSE","ENTITY NULL");
-                int prg = Commons.setProgress("ExpTracker",
-                        finalTotalExpense, finalTotalSalary);
-                if (prg>0&&prg<33.33){
-                    limiter.setIndicatorColor(Color.GREEN);
-                }else if(prg>33.33&&prg<66.66){
-                    limiter.setIndicatorColor(Color.YELLOW);
-                }else{
-                    limiter.setIndicatorColor(Color.RED);
-                }
-                limiter.setProgress(prg, true);
-            }
-            String s = Constants.RUPEE + finalTotalExpense;
-            expView.setText(s);
+            adapter.clear();
+            adapter.setExp(entity, true);
+            finalTotalExpense = adapter.getTotalExpFloat();
+            Log.e("Exp", "TotalExp " + finalTotalExpense);
+            expView.setText(adapter.getTotalExpStr());
+            limiter.setProgress(Commons.setProgress("ExpTracker",
+                    finalTotalExpense, finalTotalSalary), true);
         });
 
         vm.getBalance().observe(requireActivity(), entity -> {
             finalBalance = 0F;
-            try {
+            if (entity != null) {
                 finalBalance = entity.getBalance();
+                Log.e("Exp", "TotalExp " + finalBalance);
                 limiter.setProgress(Commons.setProgress("ExpTracker",
                         finalTotalExpense, finalTotalSalary), true);
-            } catch (Exception e) {
-                e.printStackTrace();
-                balanceEntity entity1 = new balanceEntity(finalBalance);
-                vm.InsertBalance(entity1);
-                Commons.OneTimeSnackBar(getView(), "Set Salary.", count);
-                count++;
-                limiter.setProgress(Commons.setProgress("ExpTracker",
-                        finalTotalExpense, finalTotalSalary), true);
+            } else {
+                Log.e("Bal", "Null");
             }
             String s = Constants.RUPEE + finalBalance;
             balanceView.setText(s);
@@ -174,8 +131,6 @@ public class Exp_Tracker extends Fragment {
     @SuppressLint({"UseCompatLoadingForDrawables"})
     private void callPopupWindow(int layout) {
         //Value of layout in Constants
-        String s = Constants.RUPEE+vm.getBalance();
-        balanceView.setText(s);
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
@@ -217,13 +172,14 @@ public class Exp_Tracker extends Fragment {
                 sp.performClick();
             });
 
-            expenseAmt = view.findViewById(R.id.expAmt);
+            EditText expenseAmt = view.findViewById(R.id.expAmt);
 
+            final String[] expName = {null};
             sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                     expName = parent.getSelectedItem().toString();
-                     expTitle.setVisibility(View.GONE);
+                    expName[0] = parent.getSelectedItem().toString();
+                    expTitle.setVisibility(View.GONE);
                 }
 
                 @Override
@@ -241,9 +197,11 @@ public class Exp_Tracker extends Fragment {
             grp.setVisibility(View.GONE);
             //------------------------------------------------------
 
-            cancel.setOnClickListener(v -> popupWindow.dismiss());
+            cancel.setOnClickListener(v -> {
+                popupWindow.dismiss();
+            });
             add.setOnClickListener(v -> {
-                addExp(expName, expenseAmt.getText().toString());
+                addExp(expName[0], expenseAmt);
                 popupWindow.dismiss();
             });
         } else {
@@ -258,44 +216,32 @@ public class Exp_Tracker extends Fragment {
         popupWindow.showAsDropDown(fltBtn);
     }
 
-    private void getExp(){
-        finalTotalExpense = adapter.getTotalExp();
-        String s = Constants.RUPEE+finalTotalExpense;
-        expView.setText(s);
-    }
-
-    @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
-    private void addExp(String expName, String expAmt) {
-        //VM setter here..
-        if (finalBalance > 0) {
-            if (expAmt != null && expName != null) {
-                if (!expName.trim().isEmpty() && !expAmt.trim().isEmpty()) {
-                    adapter.clear();
-                    finalBalance = finalBalance - Float.parseFloat(expAmt);
-                    expEntity entity = new expEntity();
-                    entity.setExpenseName(expName);
-                    entity.setExpenseAmt(Float.parseFloat(expAmt));
-                    entity.setTime(Commons.getTime());
-                    entity.setDate(Commons.getDate());
-                    vm.InsertExp(entity);
-                    balanceEntity bal = new balanceEntity();
-                    bal.setBalance(finalBalance);
-                    vm.InsertBalance(bal);
-                    adapter.notifyDataSetChanged();
-                    getExp();
-                    String b = Constants.RUPEE+vm.getBalance();
-                    balanceView.setText(b);
-                    String e = Constants.RUPEE+finalTotalExpense;
-                    expView.setText(e);
-
-                } else {
-                    Commons.SnackBar(getView(), "Empty field(s)");
-                }
-            } else {
-                Log.e(Constants.expFragLog, "EditText null");
+    private void addExp(String expName, EditText expAmt) {
+        if (expName != null && !expAmt.getText().toString().trim().isEmpty()) {
+            //Exp
+            expEntity entity = new expEntity();
+            entity.setExpenseName(expName);
+            entity.setExpenseAmt(Float.parseFloat(expAmt.getText().toString()));
+            entity.setTime(Commons.getTime());
+            entity.setDate(Commons.getDate());
+            vm.InsertExp(entity);
+            //Balance
+            try {
+                vm.DeleteBalance(new balanceEntity(Objects.requireNonNull(vm.getBalance().getValue()).getBalance()));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+            balanceEntity bal = new balanceEntity();
+            bal.setBalance(finalBalance - Float.parseFloat(expAmt.getText().toString()));
+            vm.InsertBalance(bal);
+            expView.setText(adapter.getTotalExpStr());
+            finalBalance = Objects.requireNonNull(vm.getBalance().getValue()).getBalance();
+            String s = Constants.RUPEE + finalBalance;
+            balanceView.setText(s);
+
+            adapter.notifyDataSetChanged();
         } else {
-            Commons.SnackBar(getView(), "No money to spend..(-_-)");
+            Log.e("Add", "Error");
         }
     }
 
@@ -306,7 +252,6 @@ public class Exp_Tracker extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_exp__tracker, container, false);
         init(v);
-        initViewModel();
         return v;
     }
 
@@ -325,7 +270,6 @@ public class Exp_Tracker extends Fragment {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 ViewHolder = viewHolder;
                 callPopupWindow(Constants.itemDelete);
-                getExp();
             }
 
         }).attachToRecyclerView(recyclerView);
@@ -340,10 +284,11 @@ public class Exp_Tracker extends Fragment {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onResume() {
         super.onResume();
-        getExp();
+        String s = Constants.RUPEE+ Objects.requireNonNull(vm.getBalance().getValue()).getBalance();
+        balanceView.setText(s);
+        expView.setText(adapter.getTotalExpStr());
     }
 }
