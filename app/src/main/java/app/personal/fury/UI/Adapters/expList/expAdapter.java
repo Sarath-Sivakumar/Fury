@@ -34,7 +34,7 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
     public void onBindViewHolder(@NonNull expHolder holder, int position) {
         expEntity currentExp = exp.get(position);
         String amt = String.valueOf(currentExp.getExpenseAmt());
-        String DisplayAmt = "- "+ Constants.RUPEE + amt;
+        String DisplayAmt = " "+ Constants.RUPEE + amt;
         holder.expAmt.setText(DisplayAmt);
         holder.expName.setText(currentExp.getExpenseName());
         holder.expDate.setText(currentExp.getDate());
@@ -43,34 +43,34 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
 
         switch(currentExp.getExpenseName()){
             case "Food":
-                holder.expIcon.setImageResource(R.drawable.icon_food);
+                holder.expIcon.setImageResource(R.drawable.hamburger);
                 break;
             case "Travel":
-                holder.expIcon.setImageResource(R.drawable.icon_transportation);
+                holder.expIcon.setImageResource(R.drawable.destination);
                 break;
             case "Rent":
-                holder.expIcon.setImageResource(R.drawable.ic_home);
+                holder.expIcon.setImageResource(R.drawable.rent);
                 break;
             case "Gas":
-                holder.expIcon.setImageResource(R.drawable.icon_gas);
+                holder.expIcon.setImageResource(R.drawable.gaspump);
                 break;
             case "Electricity":
-                holder.expIcon.setImageResource(R.drawable.icon_electricity);
+                holder.expIcon.setImageResource(R.drawable.electricalenergy);
                 break;
             case "Recharge":
-                holder.expIcon.setImageResource(R.drawable.icon_recharge);
+                holder.expIcon.setImageResource(R.drawable.recharge);
                 break;
             case "Fees":
-                holder.expIcon.setImageResource(R.drawable.icon_fees);
+                holder.expIcon.setImageResource(R.drawable.fees);
                 break;
             case "Subscriptions":
-                holder.expIcon.setImageResource(R.drawable.icon_subscription);
+                holder.expIcon.setImageResource(R.drawable.subscription);
                 break;
             case "Health Care":
-                holder.expIcon.setImageResource(R.drawable.icon_health);
+                holder.expIcon.setImageResource(R.drawable.healthcare);
                 break;
             case "Bills":
-                holder.expIcon.setImageResource(R.drawable.icon_bills);
+                holder.expIcon.setImageResource(R.drawable.bill);
                 break;
             default:
                 break;

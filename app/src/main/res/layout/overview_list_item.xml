@@ -6,7 +6,7 @@
     android:layout_margin="24dp"
     android:padding="12dp"
     android:elevation="6dp"
-    android:background="@drawable/tv_back"
+    android:background="@drawable/card_view_theme3"
     android:backgroundTint="@android:color/holo_blue_dark"
     android:layout_height="wrap_content">
 
@@ -59,7 +59,7 @@
 
         <TextView
             android:id="@+id/exp_cat"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="bottom|center"
@@ -71,7 +71,7 @@
             android:id="@+id/exp_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_food" />
+            android:src="@drawable/hamburger" />
 
     </LinearLayout>
 </LinearLayout>
