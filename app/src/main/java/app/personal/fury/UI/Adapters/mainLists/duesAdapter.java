@@ -1,5 +1,7 @@
 package app.personal.fury.UI.Adapters.mainLists;
 
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +11,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import app.personal.MVVM.Entity.debtEntity;
+import app.personal.Utls.Commons;
 import app.personal.fury.R;
 
 public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
@@ -32,7 +40,24 @@ public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
     @Override
     public void onBindViewHolder(@NonNull duesAdapter.dueHolder holder, int position) {
         debtEntity entity = debt.get(position);
-        holder.day.setText(entity.getDate());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        try {
+            Date dateBefore = sdf.parse(Commons.getDate());
+            Date dateAfter = sdf.parse(entity.getFinalDate());
+            long timeDiff = Math.abs(dateAfter.getTime()-dateBefore.getTime());
+            long daysDiff = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
+            holder.day.setText(String.valueOf((int) daysDiff));
+            if (daysDiff<4){
+                holder.day.setTextColor(Color.RED);
+            }else{
+                holder.day.setTextColor(Color.WHITE);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            holder.day.setText("0");
+            Log.e("Date",e.getMessage());
+        }
+
         holder.dueName.setText(entity.getSource());
     }
 
@@ -47,13 +72,11 @@ public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
 
     class dueHolder extends RecyclerView.ViewHolder {
         private final TextView day, dueName;
-        private final ImageView ico;
 
         public dueHolder(@NonNull View v) {
             super(v);
             day = v.findViewById(R.id.dueDays);
             dueName = v.findViewById(R.id.dueName);
-            ico = v.findViewById(R.id.ico);
 
             v.setOnClickListener(v1 -> {
                 int pos = getAdapterPosition();

@@ -117,7 +117,7 @@ public class Dues_Debt extends Fragment {
                         && !amt.getText().toString().trim().isEmpty()) {
                     debtEntity entity = new debtEntity();
                     entity.setAmount(Float.parseFloat(amt.getText().toString()));
-                    entity.setDate("0");
+                    entity.setDate(Commons.getDate());
                     entity.setFinalDate(currDate[0]);
                     entity.setStatus(Constants.DEBT_NOT_PAID);
                     entity.setSource(name.getText().toString());

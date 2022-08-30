@@ -5,6 +5,7 @@
     <string name="total_expense_today">Total Expense Today</string>
     <string name="expense_limit">Expense Limit</string>
     <string name="expense_history">Expense History</string>
+    <string name="days_left">Days Left</string>
 
     <string-array name="ExpenseItems">
         <item>Food</item>
