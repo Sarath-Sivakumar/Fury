@@ -25,6 +25,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
@@ -90,6 +96,7 @@ public class Dues_Debt extends Fragment {
             TextView DueDateTitle;
             EditText name, amt;
             CalendarView c;
+            AtomicBoolean date = new AtomicBoolean(false);
             final String[] currDate = new String[1];
             currDate[0] = null;
             add = view.findViewById(R.id.due_add);
@@ -107,22 +114,41 @@ public class Dues_Debt extends Fragment {
 
             c.setOnDateChangeListener((view1, year, month, dayOfMonth) -> {
                 currDate[0] = dayOfMonth + "/" + (month + 1) + "/" + year;
-                DueDateTitle.setVisibility(View.VISIBLE);
-                DueDateTitle.setText(currDate[0]);
-                c.setVisibility(View.GONE);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+                try {
+                    Date dateBefore = sdf.parse(Commons.getDate());
+                    Date dateAfter = sdf.parse(currDate[0]);
+                    long timeDiff = Math.abs(dateAfter.getTime() - dateBefore.getTime());
+                    long daysDiff = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
+
+                    if (daysDiff>=1 && dateAfter.getTime()>dateBefore.getTime()){
+                        DueDateTitle.setVisibility(View.VISIBLE);
+                        DueDateTitle.setText(currDate[0]);
+                        c.setVisibility(View.GONE);
+                        date.set(true);
+                    }else{
+                        Commons.SnackBar(getView(),"Set a date one day ahead of "+Commons.getDate());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             });
 
             add.setOnClickListener(v -> {
                 if (currDate[0] != null && !name.getText().toString().trim().isEmpty()
                         && !amt.getText().toString().trim().isEmpty()) {
-                    debtEntity entity = new debtEntity();
-                    entity.setAmount(Float.parseFloat(amt.getText().toString()));
-                    entity.setDate(Commons.getDate());
-                    entity.setFinalDate(currDate[0]);
-                    entity.setStatus(Constants.DEBT_NOT_PAID);
-                    entity.setSource(name.getText().toString());
-                    vm.InsertDebt(entity);
-                    popupWindow.dismiss();
+                    if (date.get()){
+                        debtEntity entity = new debtEntity();
+                        entity.setAmount(Float.parseFloat(amt.getText().toString()));
+                        entity.setDate(Commons.getDate());
+                        entity.setFinalDate(currDate[0]);
+                        entity.setStatus(Constants.DEBT_NOT_PAID);
+                        entity.setSource(name.getText().toString());
+                        vm.InsertDebt(entity);
+                        popupWindow.dismiss();
+                    }else{
+                        Commons.SnackBar(getView(),"Select a valid date");
+                    }
                 } else {
                     Commons.SnackBar(getView(), "Set due date");
                 }
