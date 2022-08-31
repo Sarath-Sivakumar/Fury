@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 import app.personal.MVVM.Entity.debtEntity;
 import app.personal.Utls.Commons;
+import app.personal.Utls.Constants;
 import app.personal.fury.R;
 
 public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
@@ -46,19 +47,20 @@ public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
             Date dateAfter = sdf.parse(entity.getFinalDate());
             long timeDiff = Math.abs(dateAfter.getTime()-dateBefore.getTime());
             long daysDiff = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
-            holder.day.setText(String.valueOf((int) daysDiff));
-            if (daysDiff<4){
-                holder.day.setTextColor(Color.RED);
-            }else{
-                holder.day.setTextColor(Color.WHITE);
+            if ((int)daysDiff >= 1){
+                holder.day.setText(String.valueOf((int) daysDiff));
+                String s = Constants.RUPEE+entity.getAmount();
+                holder.dueAmt.setText(s);
+                holder.dueName.setText(entity.getSource());
+                if (daysDiff<4){
+                    holder.day.setTextColor(Color.RED);
+                }else{
+                    holder.day.setTextColor(Color.WHITE);
+                }
             }
         } catch (ParseException e) {
             e.printStackTrace();
-            holder.day.setText("0");
-            Log.e("Date",e.getMessage());
         }
-
-        holder.dueName.setText(entity.getSource());
     }
 
     public void setDues(List<debtEntity> debt){
@@ -71,12 +73,13 @@ public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
     }
 
     class dueHolder extends RecyclerView.ViewHolder {
-        private final TextView day, dueName;
+        private final TextView day, dueName,dueAmt;
 
         public dueHolder(@NonNull View v) {
             super(v);
             day = v.findViewById(R.id.dueDays);
             dueName = v.findViewById(R.id.dueName);
+            dueAmt = v.findViewById(R.id.dueAmt);
 
             v.setOnClickListener(v1 -> {
                 int pos = getAdapterPosition();
