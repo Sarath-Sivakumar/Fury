@@ -41,9 +41,7 @@ public class Commons {
         return sdf.format(new Date());
     }
 
-    public static int setProgress(String fragName, float exp, float sal) {
-        Log.e("exp: "+fragName,String.valueOf(exp));
-        Log.e("sal: "+fragName,String.valueOf(sal));
+    public static int setProgress(float exp, float sal) {
         return (int) ((exp / sal) * 100);
     }
 }

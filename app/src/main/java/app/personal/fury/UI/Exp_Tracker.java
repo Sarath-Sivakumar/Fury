@@ -84,7 +84,7 @@ public class Exp_Tracker extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setColor(LinearProgressIndicator progressIndicator){
-        int progress = Commons.setProgress("ExpTracker", finalTotalExpense, finalTotalSalary);
+        int progress = Commons.setProgress(finalTotalExpense, finalTotalSalary);
         limiter.setProgress(progress, true);
         if (progress<34){
             limiter.setIndicatorColor(Color.GREEN);
@@ -125,8 +125,7 @@ public class Exp_Tracker extends Fragment {
             if (entity != null) {
                 finalBalance = entity.getBalance();
                 Log.e("Exp", "TotalExp " + finalBalance);
-                limiter.setProgress(Commons.setProgress("ExpTracker",
-                        finalTotalExpense, finalTotalSalary), true);
+                limiter.setProgress(Commons.setProgress(finalTotalExpense, finalTotalSalary), true);
             } else {
                 Log.e("Bal", "Null");
             }

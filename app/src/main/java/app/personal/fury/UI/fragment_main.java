@@ -31,7 +31,6 @@ public class fragment_main extends Fragment {
     private mainViewModel vm;
     private duesAdapter dAdapter;
     private categoryAdapter cAdapter;
-    private RecyclerView dueList, catList;
     private float salary = 0, expense = 0;
     private int progress = 0;
 
@@ -43,8 +42,8 @@ public class fragment_main extends Fragment {
         mainProgressText = v.findViewById(R.id.mainText);
         expView = v.findViewById(R.id.expText);
         mainProgressBar.setMax(Constants.LIMITER_MAX);
-        dueList = v.findViewById(R.id.dueList);
-        catList = v.findViewById(R.id.catList);
+        RecyclerView dueList = v.findViewById(R.id.dueList);
+        RecyclerView catList = v.findViewById(R.id.catList);
         dueList.setHasFixedSize(true);
         dueList.setAdapter(dAdapter);
         catList.setHasFixedSize(true);
@@ -75,10 +74,10 @@ public class fragment_main extends Fragment {
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         vm.getExp().observe(requireActivity(), expEntities -> {
             expense = 0;
-            cAdapter.setExpes(expEntities);
+            cAdapter.setExpes(expEntities, salary);
             for (int i = 0; i < expEntities.size(); i++) {
                 expense = expense + expEntities.get(i).getExpenseAmt();
-                progress = Commons.setProgress("FragmentMain", expense, salary);
+                progress = Commons.setProgress(expense, salary);
             }
             cAdapter.notifyDataSetChanged();
             setMain(progress);
@@ -89,7 +88,7 @@ public class fragment_main extends Fragment {
             if (size>=0){
                 for (int i = 0; i < size; i++) {
                     salary = salary + salaryEntity.get(i).getSalary();
-                    progress = Commons.setProgress("FragmentMain", expense, salary);
+                    progress = Commons.setProgress(expense, salary);
                 }
             }
             setMain(progress);
