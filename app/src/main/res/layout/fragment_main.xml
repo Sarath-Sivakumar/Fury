@@ -176,7 +176,6 @@
                 app:reverseLayout="true"
                 tools:listitem="@layout/overview_list_item" />
 
-
             <com.google.android.gms.ads.AdView
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"

@@ -41,8 +41,8 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         expEntity entity = sumExp.get(position);
         holder.expName.setText(entity.getExpenseName());
         holder.progress.setProgress(Commons.setProgress(sumExp.get(position).getExpenseAmt(),salary), true);
-        holder.expPercent.setText(String.valueOf(Commons.setProgress(sumExp.get(position).getExpenseAmt(),salary)
-                + entity.getExpenseAmt()));
+        holder.expPercent.setText(Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary)
+                + "%\nof total");
         switch(entity.getExpenseName()){
             case "Food":
                 holder.expIcon.setImageResource(R.drawable.hamburger);
@@ -120,16 +120,20 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         }
     }
 
-    private void setSumExp(String ExpName,List<expEntity> exp, int ExpIndex, int SumIndex){
-        if (sumExp.isEmpty()) {
-            sumExp.add(0, exp.get(ExpIndex));
-        } else {
-            expEntity e = new expEntity();
-            e.setDate(exp.get(ExpIndex).getDate());
-            e.setExpenseAmt(sumExp.get(SumIndex).getExpenseAmt() + exp.get(ExpIndex).getExpenseAmt());
-            e.setExpenseName(ExpName);
-            e.setTime(exp.get(ExpIndex).getTime());
-            sumExp.add(SumIndex, e);
+    private void setSumExp(String ExpName,List<expEntity> exp,
+                           int ExpIndex, int SumIndex){
+        try{
+            if (sumExp.size()<SumIndex) {
+                sumExp.add(exp.get(ExpIndex));
+            }
+        }catch(Exception e){
+            expEntity E = new expEntity();
+            E.setDate(exp.get(ExpIndex).getDate());
+            E.setExpenseAmt(sumExp.get(SumIndex).getExpenseAmt() + exp.get(ExpIndex).getExpenseAmt());
+            E.setExpenseName(ExpName);
+            E.setTime(exp.get(ExpIndex).getTime());
+            sumExp.remove(SumIndex);
+            sumExp.add(SumIndex, E);
         }
     }
 
