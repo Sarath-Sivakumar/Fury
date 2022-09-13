@@ -1,5 +1,6 @@
 package app.personal.fury.UI.Adapters.mainLists;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,21 +8,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
-import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import app.personal.MVVM.Entity.expEntity;
+import app.personal.Utls.Commons;
 import app.personal.fury.R;
 
 public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHolder>{
 
     private onItemClickListener listener;
-    private List<expEntity> exp = new ArrayList<>();
+    private final List<expEntity> sumExp = new ArrayList<>();
+    private float salary;
 
     @NonNull
     @Override
@@ -32,10 +35,14 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         return new catHolder(itemView);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull catHolder holder, int position) {
-        expEntity entity = exp.get(position);
+        expEntity entity = sumExp.get(position);
         holder.expName.setText(entity.getExpenseName());
+        holder.progress.setProgress(Commons.setProgress(sumExp.get(position).getExpenseAmt(),salary), true);
+        holder.expPercent.setText(Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary)
+                + "%\nof total");
         switch(entity.getExpenseName()){
             case "Food":
                 holder.expIcon.setImageResource(R.drawable.hamburger);
@@ -73,18 +80,71 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
 
     }
 
-    public void setExpes(List<expEntity> exp){
-        this.exp = exp;
+    public void setExpes(List<expEntity> exp, float salary) {
+        this.salary = salary;
+        for (int i = 0; i < exp.size(); i++) {
+            switch (exp.get(i).getExpenseName()) {
+                case "Food":
+                    setSumExp("Food", exp, i, 0);
+                    break;
+                case "Travel":
+                    setSumExp("Travel", exp, i, 1);
+                    break;
+                case "Rent":
+                    setSumExp("Rent", exp, i, 2);
+                    break;
+                case "Gas":
+                    setSumExp("Gas", exp, i, 3);
+                    break;
+                case "Electricity":
+                    setSumExp("Electricity", exp, i, 4);
+                    break;
+                case "Recharge":
+                    setSumExp("Recharge", exp, i, 5);
+                    break;
+                case "Fees":
+                    setSumExp("Fees", exp, i, 6);
+                    break;
+                case "Subscriptions":
+                    setSumExp("Subscriptions", exp, i, 7);
+                    break;
+                case "Health Care":
+                    setSumExp("Health Care", exp, i, 8);
+                    break;
+                case "Bills":
+                    setSumExp("Bills", exp, i, 9);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void setSumExp(String ExpName,List<expEntity> exp,
+                           int ExpIndex, int SumIndex){
+        try{
+            if (sumExp.size()<SumIndex) {
+                sumExp.add(exp.get(ExpIndex));
+            }
+        }catch(Exception e){
+            expEntity E = new expEntity();
+            E.setDate(exp.get(ExpIndex).getDate());
+            E.setExpenseAmt(sumExp.get(SumIndex).getExpenseAmt() + exp.get(ExpIndex).getExpenseAmt());
+            E.setExpenseName(ExpName);
+            E.setTime(exp.get(ExpIndex).getTime());
+            sumExp.remove(SumIndex);
+            sumExp.add(SumIndex, E);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return exp.size();
+        return sumExp.size();
     }
 
     class catHolder extends RecyclerView.ViewHolder {
         private final TextView expName, expPercent;
-        private CircularProgressIndicator progress;
+        private final CircularProgressIndicator progress;
         private final ImageView expIcon;
 
         public catHolder(@NonNull View v) {
@@ -97,7 +157,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
             v.setOnClickListener(v1 -> {
                 int pos = getAdapterPosition();
                 if (listener != null && pos != RecyclerView.NO_POSITION) {
-                    listener.onItemClick(exp.get(pos));
+                    listener.onItemClick(sumExp.get(pos));
                 }
             });
         }
