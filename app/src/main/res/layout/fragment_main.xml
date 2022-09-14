@@ -52,7 +52,6 @@
 
                         <TextView
                             android:id="@+id/mainText"
-                            android:fontFamily="@font/work_sans_semibold"
                             android:textColor="@color/white"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -82,7 +81,6 @@
                                 android:layout_width="match_parent"
                                 android:textSize="12sp"
                                 android:textColor="@color/black"
-                                android:fontFamily="@font/krona_one"
                                 android:layout_height="wrap_content"
                                 android:text="Expense" />
 
@@ -90,7 +88,6 @@
                                 android:id="@+id/expText"
                                 android:layout_marginTop="4dp"
                                 android:textColor="@color/theme_gold"
-                                android:fontFamily="@font/kanit_semibold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="22sp" />
@@ -107,7 +104,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:fontFamily="@font/krona_one"
                                 android:textColor="@color/black"
                                 android:text="Budget" />
 
@@ -115,7 +111,6 @@
                                 android:id="@+id/budgetText"
                                 android:gravity="center"
                                 android:layout_marginTop="4dp"
-                                android:fontFamily="@font/kanit_semibold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="22sp" />
@@ -139,7 +134,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="12sp"
-                                android:fontFamily="@font/krona_one"
                                 android:textColor="@color/black"
                                 android:text="Daily Average" />
 
@@ -150,7 +144,6 @@
                                 android:layout_marginTop="4dp"
                                 android:text="₹200/Day"
                                 android:textColor="@color/theme_gold"
-                                android:fontFamily="@font/kanit_semibold"
                                 android:textSize="20sp" />
                         </LinearLayout>
                     </LinearLayout>

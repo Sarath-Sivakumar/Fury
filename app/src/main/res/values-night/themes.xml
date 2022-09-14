@@ -16,7 +16,5 @@
         <item name="android:windowLightStatusBar">false</item>
         <!-- Customize your theme here. -->
 
-        <item name="android:fontFamily">@font/josefin_sans_bold</item>
-
     </style>
 </resources>
