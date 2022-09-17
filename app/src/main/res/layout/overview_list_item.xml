@@ -1,25 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="150dp"
     android:orientation="vertical"
     android:layout_margin="12dp"
-    android:padding="12dp"
     android:elevation="6dp"
-    android:background="@drawable/card_view_theme3"
-    android:backgroundTint="@android:color/holo_blue_dark"
-    android:layout_height="wrap_content">
+    android:background="@drawable/card_view_theme"
+    android:backgroundTint="@android:color/holo_red_dark"
+    android:layout_height="180dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/card_view_theme"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/exp_cat"
+            android:background="@drawable/card_view_theme"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:fontFamily="@font/work_sans_semibold"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="Food"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/exp_icon"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/hamburger" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginStart="51dp"
-        android:layout_weight="1">
+        android:orientation="horizontal" >
 
         <androidx.cardview.widget.CardView
-            android:layout_width="72dp"
-            android:layout_height="72dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="top"
             android:layout_margin="12dp"
             app:cardCornerRadius="100dp">
@@ -35,10 +60,10 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:progress="45"
-                    app:indicatorColor="@android:color/holo_orange_dark"
-                    app:indicatorSize="72dp"
+                    app:indicatorColor="@android:color/holo_green_light"
+                    app:indicatorSize="100dp"
                     app:trackColor="@android:color/white"
-                    app:trackThickness="5dp" />
+                    app:trackThickness="12dp" />
 
                 <TextView
                     android:id="@+id/indicatorText"
@@ -46,32 +71,11 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="45%\nFood"
-                    android:textSize="12sp" />
+                    android:textSize="16sp" />
             </FrameLayout>
 
         </androidx.cardview.widget.CardView>
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/exp_cat"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="bottom|center"
-            android:text="Food"
-            android:textSize="18sp"
-            android:layout_marginBottom="12dp"/>
-
-        <ImageView
-            android:id="@+id/exp_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/hamburger" />
 
     </LinearLayout>
 </LinearLayout>

@@ -18,6 +18,7 @@
             android:id="@+id/ab_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fontFamily="@font/work_sans_semibold"
             android:gravity="center|start"
             android:text="@string/app_name"
             android:textSize="24sp" />
@@ -40,10 +41,12 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+
             android:icon="@drawable/ic_home"/>
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:text="home"
             android:icon="@drawable/ic_home"/>
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

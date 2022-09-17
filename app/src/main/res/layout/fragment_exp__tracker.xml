@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/back_grad"
+    android:backgroundTint="@color/white"
     tools:context=".UI.Exp_Tracker">
 
     <LinearLayout
@@ -25,6 +26,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:layout_weight=".8"
+                android:fontFamily="@font/poppins_semibold"
                 android:text="@string/total_expense_today"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -36,6 +38,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="14dp"
                 android:textColor="@color/black"
+                android:fontFamily="@font/secular_one"
                 android:gravity="center"
                 android:textSize="12sp" />
 
@@ -45,9 +48,11 @@
             android:id="@+id/todayExp"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:layout_marginTop="12dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:background="@drawable/card_view_theme3"
+            android:background="@drawable/card_view_theme"
+            android:fontFamily="@font/work_sans_semibold"
             android:gravity="center"
             android:textColor="@color/black"
             android:textSize="36sp" />
@@ -71,6 +76,7 @@
                     android:layout_marginStart="14dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/poppins_semibold"
                     android:text="@string/account_balance"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
@@ -80,9 +86,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="14dp"
+                    android:fontFamily="@font/work_sans_semibold"
                     android:layout_marginEnd="22dp"
                     android:layout_marginBottom="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/theme_gold"
                     android:textSize="22sp" />
 
             </LinearLayout>
@@ -102,6 +109,7 @@
                     android:layout_marginEnd="12dp"
                     android:layout_marginBottom="10dp"
                     android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_semibold"
                     android:gravity="end"
                     android:text="Daily Average"
                     android:textSize="16sp" />
