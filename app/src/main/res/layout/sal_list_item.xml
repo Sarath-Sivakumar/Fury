@@ -1,34 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="60dp"
     android:orientation="horizontal"
-    android:padding="12dp"
+    android:background="@drawable/gradiant"
     android:layout_marginTop="6dp"
     android:paddingBottom="0dp">
 
     <TextView
         android:id="@+id/salName"
-        android:layout_width="0dp"
+        android:text="salary"
+        android:layout_width="200dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center|start"
-        android:padding="6dp"
-        android:textColor="@color/white"/>
-
-    <TextView
-        android:id="@+id/salTyp"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:fontFamily="@font/work_sans_semibold"
         android:gravity="center"
         android:padding="6dp"
-        android:textColor="@color/white"/>
-
-    <TextView
-        android:id="@+id/salAmt"
+        android:textSize="24sp"
+        android:textColor="@color/black" />
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center|end"
-        android:padding="6dp"
-        android:textColor="@color/white"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/salTyp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/salAmt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
 </LinearLayout>

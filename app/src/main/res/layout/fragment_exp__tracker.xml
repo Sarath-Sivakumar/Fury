@@ -51,10 +51,11 @@
             android:layout_marginTop="12dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
-            android:background="@drawable/card_view_theme"
+            android:background="@drawable/card_view_theme2"
+            android:backgroundTint="@color/black"
             android:fontFamily="@font/work_sans_semibold"
             android:gravity="center"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="36sp" />
 
         <LinearLayout
