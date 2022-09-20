@@ -2,6 +2,7 @@ package app.personal.fury.UI.Adapters.mainLists;
 
 import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,10 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
 
     private onItemClickListener listener;
     private final List<expEntity> sumExp = new ArrayList<>();
+    private final List<expEntity> food = new ArrayList<>(), travel = new ArrayList<>(),
+            rent = new ArrayList<>(), gas = new ArrayList<>(), electricity = new ArrayList<>(),
+            recharge = new ArrayList<>(), fees = new ArrayList<>(), subscriptions = new ArrayList<>(),
+            health = new ArrayList<>(), bills = new ArrayList<>();
     private float salary;
 
     @NonNull
@@ -45,7 +50,8 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         expEntity entity = sumExp.get(position);
         holder.expName.setText(entity.getExpenseName());
         holder.progress.setProgress(Commons.setProgress(sumExp.get(position).getExpenseAmt(),salary), true);
-        holder.expPercent.setText(Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary) + "%");
+        String s = Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary) + "%\nof total";
+        holder.expPercent.setText(s);
         switch(entity.getExpenseName()){
             case "Food":
                 holder.expIcon.setImageResource(R.drawable.hamburger);
@@ -86,58 +92,139 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
     public void setExpes(List<expEntity> exp, float salary) {
         this.salary = salary;
         for (int i = 0; i < exp.size(); i++) {
-            switch (exp.get(i).getExpenseName()) {
-                case "Food":
-                    setSumExp("Food", exp, i, 0);
-                    break;
-                case "Travel":
-                    setSumExp("Travel", exp, i, 1);
-                    break;
-                case "Rent":
-                    setSumExp("Rent", exp, i, 2);
-                    break;
-                case "Gas":
-                    setSumExp("Gas", exp, i, 3);
-                    break;
-                case "Electricity":
-                    setSumExp("Electricity", exp, i, 4);
-                    break;
-                case "Recharge":
-                    setSumExp("Recharge", exp, i, 5);
-                    break;
-                case "Fees":
-                    setSumExp("Fees", exp, i, 6);
-                    break;
-                case "Subscriptions":
-                    setSumExp("Subscriptions", exp, i, 7);
-                    break;
-                case "Health Care":
-                    setSumExp("Health Care", exp, i, 8);
-                    break;
-                case "Bills":
-                    setSumExp("Bills", exp, i, 9);
-                    break;
-                default:
-                    break;
+            if (exp.get(i).getDate().equals(Commons.getDate())){
+                switch (exp.get(i).getExpenseName()) {
+                    case "Food":
+                        food.add(exp.get(i));
+                        merge(food, "Food");
+                        break;
+                    case "Travel":
+                        travel.add(exp.get(i));
+                        merge(travel, "Travel");
+                        break;
+                    case "Rent":
+                        rent.add(exp.get(i));
+                        merge(rent, "Rent");
+                        break;
+                    case "Gas":
+                        gas.add(exp.get(i));
+                        merge(gas, "Gas");
+                        break;
+                    case "Electricity":
+                        electricity.add(exp.get(i));
+                        merge(electricity, "Electricity");
+                        break;
+                    case "Recharge":
+                        recharge.add(exp.get(i));
+                        merge(recharge, "Recharge");
+                        break;
+                    case "Fees":
+                        fees.add(exp.get(i));
+                        merge(fees, "Fees");
+                        break;
+                    case "Subscriptions":
+                        subscriptions.add(exp.get(i));
+                        merge(subscriptions, "Subscriptions");
+                        break;
+                    case "Health Care":
+                        health.add(exp.get(i));
+                        merge(health, "Health Care");
+                        break;
+                    case "Bills":
+                        bills.add(exp.get(i));
+                        merge(bills, "Bills");
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
 
-    private void setSumExp(String ExpName,List<expEntity> exp,
-                           int ExpIndex, int SumIndex){
-        try{
-            if (sumExp.size()<SumIndex) {
-                sumExp.add(exp.get(ExpIndex));
-            }
-        }catch(Exception e){
-            expEntity E = new expEntity();
-            E.setDate(exp.get(ExpIndex).getDate());
-            E.setExpenseAmt(sumExp.get(SumIndex).getExpenseAmt() + exp.get(ExpIndex).getExpenseAmt());
-            E.setExpenseName(ExpName);
-            E.setTime(exp.get(ExpIndex).getTime());
-            sumExp.remove(SumIndex);
-            sumExp.add(SumIndex, E);
+    private void merge(List<expEntity> list, String expName){
+        float total = 0F;
+        for (int i = 0; i<list.size();i++){
+            total = total+ list.get(i).getExpenseAmt();
         }
+        expEntity exp = new expEntity();
+        exp.setExpenseAmt(total);
+        exp.setTime("Null");
+        exp.setDate("Null");
+        exp.setExpenseName(expName);
+        if (expName.equals("Food")) {
+            try{
+                sumExp.remove(0);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            sumExp.add(0, exp);
+        }else if (expName.equals("Travel")){
+            try{
+                sumExp.remove(1);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            sumExp.add(1, exp);
+        }else if (expName.equals("Rent")){
+            try{
+                sumExp.remove(2);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            sumExp.add(2, exp);
+        }else if (expName.equals("Gas")){
+            try{
+                sumExp.remove(3);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            sumExp.add(3, exp);
+        }else if (expName.equals("Electricity")){
+            try{
+                sumExp.remove(4);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            sumExp.add(4, exp);
+        }else if (expName.equals("Recharge")){
+            try{
+                sumExp.remove(5);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            sumExp.add(5, exp);
+        }else if (expName.equals("Fees")){
+            try{
+                sumExp.remove(6);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            sumExp.add(6, exp);
+        }else if (expName.equals("Subscriptions")){
+            try{
+                sumExp.remove(7);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            sumExp.add(7, exp);
+        }else if (expName.equals("Health Care")){
+            try{
+                sumExp.remove(8);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            sumExp.add(8, exp);
+        }else if (expName.equals("Bills")){
+            try{
+                sumExp.remove(9);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            sumExp.add(9, exp);
+        }else{
+            Log.e("Merge", "WTF");
+        }
+        Log.e("categoryAdapter","size:"+sumExp.size());
     }
 
     @Override
