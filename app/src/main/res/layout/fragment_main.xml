@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back_grad"
+    android:backgroundTint="@color/white"
     tools:context=".UI.fragment_main">
 
     <ScrollView
