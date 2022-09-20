@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back_grad"
+    android:backgroundTint="@color/white"
     android:paddingTop="12dp"
     android:paddingStart="12dp"
     android:paddingEnd="12dp"
@@ -16,8 +17,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="12dp"
+            android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_bg"
             android:orientation="vertical">
 
             <LinearLayout
@@ -30,20 +37,20 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"
                     android:textSize="16sp"
-                    android:gravity="center"
+                    android:gravity="start"
                     android:text="Total Amount"
                     android:layout_marginStart="12dp"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/black" />
 
                 <TextView
-                    android:id="@+id/dueTotalText"
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="0.3"
-                    android:gravity="end"
-                    android:layout_height="wrap_content"
-                    android:textSize="30sp"
-                    android:textColor="@color/white"/>
-
+                    android:textSize="16sp"
+                    android:gravity="start"
+                    android:text="Due Count"
+                    android:layout_marginStart="12dp"
+                    android:textColor="@color/black" />
 
 
             </LinearLayout>
@@ -54,30 +61,37 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/dueTotalText"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.3"
-                android:textSize="16sp"
-                android:gravity="center"
-                android:text="Due Count"
-                android:textColor="@color/white" />
+                android:gravity="start"
+                android:layout_marginStart="12dp"
+                android:textColor="@color/black"
+                android:textSize="26sp" />
+
 
             <TextView
                 android:id="@+id/dueTotalNo"
                 android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="0.3"
-                android:gravity="end"
-                android:layout_height="wrap_content"
-                android:textSize="30sp"
-                android:textColor="@color/white"/>
+                android:gravity="start"
+                android:layout_marginStart="12dp"
+                android:textColor="@color/black"
+                android:textSize="26sp" />
+        </LinearLayout>
+
         </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Due List"
-                android:layout_marginTop="24dp"
-                android:textColor="@color/white" />
+                android:textSize="18sp"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/black" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dueList"

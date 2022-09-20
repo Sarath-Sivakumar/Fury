@@ -26,7 +26,6 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:layout_weight=".8"
-                android:fontFamily="@font/poppins_semibold"
                 android:text="@string/total_expense_today"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -38,7 +37,6 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="14dp"
                 android:textColor="@color/black"
-                android:fontFamily="@font/secular_one"
                 android:gravity="center"
                 android:textSize="12sp" />
 
@@ -48,14 +46,12 @@
             android:id="@+id/todayExp"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="12dp"
             android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
             android:layout_marginRight="12dp"
-            android:background="@drawable/card_view_theme2"
-            android:backgroundTint="@color/black"
-            android:fontFamily="@font/work_sans_semibold"
+            android:background="@drawable/border_bg"
             android:gravity="center"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="36sp" />
 
         <LinearLayout
@@ -77,7 +73,6 @@
                     android:layout_marginStart="14dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="10dp"
-                    android:fontFamily="@font/poppins_semibold"
                     android:text="@string/account_balance"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
@@ -87,7 +82,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="14dp"
-                    android:fontFamily="@font/work_sans_semibold"
                     android:layout_marginEnd="22dp"
                     android:layout_marginBottom="10dp"
                     android:textColor="@color/theme_gold"
@@ -110,7 +104,6 @@
                     android:layout_marginEnd="12dp"
                     android:layout_marginBottom="10dp"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/poppins_semibold"
                     android:gravity="end"
                     android:text="Daily Average"
                     android:textSize="16sp" />
@@ -156,7 +149,7 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/exp_actionBtn"
         app:rippleColor="@color/white"
-        android:backgroundTint="#008080"
+        android:backgroundTint="@color/theme_green"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

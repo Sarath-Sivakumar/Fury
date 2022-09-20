@@ -3,39 +3,43 @@
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:orientation="horizontal"
-    android:background="@drawable/gradiant"
     android:layout_marginTop="6dp"
     android:paddingBottom="0dp">
 
     <TextView
         android:id="@+id/salName"
-        android:text="salary"
         android:layout_width="200dp"
         android:layout_height="match_parent"
-        android:fontFamily="@font/work_sans_semibold"
-        android:gravity="center"
-        android:padding="6dp"
-        android:textSize="24sp"
-        android:textColor="@color/black" />
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_marginStart="12dp"
+        android:gravity="start"
+        android:text="salary"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/salTyp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="@color/black"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/salAmt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="16sp"
-            android:gravity="center"
+            android:textSize="24sp"
+            android:layout_marginEnd="12dp"
+            android:gravity="end"
+            android:text="27000"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/salTyp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:layout_marginEnd="12dp"
+            android:textSize="14sp"
+            android:text="Monthly"
             android:textColor="@color/black"/>
 
     </LinearLayout>

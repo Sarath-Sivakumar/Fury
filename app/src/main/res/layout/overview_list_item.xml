@@ -8,8 +8,7 @@
     android:layout_marginTop="6dp"
     android:layout_marginBottom="6dp"
     android:elevation="6dp"
-    android:background="@drawable/card_view_theme2"
-    android:backgroundTint="@color/white"
+    android:background="@drawable/border_bg"
     android:layout_height="80dp">
 
     <LinearLayout
@@ -29,7 +28,6 @@
             android:id="@+id/exp_cat"
             android:layout_width="110dp"
             android:layout_height="50dp"
-            android:fontFamily="@font/work_sans_semibold"
             android:gravity="center"
             android:text="Food"
             android:textColor="@color/black"
@@ -37,7 +35,6 @@
 
         <TextView
             android:id="@+id/indicatorText"
-            android:fontFamily="@font/work_sans_semibold"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"

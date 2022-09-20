@@ -18,7 +18,6 @@
             android:id="@+id/ab_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="@font/work_sans_semibold"
             android:gravity="center|start"
             android:text="@string/app_name"
             android:textSize="24sp" />

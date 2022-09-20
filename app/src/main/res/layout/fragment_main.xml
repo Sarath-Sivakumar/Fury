@@ -54,7 +54,6 @@
 
                         <TextView
                             android:id="@+id/mainText"
-                            android:fontFamily="@font/work_sans_semibold"
                             android:textColor="@color/white"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -161,7 +160,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/work_sans_semibold"
                 android:text="@string/category_overview"
                 android:textSize="18sp"
                 android:layout_marginTop="12dp"

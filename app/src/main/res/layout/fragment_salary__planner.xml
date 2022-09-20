@@ -34,7 +34,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/work_sans_semibold"
                     android:text="Total Salary"
                     android:padding="12dp"
                     android:gravity="center_horizontal"
@@ -67,23 +66,16 @@
                     android:text="Sources"
                     android:layout_marginStart="6dp"
                     android:layout_marginBottom="12dp"
-                    android:fontFamily="@font/work_sans_semibold"
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textSize="22sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:background="@drawable/border_bg"
                     android:id="@+id/salList"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="200dp"
                     tools:listitem="@layout/sal_list_item" />
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.5">
-
-            </LinearLayout>
-
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -91,8 +83,9 @@
         android:id="@+id/addSal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_add"
-        android:layout_margin="12dp"
         android:layout_gravity="end|bottom"
-        android:contentDescription="@null" />
+        android:layout_margin="12dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_add"
+        tools:ignore="SpeakableTextPresentCheck" />
 </FrameLayout>
