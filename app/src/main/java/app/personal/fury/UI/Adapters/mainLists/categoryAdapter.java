@@ -1,5 +1,6 @@
 package app.personal.fury.UI.Adapters.mainLists;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,8 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                 .inflate(R.layout.overview_list_item, parent, false);
         return new catHolder(itemView);
     }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -229,8 +233,8 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
     }
 
     class catHolder extends RecyclerView.ViewHolder {
-        private final TextView expName, expPercent;
-        private final CircularProgressIndicator progress;
+        private final TextView expName,expPercent;
+        private final LinearProgressIndicator progress;
         private final ImageView expIcon;
 
         public catHolder(@NonNull View v) {
@@ -239,6 +243,8 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
             expIcon = v.findViewById(R.id.exp_icon);
             progress = v.findViewById(R.id.indicator);
             expPercent = v.findViewById(R.id.indicatorText);
+
+
 
             v.setOnClickListener(v1 -> {
                 int pos = getAdapterPosition();
@@ -255,4 +261,17 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
     public void setOnItemClickListener(onItemClickListener listener) {
         this.listener = listener;
     }
+
+//    @RequiresApi(api = Build.VERSION_CODES.N)
+//    private void setColor(LinearProgressIndicator indicator){
+//        int progress = Commons.setProgress(salary,);
+//        indicator.setProgress(progress, true);
+//        if (progress<34){
+//            indicator.setIndicatorColor(Color.GREEN);
+//        }else if (progress<67){
+//            indicator.setIndicatorColor(Color.YELLOW);
+//        }else{
+//            indicator.setIndicatorColor(Color.RED);
+//        }
+//    }
 }

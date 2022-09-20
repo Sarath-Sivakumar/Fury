@@ -1,81 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="150dp"
+    android:layout_width="190dp"
     android:orientation="vertical"
-    android:layout_margin="12dp"
+    android:layout_marginStart="0dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
     android:elevation="6dp"
-    android:background="@drawable/card_view_theme"
-    android:backgroundTint="@android:color/holo_red_dark"
-    android:layout_height="180dp">
+    android:background="@drawable/border_bg"
+    android:layout_height="80dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/card_view_theme"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
         android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/exp_cat"
-            android:background="@drawable/card_view_theme"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:fontFamily="@font/work_sans_semibold"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:text="Food"
-            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/exp_icon"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
+            android:layout_marginLeft="6dp"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:src="@drawable/hamburger" />
+
+        <TextView
+            android:id="@+id/exp_cat"
+            android:layout_width="110dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="Food"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/indicatorText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text=""
+            android:textSize="16sp" />
+
     </LinearLayout>
 
-    <LinearLayout
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/indicator"
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="match_parent"
-        android:orientation="horizontal" >
+        android:layout_height="51dp"
+        android:layout_gravity="start"
+        android:padding="12dp"
+        app:indicatorColor="@color/theme_red"
+        app:trackColor="@color/white"
+        app:trackThickness="12dp" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="top"
-            android:layout_margin="12dp"
-            app:cardCornerRadius="100dp">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/theme_red">
-
-                <com.google.android.material.progressindicator.CircularProgressIndicator
-                    android:id="@+id/indicator"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:progress="45"
-                    app:indicatorColor="@android:color/holo_green_light"
-                    app:indicatorSize="100dp"
-                    app:trackColor="@android:color/white"
-                    app:trackThickness="12dp" />
-
-                <TextView
-                    android:id="@+id/indicatorText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="45%\nFood"
-                    android:textSize="16sp" />
-            </FrameLayout>
-
-        </androidx.cardview.widget.CardView>
-
-
-    </LinearLayout>
 </LinearLayout>

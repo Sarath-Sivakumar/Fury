@@ -13,7 +13,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
+
+import java.util.Objects;
 
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
@@ -33,8 +38,14 @@ public class fragment_main extends Fragment {
     private categoryAdapter cAdapter;
     private float salary = 0, expense = 0;
     private int progress = 0;
+    private AdView ad;
 
     public fragment_main() {}
+
+    private void requestAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        ad.loadAd(adRequest);
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void findView(View v) {
@@ -42,12 +53,14 @@ public class fragment_main extends Fragment {
         mainProgressText = v.findViewById(R.id.mainText);
         expView = v.findViewById(R.id.expText);
         mainProgressBar.setMax(Constants.LIMITER_MAX);
+        ad = v.findViewById(R.id.adView);
         RecyclerView dueList = v.findViewById(R.id.dueList);
         RecyclerView catList = v.findViewById(R.id.catList);
         dueList.setHasFixedSize(true);
         dueList.setAdapter(dAdapter);
         catList.setHasFixedSize(true);
         catList.setAdapter(cAdapter);
+        requestAd();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -55,6 +68,7 @@ public class fragment_main extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initViewModel();
+        MobileAds.initialize(requireContext());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

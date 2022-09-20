@@ -29,7 +29,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:fontFamily="@font/merriweather_sans"
             android:paddingTop="15dp"
             android:textColor="@color/white"
             android:textSize="20sp" />
@@ -47,7 +46,6 @@
                 android:paddingStart="12dp"
                 android:paddingEnd="0dp"
                 android:textSize="12sp"
-                android:fontFamily="@font/work_sans_semibold"
                 android:textColor="@color/black" />
 
             <TextView
@@ -56,7 +54,6 @@
                 android:layout_height="match_parent"
                 android:textColor="@color/black"
                 android:paddingStart="12dp"
-                android:fontFamily="@font/work_sans_semibold"
                 android:paddingEnd="0dp"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -66,10 +63,9 @@
         android:id="@+id/itemAmt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fontFamily="@font/work_sans_semibold"
         android:gravity="center|end"
         android:padding="12dp"
         android:textSize="22sp"
-        android:textColor="@color/theme_red"/>
+        android:textColor="@color/theme_green"/>
 
 </LinearLayout>
