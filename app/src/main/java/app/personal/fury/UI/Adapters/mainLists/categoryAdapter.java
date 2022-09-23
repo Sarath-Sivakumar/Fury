@@ -1,6 +1,5 @@
 package app.personal.fury.UI.Adapters.mainLists;
 
-import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.util.ArrayList;
@@ -27,6 +25,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
 
     private onItemClickListener listener;
     private final List<expEntity> sumExp = new ArrayList<>();
+    private List<expEntity> orgList = new ArrayList<>();
     private final List<expEntity> food = new ArrayList<>(), travel = new ArrayList<>(),
             rent = new ArrayList<>(), gas = new ArrayList<>(), electricity = new ArrayList<>(),
             recharge = new ArrayList<>(), fees = new ArrayList<>(), subscriptions = new ArrayList<>(),
@@ -49,10 +48,10 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
     public void onBindViewHolder(@NonNull catHolder holder, int position) {
         expEntity entity = sumExp.get(position);
         holder.expName.setText(entity.getExpenseName());
-        holder.progress.setProgress(Commons.setProgress(sumExp.get(position).getExpenseAmt(),salary), true);
-        String s = Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary) + "%\nof total";
+        holder.progress.setProgress(Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary), true);
+        String s = Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary) + "%";
         holder.expPercent.setText(s);
-        switch(entity.getExpenseName()){
+        switch (entity.getExpenseName()) {
             case "Food":
                 holder.expIcon.setImageResource(R.drawable.hamburger);
                 break;
@@ -86,13 +85,20 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
             default:
                 break;
         }
-
     }
 
     public void setExpes(List<expEntity> exp, float salary) {
+        orgList.clear();
+        sumExp.clear();
+        setDefaultList();
+        orgList.addAll(exp);
+
+        Log.e("OrgList", "Size: " + orgList.size());
+        Log.e("List", "Size: " + exp.size());
         this.salary = salary;
+
         for (int i = 0; i < exp.size(); i++) {
-            if (exp.get(i).getDate().equals(Commons.getDate())){
+            if (exp.get(i).getDate().equals(Commons.getDate())) {
                 switch (exp.get(i).getExpenseName()) {
                     case "Food":
                         food.add(exp.get(i));
@@ -141,10 +147,32 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         }
     }
 
-    private void merge(List<expEntity> list, String expName){
+    private void setDefaultList() {
+        sumExp.add(0, defaultExp("Food"));
+        sumExp.add(1, defaultExp("Travel"));
+        sumExp.add(2, defaultExp("Rent"));
+        sumExp.add(3, defaultExp("Gas"));
+        sumExp.add(4, defaultExp("Electricity"));
+        sumExp.add(5, defaultExp("Recharge"));
+        sumExp.add(6, defaultExp("Fees"));
+        sumExp.add(7, defaultExp("Subscriptions"));
+        sumExp.add(8, defaultExp("Health Care"));
+        sumExp.add(9, defaultExp("Bills"));
+    }
+
+    private expEntity defaultExp(String Name) {
+        expEntity exp = new expEntity();
+        exp.setExpenseName(Name);
+        exp.setExpenseAmt(0F);
+        exp.setTime("NULL");
+        exp.setDate("NULL");
+        return exp;
+    }
+
+    private void merge(List<expEntity> list, String expName) {
         float total = 0F;
-        for (int i = 0; i<list.size();i++){
-            total = total+ list.get(i).getExpenseAmt();
+        for (int i = 0; i < list.size(); i++) {
+            total = total + list.get(i).getExpenseAmt();
         }
         expEntity exp = new expEntity();
         exp.setExpenseAmt(total);
@@ -152,75 +180,94 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         exp.setDate("Null");
         exp.setExpenseName(expName);
         if (expName.equals("Food")) {
-            try{
+            try {
                 sumExp.remove(0);
-            }catch (Exception e){
+                sumExp.add(0, exp);
+            } catch (Exception e) {
                 e.printStackTrace();
+                setDefaultList();
             }
-            sumExp.add(0, exp);
         }else if (expName.equals("Travel")){
             try{
                 sumExp.remove(1);
+                sumExp.add(1, exp);
             }catch (Exception e){
                 e.printStackTrace();
+                setDefaultList();
             }
-            sumExp.add(1, exp);
+
         }else if (expName.equals("Rent")){
             try{
                 sumExp.remove(2);
+                sumExp.add(2, exp);
             }catch (Exception e){
                 e.printStackTrace();
+                setDefaultList();
             }
-            sumExp.add(2, exp);
+
         }else if (expName.equals("Gas")){
             try{
                 sumExp.remove(3);
+                sumExp.add(3, exp);
             }catch (Exception e){
                 e.printStackTrace();
+                setDefaultList();
             }
-            sumExp.add(3, exp);
+
         }else if (expName.equals("Electricity")){
             try{
                 sumExp.remove(4);
+                sumExp.add(4, exp);
             }catch (Exception e){
                 e.printStackTrace();
+                setDefaultList();
             }
-            sumExp.add(4, exp);
+
         }else if (expName.equals("Recharge")){
             try{
                 sumExp.remove(5);
+                sumExp.add(5, exp);
             }catch (Exception e){
                 e.printStackTrace();
+                setDefaultList();
             }
-            sumExp.add(5, exp);
+
         }else if (expName.equals("Fees")){
             try{
                 sumExp.remove(6);
+                sumExp.add(6, exp);
             }catch (Exception e){
                 e.printStackTrace();
+                setDefaultList();
             }
-            sumExp.add(6, exp);
+
         }else if (expName.equals("Subscriptions")){
             try{
                 sumExp.remove(7);
+                sumExp.add(7, exp);
             }catch (Exception e){
                 e.printStackTrace();
+                setDefaultList();
             }
-            sumExp.add(7, exp);
+
         }else if (expName.equals("Health Care")){
             try{
                 sumExp.remove(8);
+                sumExp.add(8, exp);
             }catch (Exception e){
                 e.printStackTrace();
+                setDefaultList();
             }
-            sumExp.add(8, exp);
+
         }else if (expName.equals("Bills")){
             try{
                 sumExp.remove(9);
+                sumExp.add(9, exp);
             }catch (Exception e){
                 e.printStackTrace();
+                setDefaultList();
             }
-            sumExp.add(9, exp);
+
         }else{
             Log.e("Merge", "WTF");
         }
