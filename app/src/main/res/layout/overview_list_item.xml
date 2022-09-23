@@ -21,15 +21,13 @@
             android:id="@+id/exp_icon"
             android:layout_marginLeft="6dp"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:src="@drawable/hamburger" />
+            android:layout_height="50dp" />
 
         <TextView
             android:id="@+id/exp_cat"
             android:layout_width="110dp"
             android:layout_height="50dp"
             android:gravity="center"
-            android:text="Food"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
