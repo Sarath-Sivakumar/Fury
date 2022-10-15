@@ -11,9 +11,9 @@ public class Constants {
             dbName = "Fury_Database";
     public static final int DB_VERSION = 1;
     //--------------------------------------------------------------
-    public static final String Dues = "Dues & Debts",
-            Exp = "Daily Expenses",
-            Salary = "Salary Planner",
+    public static final String Dues = "Dues",
+            Exp = "Expenses",
+            Salary = "Salary",
             main = "Overview",
             EXP_NAME = "EXPENSE_NAME",
             EXP_AMT = "EXPENSE_AMOUNT",

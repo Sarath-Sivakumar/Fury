@@ -24,9 +24,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:padding="12dp"
                 android:gravity="center"
-                android:background="@drawable/card_view_theme"
+                android:background="@drawable/card_view_theme2"
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
@@ -163,10 +164,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/category_overview"
                 android:textSize="18sp"
+                android:textColor="@color/black"
                 android:layout_marginTop="12dp"
                 android:padding="12dp" />
-
             <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginStart="6dp"
                 android:id="@+id/catList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -178,15 +180,6 @@
                 app:reverseLayout="true"
                 tools:listitem="@layout/overview_list_item" />
 
-            <com.google.android.gms.ads.AdView
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:id="@+id/adView"
-                android:layout_marginTop="24dp"
-                ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
-                ads:adSize="BANNER"
-                xmlns:ads="http://schemas.android.com/apk/res-auto"/>
-            <!--Test ID ca-app-pub-3940256099942544/6300978111-->
 
 
 <!--            <ImageView-->
@@ -199,6 +192,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/dues_overview"
                 android:textSize="18sp"
+                android:textColor="@color/black"
                 android:layout_marginTop="12dp"
                 android:padding="12dp" />
 
@@ -213,6 +207,17 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:reverseLayout="true"
                 tools:listitem="@layout/main_due_item" />
+
+            <com.google.android.gms.ads.AdView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/adView"
+                android:layout_marginTop="24dp"
+                ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+                ads:adSize="BANNER"
+                xmlns:ads="http://schemas.android.com/apk/res-auto"/>
+            <!--Test ID ca-app-pub-3940256099942544/6300978111-->
+
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

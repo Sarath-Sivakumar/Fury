@@ -13,15 +13,32 @@
         android:elevation="6dp"
         android:layout_height="?android:attr/actionBarSize"
         android:background="@drawable/back_grad"
-        android:backgroundTint="#999999">
+        android:backgroundTint="#999999" >
 
         <TextView
             android:id="@+id/ab_title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center|start"
             android:text="@string/app_name"
             android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/B_help"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:src="@drawable/ic_baseline_help_24"
+            style="@style/Widget.AppCompat.Button.Borderless" />
+
+        <ImageView
+            android:id="@+id/B_Notification"
+            android:layout_width="50dp"
+            android:layout_gravity="end"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_notifications_24"
+            style="@style/Widget.AppCompat.Button.Borderless" />
+
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -42,12 +59,10 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-
             android:icon="@drawable/ic_home"/>
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="home"
             android:icon="@drawable/ic_home"/>
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

@@ -1,6 +1,9 @@
 package app.personal.fury.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
+import java.util.Set;
 
 import app.personal.Utls.Constants;
 import app.personal.Utls.ViewPager.viewPager;
@@ -18,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private viewPager vp;
     private TabLayout tl;
+    private ImageView alert,help;
     private TextView toolbarTitle;
 
     @Override
@@ -25,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
+        Utils();
     }
 
     private void init() {
@@ -36,9 +42,27 @@ public class MainActivity extends AppCompatActivity {
     private void findView() {
         vp = findViewById(R.id.viewPager);
         tl = findViewById(R.id.tabLayout);
+        alert = findViewById(R.id.B_Notification);
+        help = findViewById(R.id.B_help);
         toolbarTitle = findViewById(R.id.ab_title);
     }
 
+    private void Utils() {
+        alert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,Notification_Activity.class);
+                startActivity(intent);
+            }
+        });
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,help_Activity.class);
+                startActivity(intent);
+            }
+        });
+    }
     private void initViewPager() {
         vpAdapter adapter = new vpAdapter(getSupportFragmentManager());
 
