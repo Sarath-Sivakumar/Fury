@@ -47,7 +47,7 @@ public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
             Date dateAfter = sdf.parse(entity.getFinalDate());
             long timeDiff = Math.abs(dateAfter.getTime()-dateBefore.getTime());
             long daysDiff = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
-            if ((int)daysDiff >= 1){
+            if ((int)daysDiff >= 1 && entity.getStatus().equals(Constants.DEBT_NOT_PAID)){
                 holder.day.setText(String.valueOf((int) daysDiff));
                 String s = Constants.RUPEE+entity.getAmount();
                 holder.dueAmt.setText(s);
@@ -63,8 +63,17 @@ public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
         }
     }
 
+    public void clear(){
+        debt.clear();
+    }
+
     public void setDues(List<debtEntity> debt){
-        this.debt = debt;
+        int size = debt.size();
+        for (int i = 0;i<size;i++){
+            if (debt.get(i).getStatus().equals(Constants.DEBT_NOT_PAID)){
+                this.debt.add(debt.get(i));
+            }
+        }
     }
 
     @Override
