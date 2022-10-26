@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/popup_bg"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="#251f33"
                 android:orientation="vertical"
                 android:padding="24dp">
 
@@ -77,6 +77,7 @@
                         android:layout_height="match_parent"
                         android:gravity="start|center"
                         android:hint="Expense Name"
+                        android:textColor="@color/white"
                         android:padding="12dp"
                         android:textSize="18sp" />
                 </FrameLayout>
@@ -87,6 +88,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:hint="Salary Source"
+                    android:textColor="@color/white"
                     android:inputType="text"
                     android:padding="12dp"
                     android:singleLine="true" />
@@ -97,6 +99,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Amount"
                     android:inputType="numberDecimal"
+                    android:textColor="@color/white"
                     android:background="@android:color/transparent"
                     android:padding="12dp"
                     android:singleLine="true" />
@@ -106,6 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="12dp"
+                    android:textColor="@color/white"
                     android:text="Select salary type" />
 
                 <RadioGroup
@@ -118,6 +122,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="6dp"
+                            android:textColor="@color/white"
                             android:text="Hourly" />
 
                         <RadioButton
@@ -125,6 +130,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="6dp"
+                            android:textColor="@color/white"
                             android:text="Daily" />
 
                         <RadioButton
@@ -132,6 +138,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="6dp"
+                            android:textColor="@color/white"
                             android:text="Monthly" />
 
                         <RadioButton
@@ -139,6 +146,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="6dp"
+                            android:textColor="@color/white"
                             android:text="One Time" />
 
                 </RadioGroup>

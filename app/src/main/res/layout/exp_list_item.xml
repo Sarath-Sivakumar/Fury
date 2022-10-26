@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="75dp"
     android:background="@drawable/card_view_theme2"
+    android:backgroundTint="#fa1e4e"
     android:layout_margin="6dp"
     android:orientation="horizontal">
 
@@ -34,7 +35,6 @@
             android:textSize="20sp" />
 
         <LinearLayout
-            android:layout_marginTop="2dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
@@ -46,13 +46,13 @@
                 android:paddingStart="12dp"
                 android:paddingEnd="0dp"
                 android:textSize="12sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/itemDate"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:paddingStart="12dp"
                 android:paddingEnd="0dp"
                 android:textSize="12sp" />

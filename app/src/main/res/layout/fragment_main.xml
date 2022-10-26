@@ -28,6 +28,7 @@
                 android:padding="12dp"
                 android:gravity="center"
                 android:background="@drawable/card_view_theme2"
+
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
