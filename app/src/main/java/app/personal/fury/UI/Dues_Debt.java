@@ -3,6 +3,7 @@ package app.personal.fury.UI;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Path;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -168,21 +169,10 @@ public class Dues_Debt extends Fragment {
     private void initViewModel() {
         vm.getDebt().observe(requireActivity(), entity -> {
             if (entity != null) {
-                adapter.setDebt(entity,true);
+                adapter.setDebt(entity);
                 finalTotalDue = 0F;
                 finalTotalDue = adapter.getTotalDebt();
-                String size;
-                try {
-                    if (vm.getDebt().getValue().size()<10){
-                        size = "0" + vm.getDebt().getValue().size();
-                    }else{
-                        size = String.valueOf(vm.getDebt().getValue().size());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    size = "00";
-                }
-                noDues.setText(size);
+                noDues.setText(String.valueOf(adapter.getCount()));
             }
             String s = Constants.RUPEE + finalTotalDue;
             totalDueDisplay.setText(s);
@@ -203,7 +193,18 @@ public class Dues_Debt extends Fragment {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 ViewHolder = viewHolder;
-                vm.DeleteDebt(adapter.getDebtAt(viewHolder.getAdapterPosition()));
+                if(direction== ItemTouchHelper.RIGHT){
+                    vm.DeleteDebt(adapter.getDebtAt(viewHolder.getAdapterPosition()));
+                    Commons.SnackBar(requireView(), "Debt deleted.");
+                    adapter.clear();
+                }else{
+                    debtEntity entity = adapter.getDebtAt(viewHolder.getAdapterPosition());
+                    entity.setStatus(Constants.DEBT_PAID);
+                    vm.DeleteDebt(adapter.getDebtAt(viewHolder.getAdapterPosition()));
+                    vm.InsertDebt(entity);
+                    adapter.clear();
+                    Commons.SnackBar(requireView(), "Debt marked as paid.");
+                }
             }
 
         }).attachToRecyclerView(dueList);

@@ -25,7 +25,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
 
     private onItemClickListener listener;
     private final List<expEntity> sumExp = new ArrayList<>();
-    private List<expEntity> orgList = new ArrayList<>();
+    private final List<expEntity> orgList = new ArrayList<>();
     private final List<expEntity> food = new ArrayList<>(), travel = new ArrayList<>(),
             rent = new ArrayList<>(), gas = new ArrayList<>(), electricity = new ArrayList<>(),
             recharge = new ArrayList<>(), fees = new ArrayList<>(), subscriptions = new ArrayList<>(),
@@ -41,7 +41,20 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         return new catHolder(itemView);
     }
 
-
+    public void clear(){
+        sumExp.clear();
+        orgList.clear();
+        food.clear();
+        travel.clear();
+        rent.clear();
+        gas.clear();
+        electricity.clear();
+        recharge.clear();
+        fees.clear();
+        subscriptions.clear();
+        health.clear();
+        bills.clear();
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -51,6 +64,8 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         holder.progress.setProgress(Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary), true);
         String s = Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary) + "%";
         holder.expPercent.setText(s);
+        Log.e("EXP",String.valueOf(sumExp.get(position).getExpenseAmt()));
+        Log.e("SAL",String.valueOf(salary));
         switch (entity.getExpenseName()) {
             case "Food":
                 holder.expIcon.setImageResource(R.drawable.hamburger);
@@ -90,11 +105,9 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
     public void setExpes(List<expEntity> exp, float salary) {
         orgList.clear();
         sumExp.clear();
-        setDefaultList();
         orgList.addAll(exp);
+        setDefaultList();
 
-        Log.e("OrgList", "Size: " + orgList.size());
-        Log.e("List", "Size: " + exp.size());
         this.salary = salary;
 
         for (int i = 0; i < exp.size(); i++) {
@@ -145,6 +158,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                 }
             }
         }
+        this.notifyDataSetChanged();
     }
 
     private void setDefaultList() {
@@ -271,7 +285,6 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         }else{
             Log.e("Merge", "WTF");
         }
-        Log.e("categoryAdapter","size:"+sumExp.size());
     }
 
     @Override
@@ -290,8 +303,6 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
             expIcon = v.findViewById(R.id.exp_icon);
             progress = v.findViewById(R.id.indicator);
             expPercent = v.findViewById(R.id.indicatorText);
-
-
 
             v.setOnClickListener(v1 -> {
                 int pos = getAdapterPosition();

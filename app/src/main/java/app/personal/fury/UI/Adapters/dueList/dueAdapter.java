@@ -20,7 +20,7 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     private List<debtEntity> debt = new ArrayList<>();
     private onItemClickListener listener;
     private onMarkClickListener markListener;
-    private boolean filter;
+    private int count = 0;
     private Float totalSum = 0.00F;
 
     @NonNull
@@ -36,11 +36,9 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     public void onBindViewHolder(@NonNull expHolder holder, int position) {
         debtEntity entity = debt.get(position);
         holder.dPaidDate.setText(entity.getDate());
-        if (filter) {
-            holder.dPaidDateTitle.setVisibility(View.GONE);
-            holder.dPaidDate.setVisibility(View.GONE);
-        }
-        String amt = Constants.RUPEE+entity.getAmount();
+        holder.dPaidDateTitle.setVisibility(View.GONE);
+        holder.dPaidDate.setVisibility(View.GONE);
+        String amt = Constants.RUPEE + entity.getAmount();
         holder.dAmt.setText(amt);
         holder.dName.setText(entity.getSource());
 
@@ -68,19 +66,26 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
         return totalSum;
     }
 
-    public void setDebt(List<debtEntity> debt, boolean filter) {
-        this.filter = filter;
-        this.debt = debt;
+    public int getCount() {
+        return count;
+    }
+
+    public void setDebt(List<debtEntity> debt) {
         int size = debt.size();
         totalSum = 0F;
         for (int i = 0; i < size; i++) {
-            totalSum = totalSum + debt.get(i).getAmount();
+            if (debt.get(i).getStatus().equals(Constants.DEBT_NOT_PAID)) {
+                totalSum = totalSum + debt.get(i).getAmount();
+                this.debt.add(debt.get(i));
+                count=this.debt.size();
+            }
         }
         notifyDataSetChanged();
     }
 
     public void clear() {
         debt.clear();
+        count = 0;
     }
 
     public List<debtEntity> getDebtList() {

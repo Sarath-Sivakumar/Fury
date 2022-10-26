@@ -42,7 +42,7 @@ import app.personal.fury.UI.Adapters.expList.expAdapter;
 
 public class Exp_Tracker extends Fragment {
 
-    private int count = 0;
+    private final int count = 0;
 
     private FloatingActionButton fltBtn;
     private LinearProgressIndicator limiter;
@@ -83,7 +83,7 @@ public class Exp_Tracker extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void setColor(LinearProgressIndicator progressIndicator){
+    private void setColor(){
         int progress = Commons.setProgress(finalTotalExpense, finalTotalSalary);
         limiter.setProgress(progress, true);
         if (progress<34){
@@ -105,8 +105,6 @@ public class Exp_Tracker extends Fragment {
                 for (int i = 0; i < entities.size(); i++) {
                     finalTotalSalary = finalTotalSalary + entities.get(i).getSalary();
                 }
-            } else {
-                Log.e("Sal", "Null");
             }
         });
 
@@ -115,22 +113,31 @@ public class Exp_Tracker extends Fragment {
             adapter.clear();
             adapter.setExp(entity, true);
             finalTotalExpense = adapter.getTotalExpFloat();
-            Log.e("Exp", "TotalExp " + finalTotalExpense);
-            expView.setText(adapter.getTotalExpStr());
-            setColor(limiter);
+            try {
+                expView.setText(adapter.getTotalExpStr());
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         });
 
         vm.getBalance().observe(requireActivity(), entity -> {
             finalBalance = 0F;
             if (entity != null) {
                 finalBalance = entity.getBalance();
-                Log.e("Exp", "TotalExp " + finalBalance);
-                limiter.setProgress(Commons.setProgress(finalTotalExpense, finalTotalSalary), true);
-            } else {
-                Log.e("Bal", "Null");
+                try {
+                    limiter.setProgress(Commons.setProgress(finalTotalExpense, finalTotalSalary), true);
+                    setColor();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
             String s = Constants.RUPEE + finalBalance;
-            balanceView.setText(s);
+            try {
+                balanceView.setText(s);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
         });
     }
 
@@ -210,8 +217,6 @@ public class Exp_Tracker extends Fragment {
                 addExp(expName[0], expenseAmt);
                 popupWindow.dismiss();
             });
-        } else {
-            Log.e(Constants.expFragLog, "callPopup unknown layout");
         }
 
         popupWindow.setFocusable(true);
@@ -246,8 +251,6 @@ public class Exp_Tracker extends Fragment {
             balanceView.setText(s);
 
             adapter.notifyDataSetChanged();
-        } else {
-            Log.e("Add", "Error");
         }
     }
 
@@ -290,11 +293,17 @@ public class Exp_Tracker extends Fragment {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onResume() {
         super.onResume();
         String s = Constants.RUPEE+ finalBalance;
         balanceView.setText(s);
         expView.setText(adapter.getTotalExpStr());
+        try{
+            setColor();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

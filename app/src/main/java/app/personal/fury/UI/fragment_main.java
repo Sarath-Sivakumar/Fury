@@ -2,7 +2,6 @@ package app.personal.fury.UI;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
-
-import java.util.Objects;
 
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
@@ -67,8 +64,11 @@ public class fragment_main extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initViewModel();
         MobileAds.initialize(requireContext());
+        cAdapter = new categoryAdapter();
+        dAdapter = new duesAdapter();
+        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+        initViewModel();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -83,52 +83,53 @@ public class fragment_main extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void initViewModel() {
-        cAdapter = new categoryAdapter();
-        dAdapter = new duesAdapter();
-        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-        vm.getExp().observe(requireActivity(), expEntities -> {
-            expense = 0;
-            cAdapter.setExpes(expEntities, salary);
-            for (int i = 0; i < expEntities.size(); i++) {
-                expense = expense + expEntities.get(i).getExpenseAmt();
-                progress = Commons.setProgress(expense, salary);
-            }
-            cAdapter.notifyDataSetChanged();
-            setMain(progress);
-        });
         vm.getSalary().observe(requireActivity(), salaryEntity -> {
             salary = 0;
-            int size = salaryEntity.size();
-            if (size>=0){
-                for (int i = 0; i < size; i++) {
+            if (!salaryEntity.isEmpty()) {
+                for (int i = 0; i < salaryEntity.size(); i++) {
                     salary = salary + salaryEntity.get(i).getSalary();
                     progress = Commons.setProgress(expense, salary);
                 }
             }
-            setMain(progress);
+            try {
+                setMain(progress);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        });
+
+        vm.getExp().observe(requireActivity(), expEntities -> {
+            expense = 0;
+            for (int i = 0; i < expEntities.size(); i++) {
+                expense = expense + expEntities.get(i).getExpenseAmt();
+                progress = Commons.setProgress(expense, salary);
+            }
+            cAdapter.setExpes(expEntities, salary);
+            try {
+                setMain(progress);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         });
 
         vm.getDebt().observe(requireActivity(), debtEntities -> {
             if (debtEntities!=null){
                 dAdapter.setDues(debtEntities);
                 dAdapter.notifyDataSetChanged();
-            }else{
-                Log.e("Main","Due null");
             }
         });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void setMain(int progress){
+    private void setMain(int progress) {
         mainProgressBar.setProgress(progress, true);
-        if (progress > 0) {
-            String prg = progress + "%\nTotal";
-            mainProgressText.setText(prg);
+        String prg;
+        if (progress > 0 && progress <= 100) {
+            prg = progress + "%\nTotal";
         } else {
-            int pro = 0;
-            String prg = pro + "%\nTotal";
-            mainProgressText.setText(prg);
+            prg = 0 + "%\nTotal";
         }
+        mainProgressText.setText(prg);
         String p = Constants.RUPEE + expense;
         expView.setText(p);
     }
@@ -137,6 +138,16 @@ public class fragment_main extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        setMain(progress);
+        progress = 0;
+        salary = 0;
+        expense = 0;
+        cAdapter.clear();
+        dAdapter.clear();
+        try{
+            initViewModel();
+            setMain(progress);
+        }catch(Exception e){
+           e.printStackTrace();
+        }
     }
 }
