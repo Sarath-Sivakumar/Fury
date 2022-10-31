@@ -64,8 +64,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         holder.progress.setProgress(Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary), true);
         String s = Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary) + "%";
         holder.expPercent.setText(s);
-        Log.e("EXP",String.valueOf(sumExp.get(position).getExpenseAmt()));
-        Log.e("SAL",String.valueOf(salary));
+
         switch (entity.getExpenseName()) {
             case "Food":
                 holder.expIcon.setImageResource(R.drawable.hamburger);
@@ -162,16 +161,16 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
     }
 
     private void setDefaultList() {
-        sumExp.add(0, defaultExp("Food"));
-        sumExp.add(1, defaultExp("Travel"));
-        sumExp.add(2, defaultExp("Rent"));
-        sumExp.add(3, defaultExp("Gas"));
-        sumExp.add(4, defaultExp("Electricity"));
-        sumExp.add(5, defaultExp("Recharge"));
-        sumExp.add(6, defaultExp("Fees"));
-        sumExp.add(7, defaultExp("Subscriptions"));
-        sumExp.add(8, defaultExp("Health Care"));
-        sumExp.add(9, defaultExp("Bills"));
+        sumExp.add(0, defaultExp("Bills"));
+        sumExp.add(1, defaultExp("Health Care"));
+        sumExp.add(2, defaultExp("Subscriptions"));
+        sumExp.add(3, defaultExp("Fees"));
+        sumExp.add(4, defaultExp("Recharge"));
+        sumExp.add(5, defaultExp("Electricity"));
+        sumExp.add(6, defaultExp("Gas"));
+        sumExp.add(7, defaultExp("Rent"));
+        sumExp.add(8, defaultExp("Travel"));
+        sumExp.add(9, defaultExp("Food"));
     }
 
     private expEntity defaultExp(String Name) {
@@ -195,76 +194,13 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         exp.setExpenseName(expName);
         if (expName.equals("Food")) {
             try {
-                sumExp.remove(0);
-                sumExp.add(0, exp);
+                sumExp.remove(9);
+                sumExp.add(9, exp);
             } catch (Exception e) {
                 e.printStackTrace();
                 setDefaultList();
             }
         }else if (expName.equals("Travel")){
-            try{
-                sumExp.remove(1);
-                sumExp.add(1, exp);
-            }catch (Exception e){
-                e.printStackTrace();
-                setDefaultList();
-            }
-
-        }else if (expName.equals("Rent")){
-            try{
-                sumExp.remove(2);
-                sumExp.add(2, exp);
-            }catch (Exception e){
-                e.printStackTrace();
-                setDefaultList();
-            }
-
-        }else if (expName.equals("Gas")){
-            try{
-                sumExp.remove(3);
-                sumExp.add(3, exp);
-            }catch (Exception e){
-                e.printStackTrace();
-                setDefaultList();
-            }
-
-        }else if (expName.equals("Electricity")){
-            try{
-                sumExp.remove(4);
-                sumExp.add(4, exp);
-            }catch (Exception e){
-                e.printStackTrace();
-                setDefaultList();
-            }
-
-        }else if (expName.equals("Recharge")){
-            try{
-                sumExp.remove(5);
-                sumExp.add(5, exp);
-            }catch (Exception e){
-                e.printStackTrace();
-                setDefaultList();
-            }
-
-        }else if (expName.equals("Fees")){
-            try{
-                sumExp.remove(6);
-                sumExp.add(6, exp);
-            }catch (Exception e){
-                e.printStackTrace();
-                setDefaultList();
-            }
-
-        }else if (expName.equals("Subscriptions")){
-            try{
-                sumExp.remove(7);
-                sumExp.add(7, exp);
-            }catch (Exception e){
-                e.printStackTrace();
-                setDefaultList();
-            }
-
-        }else if (expName.equals("Health Care")){
             try{
                 sumExp.remove(8);
                 sumExp.add(8, exp);
@@ -273,10 +209,73 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                 setDefaultList();
             }
 
+        }else if (expName.equals("Rent")){
+            try{
+                sumExp.remove(7);
+                sumExp.add(7, exp);
+            }catch (Exception e){
+                e.printStackTrace();
+                setDefaultList();
+            }
+
+        }else if (expName.equals("Gas")){
+            try{
+                sumExp.remove(6);
+                sumExp.add(6, exp);
+            }catch (Exception e){
+                e.printStackTrace();
+                setDefaultList();
+            }
+
+        }else if (expName.equals("Electricity")){
+            try{
+                sumExp.remove(5);
+                sumExp.add(5, exp);
+            }catch (Exception e){
+                e.printStackTrace();
+                setDefaultList();
+            }
+
+        }else if (expName.equals("Recharge")){
+            try{
+                sumExp.remove(4);
+                sumExp.add(4, exp);
+            }catch (Exception e){
+                e.printStackTrace();
+                setDefaultList();
+            }
+
+        }else if (expName.equals("Fees")){
+            try{
+                sumExp.remove(3);
+                sumExp.add(3, exp);
+            }catch (Exception e){
+                e.printStackTrace();
+                setDefaultList();
+            }
+
+        }else if (expName.equals("Subscriptions")){
+            try{
+                sumExp.remove(2);
+                sumExp.add(2, exp);
+            }catch (Exception e){
+                e.printStackTrace();
+                setDefaultList();
+            }
+
+        }else if (expName.equals("Health Care")){
+            try{
+                sumExp.remove(1);
+                sumExp.add(1, exp);
+            }catch (Exception e){
+                e.printStackTrace();
+                setDefaultList();
+            }
+
         }else if (expName.equals("Bills")){
             try{
-                sumExp.remove(9);
-                sumExp.add(9, exp);
+                sumExp.remove(0);
+                sumExp.add(0, exp);
             }catch (Exception e){
                 e.printStackTrace();
                 setDefaultList();
