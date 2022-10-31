@@ -3,7 +3,6 @@ package app.personal.fury.UI.Adapters.dueList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,7 +18,6 @@ import app.personal.fury.R;
 public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     private List<debtEntity> debt = new ArrayList<>();
     private onItemClickListener listener;
-    private onMarkClickListener markListener;
     private int count = 0;
     private Float totalSum = 0.00F;
 
@@ -46,13 +44,7 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
         String ico = String.valueOf(entity.getSource().charAt(0)).toUpperCase();
         holder.icoText.setText(ico);
         //------------------------------------------------------------------------
-        holder.mark.setOnClickListener(v -> {
-            if (markListener != null && holder.getLayoutPosition() != RecyclerView.NO_POSITION) {
-                debtEntity debtEntity = debt.get(holder.getAdapterPosition());
-                debtEntity.setStatus(Constants.DEBT_PAID);
-                markListener.onMarkClick(holder.getAdapterPosition(), debtEntity);
-            }
-        });
+
         holder.dFinalDate.setText(entity.getFinalDate());
         holder.dStatus.setText(entity.getStatus());
     }
@@ -98,8 +90,6 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
 
     class expHolder extends RecyclerView.ViewHolder {
         private final TextView dAmt, dStatus, dFinalDate, dPaidDateTitle, dPaidDate,dName, icoText;
-        private Button mark;
-
 
         public expHolder(@NonNull View itemView) {
             super(itemView);
@@ -110,7 +100,6 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
             dPaidDateTitle = itemView.findViewById(R.id.paidDateTitle);
             icoText = itemView.findViewById(R.id.icoText);
             dName = itemView.findViewById(R.id.dName);
-            mark = itemView.findViewById(R.id.mark);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
@@ -121,16 +110,8 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
         }
     }
 
-    public interface onMarkClickListener{
-        void onMarkClick(int oldDebtPos,debtEntity newDebt);
-    }
-
     public interface onItemClickListener {
         void onItemClick(debtEntity exp);
-    }
-
-    public void setOnMarkClickListener(onMarkClickListener markListener){
-        this.markListener = markListener;
     }
 
     public void setOnItemClickListener(onItemClickListener listener) {
