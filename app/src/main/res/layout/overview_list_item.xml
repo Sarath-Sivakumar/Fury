@@ -2,21 +2,22 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="130dp"
-    android:layout_height="60dp"
+    android:layout_height="wrap_content"
     android:layout_margin="6dp"
     android:elevation="6dp"
     android:background="@drawable/card_view_theme4">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
         android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center|start">
 
         <ImageView
             android:id="@+id/exp_icon"
@@ -24,29 +25,25 @@
             android:layout_height="24dp"
             android:src="@drawable/ic_home" />
 
-        <View
-            android:layout_width="50dp"
-            android:layout_height="match_parent"/>
-
         <TextView
             android:id="@+id/indicatorText"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="3dp"
-            android:gravity="center"
+            android:layout_marginEnd="2dp"
+            android:gravity="center|end"
             android:textColor="@color/black"
             android:textSize="22sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center">
 
     <TextView
         android:id="@+id/exp_cat"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="end"
         android:layout_gravity="center"
         android:text="trial"
