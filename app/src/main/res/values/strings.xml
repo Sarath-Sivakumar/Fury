@@ -11,6 +11,7 @@
     <string name="daily_average">Daily Average</string>
     <string name="expense">Expense</string>
     <string name="budget">Budget</string>
+    <string name="expense_overview">Expense Overview</string>
 
     <string-array name="ExpenseItems">
         <item>Food</item>

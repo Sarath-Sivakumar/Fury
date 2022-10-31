@@ -61,7 +61,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
     public void onBindViewHolder(@NonNull catHolder holder, int position) {
         expEntity entity = sumExp.get(position);
         holder.expName.setText(entity.getExpenseName());
-        holder.progress.setProgress(Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary), true);
+//        holder.progress.setProgress(Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary), true);
         String s = Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary) + "%";
         holder.expPercent.setText(s);
 
@@ -293,14 +293,14 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
 
     class catHolder extends RecyclerView.ViewHolder {
         private final TextView expName,expPercent;
-        private final LinearProgressIndicator progress;
+//        private final LinearProgressIndicator progress;
         private final ImageView expIcon;
 
         public catHolder(@NonNull View v) {
             super(v);
             expName = v.findViewById(R.id.exp_cat);
             expIcon = v.findViewById(R.id.exp_icon);
-            progress = v.findViewById(R.id.indicator);
+//            progress = v.findViewById(R.id.indicator);
             expPercent = v.findViewById(R.id.indicatorText);
 
             v.setOnClickListener(v1 -> {

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="200dp"
-    android:layout_height="150dp"
+    android:layout_width="150dp"
+    android:layout_height="120dp"
     android:layout_margin="6dp"
     android:elevation="6dp"
     android:orientation="vertical"
-    app:cardCornerRadius="12dp">
+    app:cardCornerRadius="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,16 +22,15 @@
             android:gravity="center"
             android:text="2"
             android:textColor="@color/theme_red"
-            android:textSize="42sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
+            android:paddingBottom="3dp"
             android:text="@string/days_left"
-            android:textSize="21sp" />
+            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,10 +41,9 @@
                 android:id="@+id/dueName"
                 android:layout_width="0dp"
                 android:layout_weight="0.6"
-                android:layout_height="match_parent"
-                android:gravity="center|start"
-                android:paddingStart="6dp"
-                android:paddingEnd="0dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:paddingStart="3dp"
                 android:text="Home"
                 android:textSize="16sp" />
 
@@ -53,10 +51,9 @@
                 android:id="@+id/dueAmt"
                 android:layout_width="0dp"
                 android:layout_weight="0.4"
-                android:layout_height="match_parent"
-                android:gravity="center|end"
-                android:paddingStart="6dp"
-                android:paddingEnd="0dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:paddingStart="3dp"
                 android:text="2000"
                 android:textSize="15sp" />
 
