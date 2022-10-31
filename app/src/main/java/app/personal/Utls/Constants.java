@@ -14,7 +14,7 @@ public class Constants {
     public static final String Dues = "Dues",
             Exp = "Expenses",
             Salary = "Salary",
-            main = "Overview",
+            main = "Fury",
             EXP_NAME = "EXPENSE_NAME",
             EXP_AMT = "EXPENSE_AMOUNT",
             EXP_DATE = "EXPENSE_DATE",
