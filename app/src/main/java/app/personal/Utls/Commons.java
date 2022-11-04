@@ -1,34 +1,22 @@
 package app.personal.Utls;
 
-import static java.lang.Thread.sleep;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import app.personal.MVVM.Entity.expEntity;
 
 public class Commons {
 
     public static void SnackBar(View v, String Text) {
         Snackbar.make(v, Text, Snackbar.LENGTH_SHORT).show();
-    }
-
-    public static int OneTimeSnackBar(View v, String Text, int count) {
-        //Increase OneTimeSnackBarCount by 1 after calling once
-        //Call like this:
-//        private static int count = 0;
-//        if (Commons.OneTimeSnackBar(getView(),"Set Salary.",count)){
-//            count++;
-//        }
-        while (count == 0){
-                Snackbar.make(v, Text, Snackbar.LENGTH_SHORT).show();
-                count = count + 1;
-        }
-        return count;
     }
 
     public static String getDate() {
@@ -43,5 +31,42 @@ public class Commons {
 
     public static int setProgress(float exp, float sal) {
         return (int) ((exp / sal) * 100);
+    }
+
+    public static String getAvg(List<expEntity> listData) {
+        float monthly = 0F;
+        String lastDate = null;
+        ArrayList<Float> totalExp = new ArrayList<>();
+        for (int i = 0; i < listData.size(); i++) {
+            expEntity exp = listData.get(i);
+            if (i == 0) {
+                monthly = monthly + exp.getExpenseAmt();
+                lastDate = exp.getDate();
+            } else {
+                if (lastDate != null && exp.getDate().equals(lastDate)) {
+                    monthly = monthly + exp.getExpenseAmt();
+                } else {
+                    totalExp.add(monthly);
+                    monthly = 0F;
+                    lastDate = exp.getDate();
+                }
+            }
+        }
+        return findAvg(totalExp);
+    }
+
+    private static String findAvg(ArrayList<Float> totalExp) {
+        //28 for 1 month
+        if (totalExp.size() > 28) {
+            int total = 0;
+            int finalVal = 0;
+            for (int i = 0; i < totalExp.size(); i++) {
+                total = (int) (total + totalExp.get(i));
+            }
+            finalVal = total / totalExp.size();
+            return Constants.RUPEE + finalVal + "/Day";
+        } else {
+            return "No data yet!";
+        }
     }
 }
