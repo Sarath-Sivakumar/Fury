@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,6 +98,12 @@ public class Exp_Tracker extends Fragment {
     private void initViewModel() {
         adapter = new expAdapter();
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+        getSal();
+        getExp();
+        getBalance();
+    }
+
+    private void getSal() {
         vm.getSalary().observe(requireActivity(), entities -> {
             finalTotalSalary = 0F;
             if (entities != null) {
@@ -107,7 +112,9 @@ public class Exp_Tracker extends Fragment {
                 }
             }
         });
+    }
 
+    private void getExp() {
         vm.getExp().observe(requireActivity(), entity -> {
             finalTotalExpense = 0F;
             adapter.clear();
@@ -115,11 +122,14 @@ public class Exp_Tracker extends Fragment {
             finalTotalExpense = adapter.getTotalExpFloat();
             try {
                 expView.setText(adapter.getTotalExpStr());
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
+    }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void getBalance() {
         vm.getBalance().observe(requireActivity(), entity -> {
             finalBalance = 0F;
             if (entity != null) {
@@ -127,14 +137,14 @@ public class Exp_Tracker extends Fragment {
                 try {
                     limiter.setProgress(Commons.setProgress(finalTotalExpense, finalTotalSalary), true);
                     setColor();
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
             String s = Constants.RUPEE + finalBalance;
             try {
                 balanceView.setText(s);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -229,28 +239,33 @@ public class Exp_Tracker extends Fragment {
 
     private void addExp(String expName, EditText expAmt) {
         if (expName != null && !expAmt.getText().toString().trim().isEmpty()) {
-            //Exp
-            expEntity entity = new expEntity();
-            entity.setExpenseName(expName);
-            entity.setExpenseAmt(Float.parseFloat(expAmt.getText().toString()));
-            entity.setTime(Commons.getTime());
-            entity.setDate(Commons.getDate());
-            vm.InsertExp(entity);
-            //Balance
             try {
-                vm.DeleteBalance(new balanceEntity(Objects.requireNonNull(vm.getBalance().getValue()).getBalance()));
+                //Exp
+                expEntity entity = new expEntity();
+                entity.setExpenseName(expName);
+                entity.setExpenseAmt(Float.parseFloat(expAmt.getText().toString()));
+                entity.setTime(Commons.getTime());
+                entity.setDate(Commons.getDate());
+                vm.InsertExp(entity);
+                //Balance
+                try {
+                    vm.DeleteBalance(new balanceEntity(Objects.requireNonNull(vm.getBalance().getValue()).getBalance()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                balanceEntity bal = new balanceEntity();
+                bal.setBalance(finalBalance - Float.parseFloat(expAmt.getText().toString()));
+                vm.InsertBalance(bal);
+                expView.setText(adapter.getTotalExpStr());
+
+                finalBalance = Objects.requireNonNull(vm.getBalance().getValue()).getBalance();
+                String s = Constants.RUPEE + finalBalance;
+                balanceView.setText(s);
+                adapter.notifyDataSetChanged();
             } catch (Exception e) {
                 e.printStackTrace();
+                Commons.SnackBar(getView(), "Please set salary");
             }
-            balanceEntity bal = new balanceEntity();
-            bal.setBalance(finalBalance - Float.parseFloat(expAmt.getText().toString()));
-            vm.InsertBalance(bal);
-            expView.setText(adapter.getTotalExpStr());
-            finalBalance = Objects.requireNonNull(vm.getBalance().getValue()).getBalance();
-            String s = Constants.RUPEE + finalBalance;
-            balanceView.setText(s);
-
-            adapter.notifyDataSetChanged();
         }
     }
 
@@ -297,13 +312,22 @@ public class Exp_Tracker extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        String s = Constants.RUPEE+ finalBalance;
+        String s = Constants.RUPEE + finalBalance;
         balanceView.setText(s);
         expView.setText(adapter.getTotalExpStr());
-        try{
+        try {
             setColor();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onStart() {
+        super.onStart();
+        getBalance();
+        getSal();
+        getExp();
     }
 }
