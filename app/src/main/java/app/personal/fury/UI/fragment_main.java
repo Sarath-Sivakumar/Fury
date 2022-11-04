@@ -29,7 +29,7 @@ public class fragment_main extends Fragment {
 
     private CircularProgressIndicator mainProgressBar;
     private TextView expView;
-    private TextView mainProgressText;
+    private TextView mainProgressText, dAvg;
     private mainViewModel vm;
     private duesAdapter dAdapter;
     private categoryAdapter cAdapter;
@@ -49,6 +49,7 @@ public class fragment_main extends Fragment {
         mainProgressBar = v.findViewById(R.id.indicator);
         mainProgressText = v.findViewById(R.id.mainText);
         expView = v.findViewById(R.id.expText);
+        dAvg = v.findViewById(R.id.daily_avg);
         mainProgressBar.setMax(Constants.LIMITER_MAX);
         ad = v.findViewById(R.id.adView);
         RecyclerView dueList = v.findViewById(R.id.dueList);
@@ -110,6 +111,7 @@ public class fragment_main extends Fragment {
             }catch (Exception e){
                 e.printStackTrace();
             }
+            dAvg.setText(Commons.getAvg(expEntities));
         });
 
         vm.getDebt().observe(requireActivity(), debtEntities -> {
