@@ -8,6 +8,7 @@ import androidx.room.RoomDatabase;
 
 import app.personal.MVVM.Dao.localDao;
 import app.personal.MVVM.Entity.balanceEntity;
+import app.personal.MVVM.Entity.budgetEntity;
 import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Entity.salaryEntity;
@@ -17,7 +18,9 @@ import app.personal.Utls.Constants;
         balanceEntity.class,
         debtEntity.class,
         expEntity.class,
-        salaryEntity.class}, version = Constants.DB_VERSION)
+        salaryEntity.class,
+        budgetEntity.class},
+        version = Constants.DB_VERSION)
 public abstract class localDB extends RoomDatabase {
 
     private static localDB instance;
