@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="130dp"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:minWidth="120dp"
+    android:minHeight="80dp"
     android:layout_margin="6dp"
     android:elevation="6dp"
+    android:orientation="vertical"
+    android:padding="12dp"
     android:background="@drawable/card_view_theme4">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="0dp"
         android:orientation="horizontal"
+        android:layout_weight="1"
         android:gravity="center|start">
 
         <ImageView
             android:id="@+id/exp_icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_gravity="start"
             android:src="@drawable/ic_home" />
 
         <TextView
             android:id="@+id/indicatorText"
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_marginEnd="2dp"
             android:gravity="center|end"
@@ -37,23 +37,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
+        android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/exp_cat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end"
-        android:layout_gravity="center"
-        android:text="trial"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="12dp"
+        android:gravity="center|start"
+        android:text="Subscriptions"
         android:textColor="@color/black"
         android:textSize="16sp" />
 
     </LinearLayout>
-
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

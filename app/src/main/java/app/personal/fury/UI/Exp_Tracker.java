@@ -257,7 +257,6 @@ public class Exp_Tracker extends Fragment {
                 bal.setBalance(finalBalance - Float.parseFloat(expAmt.getText().toString()));
                 vm.InsertBalance(bal);
                 expView.setText(adapter.getTotalExpStr());
-
                 finalBalance = Objects.requireNonNull(vm.getBalance().getValue()).getBalance();
                 String s = Constants.RUPEE + finalBalance;
                 balanceView.setText(s);
