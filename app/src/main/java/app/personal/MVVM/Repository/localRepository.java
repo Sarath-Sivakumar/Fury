@@ -10,6 +10,7 @@ import java.util.List;
 import app.personal.MVVM.DB.localDB;
 import app.personal.MVVM.Dao.localDao;
 import app.personal.MVVM.Entity.balanceEntity;
+import app.personal.MVVM.Entity.budgetEntity;
 import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Entity.salaryEntity;
@@ -18,6 +19,7 @@ public class localRepository {
     private final localDao dao;
     private final LiveData<balanceEntity> getBalance;
     private final LiveData<List<debtEntity>> getDebt;
+    private final LiveData<List<budgetEntity>> getBudget;
     private final LiveData<List<expEntity>> getExp;
     private final LiveData<List<salaryEntity>> getSalary;
 
@@ -28,6 +30,7 @@ public class localRepository {
         getDebt = dao.getDebtData();
         getExp = dao.getExpData();
         getSalary = dao.getSalData();
+        getBudget = dao.getBudgetData();
     }
 
     //----------------------------------------------------------------------------------------------
@@ -78,6 +81,20 @@ public class localRepository {
     public void DeleteExp(expEntity exp){
         new DeleteExpAsyncTask(dao).execute(exp);
     }
+
+    public void InsertBudget(budgetEntity budgetEntity){
+        new InsertBudgetAsyncTask(dao).execute(budgetEntity);
+    }
+
+    public void UpdateBudget(budgetEntity budgetEntity){
+        new UpdateBudgetAsyncTask(dao).execute(budgetEntity);
+    }
+
+    public void DeleteBudget(budgetEntity budgetEntity){
+        new DeleteBudgetAsyncTask(dao).execute(budgetEntity);
+    }
+
+    public LiveData<List<budgetEntity>> getBudget(){return getBudget;}
 
     public LiveData<balanceEntity> getBalance(){
         return getBalance;
@@ -255,4 +272,45 @@ public class localRepository {
         }
     }
     //----------------------------------------------------------------------------------------------
+    //Budget background task------------------------------------------------------------------------
+
+    private static class InsertBudgetAsyncTask extends AsyncTask<budgetEntity,Void,Void> {
+        private  localDao dao;
+        private InsertBudgetAsyncTask(localDao dao){
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(budgetEntity... entities) {
+            dao.InsertBudget(entities[0]);
+            return null;
+        }
+    }
+
+    private static class UpdateBudgetAsyncTask extends AsyncTask<budgetEntity,Void,Void> {
+        private  localDao dao;
+        private UpdateBudgetAsyncTask(localDao dao){
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(budgetEntity... entities) {
+            dao.UpdateBudget(entities[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteBudgetAsyncTask extends AsyncTask<budgetEntity,Void,Void> {
+        private  localDao dao;
+        private DeleteBudgetAsyncTask(localDao dao){
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(budgetEntity... entities) {
+            dao.DeleteBudget(entities[0]);
+            return null;
+        }
+    }
+
 }

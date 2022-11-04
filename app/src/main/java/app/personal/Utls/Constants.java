@@ -8,6 +8,7 @@ public class Constants {
             expTable = "Exp_Table",
             salaryTable = "Salary_Table",
             debtTable = "Debt_Table",
+            budgetTable="Budget_Table",
             dbName = "Fury_Database";
     public static final int DB_VERSION = 1;
     //--------------------------------------------------------------

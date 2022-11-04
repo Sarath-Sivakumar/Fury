@@ -10,6 +10,7 @@ import androidx.room.Update;
 import java.util.List;
 
 import app.personal.MVVM.Entity.balanceEntity;
+import app.personal.MVVM.Entity.budgetEntity;
 import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Entity.salaryEntity;
@@ -71,4 +72,18 @@ public interface localDao {
 
     @Query("SELECT * FROM Debt_Table ORDER BY id DESC")
     LiveData<List<debtEntity>> getDebtData();
+
+    //Budget-------
+
+    @Insert
+    void InsertBudget(budgetEntity budgetEntity);
+
+    @Update
+    void UpdateBudget(budgetEntity budgetEntity);
+
+    @Delete
+    void DeleteBudget(budgetEntity budgetEntity);
+
+    @Query("SELECT * FROM Budget_Table")
+    LiveData<List<budgetEntity>> getBudgetData();
 }
