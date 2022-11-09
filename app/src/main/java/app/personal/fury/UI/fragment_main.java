@@ -28,8 +28,7 @@ public class fragment_main extends Fragment {
     //Color contains 6 usable colors...
 
     private CircularProgressIndicator mainProgressBar;
-    private TextView expView;
-    private TextView mainProgressText, dAvg;
+    private TextView mainProgressText, dAvg, expView, budgetView;
     private mainViewModel vm;
     private duesAdapter dAdapter;
     private categoryAdapter cAdapter;
@@ -50,6 +49,7 @@ public class fragment_main extends Fragment {
         mainProgressText = v.findViewById(R.id.mainText);
         expView = v.findViewById(R.id.expText);
         dAvg = v.findViewById(R.id.daily_avg);
+        budgetView = v.findViewById(R.id.budgetText);
         mainProgressBar.setMax(Constants.LIMITER_MAX);
         ad = v.findViewById(R.id.adView);
         RecyclerView dueList = v.findViewById(R.id.dueList);
@@ -69,7 +69,7 @@ public class fragment_main extends Fragment {
         cAdapter = new categoryAdapter();
         dAdapter = new duesAdapter();
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-        initViewModel();
+        //initViewModel();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -79,6 +79,9 @@ public class fragment_main extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_main, container, false);
         findView(v);
+        initViewModel();
+        budgetView.setText("Set a budget.");
+        budgetView.setTextSize(12);
         return v;
     }
 
@@ -99,6 +102,12 @@ public class fragment_main extends Fragment {
             }
         });
 
+//        vm.getBudget().observe(requireActivity(), budgetEntities -> {
+//            if (budgetEntities!=null){
+//                budgetView.setText(budgetEntities.);
+//            }
+//        });
+
         vm.getExp().observe(requireActivity(), expEntities -> {
             expense = 0;
             for (int i = 0; i < expEntities.size(); i++) {
@@ -111,7 +120,12 @@ public class fragment_main extends Fragment {
             }catch (Exception e){
                 e.printStackTrace();
             }
+
+            if (Commons.getAvg(expEntities).equals(Constants.dAvgNoData)){
+             dAvg.setTextSize(12);
+            }
             dAvg.setText(Commons.getAvg(expEntities));
+//            dAvg.setText(Commons.getDailyAvg(7000));
         });
 
         vm.getDebt().observe(requireActivity(), debtEntities -> {
@@ -150,6 +164,23 @@ public class fragment_main extends Fragment {
             setMain(progress);
         }catch(Exception e){
            e.printStackTrace();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onStart() {
+        super.onStart();
+        progress = 0;
+        salary = 0;
+        expense = 0;
+        cAdapter.clear();
+        dAdapter.clear();
+        try{
+            initViewModel();
+            setMain(progress);
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 }

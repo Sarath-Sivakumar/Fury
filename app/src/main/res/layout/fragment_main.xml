@@ -103,7 +103,7 @@
                                 android:layout_marginTop="4dp"
                                 android:textColor="#595A53"
                                 android:fontFamily="@font/kanit_semibold"
-                                android:layout_width="wrap_content"
+                                android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="22sp" />
                         </LinearLayout>
@@ -125,11 +125,11 @@
 
                             <TextView
                                 android:id="@+id/budgetText"
-                                android:gravity="center"
+
                                 android:textColor="#595A53"
                                 android:layout_marginTop="4dp"
                                 android:fontFamily="@font/kanit_semibold"
-                                android:layout_width="wrap_content"
+                                android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="22sp" />
                         </LinearLayout>
