@@ -24,6 +24,11 @@ public class Commons {
         return sdf.format(new Date());
     }
 
+    public static String getMonth() {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("MM");
+        return sdf.format(new Date());
+    }
+
     public static String getTime() {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
         return sdf.format(new Date());
@@ -56,8 +61,8 @@ public class Commons {
     }
 
     private static String findAvg(ArrayList<Float> totalExp) {
-        //28 for 1 month
-        if (totalExp.size() > 28) {
+        //7 for 1 week
+        if (totalExp.size() > 7) {
             int total = 0;
             int finalVal = 0;
             for (int i = 0; i < totalExp.size(); i++) {
@@ -66,7 +71,41 @@ public class Commons {
             finalVal = total / totalExp.size();
             return Constants.RUPEE + finalVal + "/Day";
         } else {
-            return "No data yet!";
+            return Constants.dAvgNoData;
         }
+    }
+
+    private static int getDays(int month){
+        if (month==1){
+            return 31;
+        }else if(month==2){
+            return 28;
+        }else if(month==3){
+            return 31;
+        }else if(month==4){
+            return 30;
+        }else if(month==5){
+            return 31;
+        }else if(month==6){
+            return 30;
+        }else if(month==7){
+            return 31;
+        }else if(month==8){
+            return 31;
+        }else if(month==9){
+            return 30;
+        }else if(month==10){
+            return 31;
+        }else if(month==11){
+            return 30;
+        }else if(month==12){
+            return 31;
+        }else{
+            return 0;
+        }
+    }
+
+    public static String getDailyAvg(float budget){
+        return String.valueOf((int)(budget/getDays(Integer.parseInt(getMonth()))));
     }
 }
