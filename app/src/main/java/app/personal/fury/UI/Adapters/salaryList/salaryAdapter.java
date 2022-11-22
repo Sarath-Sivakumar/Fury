@@ -19,7 +19,7 @@ import app.personal.fury.R;
 public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.salHolder> {
     private final List<salaryEntity> salList = new ArrayList<>();
     private onItemClickListener listener;
-    private float totalSum=0;
+    private int totalSum=0;
 
     @NonNull
     @Override
@@ -52,14 +52,14 @@ public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.salHolder>
         return salList.size();
     }
 
-    public float getTotalSal() {
+    public int getTotalSal() {
         return totalSum;
     }
 
     @SuppressLint("NotifyDataSetChanged")
     public void setSal(List<salaryEntity> exp) {
         totalSum = 0;
-        this.salList.clear();
+        clear();
         this.salList.addAll(exp);
         int size = exp.size();
         for (int i=0;i<size;i++){

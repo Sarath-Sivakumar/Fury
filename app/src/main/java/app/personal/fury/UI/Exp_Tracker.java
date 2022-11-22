@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -41,8 +40,6 @@ import app.personal.fury.UI.Adapters.expList.expAdapter;
 
 public class Exp_Tracker extends Fragment {
 
-    private final int count = 0;
-
     private FloatingActionButton fltBtn;
     private LinearProgressIndicator limiter;
     private mainViewModel vm;
@@ -50,21 +47,19 @@ public class Exp_Tracker extends Fragment {
     private expAdapter adapter;
     private TextView balanceView, expView;
     private RecyclerView.ViewHolder ViewHolder;
-    private float finalBalance;
-    private float finalTotalSalary = 0F;
-    private float finalTotalExpense = 0F;
+    private int finalBalance;
+    private int finalTotalSalary = 0;
+    private int finalTotalExpense = 0;
 
     public Exp_Tracker() {
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initViewModel();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void init(View v) {
         fltBtn = v.findViewById(R.id.exp_actionBtn);
         recyclerView = v.findViewById(R.id.exp_list);
@@ -81,7 +76,6 @@ public class Exp_Tracker extends Fragment {
         fltBtn.setOnClickListener(v1 -> callPopupWindow(Constants.itemAdd));
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void setColor(){
         int progress = Commons.setProgress(finalTotalExpense, finalTotalSalary);
         limiter.setProgress(progress, true);
@@ -94,7 +88,6 @@ public class Exp_Tracker extends Fragment {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void initViewModel() {
         adapter = new expAdapter();
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
@@ -105,7 +98,7 @@ public class Exp_Tracker extends Fragment {
 
     private void getSal() {
         vm.getSalary().observe(requireActivity(), entities -> {
-            finalTotalSalary = 0F;
+            finalTotalSalary = 0;
             if (entities != null) {
                 for (int i = 0; i < entities.size(); i++) {
                     finalTotalSalary = finalTotalSalary + entities.get(i).getSalary();
@@ -116,10 +109,10 @@ public class Exp_Tracker extends Fragment {
 
     private void getExp() {
         vm.getExp().observe(requireActivity(), entity -> {
-            finalTotalExpense = 0F;
+            finalTotalExpense = 0;
             adapter.clear();
             adapter.setExp(entity, true);
-            finalTotalExpense = adapter.getTotalExpFloat();
+            finalTotalExpense = adapter.getTotalExpInt();
             try {
                 expView.setText(adapter.getTotalExpStr());
             } catch (Exception e) {
@@ -128,10 +121,9 @@ public class Exp_Tracker extends Fragment {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void getBalance() {
         vm.getBalance().observe(requireActivity(), entity -> {
-            finalBalance = 0F;
+            finalBalance = 0;
             if (entity != null) {
                 finalBalance = entity.getBalance();
                 try {
@@ -141,7 +133,7 @@ public class Exp_Tracker extends Fragment {
                     e.printStackTrace();
                 }
             }
-            String s = Constants.RUPEE + finalBalance;
+            String s = Constants.RUPEE + (int) finalBalance;
             try {
                 balanceView.setText(s);
             } catch (Exception e) {
@@ -165,7 +157,7 @@ public class Exp_Tracker extends Fragment {
 
             del.setOnClickListener(v -> {
                 expEntity entity = adapter.getExpAt(ViewHolder.getAdapterPosition());
-                float amt = entity.getExpenseAmt();
+                int amt = entity.getExpenseAmt();
                 balanceEntity entity1 = new balanceEntity();
                 entity1.setBalance(finalBalance);
                 vm.DeleteBalance(entity1);
@@ -243,7 +235,7 @@ public class Exp_Tracker extends Fragment {
                 //Exp
                 expEntity entity = new expEntity();
                 entity.setExpenseName(expName);
-                entity.setExpenseAmt(Float.parseFloat(expAmt.getText().toString()));
+                entity.setExpenseAmt(Integer.parseInt(expAmt.getText().toString()));
                 entity.setTime(Commons.getTime());
                 entity.setDate(Commons.getDate());
                 vm.InsertExp(entity);
@@ -254,11 +246,11 @@ public class Exp_Tracker extends Fragment {
                     e.printStackTrace();
                 }
                 balanceEntity bal = new balanceEntity();
-                bal.setBalance(finalBalance - Float.parseFloat(expAmt.getText().toString()));
+                bal.setBalance(finalBalance - Integer.parseInt(expAmt.getText().toString()));
                 vm.InsertBalance(bal);
                 expView.setText(adapter.getTotalExpStr());
                 finalBalance = Objects.requireNonNull(vm.getBalance().getValue()).getBalance();
-                String s = Constants.RUPEE + finalBalance;
+                String s = Constants.RUPEE + (int) finalBalance;
                 balanceView.setText(s);
                 adapter.notifyDataSetChanged();
             } catch (Exception e) {
@@ -268,13 +260,15 @@ public class Exp_Tracker extends Fragment {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_exp__tracker, container, false);
         init(v);
+        getBalance();
+        getSal();
+        getExp();
         return v;
     }
 
@@ -288,7 +282,6 @@ public class Exp_Tracker extends Fragment {
                 return false;
             }
 
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 ViewHolder = viewHolder;
@@ -307,21 +300,30 @@ public class Exp_Tracker extends Fragment {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onResume() {
         super.onResume();
-        String s = Constants.RUPEE + finalBalance;
-        balanceView.setText(s);
-        expView.setText(adapter.getTotalExpStr());
-        try {
-            setColor();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        String s = Constants.RUPEE + finalBalance;
+//        balanceView.setText(s);
+//        expView.setText(adapter.getTotalExpStr());
+//        try {
+//            setColor();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        getBalance();
+        getSal();
+        getExp();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getBalance();
+        getSal();
+        getExp();
+    }
+
     @Override
     public void onStart() {
         super.onStart();

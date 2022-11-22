@@ -11,10 +11,10 @@ public class budgetEntity {
 
     @PrimaryKey(autoGenerate = false)
     private int id;
-    private float percent;
+    private int percent;
 
     @Ignore
-    public budgetEntity(int id, float percent) {
+    public budgetEntity(int id, int percent) {
         this.id = id;
         this.percent = percent;
     }
@@ -25,7 +25,7 @@ public class budgetEntity {
         return id;
     }
 
-    public float getPercent() {
+    public int getPercent() {
         return percent;
     }
 
@@ -33,7 +33,7 @@ public class budgetEntity {
         this.id = id;
     }
 
-    public void setPercent(float percent) {
+    public void setPercent(int percent) {
         this.percent = percent;
     }
 }

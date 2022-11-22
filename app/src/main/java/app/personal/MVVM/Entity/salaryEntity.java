@@ -12,18 +12,18 @@ public class salaryEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String incName;
-    private float salary;
+    private int salary;
     private int incType;  //Daily = 1, Monthly = 0, Hourly = -1(To be implemented in a future update).
 
     @Ignore
-    public salaryEntity(float salary, String incName, int incType) {
+    public salaryEntity(int salary, String incName, int incType) {
         this.salary = salary;
         this.incName = incName;
         this.incType = incType;
     }
 
     @Ignore
-    public salaryEntity(int id, float salary, String incName, int incType) {
+    public salaryEntity(int id, int salary, String incName, int incType) {
         this.id = id;
         this.incName = incName;
         this.salary = salary;
@@ -40,7 +40,7 @@ public class salaryEntity {
         return incName;
     }
 
-    public float getSalary() {
+    public int getSalary() {
         return salary;
     }
 
@@ -56,7 +56,7 @@ public class salaryEntity {
         this.incName = incName;
     }
 
-    public void setSalary(float salary) {
+    public void setSalary(int salary) {
         this.salary = salary;
     }
 
