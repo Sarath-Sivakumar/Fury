@@ -40,7 +40,7 @@ public class Salary_Planner extends Fragment {
     private mainViewModel vm;
     private salaryAdapter adapter;
     private TextView salAmt;
-    private float finalTotalSalary = 0;
+    private int finalTotalSalary = 0;
 
     public Salary_Planner() {}
 
@@ -113,8 +113,8 @@ public class Salary_Planner extends Fragment {
                 adapter.clear();
                 salaryEntity entity = new salaryEntity();
                 entity.setIncName(name.getText().toString());
-                entity.setSalary(Float.parseFloat(amt.getText().toString()));
-                finalTotalSalary = finalTotalSalary+Float.parseFloat(amt.getText().toString());
+                entity.setSalary(Integer.parseInt(amt.getText().toString()));
+                finalTotalSalary = finalTotalSalary + Integer.parseInt(amt.getText().toString());
                 if (grp.getCheckedRadioButtonId() == R.id.daily) {
                     entity.setIncType(Constants.daily);
                     vm.InsertSalary(entity);
@@ -132,7 +132,7 @@ public class Salary_Planner extends Fragment {
                 }
 
                 int size = Objects.requireNonNull(vm.getExp().getValue()).size();
-                float expense = 0;
+                int expense = 0;
                 for (int i = 0;i<size;i++){
                     expEntity exp = vm.getExp().getValue().get(i);
                     if (exp != null && exp.getDate().equals(Commons.getDate())) {
@@ -141,6 +141,8 @@ public class Salary_Planner extends Fragment {
                 }
                 vm.InsertBalance(new balanceEntity(finalTotalSalary - expense));
                 popupWindow.dismiss();
+            }else{
+                adapter.clear();
             }
         });
 
@@ -157,10 +159,10 @@ public class Salary_Planner extends Fragment {
             if (entity != null) {
                 adapter.setSal(entity);
                 finalTotalSalary = adapter.getTotalSal();
-                String s = Constants.RUPEE + finalTotalSalary;
+                String s = Constants.RUPEE + (int) finalTotalSalary;
                 salAmt.setText(s);
             } else {
-                String s = Constants.RUPEE + finalTotalSalary;
+                String s = Constants.RUPEE + (int) finalTotalSalary;
                 salAmt.setText(s);
             }
         });

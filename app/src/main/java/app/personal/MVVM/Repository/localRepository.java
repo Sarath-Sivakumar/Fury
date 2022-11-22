@@ -112,6 +112,11 @@ public class localRepository {
         return getDebt;
     }
     //----------------------------------------------------------------------------------------------
+    //To run during first execution-----------------------------------------------------------------
+
+
+
+    //----------------------------------------------------------------------------------------------
     //Exp background task---------------------------------------------------------------------------
     private static class InsertExpAsyncTask extends AsyncTask<expEntity,Void,Void> {
         private  localDao dao;

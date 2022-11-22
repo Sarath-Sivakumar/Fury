@@ -176,14 +176,14 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
     private expEntity defaultExp(String Name) {
         expEntity exp = new expEntity();
         exp.setExpenseName(Name);
-        exp.setExpenseAmt(0F);
+        exp.setExpenseAmt(0);
         exp.setTime("NULL");
         exp.setDate("NULL");
         return exp;
     }
 
     private void merge(List<expEntity> list, String expName) {
-        float total = 0F;
+        int total = 0;
         for (int i = 0; i < list.size(); i++) {
             total = total + list.get(i).getExpenseAmt();
         }

@@ -47,7 +47,7 @@ public class Dues_Debt extends Fragment {
     private dueAdapter adapter;
     private TextView noDues;
     private RecyclerView.ViewHolder ViewHolder;
-    private float finalTotalDue = 0.0F;
+    private int finalTotalDue = 0;
     private FloatingActionButton fltBtn;
 
     public Dues_Debt() {}
@@ -140,12 +140,13 @@ public class Dues_Debt extends Fragment {
                         && !amt.getText().toString().trim().isEmpty()) {
                     if (date.get()){
                         debtEntity entity = new debtEntity();
-                        entity.setAmount(Float.parseFloat(amt.getText().toString()));
+                        entity.setAmount(Integer.parseInt(amt.getText().toString()));
                         entity.setDate(Commons.getDate());
                         entity.setFinalDate(currDate[0]);
                         entity.setStatus(Constants.DEBT_NOT_PAID);
                         entity.setSource(name.getText().toString());
                         vm.InsertDebt(entity);
+                        adapter.clear();
                         popupWindow.dismiss();
                     }else{
                         Commons.SnackBar(getView(),"Select a valid date");
@@ -169,12 +170,13 @@ public class Dues_Debt extends Fragment {
     private void initViewModel() {
         vm.getDebt().observe(requireActivity(), entity -> {
             if (entity != null) {
+                adapter.clear();
                 adapter.setDebt(entity);
-                finalTotalDue = 0F;
+                finalTotalDue = 0;
                 finalTotalDue = adapter.getTotalDebt();
                 noDues.setText(String.valueOf(adapter.getCount()));
             }
-            String s = Constants.RUPEE + finalTotalDue;
+            String s = Constants.RUPEE + (int) finalTotalDue;
             totalDueDisplay.setText(s);
         });
     }

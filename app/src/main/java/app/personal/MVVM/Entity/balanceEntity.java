@@ -11,15 +11,15 @@ public class balanceEntity {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private float balance;
+    private int balance;
 
     @Ignore
-    public balanceEntity(float balance) {
+    public balanceEntity(int balance) {
         this.balance = balance;
     }
 
     @Ignore
-    public balanceEntity(int id, float balance) {
+    public balanceEntity(int id, int balance) {
         this.id = id;
         this.balance = balance;
     }
@@ -30,7 +30,7 @@ public class balanceEntity {
         return id;
     }
 
-    public float getBalance() {
+    public int getBalance() {
         return balance;
     }
 
@@ -38,7 +38,7 @@ public class balanceEntity {
         this.id = id;
     }
 
-    public void setBalance(float balance) {
+    public void setBalance(int balance) {
         this.balance = balance;
     }
 }

@@ -1,13 +1,11 @@
 package app.personal.fury.UI;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,7 +41,6 @@ public class fragment_main extends Fragment {
         ad.loadAd(adRequest);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void findView(View v) {
         mainProgressBar = v.findViewById(R.id.indicator);
         mainProgressText = v.findViewById(R.id.mainText);
@@ -61,7 +58,6 @@ public class fragment_main extends Fragment {
         requestAd();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +68,6 @@ public class fragment_main extends Fragment {
         //initViewModel();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,8 +80,20 @@ public class fragment_main extends Fragment {
         return v;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     private void initViewModel() {
+
+        getSal();
+//        vm.getBudget().observe(requireActivity(), budgetEntities -> {
+//            if (budgetEntities!=null){
+//                budgetView.setText(budgetEntities.);
+//            }
+//        });
+
+        getExp();
+        getDebt();
+    }
+
+    private void getSal() {
         vm.getSalary().observe(requireActivity(), salaryEntity -> {
             salary = 0;
             if (!salaryEntity.isEmpty()) {
@@ -97,17 +104,13 @@ public class fragment_main extends Fragment {
             }
             try {
                 setMain(progress);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
+    }
 
-//        vm.getBudget().observe(requireActivity(), budgetEntities -> {
-//            if (budgetEntities!=null){
-//                budgetView.setText(budgetEntities.);
-//            }
-//        });
-
+    private void getExp() {
         vm.getExp().observe(requireActivity(), expEntities -> {
             expense = 0;
             for (int i = 0; i < expEntities.size(); i++) {
@@ -117,26 +120,28 @@ public class fragment_main extends Fragment {
             cAdapter.setExpes(expEntities, salary);
             try {
                 setMain(progress);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            if (Commons.getAvg(expEntities).equals(Constants.dAvgNoData)){
-             dAvg.setTextSize(12);
+            if (Commons.getAvg(expEntities).equals(Constants.dAvgNoData)) {
+                dAvg.setTextSize(12);
             }
             dAvg.setText(Commons.getAvg(expEntities));
 //            dAvg.setText(Commons.getDailyAvg(7000));
         });
+    }
 
+    private void getDebt() {
         vm.getDebt().observe(requireActivity(), debtEntities -> {
-            if (debtEntities!=null){
+            if (debtEntities != null) {
                 dAdapter.setDues(debtEntities);
                 dAdapter.notifyDataSetChanged();
             }
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+
     private void setMain(int progress) {
         mainProgressBar.setProgress(progress, true);
         String prg;
@@ -150,7 +155,6 @@ public class fragment_main extends Fragment {
         expView.setText(p);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onResume() {
         super.onResume();
@@ -167,7 +171,6 @@ public class fragment_main extends Fragment {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onStart() {
         super.onStart();

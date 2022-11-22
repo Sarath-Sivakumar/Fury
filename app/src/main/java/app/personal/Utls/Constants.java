@@ -32,7 +32,7 @@ public class Constants {
     //Activity Log Constants-----------------------------------------
     public static final String mActivityLog = "MAIN ACTIVITY",
             expFragLog = "EXP FRAGMENT";
-    //Internal Constants---------------------------------------------
+    //Internal-------------------------------------------------------
     public static final int itemDelete = 0,
             itemAdd = 1,
             LIMITER_MAX = 100,

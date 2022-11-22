@@ -14,11 +14,11 @@ public class expEntity implements Parcelable{
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private float ExpenseAmt;
+    private int ExpenseAmt;
     private String ExpenseName, Date, Time;
 
     @Ignore
-    public expEntity(float expenseAmt, String expenseName,
+    public expEntity(int expenseAmt, String expenseName,
                      String Date, String Time) {
         ExpenseAmt = expenseAmt;
         ExpenseName = expenseName;
@@ -27,7 +27,7 @@ public class expEntity implements Parcelable{
     }
 
     @Ignore
-    public expEntity(int id, float expenseAmt, String expenseName,
+    public expEntity(int id, int expenseAmt, String expenseName,
                      String date, String time) {
         this.id = id;
         ExpenseAmt = expenseAmt;
@@ -42,7 +42,7 @@ public class expEntity implements Parcelable{
         return id;
     }
 
-    public float getExpenseAmt() {
+    public int getExpenseAmt() {
         return ExpenseAmt;
     }
 
@@ -62,7 +62,7 @@ public class expEntity implements Parcelable{
         this.id = id;
     }
 
-    public void setExpenseAmt(float expenseAmt) {
+    public void setExpenseAmt(int expenseAmt) {
         ExpenseAmt = expenseAmt;
     }
 
@@ -95,7 +95,7 @@ public class expEntity implements Parcelable{
     public expEntity(Parcel in) {
         id = in.readInt();
         ExpenseName = in.readString();
-        ExpenseAmt = in.readFloat();
+        ExpenseAmt = in.readInt();
         Date = in.readString();
         Time = in.readString();
     }
