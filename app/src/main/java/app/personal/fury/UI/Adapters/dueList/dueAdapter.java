@@ -58,10 +58,6 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
         return totalSum;
     }
 
-    public int getCount() {
-        return count;
-    }
-
     public void setDebt(List<debtEntity> debt) {
         int size = debt.size();
         totalSum = 0;
@@ -77,7 +73,6 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
 
     public void clear() {
         debt.clear();
-        count = 0;
         notifyDataSetChanged();
     }
 
