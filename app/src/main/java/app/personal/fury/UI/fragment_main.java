@@ -117,6 +117,7 @@ public class fragment_main extends Fragment {
                 expense = expense + expEntities.get(i).getExpenseAmt();
                 progress = Commons.setProgress(expense, salary);
             }
+            cAdapter.clear();
             cAdapter.setExpes(expEntities, salary);
             try {
                 setMain(progress);
