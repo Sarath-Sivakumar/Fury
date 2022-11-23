@@ -3,8 +3,6 @@ package app.personal.fury.UI;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Path;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +15,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -46,7 +43,6 @@ public class Dues_Debt extends Fragment {
     private mainViewModel vm;
     private dueAdapter adapter;
     private TextView noDues;
-    private RecyclerView.ViewHolder ViewHolder;
     private int finalTotalDue = 0;
     private FloatingActionButton fltBtn;
 
@@ -59,6 +55,8 @@ public class Dues_Debt extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        adapter = new dueAdapter();
+        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
     }
 
     @Override
@@ -71,8 +69,6 @@ public class Dues_Debt extends Fragment {
     }
 
     private void find(View v){
-        adapter = new dueAdapter();
-        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         dueList = v.findViewById(R.id.dueList);
         fltBtn = v.findViewById(R.id.addDue);
         fltBtn.setOnClickListener(v1 -> callPopupWindow(Constants.itemAdd));
@@ -174,9 +170,9 @@ public class Dues_Debt extends Fragment {
                 adapter.setDebt(entity);
                 finalTotalDue = 0;
                 finalTotalDue = adapter.getTotalDebt();
-                noDues.setText(String.valueOf(adapter.getCount()));
+                noDues.setText(String.valueOf(adapter.getItemCount()));
             }
-            String s = Constants.RUPEE + (int) finalTotalDue;
+            String s = Constants.RUPEE + finalTotalDue;
             totalDueDisplay.setText(s);
         });
     }
@@ -191,10 +187,8 @@ public class Dues_Debt extends Fragment {
                 return false;
             }
 
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                ViewHolder = viewHolder;
                 if(direction== ItemTouchHelper.RIGHT){
                     vm.DeleteDebt(adapter.getDebtAt(viewHolder.getAdapterPosition()));
                     Commons.SnackBar(requireView(), "Debt deleted.");
@@ -208,7 +202,6 @@ public class Dues_Debt extends Fragment {
                     Commons.SnackBar(requireView(), "Debt marked as paid.");
                 }
             }
-
         }).attachToRecyclerView(dueList);
 
         adapter.setOnItemClickListener(Due -> {
@@ -218,7 +211,6 @@ public class Dues_Debt extends Fragment {
             intent.putExtra(Constants.DUE_FINAL_DATE, Due.getFinalDate());
             intent.putExtra(Constants.DUE_STATUS, Due.getStatus());
             intent.putExtra(Constants.DUE_PAID_DATE, Due.getDate());
-
             startActivity(intent);
         });
     }
