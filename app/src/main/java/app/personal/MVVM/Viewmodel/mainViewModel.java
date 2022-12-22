@@ -50,11 +50,7 @@ public class mainViewModel extends AndroidViewModel {
         repo.InsertBalance(entity);
     }
 
-    public void UpdateBalance(balanceEntity entity) {
-        repo.UpdateBalance(entity);
-    }
-
-    public void DeleteBalance(balanceEntity entity){repo.DeleteBalance(entity);}
+    public void DeleteBalance(){repo.DeleteBalance();}
 
     public void InsertSalary(salaryEntity entity) {
         repo.InsertSalary(entity);

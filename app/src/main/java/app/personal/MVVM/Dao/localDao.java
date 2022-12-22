@@ -36,11 +36,8 @@ public interface localDao {
     @Insert
     void InsertBal(balanceEntity entity);
 
-    @Update
-    void UpdateBal(balanceEntity entity);
-
-    @Delete
-    void DeleteBal(balanceEntity entity);
+    @Query("DELETE FROM Balance_Table")
+    void DeleteBal();
 
     @Query("SELECT * FROM Balance_Table ORDER BY id DESC")
     LiveData<balanceEntity> getBalData();

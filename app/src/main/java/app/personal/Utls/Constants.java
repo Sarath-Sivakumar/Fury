@@ -28,7 +28,7 @@ public class Constants {
             DUE_FINAL_DATE = "DueFinalDate",
             DUE_STATUS = "DueStatus",
             DUE_PAID_DATE = "DuePaidDate",
-            dAvgNoData = "No data yet!";
+            dAvgNoData = "Collecting data!";
     //Activity Log Constants-----------------------------------------
     public static final String mActivityLog = "MAIN ACTIVITY",
             expFragLog = "EXP FRAGMENT";
