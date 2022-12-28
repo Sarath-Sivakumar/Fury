@@ -1,11 +1,9 @@
 package app.personal.fury.UI.Adapters.mainLists;
 
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,7 +25,7 @@ import app.personal.fury.R;
 public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
 
     private onItemClickListener listener;
-    private List<debtEntity> debt = new ArrayList<>();
+    private final List<debtEntity> debt = new ArrayList<>();
 
     @NonNull
     @Override
@@ -68,6 +66,7 @@ public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
     }
 
     public void setDues(List<debtEntity> debt){
+        clear();
         int size = debt.size();
         for (int i = 0;i<size;i++){
             if (debt.get(i).getStatus().equals(Constants.DEBT_NOT_PAID)){
