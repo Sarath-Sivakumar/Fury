@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        Utils();
+//        Utils();
     }
 
     private void init() {
@@ -42,27 +42,27 @@ public class MainActivity extends AppCompatActivity {
     private void findView() {
         vp = findViewById(R.id.viewPager);
         tl = findViewById(R.id.tabLayout);
-        alert = findViewById(R.id.B_Notification);
-        help = findViewById(R.id.B_help);
-        toolbarTitle = findViewById(R.id.ab_title);
+//        alert = findViewById(R.id.B_Notification);
+//        help = findViewById(R.id.B_help);
+//        toolbarTitle = findViewById(R.id.ab_title);
     }
 
-    private void Utils() {
-        alert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,Notification_Activity.class);
-                startActivity(intent);
-            }
-        });
-        help.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,help_Activity.class);
-                startActivity(intent);
-            }
-        });
-    }
+//    private void Utils() {
+//        alert.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this,Notification_Activity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        help.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this,help_Activity.class);
+//                startActivity(intent);
+//            }
+//        });
+//    }
     private void initViewPager() {
         vpAdapter adapter = new vpAdapter(getSupportFragmentManager());
 
@@ -75,12 +75,12 @@ public class MainActivity extends AppCompatActivity {
         vp.setAdapter(adapter);
         vp.setPagingEnabled(false);
         tl.setupWithViewPager(vp, true);
-        toolbarTitle.setText(Objects.requireNonNull(tl.getTabAt(0)).getText());
+//        toolbarTitle.setText(Objects.requireNonNull(tl.getTabAt(0)).getText());
         tl.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 vp.setCurrentItem(tab.getPosition());
-                toolbarTitle.setText(tab.getText());
+//                toolbarTitle.setText(tab.getText());
             }
 
             @Override
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                toolbarTitle.setText(tab.getText());
+//                toolbarTitle.setText(tab.getText());
             }
         });
     }
