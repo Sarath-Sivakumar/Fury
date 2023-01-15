@@ -19,7 +19,7 @@ import app.personal.fury.R;
 
 public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHolder> {
 
-    private onItemClickListener listener;
+//    private onItemClickListener listener;
     private final List<expEntity> sumExp = new ArrayList<>();
     private final List<expEntity> orgExp = new ArrayList<>();
     private final List<expEntity> food = new ArrayList<>(), travel = new ArrayList<>(),
@@ -28,7 +28,8 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
             health = new ArrayList<>(), bills = new ArrayList<>();
     private float salary;
     private int filter;
-    private int foodIndex = 0, travelIndex = 1, rentIndex = 2, gasIndex = 3, electricityIndex = 4, rechargeIndex = 5,
+    private final int foodIndex = 0, travelIndex = 1, rentIndex = 2,
+            gasIndex = 3, electricityIndex = 4, rechargeIndex = 5,
             feesIndex = 6, subsIndex = 7, healthIndex = 8, billsIndex = 9;
 
     @NonNull
@@ -240,97 +241,109 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         exp.setTime("Null");
         exp.setDate("Null");
         exp.setExpenseName(expName);
-        if (expName.equals("Food")) {
-            try {
-                sumExp.remove(foodIndex);
-                sumExp.add(foodIndex, exp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultList();
-            }
-        } else if (expName.equals("Travel")) {
-            try {
-                sumExp.remove(travelIndex);
-                sumExp.add(travelIndex, exp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultList();
-            }
+        switch (expName) {
+            case "Food":
+                try {
+                    sumExp.remove(foodIndex);
+                    sumExp.add(foodIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
+                break;
+            case "Travel":
+                try {
+                    sumExp.remove(travelIndex);
+                    sumExp.add(travelIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
 
-        } else if (expName.equals("Rent")) {
-            try {
-                sumExp.remove(rentIndex);
-                sumExp.add(rentIndex, exp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultList();
-            }
+                break;
+            case "Rent":
+                try {
+                    sumExp.remove(rentIndex);
+                    sumExp.add(rentIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
 
-        } else if (expName.equals("Gas")) {
-            try {
-                sumExp.remove(gasIndex);
-                sumExp.add(gasIndex, exp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultList();
-            }
+                break;
+            case "Gas":
+                try {
+                    sumExp.remove(gasIndex);
+                    sumExp.add(gasIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
 
-        } else if (expName.equals("Electricity")) {
-            try {
-                sumExp.remove(electricityIndex);
-                sumExp.add(electricityIndex, exp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultList();
-            }
+                break;
+            case "Electricity":
+                try {
+                    sumExp.remove(electricityIndex);
+                    sumExp.add(electricityIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
 
-        } else if (expName.equals("Recharge")) {
-            try {
-                sumExp.remove(rechargeIndex);
-                sumExp.add(rechargeIndex, exp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultList();
-            }
+                break;
+            case "Recharge":
+                try {
+                    sumExp.remove(rechargeIndex);
+                    sumExp.add(rechargeIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
 
-        } else if (expName.equals("Fees")) {
-            try {
-                sumExp.remove(feesIndex);
-                sumExp.add(feesIndex, exp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultList();
-            }
+                break;
+            case "Fees":
+                try {
+                    sumExp.remove(feesIndex);
+                    sumExp.add(feesIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
 
-        } else if (expName.equals("Subscriptions")) {
-            try {
-                sumExp.remove(subsIndex);
-                sumExp.add(subsIndex, exp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultList();
-            }
+                break;
+            case "Subscriptions":
+                try {
+                    sumExp.remove(subsIndex);
+                    sumExp.add(subsIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
 
-        } else if (expName.equals("Health Care")) {
-            try {
-                sumExp.remove(healthIndex);
-                sumExp.add(healthIndex, exp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultList();
-            }
+                break;
+            case "Health Care":
+                try {
+                    sumExp.remove(healthIndex);
+                    sumExp.add(healthIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
 
-        } else if (expName.equals("Bills")) {
-            try {
-                sumExp.remove(billsIndex);
-                sumExp.add(billsIndex, exp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultList();
-            }
+                break;
+            case "Bills":
+                try {
+                    sumExp.remove(billsIndex);
+                    sumExp.add(billsIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
 
-        } else {
-            Log.e("Merge", "WTF");
+                break;
+            default:
+                Log.e("Merge", "WTF");
+                break;
         }
     }
 
@@ -339,7 +352,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         return sumExp.size();
     }
 
-    class catHolder extends RecyclerView.ViewHolder {
+    static class catHolder extends RecyclerView.ViewHolder {
         private final TextView expName,expPercent;
         private final ImageView expIcon;
 
@@ -349,19 +362,19 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
             expIcon = v.findViewById(R.id.exp_icon);
             expPercent = v.findViewById(R.id.indicatorText);
 
-            v.setOnClickListener(v1 -> {
-                int pos = getAdapterPosition();
-                if (listener != null && pos != RecyclerView.NO_POSITION) {
-                    listener.onItemClick(sumExp.get(pos));
-                }
-            });
+//            v.setOnClickListener(v1 -> {
+//                int pos = getAdapterPosition();
+//                if (listener != null && pos != RecyclerView.NO_POSITION) {
+//                    listener.onItemClick(sumExp.get(pos));
+//                }
+//            });
         }
     }
-
-    public interface onItemClickListener {
-        void onItemClick(expEntity exp);
-    }
-    public void setOnItemClickListener(onItemClickListener listener) {
-        this.listener = listener;
-    }
+//
+//    public interface onItemClickListener {
+//        void onItemClick(expEntity exp);
+//    }
+//    public void setOnItemClickListener(onItemClickListener listener) {
+//        this.listener = listener;
+//    }
 }

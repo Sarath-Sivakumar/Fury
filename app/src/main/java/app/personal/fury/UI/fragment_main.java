@@ -17,7 +17,6 @@ import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,8 +25,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
-
-import java.util.Objects;
 
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
@@ -49,7 +46,6 @@ public class fragment_main extends Fragment {
     private AdView ad;
     private RecyclerView dueList;
     private LinearLayout noDues;
-    private Button allExp, allDues;
     private int filter = 0;
     private ImageButton avgInfo;
 
@@ -71,9 +67,9 @@ public class fragment_main extends Fragment {
         mainProgressBar.setMax(Constants.LIMITER_MAX);
         ad = v.findViewById(R.id.adView);
         dueList = v.findViewById(R.id.dueList);
-        allExp = v.findViewById(R.id.allExp);
+        Button allExp = v.findViewById(R.id.allExp);
         allExp.setOnClickListener(v1 -> startActivity(new Intent(getContext(), allExp.class)));
-        allDues = v.findViewById(R.id.allDues);
+        Button allDues = v.findViewById(R.id.allDues);
         allDues.setOnClickListener(v1 -> startActivity(new Intent(getContext(), allDues.class)));
         Spinner catFilter = v.findViewById(R.id.catFilter);
         RecyclerView catList = v.findViewById(R.id.catList);
@@ -168,7 +164,7 @@ public class fragment_main extends Fragment {
                 avgInfo.setVisibility(View.VISIBLE);
                 avgInfo.setOnClickListener(v -> dAvgPopup());
                 TypedValue typedValue = new TypedValue();
-                Resources.Theme theme = getActivity().getTheme();
+                Resources.Theme theme = requireActivity().getTheme();
                 theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true);
 //                @ColorInt int colorGreen = typedValue.data;
                 dAvg.setTextColor(typedValue.data);

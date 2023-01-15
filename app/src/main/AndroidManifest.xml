@@ -18,15 +18,18 @@
             android:exported="false" />
         <activity
             android:name=".UI.help_Activity"
-            android:exported="false"></activity>
+            android:exported="false"/>
         <activity
             android:name=".UI.Notification_Activity"
-            android:exported="false"></activity>
+            android:exported="false"/>
         <activity
             android:name=".UI.allExp"
             android:exported="false" />
         <activity
             android:name=".UI.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

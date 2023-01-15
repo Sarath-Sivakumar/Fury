@@ -30,9 +30,6 @@ public class Constants {
             DUE_STATUS = "DueStatus",
             DUE_PAID_DATE = "DuePaidDate",
             dAvgNoData = "Collecting data!";
-    //Activity Log Constants-----------------------------------------
-    public static final String mActivityLog = "MAIN ACTIVITY",
-            expFragLog = "EXP FRAGMENT";
     //Internal-------------------------------------------------------
     public static final int itemDelete = 0,
             itemAdd = 1,

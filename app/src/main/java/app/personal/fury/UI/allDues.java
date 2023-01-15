@@ -23,12 +23,10 @@ import app.personal.fury.UI.Adapters.dueList.dueAdapter;
 
 public class allDues extends AppCompatActivity {
 
-    private ImageButton back;
-    private TextView title, emptyMsg;
+    private TextView emptyMsg;
     private RecyclerView recyclerView;
     private dueAdapter adapter;
     private mainViewModel vm;
-    private RecyclerView.ViewHolder ViewHolder;
     private LinearLayout empty;
 
     @Override
@@ -41,10 +39,10 @@ public class allDues extends AppCompatActivity {
     }
 
     private void initUi() {
-        title = findViewById(R.id.title);
+        TextView title = findViewById(R.id.title);
         String s = "All Dues";
         title.setText(s);
-        back = findViewById(R.id.back);
+        ImageButton back = findViewById(R.id.back);
         back.setOnClickListener(v -> finish());
         empty = findViewById(R.id.empty);
         emptyMsg = findViewById(R.id.emptyMsg);
@@ -101,19 +99,23 @@ public class allDues extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                 } else {
                     debtEntity entity = adapter.getDebtAt(viewHolder.getAdapterPosition());
-                    entity.setStatus(Constants.DEBT_PAID);
-                    entity.setDate(Commons.getDate());
-                    vm.DeleteDebt(adapter.getDebtAt(viewHolder.getAdapterPosition()));
-                    vm.InsertDebt(entity);
-                    adapter.clear();
-                    adapter.notifyDataSetChanged();
-                    Commons.SnackBar(recyclerView, "Debt marked as paid.");
+                    if(!entity.getStatus().equals(Constants.DEBT_PAID)) {
+                        entity.setStatus(Constants.DEBT_PAID);
+                        entity.setDate(Commons.getDate());
+                        vm.DeleteDebt(adapter.getDebtAt(viewHolder.getAdapterPosition()));
+                        vm.InsertDebt(entity);
+
+                        Commons.SnackBar(recyclerView, "Debt marked as paid.");
+                    }else{
+                        Commons.SnackBar(recyclerView, "Debt marked as paid on "+entity.getDate()+".");
+                        adapter.notifyDataSetChanged();
+                    }
                 }
             }
         }).attachToRecyclerView(recyclerView);
 
         adapter.setOnItemClickListener(Due -> {
-//            Intent intent = new Intent(requireActivity(), allExp.class);
+//            Intent intent = new Intent(requireActivity(), activityToLaunch.class);
 //            intent.putExtra(Constants.DUE_SRC, Due.getSource());
 //            intent.putExtra(Constants.DUE_AMT, Due.getAmount());
 //            intent.putExtra(Constants.DUE_FINAL_DATE, Due.getFinalDate());

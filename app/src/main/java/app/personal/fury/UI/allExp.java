@@ -31,8 +31,7 @@ import app.personal.fury.UI.Adapters.expList.expAdapter;
 
 public class allExp extends AppCompatActivity {
 
-    private ImageButton back;
-    private TextView title, emptyMsg;
+    private TextView emptyMsg;
     private RecyclerView recyclerView;
     private expAdapter adapter;
     private mainViewModel vm;
@@ -48,12 +47,12 @@ public class allExp extends AppCompatActivity {
     }
 
     private void setUi(){
-        title = findViewById(R.id.title);
+        TextView title = findViewById(R.id.title);
         String s = "All Expenses";
         title.setText(s);
         adapter = new expAdapter();
         vm = new ViewModelProvider(this).get(mainViewModel.class);
-        back = findViewById(R.id.back);
+        ImageButton back = findViewById(R.id.back);
         back.setOnClickListener(v -> finish());
         empty = findViewById(R.id.empty);
         emptyMsg = findViewById(R.id.emptyMsg);
@@ -174,7 +173,8 @@ public class allExp extends AppCompatActivity {
         time = view.findViewById(R.id.time);
 
         cat.setText(exp.getExpenseName());
-        amt.setText(Constants.RUPEE+exp.getExpenseAmt());
+        String s = Constants.RUPEE+exp.getExpenseAmt();
+        amt.setText(s);
         date.setText(exp.getDate());
         day.setText(Commons.getDisplayDay(exp.getDay()));
         time.setText(exp.getTime());

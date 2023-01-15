@@ -2,7 +2,6 @@ package app.personal.fury.UI;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,10 +46,6 @@ public class Dues_Debt extends Fragment {
     private FloatingActionButton fltBtn;
 
     public Dues_Debt() {}
-
-    public static Dues_Debt newInstance() {
-        return new Dues_Debt();
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

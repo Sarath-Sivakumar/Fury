@@ -39,6 +39,11 @@ public class Commons {
         return sdf.format(new Date());
     }
 
+    public static String getSeconds(){
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("ss");
+        return sdf.format(new Date());
+    }
+
     public static int setProgress(float exp, float sal) {
         return (int) ((exp / sal) * 100);
     }

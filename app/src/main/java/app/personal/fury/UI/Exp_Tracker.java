@@ -2,10 +2,8 @@ package app.personal.fury.UI;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +64,8 @@ public class Exp_Tracker extends Fragment {
         recyclerView = v.findViewById(R.id.exp_list);
         balanceView = v.findViewById(R.id.expBalance);
         TextView dateView = v.findViewById(R.id.exp_trac_date);
-        dateView.setText(Commons.getDisplayDay(Commons.getDay())+" | "+Commons.getDate());
+        String s = Commons.getDisplayDay(Commons.getDay())+" | "+Commons.getDate();
+        dateView.setText(s);
         limiter = v.findViewById(R.id.progress);
         expView = v.findViewById(R.id.todayExp);
         limiter.setMax(Constants.LIMITER_MAX);
@@ -75,9 +74,8 @@ public class Exp_Tracker extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         fltBtn.setOnClickListener(v1 -> callPopupWindow(Constants.itemAdd));
-        String s = Constants.RUPEE + getBalance();
-        Log.e("Exp sal", "Sal: " + s);
-        balanceView.setText(s);
+        String s1 = Constants.RUPEE + getBalance();
+        balanceView.setText(s1);
     }
 
     private void setColor(){
@@ -211,9 +209,7 @@ public class Exp_Tracker extends Fragment {
             grp.setVisibility(View.GONE);
             //------------------------------------------------------
 
-            cancel.setOnClickListener(v -> {
-                popupWindow.dismiss();
-            });
+            cancel.setOnClickListener(v -> popupWindow.dismiss());
             add.setOnClickListener(v -> {
                 addExp(expName[0], expenseAmt);
                 popupWindow.dismiss();
@@ -247,7 +243,6 @@ public class Exp_Tracker extends Fragment {
                 bal.setBalance(oldBal - Integer.parseInt(expAmt.getText().toString()));
                 vm.InsertBalance(bal);
                 expView.setText(adapter.getTotalExpStr());
-//                finalBalance = Objects.requireNonNull(vm.getBalance().getValue()).getBalance();
                 String s = Constants.RUPEE + getBalance();
                 balanceView.setText(s);
                 adapter.notifyDataSetChanged();
@@ -315,7 +310,8 @@ public class Exp_Tracker extends Fragment {
         time = view.findViewById(R.id.time);
 
         cat.setText(exp.getExpenseName());
-        amt.setText(Constants.RUPEE+exp.getExpenseAmt());
+        String s = Constants.RUPEE+exp.getExpenseAmt();
+        amt.setText(s);
         date.setText(exp.getDate());
         day.setText(Commons.getDisplayDay(exp.getDay()));
         time.setText(exp.getTime());

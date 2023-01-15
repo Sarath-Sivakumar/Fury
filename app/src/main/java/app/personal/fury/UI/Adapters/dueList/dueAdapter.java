@@ -21,11 +21,10 @@ import app.personal.Utls.Constants;
 import app.personal.fury.R;
 
 public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
-    private List<debtEntity> debt = new ArrayList<>();
+    private final List<debtEntity> debt = new ArrayList<>();
     private onItemClickListener listener;
     private int totalSum = 0;
     private boolean filter;
-    private TypedValue typedValue;
     private Context context;
     @ColorInt
     private int colorGreen;
@@ -101,7 +100,7 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
                 }
             }
         } else {
-            typedValue = new TypedValue();
+            TypedValue typedValue = new TypedValue();
             Resources.Theme theme = context.getTheme();
             theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true);
             colorGreen = typedValue.data;

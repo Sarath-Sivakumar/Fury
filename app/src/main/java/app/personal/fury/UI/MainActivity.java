@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static viewPager vp;
     private TabLayout tl;
-//    private ImageView alert,help;
     private TextView toolbarTitle;
+//    private ImageView alert,help;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
     private void findView() {
         vp = findViewById(R.id.viewPager);
         tl = findViewById(R.id.tabLayout);
+        toolbarTitle = findViewById(R.id.ab_title);
 //        alert = findViewById(R.id.B_Notification);
 //        help = findViewById(R.id.B_help);
-        toolbarTitle = findViewById(R.id.ab_title);
     }
 
 //    private void Utils() {
@@ -92,6 +92,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        if (vp.getCurrentItem()!=0){
+//            redirectTo(0);
+//        }else {
+//            finishAffinity();
+//        }
+//    }
+
     public static void redirectTo(int i){
         vp.setCurrentItem(i);
     }
