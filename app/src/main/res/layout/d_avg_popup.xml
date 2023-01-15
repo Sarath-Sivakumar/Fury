@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:textColor="?attr/colorOnSecondary"
         android:text="Your daily average should start showing within 7 days.."
-        android:gravity="center|start"/>
+        android:gravity="center|start"
+        android:textSize="12sp"/>
 
 </LinearLayout>

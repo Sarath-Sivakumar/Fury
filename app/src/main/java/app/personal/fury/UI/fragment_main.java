@@ -27,6 +27,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
+import java.util.Objects;
+
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
@@ -184,11 +186,17 @@ public class fragment_main extends Fragment {
         View view = inflater.inflate(R.layout.d_avg_popup, null);
         popupWindow.setContentView(view);
         popupWindow.setFocusable(true);
-        popupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
+        //setting height in dp units-------------
+        final float scale = requireContext().getResources().getDisplayMetrics().density;
+        int pixels = (int) (150 * scale + 0.5f);
+        //---------------------------------------
+        popupWindow.setWidth(pixels);
         popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
         popupWindow.setBackgroundDrawable(null);
         popupWindow.setElevation(6);
+        popupWindow.setOverlapAnchor(true);
         popupWindow.showAsDropDown(avgInfo);
+
     }
 
     private void getDebt() {
