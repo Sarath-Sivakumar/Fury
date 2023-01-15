@@ -14,15 +14,16 @@
         android:theme="@style/Theme.Fury"
         tools:targetApi="31">
         <activity
+            android:name=".UI.allDues"
+            android:exported="false" />
+        <activity
             android:name=".UI.help_Activity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".UI.Notification_Activity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
-            android:name=".UI.exp_details"
+            android:name=".UI.allExp"
             android:exported="false" />
         <activity
             android:name=".UI.MainActivity"

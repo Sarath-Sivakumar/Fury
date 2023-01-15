@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -65,7 +66,7 @@ public class Exp_Tracker extends Fragment {
         recyclerView = v.findViewById(R.id.exp_list);
         balanceView = v.findViewById(R.id.expBalance);
         TextView dateView = v.findViewById(R.id.exp_trac_date);
-        dateView.setText(Commons.getDate());
+        dateView.setText(Commons.getDisplayDay(Commons.getDay())+" | "+Commons.getDate());
         limiter = v.findViewById(R.id.progress);
         expView = v.findViewById(R.id.todayExp);
         limiter.setMax(Constants.LIMITER_MAX);
@@ -235,6 +236,7 @@ public class Exp_Tracker extends Fragment {
                 entity.setExpenseName(expName);
                 entity.setExpenseAmt(Integer.parseInt(expAmt.getText().toString()));
                 entity.setTime(Commons.getTime());
+                entity.setDay(Commons.getDay());
                 entity.setDate(Commons.getDate());
                 vm.InsertExp(entity);
 
@@ -286,14 +288,44 @@ public class Exp_Tracker extends Fragment {
 
         }).attachToRecyclerView(recyclerView);
 
-        adapter.setOnItemClickListener(exp -> {
-            Intent intent = new Intent(requireActivity(), exp_details.class);
-            intent.putExtra(Constants.EXP_NAME, exp.getExpenseName());
-            intent.putExtra(Constants.EXP_AMT, exp.getExpenseAmt());
-            intent.putExtra(Constants.EXP_DATE, exp.getDate());
-            intent.putExtra(Constants.EXP_TIME, exp.getTime());
-            startActivity(intent);
-        });
+        //            Intent intent = new Intent(requireActivity(), allExp.class);
+        //            intent.putExtra(Constants.EXP_NAME, exp.getExpenseName());
+        //            intent.putExtra(Constants.EXP_AMT, exp.getExpenseAmt());
+        //            intent.putExtra(Constants.EXP_DAY, exp.getDay());
+        //            intent.putExtra(Constants.EXP_DATE, exp.getDate());
+        //            intent.putExtra(Constants.EXP_TIME, exp.getTime());
+        //            startActivity(intent);
+        adapter.setOnItemClickListener(this::expDetailPopup);
+    }
+
+    private void expDetailPopup(expEntity exp){
+        PopupWindow popupWindow = new PopupWindow(getContext());
+        LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
+        View view = inflater.inflate(R.layout.exp_detail_layout, null);
+        popupWindow.setContentView(view);
+
+        ImageButton close = view.findViewById(R.id.close);
+        close.setOnClickListener(v -> popupWindow.dismiss());
+        TextView cat, amt, time, date, day;
+        cat = view.findViewById(R.id.cat);
+        amt = view.findViewById(R.id.amt);
+        date = view.findViewById(R.id.date);
+        day = view.findViewById(R.id.day);
+        time = view.findViewById(R.id.time);
+
+        cat.setText(exp.getExpenseName());
+        amt.setText(Constants.RUPEE+exp.getExpenseAmt());
+        date.setText(exp.getDate());
+        day.setText(Commons.getDisplayDay(exp.getDay()));
+        time.setText(exp.getTime());
+
+        popupWindow.setFocusable(true);
+        popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+        popupWindow.setBackgroundDrawable(null);
+        popupWindow.setElevation(6);
+        popupWindow.showAsDropDown(recyclerView);
     }
 
     @Override

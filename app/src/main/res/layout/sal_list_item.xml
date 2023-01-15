@@ -15,7 +15,6 @@
         android:layout_marginStart="12dp"
         android:gravity="center|start"
         android:text="salary"
-        android:textColor="@color/black"
         android:textSize="20sp" />
 
     <LinearLayout
@@ -32,7 +31,7 @@
             android:layout_marginEnd="12dp"
             android:gravity="end"
             android:text="27000"
-            android:textColor="@color/black"/>
+            android:textColor="?attr/colorSecondary"/>
 
         <TextView
             android:id="@+id/salTyp"
@@ -41,8 +40,7 @@
             android:gravity="end"
             android:layout_marginEnd="24dp"
             android:textSize="14sp"
-            android:text="Monthly"
-            android:textColor="@color/black"/>
+            android:text="Monthly" />
 
     </LinearLayout>
 </LinearLayout>

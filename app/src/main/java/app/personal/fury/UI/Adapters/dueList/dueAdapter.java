@@ -1,10 +1,15 @@
 package app.personal.fury.UI.Adapters.dueList;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.res.Resources;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,8 +23,12 @@ import app.personal.fury.R;
 public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     private List<debtEntity> debt = new ArrayList<>();
     private onItemClickListener listener;
-    private int count = 0;
     private int totalSum = 0;
+    private boolean filter;
+    private TypedValue typedValue;
+    private Context context;
+    @ColorInt
+    private int colorGreen;
 
     @NonNull
     @Override
@@ -30,23 +39,41 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
         return new expHolder(itemView);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull expHolder holder, int position) {
         debtEntity entity = debt.get(position);
-        holder.dPaidDate.setText(entity.getDate());
-        holder.dPaidDateTitle.setVisibility(View.GONE);
-        holder.dPaidDate.setVisibility(View.GONE);
-        String amt = Constants.RUPEE + (int) entity.getAmount();
+        String amt = Constants.RUPEE + entity.getAmount();
         holder.dAmt.setText(amt);
         holder.dName.setText(entity.getSource());
+        holder.dFinalDate.setText(entity.getFinalDate());
 
         //To get first letter in source name--------------------------------------
         String ico = String.valueOf(entity.getSource().charAt(0)).toUpperCase();
         holder.icoText.setText(ico);
         //------------------------------------------------------------------------
 
-        holder.dFinalDate.setText(entity.getFinalDate());
-        holder.dStatus.setText(entity.getStatus());
+        if (!filter) {
+            holder.dStatus.setText(entity.getStatus());
+            if (entity.getStatus().equals(Constants.DEBT_PAID)) {
+                try {
+                    holder.dPaidDateTitle.setVisibility(View.VISIBLE);
+                    holder.dPaidDate.setVisibility(View.VISIBLE);
+                    holder.dStatus.setTextColor(colorGreen);
+                    holder.dPaidDate.setTextColor(colorGreen);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }else{
+                holder.dPaidDateTitle.setVisibility(View.GONE);
+                holder.dPaidDate.setVisibility(View.GONE);
+            }
+            holder.dPaidDate.setText(entity.getDate());
+        } else {
+            holder.dPaidDateTitle.setVisibility(View.GONE);
+            holder.dPaidDate.setVisibility(View.GONE);
+            holder.dStatus.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -58,14 +85,29 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
         return totalSum;
     }
 
-    public void setDebt(List<debtEntity> debt) {
+    public void setContext(Context context){
+        this.context = context;
+    }
+
+    public void setDebt(List<debtEntity> debt, boolean filter) {
         int size = debt.size();
+        this.filter = filter;
         totalSum = 0;
-        for (int i = 0; i < size; i++) {
-            if (debt.get(i).getStatus().equals(Constants.DEBT_NOT_PAID)) {
-                totalSum = totalSum + debt.get(i).getAmount();
+        if (filter) {
+            for (int i = 0; i < size; i++) {
+                if (debt.get(i).getStatus().equals(Constants.DEBT_NOT_PAID)) {
+                    totalSum = totalSum + debt.get(i).getAmount();
+                    this.debt.add(debt.get(i));
+                }
+            }
+        } else {
+            typedValue = new TypedValue();
+            Resources.Theme theme = context.getTheme();
+            theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true);
+            colorGreen = typedValue.data;
+
+            for (int i = 0; i < size; i++) {
                 this.debt.add(debt.get(i));
-                count=this.debt.size();
             }
         }
         notifyDataSetChanged();
@@ -74,10 +116,6 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     public void clear() {
         debt.clear();
         notifyDataSetChanged();
-    }
-
-    public List<debtEntity> getDebtList() {
-        return new ArrayList<debtEntity>(debt);
     }
 
     public debtEntity getDebtAt(int position) {

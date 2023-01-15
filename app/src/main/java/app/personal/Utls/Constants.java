@@ -20,6 +20,7 @@ public class Constants {
             EXP_AMT = "EXPENSE_AMOUNT",
             EXP_DATE = "EXPENSE_DATE",
             EXP_TIME = "EXPENSE_TIME",
+            EXP_DAY = "EXPENSE_DAY",
             RUPEE = "₹",
             DEBT_PAID = "Paid",
             DEBT_NOT_PAID = "Not Paid",

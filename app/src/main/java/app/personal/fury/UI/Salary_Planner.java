@@ -3,7 +3,6 @@ package app.personal.fury.UI;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +23,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import app.personal.MVVM.Entity.balanceEntity;
-import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Entity.salaryEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
@@ -46,10 +43,6 @@ public class Salary_Planner extends Fragment {
     private TextView salAmt;
 
     public Salary_Planner() {}
-
-    public static Salary_Planner newInstance() {
-        return new Salary_Planner();
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +70,8 @@ public class Salary_Planner extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        salAmt.setText(Constants.RUPEE + getSalary());
+        String s = Constants.RUPEE + getSalary();
+        salAmt.setText(s);
     }
 
     private void findView(View v) {
@@ -92,7 +86,6 @@ public class Salary_Planner extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void callPopUpWindow() {
-        int oldSal = getSalary();
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
@@ -144,23 +137,13 @@ public class Salary_Planner extends Fragment {
                     return;
                 }
 
-                int size = Objects.requireNonNull(vm.getExp().getValue()).size();
-                int expense = 0;
-                for (int i = 0; i < size; i++) {
-                    expEntity exp = vm.getExp().getValue().get(i);
-                    if (exp != null && exp.getDate().equals(Commons.getDate())) {
-                        expense = expense + exp.getExpenseAmt();
-                    }
+                balanceEntity entity1 = vm.getBalance().getValue();
+                int balance = 0;
+                if(entity1 != null) {
+                    balance = entity1.getBalance();
+                    vm.DeleteBalance();
                 }
-
-                int Sal;
-                if (getSalary()!=oldSal+Integer.parseInt(amt.getText().toString())) {
-                    Sal = Integer.parseInt(amt.getText().toString())+oldSal;
-                }else{
-                    Sal = getSalary();
-                }
-                vm.DeleteBalance();
-                vm.InsertBalance(new balanceEntity(Sal - expense));
+                vm.InsertBalance(new balanceEntity(balance + entity.getSalary()));
             }else{
                 adapter.clear();
             }
@@ -184,7 +167,8 @@ public class Salary_Planner extends Fragment {
                     total = total + entity.get(i).getSalary();
                 }
                 finalTotalSalary.set(total);
-                salAmt.setText(Constants.RUPEE + finalTotalSalary.get());
+                String s = Constants.RUPEE + finalTotalSalary.get();
+                salAmt.setText(s);
             }
         });
         return finalTotalSalary.get();

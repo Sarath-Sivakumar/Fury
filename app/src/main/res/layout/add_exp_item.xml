@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/popup_bg"
-                android:backgroundTint="#251f33"
+                android:backgroundTint="?attr/colorOnSecondary"
                 android:orientation="vertical"
                 android:padding="24dp">
 
@@ -35,7 +35,6 @@
                         android:layout_weight=".5"
                         android:padding="12dp"
                         android:text="New expense"
-                        android:textColor="@color/white"
                         android:textSize="24sp" />
 
                 </LinearLayout>
@@ -109,7 +108,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="12dp"
-                    android:textColor="@color/white"
                     android:text="Select salary type" />
 
                 <RadioGroup
@@ -122,7 +120,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="6dp"
-                            android:textColor="@color/white"
                             android:text="Hourly" />
 
                         <RadioButton
@@ -130,7 +127,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="6dp"
-                            android:textColor="@color/white"
                             android:text="Daily" />
 
                         <RadioButton
@@ -138,7 +134,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="6dp"
-                            android:textColor="@color/white"
                             android:text="Monthly" />
 
                         <RadioButton
@@ -146,7 +141,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="6dp"
-                            android:textColor="@color/white"
                             android:text="One Time" />
 
                 </RadioGroup>
@@ -165,8 +159,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="Add"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white" />
+                        android:textAllCaps="false" />
 
                     <Button
                         android:id="@+id/add_no"
@@ -175,7 +168,7 @@
                         android:layout_height="match_parent"
                         android:text="Cancel"
                         android:textAllCaps="false"
-                        android:textColor="@color/white" />
+                        android:textColor="?attr/colorSecondaryVariant"/>
 
                 </LinearLayout>
             </LinearLayout>
