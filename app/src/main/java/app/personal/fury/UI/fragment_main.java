@@ -113,22 +113,20 @@ public class fragment_main extends Fragment {
     private void getExp() {
         vm.getExp().observe(requireActivity(), expEntities -> {
             expense = 0;
+            cAdapter.clear();
             for (int i = 0; i < expEntities.size(); i++) {
                 expense = expense + expEntities.get(i).getExpenseAmt();
                 progress = Commons.setProgress(expense, salary);
             }
-            cAdapter.clear();
             cAdapter.setExpes(expEntities, salary);
-            try {
-                setMain(progress);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            setMain(progress);
 
             if (Commons.getAvg(expEntities).equals(Constants.dAvgNoData)) {
                 dAvg.setTextSize(12);
             }
             dAvg.setText(Commons.getAvg(expEntities));
+
+//            Call after setting budget
 //            dAvg.setText(Commons.getDailyAvg(7000));
         });
     }

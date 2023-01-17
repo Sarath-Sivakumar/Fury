@@ -1,6 +1,5 @@
 package app.personal.fury.UI.Adapters.mainLists;
 
-import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +21,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
 
     private onItemClickListener listener;
     private final List<expEntity> sumExp = new ArrayList<>();
-    private final List<expEntity> orgList = new ArrayList<>();
+    private final List<expEntity> orgExp = new ArrayList<>();
     private final List<expEntity> food = new ArrayList<>(), travel = new ArrayList<>(),
             rent = new ArrayList<>(), gas = new ArrayList<>(), electricity = new ArrayList<>(),
             recharge = new ArrayList<>(), fees = new ArrayList<>(), subscriptions = new ArrayList<>(),
@@ -43,7 +39,6 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
 
     public void clear(){
         sumExp.clear();
-        orgList.clear();
         food.clear();
         travel.clear();
         rent.clear();
@@ -56,14 +51,18 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         bills.clear();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull catHolder holder, int position) {
         expEntity entity = sumExp.get(position);
         holder.expName.setText(entity.getExpenseName());
-//        holder.progress.setProgress(Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary), true);
-        String s = Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary) + "%";
-        holder.expPercent.setText(s);
+        if (Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary) > 100 ||
+                Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary) < 0) {
+            clear();
+            setExpes(orgExp, salary);
+        } else {
+            String s = Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary) + "%";
+            holder.expPercent.setText(s);
+        }
 
         switch (entity.getExpenseName()) {
             case "Food":
@@ -102,15 +101,15 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
     }
 
     public void setExpes(List<expEntity> exp, float salary) {
-        orgList.clear();
-        sumExp.clear();
-        orgList.addAll(exp);
+        clear();
         setDefaultList();
-
         this.salary = salary;
+        orgExp.addAll(exp);
 
-        for (int i = 0; i < exp.size(); i++) {
-            if (exp.get(i).getDate().equals(Commons.getDate())) {
+        Thread t = new Thread(() -> {
+            for (int i = 0; i < exp.size(); i++) {
+//            Checks if exp date = current date
+//            if (exp.get(i).getDate().equals(Commons.getDate())) {
                 switch (exp.get(i).getExpenseName()) {
                     case "Food":
                         food.add(exp.get(i));
@@ -152,12 +151,29 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                         bills.add(exp.get(i));
                         merge(bills, "Bills");
                         break;
+
                     default:
                         break;
                 }
             }
+        });
+        t.start();
+        int i = 0;
+        while (t.getState() == Thread.State.NEW || t.getState() == Thread.State.RUNNABLE) {
+            while ((t.getState() != Thread.State.NEW ||
+                    t.getState() != Thread.State.RUNNABLE ||
+                    t.getState() == Thread.State.TERMINATED) && i == 0) {
+                try {
+                    this.notifyDataSetChanged();
+                } catch (Exception e) {
+                    clear();
+                    if (getItemCount() <= 0) {
+                        setExpes(exp, salary);
+                    }
+                }
+                i++;
+            }
         }
-        this.notifyDataSetChanged();
     }
 
     private void setDefaultList() {
@@ -200,88 +216,88 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                 e.printStackTrace();
                 setDefaultList();
             }
-        }else if (expName.equals("Travel")){
-            try{
+        } else if (expName.equals("Travel")) {
+            try {
                 sumExp.remove(8);
                 sumExp.add(8, exp);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 setDefaultList();
             }
 
-        }else if (expName.equals("Rent")){
-            try{
+        } else if (expName.equals("Rent")) {
+            try {
                 sumExp.remove(7);
                 sumExp.add(7, exp);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 setDefaultList();
             }
 
-        }else if (expName.equals("Gas")){
-            try{
+        } else if (expName.equals("Gas")) {
+            try {
                 sumExp.remove(6);
                 sumExp.add(6, exp);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 setDefaultList();
             }
 
-        }else if (expName.equals("Electricity")){
-            try{
+        } else if (expName.equals("Electricity")) {
+            try {
                 sumExp.remove(5);
                 sumExp.add(5, exp);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 setDefaultList();
             }
 
-        }else if (expName.equals("Recharge")){
-            try{
+        } else if (expName.equals("Recharge")) {
+            try {
                 sumExp.remove(4);
                 sumExp.add(4, exp);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 setDefaultList();
             }
 
-        }else if (expName.equals("Fees")){
-            try{
+        } else if (expName.equals("Fees")) {
+            try {
                 sumExp.remove(3);
                 sumExp.add(3, exp);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 setDefaultList();
             }
 
-        }else if (expName.equals("Subscriptions")){
-            try{
+        } else if (expName.equals("Subscriptions")) {
+            try {
                 sumExp.remove(2);
                 sumExp.add(2, exp);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 setDefaultList();
             }
 
-        }else if (expName.equals("Health Care")){
-            try{
+        } else if (expName.equals("Health Care")) {
+            try {
                 sumExp.remove(1);
                 sumExp.add(1, exp);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 setDefaultList();
             }
 
-        }else if (expName.equals("Bills")){
-            try{
+        } else if (expName.equals("Bills")) {
+            try {
                 sumExp.remove(0);
                 sumExp.add(0, exp);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 setDefaultList();
             }
 
-        }else{
+        } else {
             Log.e("Merge", "WTF");
         }
     }
@@ -293,14 +309,12 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
 
     class catHolder extends RecyclerView.ViewHolder {
         private final TextView expName,expPercent;
-//        private final LinearProgressIndicator progress;
         private final ImageView expIcon;
 
         public catHolder(@NonNull View v) {
             super(v);
             expName = v.findViewById(R.id.exp_cat);
             expIcon = v.findViewById(R.id.exp_icon);
-//            progress = v.findViewById(R.id.indicator);
             expPercent = v.findViewById(R.id.indicatorText);
 
             v.setOnClickListener(v1 -> {
@@ -318,17 +332,4 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
     public void setOnItemClickListener(onItemClickListener listener) {
         this.listener = listener;
     }
-
-//    @RequiresApi(api = Build.VERSION_CODES.N)
-//    private void setColor(LinearProgressIndicator indicator){
-//        int progress = Commons.setProgress(salary,);
-//        indicator.setProgress(progress, true);
-//        if (progress<34){
-//            indicator.setIndicatorColor(Color.GREEN);
-//        }else if (progress<67){
-//            indicator.setIndicatorColor(Color.YELLOW);
-//        }else{
-//            indicator.setIndicatorColor(Color.RED);
-//        }
-//    }
 }

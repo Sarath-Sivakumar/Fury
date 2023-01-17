@@ -3,6 +3,7 @@ package app.personal.fury.UI;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.expEntity;
@@ -40,7 +44,6 @@ public class Salary_Planner extends Fragment {
     private mainViewModel vm;
     private salaryAdapter adapter;
     private TextView salAmt;
-    private int finalTotalSalary = 0;
 
     public Salary_Planner() {}
 
@@ -51,6 +54,8 @@ public class Salary_Planner extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+        adapter = new salaryAdapter();
         //Comes before onCreateView
         //initialise methods that don't require activity or context
     }
@@ -66,13 +71,16 @@ public class Salary_Planner extends Fragment {
         View v = inflater.inflate(R.layout.fragment_salary__planner, container, false);
         initAd();
         findView(v);
-        initViewModel();
         return v;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        salAmt.setText(Constants.RUPEE + getSalary());
+    }
+
     private void findView(View v) {
-        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-        adapter = new salaryAdapter();
         salAmt = v.findViewById(R.id.salAmt);
         salSplitList = v.findViewById(R.id.salList);
         addSal = v.findViewById(R.id.addSal);
@@ -84,6 +92,7 @@ public class Salary_Planner extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void callPopUpWindow() {
+        int oldSal = getSalary();
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
@@ -114,33 +123,44 @@ public class Salary_Planner extends Fragment {
                 salaryEntity entity = new salaryEntity();
                 entity.setIncName(name.getText().toString());
                 entity.setSalary(Integer.parseInt(amt.getText().toString()));
-                finalTotalSalary = finalTotalSalary + Integer.parseInt(amt.getText().toString());
                 if (grp.getCheckedRadioButtonId() == R.id.daily) {
                     entity.setIncType(Constants.daily);
                     vm.InsertSalary(entity);
+                    popupWindow.dismiss();
                 } else if (grp.getCheckedRadioButtonId() == R.id.monthly) {
                     entity.setIncType(Constants.monthly);
                     vm.InsertSalary(entity);
+                    popupWindow.dismiss();
                 } else if (grp.getCheckedRadioButtonId() == R.id.hourly){
                     entity.setIncType(Constants.hourly);
                     vm.InsertSalary(entity);
+                    popupWindow.dismiss();
                 }else if (grp.getCheckedRadioButtonId() == R.id.oneTime){
                     entity.setIncType(Constants.oneTime);
                     vm.InsertSalary(entity);
-                }else{
-                    Commons.SnackBar(getView(),"Select salary type");
+                    popupWindow.dismiss();
+                }else {
+                    Commons.SnackBar(view, "Select salary type");
+                    return;
                 }
 
                 int size = Objects.requireNonNull(vm.getExp().getValue()).size();
                 int expense = 0;
-                for (int i = 0;i<size;i++){
+                for (int i = 0; i < size; i++) {
                     expEntity exp = vm.getExp().getValue().get(i);
                     if (exp != null && exp.getDate().equals(Commons.getDate())) {
                         expense = expense + exp.getExpenseAmt();
                     }
                 }
-                vm.InsertBalance(new balanceEntity(finalTotalSalary - expense));
-                popupWindow.dismiss();
+
+                int Sal;
+                if (getSalary()!=oldSal+Integer.parseInt(amt.getText().toString())) {
+                    Sal = Integer.parseInt(amt.getText().toString())+oldSal;
+                }else{
+                    Sal = getSalary();
+                }
+                vm.DeleteBalance();
+                vm.InsertBalance(new balanceEntity(Sal - expense));
             }else{
                 adapter.clear();
             }
@@ -154,17 +174,19 @@ public class Salary_Planner extends Fragment {
         popupWindow.showAsDropDown(addSal);
     }
 
-    private void initViewModel() {
+    private int getSalary() {
+        AtomicInteger finalTotalSalary = new AtomicInteger();
         vm.getSalary().observe(requireActivity(), entity -> {
             if (entity != null) {
                 adapter.setSal(entity);
-                finalTotalSalary = adapter.getTotalSal();
-                String s = Constants.RUPEE + (int) finalTotalSalary;
-                salAmt.setText(s);
-            } else {
-                String s = Constants.RUPEE + (int) finalTotalSalary;
-                salAmt.setText(s);
+                int total = 0;
+                for (int i = 0; i < entity.size(); i++) {
+                    total = total + entity.get(i).getSalary();
+                }
+                finalTotalSalary.set(total);
+                salAmt.setText(Constants.RUPEE + finalTotalSalary.get());
             }
         });
+        return finalTotalSalary.get();
     }
 }

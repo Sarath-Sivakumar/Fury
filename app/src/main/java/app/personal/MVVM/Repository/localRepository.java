@@ -38,12 +38,8 @@ public class localRepository {
         new InsertBalAsyncTask(dao).execute(balance);
     }
 
-    public void UpdateBalance(balanceEntity balance){
-        new UpdateBalAsyncTask(dao).execute(balance);
-    }
-
-    public void DeleteBalance(balanceEntity balance){
-        new DeleteBalAsyncTask(dao).execute(balance);
+    public void DeleteBalance(){
+        new DeleteBalAsyncTask(dao).execute();
     }
 
     public void InsertDebt(debtEntity debt) {
@@ -171,28 +167,15 @@ public class localRepository {
         }
     }
 
-    private static class UpdateBalAsyncTask extends AsyncTask<balanceEntity,Void,Void> {
-        private  localDao dao;
-        private UpdateBalAsyncTask(localDao dao){
-            this.dao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(balanceEntity... entities) {
-            dao.UpdateBal(entities[0]);
-            return null;
-        }
-    }
-
-    private static class DeleteBalAsyncTask extends AsyncTask<balanceEntity,Void,Void> {
+    private static class DeleteBalAsyncTask extends AsyncTask<Void,Void,Void> {
         private  localDao dao;
         private DeleteBalAsyncTask(localDao dao){
             this.dao = dao;
         }
 
         @Override
-        protected Void doInBackground(balanceEntity... entities) {
-            dao.DeleteBal(entities[0]);
+        protected Void doInBackground(Void... voids) {
+            dao.DeleteBal();
             return null;
         }
     }

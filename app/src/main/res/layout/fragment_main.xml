@@ -170,14 +170,29 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/category_overview"
-                android:paddingBottom="6dp"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal"
+                android:paddingBottom="6dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/category_overview"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:entries="@array/catOvrAvg_items"
+                    android:gravity="end" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -193,7 +208,6 @@
                     android:id="@+id/catList"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
                     android:layout_weight="1"
                     android:background="@drawable/border_bg"
                     android:backgroundTint="@color/cardview_light_background"
@@ -209,20 +223,80 @@
                     android:layout_height="match_parent"
                     android:background="@color/black" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ad" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.4dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="2dp"
+                        android:background="@android:color/darker_gray"/>
+                </LinearLayout>
+
+                <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/adView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="50dp"
+                    android:minWidth="320dp"
+                    ads:adSize="BANNER"
+                    ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+                <!--Test ID ca-app-pub-3940256099942544/6300978111-->
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.4dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="12dp"
+                    android:background="@android:color/darker_gray"/>
+            </LinearLayout>
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:src="@drawable/furybanner_1" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/dues_overview"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:layout_marginTop="12dp"
-                android:padding="12dp" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center"
+                    android:layout_weight="1"
+                    android:text="@string/dues_overview"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <Button
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:text="View All"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorPrimary" />
+
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dueList"
@@ -231,21 +305,11 @@
                 android:layout_gravity="bottom"
                 android:divider="@null"
                 android:isScrollContainer="true"
+                android:layout_marginBottom="12dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:reverseLayout="true"
                 tools:listitem="@layout/main_due_item" />
-
-            <com.google.android.gms.ads.AdView
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:id="@+id/adView"
-                android:layout_marginTop="24dp"
-                ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
-                ads:adSize="BANNER"
-                xmlns:ads="http://schemas.android.com/apk/res-auto"/>
-            <!--Test ID ca-app-pub-3940256099942544/6300978111-->
-
         </LinearLayout>
     </ScrollView>
 </FrameLayout>
