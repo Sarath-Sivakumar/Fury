@@ -1,19 +1,26 @@
 package app.personal.fury.UI;
 
+import static java.lang.Thread.sleep;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.ViewPropertyAnimatorCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -79,6 +86,7 @@ public class Dues_Debt extends Fragment {
     private void callPopupWindow(int Layout) {
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
         assert inflater != null;
         if (Layout == Constants.itemAdd) {
             View view = inflater.inflate(R.layout.add_due_item, null);
@@ -110,16 +118,18 @@ public class Dues_Debt extends Fragment {
                 try {
                     Date dateBefore = sdf.parse(Commons.getDate());
                     Date dateAfter = sdf.parse(currDate[0]);
+                    assert dateAfter != null;
+                    assert dateBefore != null;
                     long timeDiff = Math.abs(dateAfter.getTime() - dateBefore.getTime());
                     long daysDiff = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
 
-                    if (daysDiff>=1 && dateAfter.getTime()>dateBefore.getTime()){
+                    if (daysDiff >= 1 && dateAfter.getTime() > dateBefore.getTime()) {
                         DueDateTitle.setVisibility(View.VISIBLE);
                         DueDateTitle.setText(currDate[0]);
                         c.setVisibility(View.GONE);
                         date.set(true);
-                    }else{
-                        Commons.SnackBar(getView(),"Set a date one day ahead of "+Commons.getDate());
+                    } else {
+                        Commons.SnackBar(getView(), "Set a date one day ahead of " + Commons.getDate());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -129,7 +139,7 @@ public class Dues_Debt extends Fragment {
             add.setOnClickListener(v -> {
                 if (currDate[0] != null && !name.getText().toString().trim().isEmpty()
                         && !amt.getText().toString().trim().isEmpty()) {
-                    if (date.get()){
+                    if (date.get()) {
                         debtEntity entity = new debtEntity();
                         entity.setAmount(Integer.parseInt(amt.getText().toString()));
                         entity.setDate(Commons.getDate());
@@ -139,17 +149,48 @@ public class Dues_Debt extends Fragment {
                         vm.InsertDebt(entity);
                         adapter.clear();
                         popupWindow.dismiss();
-                    }else{
-                        Commons.SnackBar(getView(),"Select a valid date");
+                    } else {
+                        Commons.SnackBar(getView(), "Select a valid date");
                     }
                 } else {
                     Commons.SnackBar(getView(), "Set due date");
                 }
             });
-
             cancel.setOnClickListener(v -> popupWindow.dismiss());
-        }//use else if delete popup exists in future..
 
+        } else if (Layout == Constants.itemPaid) {
+            View view = inflater.inflate(R.layout.due_paid_popup, null);
+            popupWindow.setContentView(view);
+
+            ImageView check = view.findViewById(R.id.check);
+            ViewPropertyAnimatorCompat viewAnimator;
+            viewAnimator = ViewCompat.animate(check)
+                    .scaleX(10).scaleY(10)
+                    .setStartDelay(500)
+                    .setDuration(500);
+            viewAnimator.setInterpolator(new DecelerateInterpolator()).start();
+
+
+            int oldSec = Integer.parseInt(Commons.getSeconds());
+
+            Thread t = new Thread(() -> {
+                do {
+                    if (oldSec != Integer.parseInt(Commons.getSeconds())) {
+                        break;
+                    }
+                } while (oldSec == Integer.parseInt(Commons.getSeconds()));
+            });
+            t.start();
+            do {
+                Log.e("1st while", "callPopupWindow");
+                if (t.getState() == Thread.State.TERMINATED) {
+                    Log.e("2nd while", "callPopupWindow");
+                    popupWindow.dismiss();
+                }
+            } while (t.getState() != Thread.State.TERMINATED);
+
+
+        }//use else if delete popup exists in future..
         popupWindow.setFocusable(true);
         popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
         popupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
@@ -184,18 +225,26 @@ public class Dues_Debt extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                if(direction== ItemTouchHelper.RIGHT){
+                if (direction == ItemTouchHelper.RIGHT) {
                     vm.DeleteDebt(adapter.getDebtAt(viewHolder.getAdapterPosition()));
                     Commons.SnackBar(requireView(), "Debt deleted.");
                     adapter.clear();
-                }else{
+                } else {
                     debtEntity entity = adapter.getDebtAt(viewHolder.getAdapterPosition());
-                    entity.setStatus(Constants.DEBT_PAID);
-                    entity.setDate(Commons.getDate());
-                    vm.DeleteDebt(adapter.getDebtAt(viewHolder.getAdapterPosition()));
-                    vm.InsertDebt(entity);
-                    adapter.clear();
-                    Commons.SnackBar(requireView(), "Debt marked as paid.");
+
+                    if (!entity.getStatus().equals(Constants.DEBT_PAID)) {
+                        entity.setStatus(Constants.DEBT_PAID);
+                        entity.setDate(Commons.getDate());
+                        vm.DeleteDebt(adapter.getDebtAt(viewHolder.getAdapterPosition()));
+                        vm.InsertDebt(entity);
+
+//                        Commons.SnackBar(recyclerView, "Debt marked as paid.");
+                        callPopupWindow(Constants.itemPaid);
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Commons.SnackBar(requireView(), "Debt marked as paid on " + entity.getDate() + ".");
+                        adapter.notifyDataSetChanged();
+                    }
                 }
             }
         }).attachToRecyclerView(dueList);
