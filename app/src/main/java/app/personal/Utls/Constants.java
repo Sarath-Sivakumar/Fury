@@ -33,6 +33,7 @@ public class Constants {
     //Internal-------------------------------------------------------
     public static final int itemDelete = 0,
             itemAdd = 1,
+            itemPaid = 2,
             LIMITER_MAX = 100,
             oneTime = 2,
             monthly = 0,
