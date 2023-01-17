@@ -2,7 +2,6 @@ package app.personal.fury.UI;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,10 +46,6 @@ public class Dues_Debt extends Fragment {
     private FloatingActionButton fltBtn;
 
     public Dues_Debt() {}
-
-    public static Dues_Debt newInstance() {
-        return new Dues_Debt();
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -167,7 +162,7 @@ public class Dues_Debt extends Fragment {
         vm.getDebt().observe(requireActivity(), entity -> {
             if (entity != null) {
                 adapter.clear();
-                adapter.setDebt(entity);
+                adapter.setDebt(entity, true);
                 finalTotalDue = 0;
                 finalTotalDue = adapter.getTotalDebt();
                 noDues.setText(String.valueOf(adapter.getItemCount()));
@@ -196,6 +191,7 @@ public class Dues_Debt extends Fragment {
                 }else{
                     debtEntity entity = adapter.getDebtAt(viewHolder.getAdapterPosition());
                     entity.setStatus(Constants.DEBT_PAID);
+                    entity.setDate(Commons.getDate());
                     vm.DeleteDebt(adapter.getDebtAt(viewHolder.getAdapterPosition()));
                     vm.InsertDebt(entity);
                     adapter.clear();
@@ -205,13 +201,13 @@ public class Dues_Debt extends Fragment {
         }).attachToRecyclerView(dueList);
 
         adapter.setOnItemClickListener(Due -> {
-            Intent intent = new Intent(requireActivity(), exp_details.class);
-            intent.putExtra(Constants.DUE_SRC, Due.getSource());
-            intent.putExtra(Constants.DUE_AMT, Due.getAmount());
-            intent.putExtra(Constants.DUE_FINAL_DATE, Due.getFinalDate());
-            intent.putExtra(Constants.DUE_STATUS, Due.getStatus());
-            intent.putExtra(Constants.DUE_PAID_DATE, Due.getDate());
-            startActivity(intent);
+//            Intent intent = new Intent(requireActivity(), allExp.class);
+//            intent.putExtra(Constants.DUE_SRC, Due.getSource());
+//            intent.putExtra(Constants.DUE_AMT, Due.getAmount());
+//            intent.putExtra(Constants.DUE_FINAL_DATE, Due.getFinalDate());
+//            intent.putExtra(Constants.DUE_STATUS, Due.getStatus());
+//            intent.putExtra(Constants.DUE_PAID_DATE, Due.getDate());
+//            startActivity(intent);
         });
     }
 }

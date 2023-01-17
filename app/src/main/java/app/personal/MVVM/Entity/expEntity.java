@@ -15,31 +15,38 @@ public class expEntity implements Parcelable{
     @PrimaryKey(autoGenerate = true)
     private int id;
     private int ExpenseAmt;
+    private int day;
     private String ExpenseName, Date, Time;
 
     @Ignore
     public expEntity(int expenseAmt, String expenseName,
-                     String Date, String Time) {
+                     String Date, String Time, int day) {
         ExpenseAmt = expenseAmt;
         ExpenseName = expenseName;
         this.Date = Date;
         this.Time = Time;
+        this.day = day;
     }
 
     @Ignore
     public expEntity(int id, int expenseAmt, String expenseName,
-                     String date, String time) {
+                     String date, String time, int day) {
         this.id = id;
         ExpenseAmt = expenseAmt;
         ExpenseName = expenseName;
         Date = date;
         Time = time;
+        this.day = day;
     }
 
     public expEntity() {}
 
     public int getId() {
         return id;
+    }
+
+    public int getDay() {
+        return day;
     }
 
     public int getExpenseAmt() {
@@ -60,6 +67,10 @@ public class expEntity implements Parcelable{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
     }
 
     public void setExpenseAmt(int expenseAmt) {
