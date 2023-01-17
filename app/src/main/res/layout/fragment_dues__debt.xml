@@ -37,7 +37,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"
                     android:textSize="16sp"
-                    android:gravity="start"
+                    android:gravity="center"
                     android:text="Total Amount"
                     android:layout_marginStart="12dp"
                     android:textColor="@color/black" />
@@ -47,7 +47,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"
                     android:textSize="16sp"
-                    android:gravity="start"
+                    android:gravity="center"
                     android:text="Due Count"
                     android:layout_marginStart="12dp"
                     android:textColor="@color/black" />
@@ -65,7 +65,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.3"
-                android:gravity="start"
+                android:gravity="center"
                 android:layout_marginStart="12dp"
                 android:textColor="@color/black"
                 android:textSize="26sp" />
@@ -76,7 +76,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.3"
-                android:gravity="start"
+                android:gravity="center"
                 android:layout_marginStart="12dp"
                 android:textColor="@color/black"
                 android:textSize="26sp" />
