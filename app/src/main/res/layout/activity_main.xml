@@ -10,76 +10,39 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/action_bar"
         android:layout_width="match_parent"
-        android:elevation="6dp"
-        android:visibility="gone"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@drawable/back_grad"
-        android:backgroundTint="#009688" >
+        android:background="?attr/colorOnSecondary"
+        android:elevation="6dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_launcher" />
 
         <TextView
             android:id="@+id/ab_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center|start"
-            android:text="@string/app_name"
-            android:textColor="@color/black"
             android:textSize="24sp" />
+        <!--        <ImageView-->
+        <!--            android:id="@+id/B_help"-->
+        <!--            android:layout_width="50dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="end"-->
+        <!--            android:src="@drawable/ic_baseline_help_24"-->
+        <!--            style="@style/Widget.AppCompat.Button.Borderless" />-->
 
-        <ImageView
-            android:id="@+id/B_help"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:src="@drawable/ic_baseline_help_24"
-            style="@style/Widget.AppCompat.Button.Borderless" />
-
-        <ImageView
-            android:id="@+id/B_Notification"
-            android:layout_width="50dp"
-            android:layout_gravity="end"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_notifications_24"
-            style="@style/Widget.AppCompat.Button.Borderless" />
+        <!--        <ImageView-->
+        <!--            android:id="@+id/B_Notification"-->
+        <!--            android:layout_width="50dp"-->
+        <!--            android:layout_gravity="end"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:src="@drawable/ic_baseline_notifications_24"-->
+        <!--            style="@style/Widget.AppCompat.Button.Borderless" />-->
 
 
     </androidx.appcompat.widget.Toolbar>
-
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/action_bar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:elevation="6dp"-->
-<!--        android:visibility="invisible"-->
-<!--        android:layout_height="?android:attr/actionBarSize"-->
-<!--        android:background="@drawable/back_grad"-->
-<!--        android:backgroundTint="#737375" >-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/ab_title"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:gravity="center|start"-->
-<!--            android:text="@string/app_name"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:textSize="24sp" />-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/B_help"-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="end"-->
-<!--            android:src="@drawable/ic_baseline_help_24"-->
-<!--            style="@style/Widget.AppCompat.Button.Borderless" />-->
-
-<!--        <ImageView-->
-<!--            android:id="@+id/B_Notification"-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_gravity="end"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:src="@drawable/ic_baseline_notifications_24"-->
-<!--            style="@style/Widget.AppCompat.Button.Borderless" />-->
-
-
-<!--    </androidx.appcompat.widget.Toolbar>-->
 
     <app.personal.Utls.ViewPager.viewPager
         android:id="@+id/viewPager"
@@ -90,9 +53,7 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:background="@drawable/back_grad"
-        android:backgroundTint="#737375"
         android:layout_height="wrap_content"
-        app:tabMode="fixed"/>
+        app:tabMode="auto" />
 
 </LinearLayout>

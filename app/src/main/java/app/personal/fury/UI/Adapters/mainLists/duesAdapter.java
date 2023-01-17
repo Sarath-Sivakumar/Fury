@@ -24,7 +24,7 @@ import app.personal.fury.R;
 
 public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
 
-    private onItemClickListener listener;
+//    private onItemClickListener listener;
     private final List<debtEntity> debt = new ArrayList<>();
 
     @NonNull
@@ -33,7 +33,7 @@ public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
         View itemView = LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.main_due_item, parent, false);
-        return new duesAdapter.dueHolder(itemView);
+        return new dueHolder(itemView);
     }
 
     @Override
@@ -43,6 +43,8 @@ public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
         try {
             Date dateBefore = sdf.parse(Commons.getDate());
             Date dateAfter = sdf.parse(entity.getFinalDate());
+            assert dateAfter != null;
+            assert dateBefore != null;
             long timeDiff = Math.abs(dateAfter.getTime()-dateBefore.getTime());
             long daysDiff = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
             if ((int)daysDiff >= 1 && entity.getStatus().equals(Constants.DEBT_NOT_PAID)){
@@ -80,7 +82,7 @@ public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
         return debt.size();
     }
 
-    class dueHolder extends RecyclerView.ViewHolder {
+    static class dueHolder extends RecyclerView.ViewHolder {
         private final TextView day, dueName,dueAmt;
 
         public dueHolder(@NonNull View v) {
@@ -89,20 +91,20 @@ public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
             dueName = v.findViewById(R.id.dueName);
             dueAmt = v.findViewById(R.id.dueAmt);
 
-            v.setOnClickListener(v1 -> {
-                int pos = getAdapterPosition();
-                if (listener != null && pos != RecyclerView.NO_POSITION) {
-                    listener.onItemClick(debt.get(pos));
-                }
-            });
+//            v.setOnClickListener(v1 -> {
+//                int pos = getAdapterPosition();
+//                if (listener != null && pos != RecyclerView.NO_POSITION) {
+//                    listener.onItemClick(debt.get(pos));
+//                }
+//            });
         }
     }
 
-    public interface onItemClickListener {
-        void onItemClick(debtEntity exp);
-    }
-
-    public void setOnItemClickListener(onItemClickListener listener) {
-        this.listener = listener;
-    }
+//    public interface onItemClickListener {
+//        void onItemClick(debtEntity exp);
+//    }
+//
+//    public void setOnItemClickListener(onItemClickListener listener) {
+//        this.listener = listener;
+//    }
 }

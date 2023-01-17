@@ -29,8 +29,18 @@ public class Commons {
         return sdf.format(new Date());
     }
 
+    public static String getYear() {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        return sdf.format(new Date());
+    }
+
     public static String getTime() {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+        return sdf.format(new Date());
+    }
+
+    public static String getSeconds(){
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("ss");
         return sdf.format(new Date());
     }
 
@@ -38,21 +48,44 @@ public class Commons {
         return (int) ((exp / sal) * 100);
     }
 
+    public static int getDay(){
+        Date d = new Date();
+        return d.getDay();
+    }
+
+    public static String getDisplayDay(int day){
+        if (day==1){
+            return "Monday";
+        }else if (day==2){
+            return "Tuesday";
+        }else if(day==3){
+            return "Wednesday";
+        }else if(day==4){
+            return "Thursday";
+        }else if (day==5){
+            return "Friday";
+        }else if (day==6){
+            return "Saturday";
+        }else{
+            return "Sunday";
+        }
+    }
+
     public static String getAvg(List<expEntity> listData) {
-        float monthly = 0F;
+        int monthly = 0;
         String lastDate = null;
-        ArrayList<Float> totalExp = new ArrayList<>();
+        ArrayList<Integer> totalExp = new ArrayList<>();
         for (int i = 0; i < listData.size(); i++) {
             expEntity exp = listData.get(i);
             if (i == 0) {
                 monthly = monthly + exp.getExpenseAmt();
                 lastDate = exp.getDate();
             } else {
-                if (lastDate != null && exp.getDate().equals(lastDate)) {
+                if (exp.getDate().equals(lastDate)) {
                     monthly = monthly + exp.getExpenseAmt();
                 } else {
                     totalExp.add(monthly);
-                    monthly = 0F;
+                    monthly = 0;
                     lastDate = exp.getDate();
                 }
             }
@@ -60,13 +93,13 @@ public class Commons {
         return findAvg(totalExp);
     }
 
-    private static String findAvg(ArrayList<Float> totalExp) {
+    private static String findAvg(ArrayList<Integer> totalExp) {
         //7 for 1 week
         if (totalExp.size() > 7) {
             int total = 0;
-            int finalVal = 0;
+            int finalVal;
             for (int i = 0; i < totalExp.size(); i++) {
-                total = (int) (total + totalExp.get(i));
+                total = total + totalExp.get(i);
             }
             finalVal = total / totalExp.size();
             return Constants.RUPEE + finalVal + "/Day";
@@ -75,7 +108,7 @@ public class Commons {
         }
     }
 
-    private static int getDays(int month){
+    public static int getDays(int month){
         if (month==1){
             return 31;
         }else if(month==2){

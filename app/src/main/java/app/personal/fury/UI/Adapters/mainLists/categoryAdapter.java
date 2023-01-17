@@ -17,9 +17,9 @@ import app.personal.MVVM.Entity.expEntity;
 import app.personal.Utls.Commons;
 import app.personal.fury.R;
 
-public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHolder>{
+public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHolder> {
 
-    private onItemClickListener listener;
+//    private onItemClickListener listener;
     private final List<expEntity> sumExp = new ArrayList<>();
     private final List<expEntity> orgExp = new ArrayList<>();
     private final List<expEntity> food = new ArrayList<>(), travel = new ArrayList<>(),
@@ -27,13 +27,17 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
             recharge = new ArrayList<>(), fees = new ArrayList<>(), subscriptions = new ArrayList<>(),
             health = new ArrayList<>(), bills = new ArrayList<>();
     private float salary;
+    private int filter;
+    private final int foodIndex = 0, travelIndex = 1, rentIndex = 2,
+            gasIndex = 3, electricityIndex = 4, rechargeIndex = 5,
+            feesIndex = 6, subsIndex = 7, healthIndex = 8, billsIndex = 9;
 
     @NonNull
     @Override
     public catHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.overview_list_item, parent, false);
+                .inflate(R.layout.category_item, parent, false);
         return new catHolder(itemView);
     }
 
@@ -58,7 +62,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         if (Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary) > 100 ||
                 Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary) < 0) {
             clear();
-            setExpes(orgExp, salary);
+            setExpes(orgExp, salary, filter);
         } else {
             String s = Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary) + "%";
             holder.expPercent.setText(s);
@@ -100,60 +104,38 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         }
     }
 
-    public void setExpes(List<expEntity> exp, float salary) {
+    public void setExpes(List<expEntity> exp, float salary, int filter) {
+//        0-today, 1-month, 2-year
         clear();
         setDefaultList();
         this.salary = salary;
+        this.filter = filter;
+        orgExp.clear();
         orgExp.addAll(exp);
 
         Thread t = new Thread(() -> {
             for (int i = 0; i < exp.size(); i++) {
 //            Checks if exp date = current date
-//            if (exp.get(i).getDate().equals(Commons.getDate())) {
-                switch (exp.get(i).getExpenseName()) {
-                    case "Food":
-                        food.add(exp.get(i));
-                        merge(food, "Food");
-                        break;
-                    case "Travel":
-                        travel.add(exp.get(i));
-                        merge(travel, "Travel");
-                        break;
-                    case "Rent":
-                        rent.add(exp.get(i));
-                        merge(rent, "Rent");
-                        break;
-                    case "Gas":
-                        gas.add(exp.get(i));
-                        merge(gas, "Gas");
-                        break;
-                    case "Electricity":
-                        electricity.add(exp.get(i));
-                        merge(electricity, "Electricity");
-                        break;
-                    case "Recharge":
-                        recharge.add(exp.get(i));
-                        merge(recharge, "Recharge");
-                        break;
-                    case "Fees":
-                        fees.add(exp.get(i));
-                        merge(fees, "Fees");
-                        break;
-                    case "Subscriptions":
-                        subscriptions.add(exp.get(i));
-                        merge(subscriptions, "Subscriptions");
-                        break;
-                    case "Health Care":
-                        health.add(exp.get(i));
-                        merge(health, "Health Care");
-                        break;
-                    case "Bills":
-                        bills.add(exp.get(i));
-                        merge(bills, "Bills");
-                        break;
+                if (filter == 0 && exp.get(i).getDate().equals(Commons.getDate())) {
+                    setExpMerge(exp.get(i));
 
-                    default:
-                        break;
+                } else if (filter == 1) {
+                    String[] itemDate = exp.get(i).getDate().split("/");
+                    int itemMonth = Integer.parseInt(itemDate[1]);
+                    int currentMonth = Integer.parseInt(Commons.getMonth());
+//                    Checks for same month in dataset
+                    if (itemMonth == currentMonth) {
+                        setExpMerge(exp.get(i));
+                    }
+
+                } else if (filter == 2) {
+                    String[] itemDate = exp.get(i).getDate().split("/");
+                    int itemYear = Integer.parseInt(itemDate[2]);
+                    int currentYear = Integer.parseInt(Commons.getYear());
+//                    Checks for same year in dataset
+                    if (itemYear == currentYear) {
+                        setExpMerge(exp.get(i));
+                    }
                 }
             }
         });
@@ -167,26 +149,71 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                     this.notifyDataSetChanged();
                 } catch (Exception e) {
                     clear();
-                    if (getItemCount() <= 0) {
-                        setExpes(exp, salary);
-                    }
+                    setExpes(exp, salary, filter);
                 }
                 i++;
             }
         }
     }
 
+    private void setExpMerge(expEntity exp) {
+        switch (exp.getExpenseName()) {
+            case "Food":
+                food.add(exp);
+                merge(food, "Food");
+                break;
+            case "Travel":
+                travel.add(exp);
+                merge(travel, "Travel");
+                break;
+            case "Rent":
+                rent.add(exp);
+                merge(rent, "Rent");
+                break;
+            case "Gas":
+                gas.add(exp);
+                merge(gas, "Gas");
+                break;
+            case "Electricity":
+                electricity.add(exp);
+                merge(electricity, "Electricity");
+                break;
+            case "Recharge":
+                recharge.add(exp);
+                merge(recharge, "Recharge");
+                break;
+            case "Fees":
+                fees.add(exp);
+                merge(fees, "Fees");
+                break;
+            case "Subscriptions":
+                subscriptions.add(exp);
+                merge(subscriptions, "Subscriptions");
+                break;
+            case "Health Care":
+                health.add(exp);
+                merge(health, "Health Care");
+                break;
+            case "Bills":
+                bills.add(exp);
+                merge(bills, "Bills");
+                break;
+            default:
+                break;
+        }
+    }
+
     private void setDefaultList() {
-        sumExp.add(0, defaultExp("Bills"));
-        sumExp.add(1, defaultExp("Health Care"));
-        sumExp.add(2, defaultExp("Subscriptions"));
-        sumExp.add(3, defaultExp("Fees"));
-        sumExp.add(4, defaultExp("Recharge"));
-        sumExp.add(5, defaultExp("Electricity"));
-        sumExp.add(6, defaultExp("Gas"));
-        sumExp.add(7, defaultExp("Rent"));
-        sumExp.add(8, defaultExp("Travel"));
-        sumExp.add(9, defaultExp("Food"));
+        sumExp.add(foodIndex, defaultExp("Food"));
+        sumExp.add(travelIndex, defaultExp("Travel"));
+        sumExp.add(rentIndex, defaultExp("Rent"));
+        sumExp.add(gasIndex, defaultExp("Gas"));
+        sumExp.add(electricityIndex, defaultExp("Electricity"));
+        sumExp.add(rechargeIndex, defaultExp("Recharge"));
+        sumExp.add(feesIndex, defaultExp("Fees"));
+        sumExp.add(subsIndex, defaultExp("Subscriptions"));
+        sumExp.add(healthIndex, defaultExp("Health Care"));
+        sumExp.add(billsIndex, defaultExp("Bills"));
     }
 
     private expEntity defaultExp(String Name) {
@@ -201,104 +228,122 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
     private void merge(List<expEntity> list, String expName) {
         int total = 0;
         for (int i = 0; i < list.size(); i++) {
-            total = total + list.get(i).getExpenseAmt();
+            try {
+                total = total + list.get(i).getExpenseAmt();
+            } catch (Exception e) {
+                clear();
+                setExpes(orgExp, salary, filter);
+                break;
+            }
         }
         expEntity exp = new expEntity();
         exp.setExpenseAmt(total);
         exp.setTime("Null");
         exp.setDate("Null");
         exp.setExpenseName(expName);
-        if (expName.equals("Food")) {
-            try {
-                sumExp.remove(9);
-                sumExp.add(9, exp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultList();
-            }
-        } else if (expName.equals("Travel")) {
-            try {
-                sumExp.remove(8);
-                sumExp.add(8, exp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultList();
-            }
+        switch (expName) {
+            case "Food":
+                try {
+                    sumExp.remove(foodIndex);
+                    sumExp.add(foodIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
+                break;
+            case "Travel":
+                try {
+                    sumExp.remove(travelIndex);
+                    sumExp.add(travelIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
 
-        } else if (expName.equals("Rent")) {
-            try {
-                sumExp.remove(7);
-                sumExp.add(7, exp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultList();
-            }
+                break;
+            case "Rent":
+                try {
+                    sumExp.remove(rentIndex);
+                    sumExp.add(rentIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
 
-        } else if (expName.equals("Gas")) {
-            try {
-                sumExp.remove(6);
-                sumExp.add(6, exp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultList();
-            }
+                break;
+            case "Gas":
+                try {
+                    sumExp.remove(gasIndex);
+                    sumExp.add(gasIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
 
-        } else if (expName.equals("Electricity")) {
-            try {
-                sumExp.remove(5);
-                sumExp.add(5, exp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultList();
-            }
+                break;
+            case "Electricity":
+                try {
+                    sumExp.remove(electricityIndex);
+                    sumExp.add(electricityIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
 
-        } else if (expName.equals("Recharge")) {
-            try {
-                sumExp.remove(4);
-                sumExp.add(4, exp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultList();
-            }
+                break;
+            case "Recharge":
+                try {
+                    sumExp.remove(rechargeIndex);
+                    sumExp.add(rechargeIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
 
-        } else if (expName.equals("Fees")) {
-            try {
-                sumExp.remove(3);
-                sumExp.add(3, exp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultList();
-            }
+                break;
+            case "Fees":
+                try {
+                    sumExp.remove(feesIndex);
+                    sumExp.add(feesIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
 
-        } else if (expName.equals("Subscriptions")) {
-            try {
-                sumExp.remove(2);
-                sumExp.add(2, exp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultList();
-            }
+                break;
+            case "Subscriptions":
+                try {
+                    sumExp.remove(subsIndex);
+                    sumExp.add(subsIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
 
-        } else if (expName.equals("Health Care")) {
-            try {
-                sumExp.remove(1);
-                sumExp.add(1, exp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultList();
-            }
+                break;
+            case "Health Care":
+                try {
+                    sumExp.remove(healthIndex);
+                    sumExp.add(healthIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
 
-        } else if (expName.equals("Bills")) {
-            try {
-                sumExp.remove(0);
-                sumExp.add(0, exp);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDefaultList();
-            }
+                break;
+            case "Bills":
+                try {
+                    sumExp.remove(billsIndex);
+                    sumExp.add(billsIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
 
-        } else {
-            Log.e("Merge", "WTF");
+                break;
+            default:
+                Log.e("Merge", "WTF");
+                break;
         }
     }
 
@@ -307,7 +352,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         return sumExp.size();
     }
 
-    class catHolder extends RecyclerView.ViewHolder {
+    static class catHolder extends RecyclerView.ViewHolder {
         private final TextView expName,expPercent;
         private final ImageView expIcon;
 
@@ -317,19 +362,19 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
             expIcon = v.findViewById(R.id.exp_icon);
             expPercent = v.findViewById(R.id.indicatorText);
 
-            v.setOnClickListener(v1 -> {
-                int pos = getAdapterPosition();
-                if (listener != null && pos != RecyclerView.NO_POSITION) {
-                    listener.onItemClick(sumExp.get(pos));
-                }
-            });
+//            v.setOnClickListener(v1 -> {
+//                int pos = getAdapterPosition();
+//                if (listener != null && pos != RecyclerView.NO_POSITION) {
+//                    listener.onItemClick(sumExp.get(pos));
+//                }
+//            });
         }
     }
-
-    public interface onItemClickListener {
-        void onItemClick(expEntity exp);
-    }
-    public void setOnItemClickListener(onItemClickListener listener) {
-        this.listener = listener;
-    }
+//
+//    public interface onItemClickListener {
+//        void onItemClick(expEntity exp);
+//    }
+//    public void setOnItemClickListener(onItemClickListener listener) {
+//        this.listener = listener;
+//    }
 }

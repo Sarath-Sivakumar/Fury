@@ -12,11 +12,11 @@
     <string name="expense">Expense</string>
     <string name="budget">Budget</string>
     <string name="expense_overview">Expense Overview</string>
+    <string name="back">Back</string>
 
     <string-array name="catOvrAvg_items">
-<!--Donot use (" ' ") directly. use \ before it...-->
+        <!--Donot use (" ' ") directly. use \ before it...-->
         <item>Today\'s Report</item>
-        <item>Weekly Report</item>
         <item>Monthly Report</item>
         <item>Yearly Report</item>
     </string-array>
