@@ -156,10 +156,10 @@ public class fragment_main extends Fragment {
             cAdapter.setExpes(expEntities, salary, filter);
             setMain(progress);
 
-            if (Commons.getAvg(expEntities).equals(Constants.dAvgNoData)) {
+            if (Commons.getAvg(expEntities, true).equals(Constants.dAvgNoData)) {
                 dAvg.setTextSize(12);
             }
-            dAvg.setText(Commons.getAvg(expEntities));
+            dAvg.setText(Commons.getAvg(expEntities, true));
             if (dAvg.getText().equals(Constants.dAvgNoData)){
                 avgInfo.setVisibility(View.VISIBLE);
                 avgInfo.setOnClickListener(v -> dAvgPopup());

@@ -62,47 +62,57 @@ public class Commons {
             return "Wednesday";
         }else if(day==4){
             return "Thursday";
-        }else if (day==5){
+        } else if (day == 5) {
             return "Friday";
-        }else if (day==6){
+        } else if (day == 6) {
             return "Saturday";
-        }else{
+        } else {
             return "Sunday";
         }
     }
 
-    public static String getAvg(List<expEntity> listData) {
-        int monthly = 0;
+    public static String getAvg(List<expEntity> listData, boolean AvgDisplay) {
+        int daily = 0;
         String lastDate = null;
-        ArrayList<Integer> totalExp = new ArrayList<>();
+        ArrayList<Integer> perDayExp = new ArrayList<>();
         for (int i = 0; i < listData.size(); i++) {
             expEntity exp = listData.get(i);
             if (i == 0) {
-                monthly = monthly + exp.getExpenseAmt();
+                daily = daily + exp.getExpenseAmt();
                 lastDate = exp.getDate();
             } else {
                 if (exp.getDate().equals(lastDate)) {
-                    monthly = monthly + exp.getExpenseAmt();
+                    daily = daily + exp.getExpenseAmt();
                 } else {
-                    totalExp.add(monthly);
-                    monthly = 0;
+                    perDayExp.add(daily);
+                    daily = 0;
                     lastDate = exp.getDate();
                 }
             }
         }
-        return findAvg(totalExp);
+        if (AvgDisplay) {
+            return findAvg(perDayExp);
+        } else {
+            return limiterAvg(perDayExp);
+        }
+    }
+
+    private static String limiterAvg(ArrayList<Integer> totalExp) {
+        int total = 0;
+        for (int i = 0; i < totalExp.size(); i++) {
+            total = total + totalExp.get(i);
+        }
+        return String.valueOf(total / totalExp.size());
     }
 
     private static String findAvg(ArrayList<Integer> totalExp) {
         //7 for 1 week
-        if (totalExp.size() > 7) {
+        if (totalExp.size() >= 7) {
             int total = 0;
-            int finalVal;
             for (int i = 0; i < totalExp.size(); i++) {
                 total = total + totalExp.get(i);
             }
-            finalVal = total / totalExp.size();
-            return Constants.RUPEE + finalVal + "/Day";
+            return Constants.RUPEE + total / totalExp.size() + "/Day";
         } else {
             return Constants.dAvgNoData;
         }

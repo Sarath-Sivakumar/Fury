@@ -2,7 +2,8 @@
 <resources>
     <color name="black">#323232</color>
     <color name="total_dark">#000000</color>
-    <color name="white">#EAEFF1</color>
+    <color name="due_item_color">#80323232</color>
+    <color name="white">#EAF1EC</color>
     <color name="total_lite">#ffffff</color>
     <color name="theme_red">#DA3846</color>
     <color name="theme_red_dark">#9E232D</color>

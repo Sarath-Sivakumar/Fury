@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,9 +79,7 @@ public class Exp_Tracker extends Fragment {
         balanceView.setText(s1);
     }
 
-    private void setColor(){
-        int progress = Commons.setProgress(finalTotalExpense, finalTotalSalary);
-        limiter.setProgress(progress, true);
+    private void setColor(int progress){
         if (progress<34){
             limiter.setIndicatorColor(Color.GREEN);
         }else if (progress<67){
@@ -115,9 +114,13 @@ public class Exp_Tracker extends Fragment {
             adapter.clear();
             adapter.setExp(entity, true);
             finalTotalExpense = adapter.getTotalExpInt();
+            int avg = Integer.parseInt(Commons.getAvg(entity, false));
+            int progress = Commons.setProgress(adapter.getTotalExpInt(), avg);
             try {
+                limiter.setProgress(progress, true);
+                setColor(Commons.setProgress(adapter.getTotalExpInt(), avg));
                 expView.setText(adapter.getTotalExpStr());
-            } catch (Exception e) {
+            }catch (Exception e){
                 e.printStackTrace();
             }
         });
@@ -128,15 +131,13 @@ public class Exp_Tracker extends Fragment {
         vm.getBalance().observe(requireActivity(), entity -> {
             if (entity != null) {
                 Balance.set(entity.getBalance());
-                try {
-                    limiter.setProgress(Commons.setProgress(finalTotalExpense, finalTotalSalary), true);
-                    setColor();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }
             String s = Constants.RUPEE + Balance.get();
-            balanceView.setText(s);
+            try{
+                balanceView.setText(s);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         });
         return Balance.get();
     }
