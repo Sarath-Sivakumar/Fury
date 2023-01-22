@@ -42,7 +42,7 @@ public class splash extends AppCompatActivity {
             View v = container.getChildAt(i);
             ViewPropertyAnimatorCompat viewAnimator;
             viewAnimator = ViewCompat.animate(v)
-                    .scaleX(25).scaleY(25)
+                    .scaleX(20).scaleY(20)
                     .setStartDelay(0)
                     .setDuration(10000);
             viewAnimator.setInterpolator(new DecelerateInterpolator()).start();

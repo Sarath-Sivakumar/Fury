@@ -78,7 +78,7 @@ public class Commons {
         int daily = 0;
         String lastDate = "";
         ArrayList<Integer> perDayExp = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
         for (int i = listData.size() - 1; i >= 0; i--) {
             expEntity exp = listData.get(i);
             if (i == listData.size() - 1) {

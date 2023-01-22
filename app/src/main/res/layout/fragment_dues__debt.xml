@@ -87,7 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:text="- Mark as paid" />
+                    android:text="Mark as paid" />
 
                 <View
                     android:layout_width="0dp"
@@ -98,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:text="Delete -" />
+                    android:text="Delete" />
 
             </LinearLayout>
 
