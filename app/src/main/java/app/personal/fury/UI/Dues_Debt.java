@@ -159,35 +159,39 @@ public class Dues_Debt extends Fragment {
             cancel.setOnClickListener(v -> popupWindow.dismiss());
 
         } else if (Layout == Constants.itemPaid) {
+            Log.e("onSwipe", "called");
             View view = inflater.inflate(R.layout.due_paid_popup, null);
             popupWindow.setContentView(view);
 
             ImageView check = view.findViewById(R.id.check);
+            Button done = view .findViewById(R.id.done);
+            done.setOnClickListener(v -> popupWindow.dismiss());
+
             ViewPropertyAnimatorCompat viewAnimator;
             viewAnimator = ViewCompat.animate(check)
-                    .scaleX(10).scaleY(10)
+                    .scaleX(2).scaleY(2)
                     .setStartDelay(500)
                     .setDuration(500);
             viewAnimator.setInterpolator(new DecelerateInterpolator()).start();
 
 
-            int oldSec = Integer.parseInt(Commons.getSeconds());
-
-            Thread t = new Thread(() -> {
-                do {
-                    if (oldSec != Integer.parseInt(Commons.getSeconds())) {
-                        break;
-                    }
-                } while (oldSec == Integer.parseInt(Commons.getSeconds()));
-            });
-            t.start();
-            do {
-                Log.e("1st while", "callPopupWindow");
-                if (t.getState() == Thread.State.TERMINATED) {
-                    Log.e("2nd while", "callPopupWindow");
-                    popupWindow.dismiss();
-                }
-            } while (t.getState() != Thread.State.TERMINATED);
+//            int oldSec = Integer.parseInt(Commons.getSeconds());
+//
+//            Thread t = new Thread(() -> {
+//                do {
+//                    if (oldSec != Integer.parseInt(Commons.getSeconds())) {
+//                        break;
+//                    }
+//                } while (oldSec == Integer.parseInt(Commons.getSeconds()));
+//            });
+//            t.start();
+//            do {
+//                Log.e("1st while", "callPopupWindow");
+//                if (t.getState() == Thread.State.TERMINATED) {
+//                    done.setVisibility(View.VISIBLE);
+//                    Log.e("2nd while", "callPopupWindow");
+//                }
+//            }while (t.getState() != Thread.State.TERMINATED);
 
 
         }//use else if delete popup exists in future..
@@ -239,6 +243,7 @@ public class Dues_Debt extends Fragment {
                         vm.InsertDebt(entity);
 
 //                        Commons.SnackBar(recyclerView, "Debt marked as paid.");
+
                         callPopupWindow(Constants.itemPaid);
                         adapter.notifyDataSetChanged();
                     } else {
