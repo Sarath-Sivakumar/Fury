@@ -76,7 +76,6 @@
                         android:layout_height="match_parent"
                         android:gravity="start|center"
                         android:hint="Expense Name"
-                        android:textColor="@color/white"
                         android:padding="12dp"
                         android:textSize="18sp" />
                 </FrameLayout>
@@ -87,7 +86,6 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:hint="Salary Source"
-                    android:textColor="@color/white"
                     android:inputType="text"
                     android:padding="12dp"
                     android:singleLine="true" />
@@ -98,7 +96,6 @@
                     android:layout_height="wrap_content"
                     android:hint="Amount"
                     android:inputType="numberDecimal"
-                    android:textColor="@color/white"
                     android:background="@android:color/transparent"
                     android:padding="12dp"
                     android:singleLine="true" />
