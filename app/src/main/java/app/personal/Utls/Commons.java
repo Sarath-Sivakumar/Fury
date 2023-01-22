@@ -2,6 +2,7 @@ package app.personal.Utls;
 
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -10,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import app.personal.MVVM.Entity.expEntity;
 
@@ -73,20 +76,47 @@ public class Commons {
 
     public static String getAvg(List<expEntity> listData, boolean AvgDisplay) {
         int daily = 0;
-        String lastDate = null;
+        String lastDate = "";
         ArrayList<Integer> perDayExp = new ArrayList<>();
-        for (int i = 0; i < listData.size(); i++) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        for (int i = listData.size() - 1; i >= 0; i--) {
             expEntity exp = listData.get(i);
-            if (i == 0) {
-                daily = daily + exp.getExpenseAmt();
+            if (i == listData.size() - 1) {
+                daily = exp.getExpenseAmt();
                 lastDate = exp.getDate();
             } else {
-                if (exp.getDate().equals(lastDate)) {
+                if (lastDate.equals(exp.getDate())) {
                     daily = daily + exp.getExpenseAmt();
                 } else {
-                    perDayExp.add(daily);
-                    daily = 0;
-                    lastDate = exp.getDate();
+                    try {
+                        String[] itemDate = exp.getDate().split("/");
+                        String[] lastDateSplit = exp.getDate().split("/");
+                        int itemMonth = Integer.parseInt(itemDate[1]);
+                        int lastMonth = Integer.parseInt(lastDateSplit[1]);
+                        int itemYear = Integer.parseInt(itemDate[2]);
+                        int lastYear = Integer.parseInt(lastDateSplit[2]);
+                        Date dateBefore = sdf.parse(lastDate);
+                        Date dateAfter = sdf.parse(exp.getDate());
+                        assert dateAfter != null;
+                        assert dateBefore != null;
+                        long timeDiff = Math.abs(dateAfter.getTime() - dateBefore.getTime());
+                        long daysDiff = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
+
+                        perDayExp.add(daily);
+                        Log.e("Daily", "Value: " + daily);
+
+                        if (itemMonth == lastMonth && itemYear == lastYear) {
+                            for (int i1 = 1; i1 < daysDiff; i1++) {
+                                perDayExp.add(0);
+                                Log.e("Daily", "Adding 0");
+                            }
+                        }
+                        daily = exp.getExpenseAmt();
+                        lastDate = exp.getDate();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -112,6 +142,7 @@ public class Commons {
             for (int i = 0; i < totalExp.size(); i++) {
                 total = total + totalExp.get(i);
             }
+            Log.e("AVG", "Size: " + totalExp.size() + "Total: " + total);
             return Constants.RUPEE + total / totalExp.size() + "/Day";
         } else {
             return Constants.dAvgNoData;

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +48,6 @@ public class Exp_Tracker extends Fragment {
     private TextView balanceView, expView;
     private RecyclerView.ViewHolder ViewHolder;
     private int finalTotalSalary = 0;
-    private int finalTotalExpense = 0;
 
     public Exp_Tracker() {
     }
@@ -110,10 +108,8 @@ public class Exp_Tracker extends Fragment {
 
     private void getExp() {
         vm.getExp().observe(requireActivity(), entity -> {
-            finalTotalExpense = 0;
             adapter.clear();
             adapter.setExp(entity, true);
-            finalTotalExpense = adapter.getTotalExpInt();
             int avg = Integer.parseInt(Commons.getAvg(entity, false));
             int progress = Commons.setProgress(adapter.getTotalExpInt(), avg);
             try {
