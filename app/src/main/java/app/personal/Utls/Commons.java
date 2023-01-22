@@ -132,7 +132,12 @@ public class Commons {
         for (int i = 0; i < totalExp.size(); i++) {
             total = total + totalExp.get(i);
         }
-        return String.valueOf(total / totalExp.size());
+        try{
+            return String.valueOf(total / totalExp.size());
+        }catch (Exception e){
+            e.printStackTrace();
+            return String.valueOf(total);
+        }
     }
 
     private static String findAvg(ArrayList<Integer> totalExp) {
