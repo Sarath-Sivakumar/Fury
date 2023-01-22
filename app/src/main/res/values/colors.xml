@@ -3,6 +3,7 @@
     <color name="black">#323232</color>
     <color name="total_dark">#000000</color>
     <color name="due_item_color">#80323232</color>
+    <color name="paid_bg_color">#3E575757</color>
     <color name="white">#EAF1EC</color>
     <color name="total_lite">#ffffff</color>
     <color name="theme_red">#DA3846</color>

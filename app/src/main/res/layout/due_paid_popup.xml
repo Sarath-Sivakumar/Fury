@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:gravity="center"
-    android:background="@android:color/transparent">
+    android:background="@color/paid_bg_color">
 
     <ImageView
         android:id="@+id/check"
@@ -13,4 +14,11 @@
         android:minWidth="90dp"
         android:contentDescription="@null"
         android:src="@drawable/ic_baseline_check_circle_outline_24" />
+
+    <Button
+        android:id="@+id/done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="done"
+        android:layout_marginTop="48dp"/>
 </LinearLayout>
