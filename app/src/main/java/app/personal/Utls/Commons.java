@@ -111,7 +111,7 @@ public class Commons {
                                 Log.e("Daily", "Adding 0");
                             }
                         }
-                        daily = exp.getExpenseAmt();
+                        daily =exp.getExpenseAmt();
                         lastDate = exp.getDate();
 
                     } catch (Exception e) {
