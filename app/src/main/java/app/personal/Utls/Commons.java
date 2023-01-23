@@ -129,10 +129,14 @@ public class Commons {
 
     private static String limiterAvg(ArrayList<Integer> totalExp) {
         int total = 0;
-        for (int i = 0; i < totalExp.size(); i++) {
-            total = total + totalExp.get(i);
+        if (totalExp.size() >= 7) {
+            for (int i = 0; i < totalExp.size(); i++) {
+                total = total + totalExp.get(i);
+            }
+            return String.valueOf(total / totalExp.size());
+        }else {
+            return String.valueOf(total);
         }
-        return String.valueOf(total / totalExp.size());
     }
 
     private static String findAvg(ArrayList<Integer> totalExp) {
