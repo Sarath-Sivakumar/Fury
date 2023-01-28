@@ -1,10 +1,17 @@
 package app.personal.fury.UI;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
@@ -18,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static viewPager vp;
     private TabLayout tl;
-    private TextView toolbarTitle;
-//    private ImageView alert,help;
+    private DrawerLayout dl;
+    private Toolbar tb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +34,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         init();
 //        Utils();
+        setNav();
+
+        if (savedInstanceState==null){
+            vp.setCurrentItem(0,true);
+        }
     }
 
     private void init() {
@@ -35,30 +47,39 @@ public class MainActivity extends AppCompatActivity {
         initViewPager();
     }
 
+    private void setNav(){
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+                dl, tb,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
+
+        dl.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navView = findViewById(R.id.navView);
+        navView.inflateHeaderView(R.layout.nav_header);
+        navView.inflateMenu(R.menu.nav_menu);
+        navView.setNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+
+                default:
+                    Log.e("NavView", "Fu*k");
+                    break;
+            }
+            dl.closeDrawer(GravityCompat.START);
+            return true;
+        });
+    }
+
     private void findView() {
         vp = findViewById(R.id.viewPager);
         tl = findViewById(R.id.tabLayout);
-        toolbarTitle = findViewById(R.id.ab_title);
-//        alert = findViewById(R.id.B_Notification);
-//        help = findViewById(R.id.B_help);
+        tb = findViewById(R.id.action_bar);
+        dl = findViewById(R.id.drawerLayout);
+        setSupportActionBar(tb);
     }
 
-//    private void Utils() {
-//        alert.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(allDues.this,Notification_Activity.class);
-//                startActivity(intent);
-//            }
-//        });
-//        help.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(allDues.this,help_Activity.class);
-//                startActivity(intent);
-//            }
-//        });
-//    }
     private void initViewPager() {
         vpAdapter adapter = new vpAdapter(getSupportFragmentManager());
 
@@ -75,12 +96,10 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(tl.getTabAt(1)).setIcon(R.drawable.bill);
         Objects.requireNonNull(tl.getTabAt(2)).setIcon(R.drawable.fees);
         Objects.requireNonNull(tl.getTabAt(3)).setIcon(R.drawable.subscription);
-        toolbarTitle.setText(Objects.requireNonNull(tl.getTabAt(0)).getText());
         tl.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 vp.setCurrentItem(tab.getPosition());
-                toolbarTitle.setText(tab.getText());
             }
 
             @Override
@@ -88,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                toolbarTitle.setText(tab.getText());
             }
         });
     }

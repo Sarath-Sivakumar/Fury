@@ -102,15 +102,15 @@ public class Commons {
                         long timeDiff = Math.abs(dateAfter.getTime() - dateBefore.getTime());
                         long daysDiff = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
 
-                        perDayExp.add(daily);
-                        Log.e("Daily", "Value: " + daily);
-
                         if (itemMonth == lastMonth && itemYear == lastYear) {
                             for (int i1 = 1; i1 < daysDiff; i1++) {
                                 perDayExp.add(0);
-                                Log.e("Daily", "Adding 0");
+                                Log.e("Daily", "Value 0");
                             }
                         }
+                        perDayExp.add(daily);
+                        Log.e("Daily", "Value: " + daily + " Date: " + exp.getDate());
+
                         daily =exp.getExpenseAmt();
                         lastDate = exp.getDate();
 
