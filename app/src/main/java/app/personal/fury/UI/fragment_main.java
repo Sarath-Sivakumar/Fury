@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +48,7 @@ public class fragment_main extends Fragment {
     private RecyclerView dueList;
     private LinearLayout noDues;
     private int filter = 0;
-    private ImageButton avgInfo;
+    private ImageButton avgInfo, setBud;
 
     public fragment_main() {
     }
@@ -66,6 +67,8 @@ public class fragment_main extends Fragment {
         budgetView = v.findViewById(R.id.budgetText);
         mainProgressBar.setMax(Constants.LIMITER_MAX);
         ad = v.findViewById(R.id.adView);
+        setBud = v.findViewById(R.id.setBud);
+        setBud.setOnClickListener(v1 -> Log.e("OnClick", "SetBud"));
         dueList = v.findViewById(R.id.dueList);
         Button allExp = v.findViewById(R.id.allExp);
         allExp.setOnClickListener(v1 -> startActivity(new Intent(getContext(), allExp.class)));
