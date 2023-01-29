@@ -21,18 +21,24 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
 
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
+import app.personal.fury.UI.Adapters.IG_fragment.ig;
 import app.personal.fury.UI.Adapters.mainLists.categoryAdapter;
 import app.personal.fury.UI.Adapters.mainLists.duesAdapter;
+import app.personal.fury.ViewPagerAdapter.infoGraphicsAdapter;
 
 public class fragment_main extends Fragment {
     //Color contains 6 usable colors...
@@ -48,10 +54,11 @@ public class fragment_main extends Fragment {
     private RecyclerView dueList;
     private LinearLayout noDues;
     private int filter = 0;
+    private ViewPager ig_vp;
+    private TabLayout ig_tl;
     private ImageButton avgInfo, setBud;
 
-    public fragment_main() {
-    }
+    public fragment_main() {}
 
     private void requestAd() {
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -70,6 +77,9 @@ public class fragment_main extends Fragment {
         setBud = v.findViewById(R.id.setBud);
         setBud.setOnClickListener(v1 -> Log.e("OnClick", "SetBud"));
         dueList = v.findViewById(R.id.dueList);
+        ig_vp = v.findViewById(R.id.infoGraphics_vp);
+        ig_tl = v.findViewById(R.id.infoGraphics_tab);
+        setIG_VP();
         Button allExp = v.findViewById(R.id.allExp);
         allExp.setOnClickListener(v1 -> startActivity(new Intent(getContext(), allExp.class)));
         Button allDues = v.findViewById(R.id.allDues);
@@ -95,6 +105,17 @@ public class fragment_main extends Fragment {
         });
     }
 
+    private void setIG_VP(){
+        infoGraphicsAdapter adapter = new infoGraphicsAdapter(getParentFragmentManager());
+        ArrayList<Fragment> FragmentList = new ArrayList<>();
+        FragmentList.add(ig.newInstance(R.drawable.furybanner));
+        FragmentList.add(ig.newInstance(R.drawable.furybanner_1));
+        FragmentList.add(ig.newInstance(R.drawable.furybanner));
+        adapter.setInfoGraphics(FragmentList);
+        ig_vp.setAdapter(adapter);
+        ig_tl.setupWithViewPager(ig_vp, true);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +123,11 @@ public class fragment_main extends Fragment {
         cAdapter = new categoryAdapter();
         dAdapter = new duesAdapter();
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+        try{
+            setIG_VP();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         //initViewModel();
     }
 
