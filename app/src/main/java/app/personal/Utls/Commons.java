@@ -75,20 +75,22 @@ public class Commons {
     }
 
     public static String getAvg(List<expEntity> listData, boolean AvgDisplay) {
-        int daily = 0;
+        ArrayList<Integer> byDayTotal = new ArrayList<>(), daily = new ArrayList<>();
+        int mainListSize = listData.size();
         String lastDate = "";
-        ArrayList<Integer> perDayExp = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-        for (int i = listData.size() - 1; i >= 0; i--) {
+        for (int i = mainListSize - 1; i >= 0; i--) {
             expEntity exp = listData.get(i);
-            if (i == listData.size() - 1) {
-                daily = exp.getExpenseAmt();
-                lastDate = exp.getDate();
-            } else {
-                if (lastDate.equals(exp.getDate())) {
-                    daily = daily + exp.getExpenseAmt();
-                } else {
+            if (i < mainListSize - 1) {
+                if (!lastDate.equals(exp.getDate())) {
                     try {
+                        int dailyTotal = 0;
+                        for (int j = 0; j < daily.size(); j++) {
+                            dailyTotal = dailyTotal + daily.get(j);
+                        }
+                        byDayTotal.add(dailyTotal);
+                        Log.e("DailyTotal", "Value: " + dailyTotal + " Date: " + lastDate);
+
                         String[] itemDate = exp.getDate().split("/");
                         String[] lastDateSplit = exp.getDate().split("/");
                         int itemMonth = Integer.parseInt(itemDate[1]);
@@ -104,26 +106,38 @@ public class Commons {
 
                         if (itemMonth == lastMonth && itemYear == lastYear) {
                             for (int i1 = 1; i1 < daysDiff; i1++) {
-                                perDayExp.add(0);
+                                byDayTotal.add(0);
                                 Log.e("Daily", "Value 0");
                             }
                         }
-                        perDayExp.add(daily);
-                        Log.e("Daily", "Value: " + daily + " Date: " + exp.getDate());
-
-                        daily =exp.getExpenseAmt();
-                        lastDate = exp.getDate();
-
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Log.e("Adding 0 error", e.getMessage());
                     }
+
+                    daily.clear();
+                    daily.add(exp.getExpenseAmt());
+                    lastDate = exp.getDate();
+                    if (i == 0) {
+                        int dailyTotal1 = 0;
+                        for (int j = 0; j < daily.size(); j++) {
+                            dailyTotal1 = dailyTotal1 + daily.get(j);
+                        }
+                        byDayTotal.add(dailyTotal1);
+                        Log.e("DailyTotal", "Value: " + dailyTotal1 + " Date: " + lastDate);
+                    }
+                } else {
+                    daily.add(exp.getExpenseAmt());
                 }
+            } else {
+                lastDate = exp.getDate();
+                daily.add(exp.getExpenseAmt());
             }
         }
         if (AvgDisplay) {
-            return findAvg(perDayExp);
+            return findAvg(byDayTotal);
         } else {
-            return limiterAvg(perDayExp);
+            return limiterAvg(byDayTotal);
         }
     }
 
