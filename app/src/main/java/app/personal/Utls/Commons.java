@@ -78,6 +78,7 @@ public class Commons {
         ArrayList<Integer> byDayTotal = new ArrayList<>(), daily = new ArrayList<>();
         int mainListSize = listData.size();
         String lastDate = "";
+        int lastDay= -1;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         for (int i = mainListSize - 1; i >= 0; i--) {
             expEntity exp = listData.get(i);
@@ -89,14 +90,8 @@ public class Commons {
                             dailyTotal = dailyTotal + daily.get(j);
                         }
                         byDayTotal.add(dailyTotal);
-                        Log.e("DailyTotal", "Value: " + dailyTotal + " Date: " + lastDate);
+                        Log.e("DailyTotal", "Value: " + dailyTotal + " Date: " + lastDate + " Day: "+ getDisplayDay(lastDay));
 
-                        String[] itemDate = exp.getDate().split("/");
-                        String[] lastDateSplit = exp.getDate().split("/");
-                        int itemMonth = Integer.parseInt(itemDate[1]);
-                        int lastMonth = Integer.parseInt(lastDateSplit[1]);
-                        int itemYear = Integer.parseInt(itemDate[2]);
-                        int lastYear = Integer.parseInt(lastDateSplit[2]);
                         Date dateBefore = sdf.parse(lastDate);
                         Date dateAfter = sdf.parse(exp.getDate());
                         assert dateAfter != null;
@@ -104,12 +99,11 @@ public class Commons {
                         long timeDiff = Math.abs(dateAfter.getTime() - dateBefore.getTime());
                         long daysDiff = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
 
-                        if (itemMonth == lastMonth && itemYear == lastYear) {
-                            for (int i1 = 1; i1 < daysDiff; i1++) {
-                                byDayTotal.add(0);
-                                Log.e("Daily", "Value 0");
-                            }
+                        for (int i1 = 1; i1 < daysDiff; i1++) {
+                            byDayTotal.add(0);
+                            Log.e("Daily", "Value 0");
                         }
+
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.e("Adding 0 error", e.getMessage());
@@ -118,19 +112,21 @@ public class Commons {
                     daily.clear();
                     daily.add(exp.getExpenseAmt());
                     lastDate = exp.getDate();
+                    lastDay = exp.getDay();
                     if (i == 0) {
                         int dailyTotal1 = 0;
                         for (int j = 0; j < daily.size(); j++) {
                             dailyTotal1 = dailyTotal1 + daily.get(j);
                         }
                         byDayTotal.add(dailyTotal1);
-                        Log.e("DailyTotal", "Value: " + dailyTotal1 + " Date: " + lastDate);
+                        Log.e("DailyTotal", "Value: " + dailyTotal1 + " Date: " + lastDate + " Day: "+ getDisplayDay(lastDay));
                     }
                 } else {
                     daily.add(exp.getExpenseAmt());
                 }
             } else {
                 lastDate = exp.getDate();
+                lastDay = exp.getDay();
                 daily.add(exp.getExpenseAmt());
             }
         }
