@@ -123,11 +123,7 @@ public class fragment_main extends Fragment {
         cAdapter = new categoryAdapter();
         dAdapter = new duesAdapter();
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-        try{
-            setIG_VP();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+
         //initViewModel();
     }
 
