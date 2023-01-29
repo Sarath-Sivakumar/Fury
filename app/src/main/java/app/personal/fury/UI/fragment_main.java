@@ -245,9 +245,9 @@ public class fragment_main extends Fragment {
         mainProgressBar.setProgress(progress, true);
         String prg;
         if (progress > 0 && progress <= 100) {
-            prg = progress + "%\nTotal";
+            prg = progress + "%";
         } else {
-            prg = 0 + "%\nTotal";
+            prg = 0 + "%";
         }
         mainProgressText.setText(prg);
         String p = Constants.RUPEE + (int)expense;
