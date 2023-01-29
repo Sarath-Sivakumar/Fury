@@ -16,6 +16,7 @@
 
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
+    <string name="top_categories">Top Categories</string>
 
     <string-array name="catOvrAvg_items">
         <!--Donot use (" ' ") directly. use \ before it...-->

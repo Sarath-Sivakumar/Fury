@@ -24,7 +24,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/expense_overview"
                 android:textSize="18sp"
-                android:paddingBottom="6dp" />
+                android:fontFamily="@font/raleway_bold"
+                android:paddingBottom="12dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -70,8 +71,8 @@
                                 android:id="@+id/mainText"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:fontFamily="@font/work_sans_semibold"
                                 android:gravity="center"
-                                android:fontFamily="@font/kanit_semibold"
                                 android:textSize="24sp" />
                         </FrameLayout>
                     </androidx.cardview.widget.CardView>
@@ -95,7 +96,7 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/krona_one"
+                                    android:fontFamily="@font/raleway_bold"
                                     android:text="@string/expense"
                                     android:textSize="12sp" />
 
@@ -104,7 +105,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
-                                    android:fontFamily="@font/kanit_semibold"
+                                    android:fontFamily="@font/work_sans_semibold"
                                     android:textSize="22sp" />
                             </LinearLayout>
 
@@ -118,7 +119,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/krona_one"
+                                    android:fontFamily="@font/raleway_bold"
                                     android:text="@string/budget"
                                     android:textSize="12sp" />
 
@@ -133,7 +134,7 @@
                                     android:layout_height="match_parent"
                                     android:layout_marginTop="4dp"
                                     android:gravity="center|start"
-                                    android:fontFamily="@font/kanit_semibold"
+                                    android:fontFamily="@font/raleway_bold"
                                     android:textSize="22sp" />
 
                                 <ImageButton
@@ -164,7 +165,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:fontFamily="@font/krona_one"
+                                    android:fontFamily="@font/raleway_bold"
                                     android:text="@string/daily_average"
                                     android:textSize="12sp" />
 
@@ -178,7 +179,7 @@
                                         android:id="@+id/daily_avg"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:fontFamily="@font/kanit_semibold"
+                                        android:fontFamily="@font/work_sans_semibold"
                                         android:layout_gravity="center"
                                         android:textSize="20sp" />
 
@@ -202,8 +203,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginTop="12dp"
+                android:paddingTop="12dp"
                 android:paddingBottom="6dp"
-                android:text="@string/category_overview"
+                android:fontFamily="@font/raleway_bold"
+                android:text="@string/top_categories"
                 android:textSize="18sp" />
 
             <LinearLayout
@@ -230,6 +233,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center"
                     android:text="View All"
+                    android:fontFamily="@font/raleway_medium"
                     android:textAllCaps="false"
                     android:textColor="?attr/colorPrimary" />
             </LinearLayout>
@@ -324,6 +328,7 @@
                     android:layout_gravity="start|center"
                     android:layout_weight="1"
                     android:text="@string/dues_overview"
+                    android:fontFamily="@font/raleway_bold"
                     android:textSize="18sp" />
 
                 <Button
@@ -333,6 +338,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center"
                     android:text="View All"
+                    android:fontFamily="@font/raleway_medium"
                     android:textAllCaps="false"
                     android:textColor="?attr/colorPrimary" />
 

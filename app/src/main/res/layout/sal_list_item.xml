@@ -14,8 +14,9 @@
         android:layout_height="match_parent"
         android:layout_marginStart="12dp"
         android:gravity="center|start"
+        android:fontFamily="@font/raleway_semibold"
         android:text="salary"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,17 +31,19 @@
             android:textSize="24sp"
             android:layout_marginEnd="12dp"
             android:gravity="end"
-            android:text="27000"
+            android:fontFamily="@font/work_sans_semibold"
+            android:text=""
             android:textColor="?attr/colorSecondary"/>
 
         <TextView
             android:id="@+id/salTyp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="end"
             android:layout_marginEnd="24dp"
-            android:textSize="14sp"
-            android:text="Monthly" />
+            android:fontFamily="@font/raleway_medium"
+            android:gravity="end"
+            android:text="Monthly"
+            android:textSize="14sp" />
 
     </LinearLayout>
 </LinearLayout>

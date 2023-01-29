@@ -16,7 +16,7 @@
         <item name="android:windowLightStatusBar">false</item>
         <!-- Customize your theme here. -->
 <!--After deleting font sync with gradle to avoid null exep.-->
-<!--        <item name="android:fontFamily">@font/secular_one</item>-->
+        <item name="android:fontFamily">@font/raleway_medium</item>
 
     </style>
 </resources>

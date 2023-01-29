@@ -167,7 +167,7 @@ public class Salary_Planner extends Fragment {
                     total = total + entity.get(i).getSalary();
                 }
                 finalTotalSalary.set(total);
-                String s = Constants.RUPEE + finalTotalSalary.get();
+                String s = Constants.RUPEE+ " " + finalTotalSalary.get();
                 salAmt.setText(s);
             }
         });
