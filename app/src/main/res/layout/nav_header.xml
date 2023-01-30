@@ -39,6 +39,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginBottom="6dp"
             android:layout_marginEnd="24dp"
+            android:fontFamily="@font/raleway_bold"
             android:text="Hello, UserName"
             android:textSize="16sp" />
 

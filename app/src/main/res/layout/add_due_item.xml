@@ -33,6 +33,7 @@
                         android:layout_height="wrap_content"
                         android:padding="12dp"
                         android:text="New Due"
+                        android:fontFamily="@font/raleway_bold"
                         android:textSize="24sp" />
 
                 </LinearLayout>
@@ -49,16 +50,17 @@
                     android:id="@+id/D_amt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="12dp"
+                    android:fontFamily="@font/work_sans_medium"
+                    android:hint="₹ Amount"
                     android:inputType="number"
-                    android:hint="Due Amount" />
+                    android:padding="12dp" />
 
                 <TextView
                     android:id="@+id/Due_"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="12dp"
-                    android:text="Due Date"
+                    android:text="Select Date"
                     android:textSize="18sp"/>
 
                 <CalendarView
