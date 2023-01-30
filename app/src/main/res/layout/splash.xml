@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/container"
-    android:gravity="center"
     android:orientation="horizontal">
 
     <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher" />
-
-<!--        <View-->
-<!--            android:layout_width="0.2dp"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="@android:color/darker_gray" />-->
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@null" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,4 +29,18 @@
             android:textSize="30sp" />
     </LinearLayout>
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/version"
+            android:layout_marginBottom="24dp"
+            android:textSize="12sp"
+            android:gravity="center"/>
+
+    </LinearLayout>
+</FrameLayout>

@@ -34,7 +34,7 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     public expHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.due_item, parent, false);
+                .inflate(R.layout.due_item1, parent, false);
         return new expHolder(itemView);
     }
 
@@ -45,34 +45,16 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
         String amt = Constants.RUPEE + entity.getAmount();
         holder.dAmt.setText(amt);
         holder.dName.setText(entity.getSource());
-        holder.dFinalDate.setText(entity.getFinalDate());
-
+        if (entity.getStatus().equals(Constants.DEBT_PAID)){
+            holder.dFinalDate.setText(entity.getDate());
+        }else {
+            holder.dFinalDate.setText(entity.getFinalDate());
+        }
+        holder.dStatus.setText(entity.getStatus());
         //To get first letter in source name--------------------------------------
         String ico = String.valueOf(entity.getSource().charAt(0)).toUpperCase();
         holder.icoText.setText(ico);
         //------------------------------------------------------------------------
-
-        if (!filter) {
-            holder.dStatus.setText(entity.getStatus());
-            if (entity.getStatus().equals(Constants.DEBT_PAID)) {
-                try {
-                    holder.dPaidDateTitle.setVisibility(View.VISIBLE);
-                    holder.dPaidDate.setVisibility(View.VISIBLE);
-                    holder.dStatus.setTextColor(colorGreen);
-                    holder.dPaidDate.setTextColor(colorGreen);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }else{
-                holder.dPaidDateTitle.setVisibility(View.GONE);
-                holder.dPaidDate.setVisibility(View.GONE);
-            }
-            holder.dPaidDate.setText(entity.getDate());
-        } else {
-            holder.dPaidDateTitle.setVisibility(View.GONE);
-            holder.dPaidDate.setVisibility(View.GONE);
-            holder.dStatus.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -122,15 +104,13 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     }
 
     class expHolder extends RecyclerView.ViewHolder {
-        private final TextView dAmt, dStatus, dFinalDate, dPaidDateTitle, dPaidDate,dName, icoText;
+        private final TextView dAmt, dStatus, dFinalDate,dName, icoText;
 
         public expHolder(@NonNull View itemView) {
             super(itemView);
             dAmt = itemView.findViewById(R.id.dAmt);
             dStatus = itemView.findViewById(R.id.dStatus);
             dFinalDate = itemView.findViewById(R.id.finalDate);
-            dPaidDate = itemView.findViewById(R.id.paidDate);
-            dPaidDateTitle = itemView.findViewById(R.id.paidDateTitle);
             icoText = itemView.findViewById(R.id.icoText);
             dName = itemView.findViewById(R.id.dName);
 

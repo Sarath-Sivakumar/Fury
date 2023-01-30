@@ -4,8 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="12dp"
-    android:paddingStart="12dp"
-    android:paddingEnd="12dp"
     tools:context=".UI.Dues_Debt">
 
     <androidx.core.widget.NestedScrollView
@@ -22,6 +20,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
                 android:background="@drawable/border_bg"
                 android:orientation="vertical">
 
@@ -122,8 +122,9 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dueList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:listitem="@layout/due_item" />
+                android:layout_height="500dp"
+                android:layout_marginTop="12dp"
+                tools:listitem="@layout/due_item1" />
             <!--Hide paid date textview in adapter-->
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

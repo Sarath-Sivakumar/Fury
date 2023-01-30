@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,7 +55,7 @@ public class fragment_main extends Fragment {
     private int filter = 0;
     private ViewPager ig_vp;
     private TabLayout ig_tl;
-    private ImageButton avgInfo, setBud;
+    private ImageButton avgInfo;
 
     public fragment_main() {}
 
@@ -74,11 +73,14 @@ public class fragment_main extends Fragment {
         budgetView = v.findViewById(R.id.budgetText);
         mainProgressBar.setMax(Constants.LIMITER_MAX);
         ad = v.findViewById(R.id.adView);
-        setBud = v.findViewById(R.id.setBud);
-        setBud.setOnClickListener(v1 -> Log.e("OnClick", "SetBud"));
         dueList = v.findViewById(R.id.dueList);
         ig_vp = v.findViewById(R.id.infoGraphics_vp);
         ig_tl = v.findViewById(R.id.infoGraphics_tab);
+        budgetView.setOnClickListener(v1 -> {
+            if(budgetView.getText().toString().equals("Set a budget.")){
+                MainActivity.redirectTo(2);
+            }
+        });
         setIG_VP();
         Button allExp = v.findViewById(R.id.allExp);
         allExp.setOnClickListener(v1 -> startActivity(new Intent(getContext(), allExp.class)));
@@ -123,11 +125,7 @@ public class fragment_main extends Fragment {
         cAdapter = new categoryAdapter();
         dAdapter = new duesAdapter();
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-        try{
-            setIG_VP();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+
         //initViewModel();
     }
 
@@ -138,20 +136,23 @@ public class fragment_main extends Fragment {
         View v = inflater.inflate(R.layout.fragment_main, container, false);
         findView(v);
         initViewModel();
-        String s = "Set a budget.";
-        budgetView.setText(s);
-        budgetView.setTextSize(12);
         return v;
     }
 
     private void initViewModel() {
-
         getSal();
-//        vm.getBudget().observe(requireActivity(), budgetEntities -> {
-//            if (budgetEntities!=null){
-//                budgetView.setText(budgetEntities.);
-//            }
-//        });
+        vm.getBudget().observe(requireActivity(), budgetEntities -> {
+            if (budgetEntities==null||budgetEntities.isEmpty()){
+                String s = "Set a budget.";
+                budgetView.setText(s);
+                budgetView.setTextSize(13);
+                budgetView.setElegantTextHeight(true);
+                TypedValue typedValue = new TypedValue();
+                Resources.Theme theme = requireActivity().getTheme();
+                theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true);
+                budgetView.setTextColor(typedValue.data);
+            }
+        });
 
         getExp(filter);
         getDebt();
