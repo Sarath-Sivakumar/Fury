@@ -21,7 +21,8 @@ import app.personal.Utls.Constants;
         debtEntity.class,
         expEntity.class,
         salaryEntity.class,
-        budgetEntity.class},
+        budgetEntity.class,
+        inHandBalEntity.class},
         version = Constants.DB_LATEST_VERSION)
 public abstract class localDB extends RoomDatabase {
 
@@ -43,7 +44,7 @@ public abstract class localDB extends RoomDatabase {
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
-            database.execSQL("CREATE TABLE 'In_Hand_Bal_Table' ('id' INTEGER, 'balance' INTEGER, PRIMARY KEY('id'))");
+            database.execSQL("CREATE TABLE IF NOT EXISTS 'In_Hand_Bal_Table' ('id' INTEGER, 'balance' INTEGER, PRIMARY KEY('id'))");
         }
     };
 
