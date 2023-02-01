@@ -2,6 +2,7 @@ package app.personal.MVVM.DB;
 
 import android.content.Context;
 
+import androidx.room.AutoMigration;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -24,7 +25,10 @@ import app.personal.Utls.Constants;
         salaryEntity.class,
         budgetEntity.class,
         inHandBalEntity.class},
-        version = Constants.DB_LATEST_VERSION)
+        version = Constants.DB_LATEST_VERSION,
+        autoMigrations = {
+                @AutoMigration(from = 1, to = 2)
+        })
 public abstract class localDB extends RoomDatabase {
 
     private static localDB instance;
