@@ -13,6 +13,7 @@ import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.budgetEntity;
 import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Entity.expEntity;
+import app.personal.MVVM.Entity.inHandBalEntity;
 import app.personal.MVVM.Entity.salaryEntity;
 
 @Dao
@@ -41,6 +42,17 @@ public interface localDao {
 
     @Query("SELECT * FROM Balance_Table ORDER BY id DESC")
     LiveData<balanceEntity> getBalData();
+
+    //InHandBalance------
+
+    @Insert
+    void InsertInHandBal(inHandBalEntity entity);
+
+    @Query("DELETE FROM In_Hand_Bal_Table")
+    void DeleteInHandBal();
+
+    @Query("SELECT * FROM In_Hand_Bal_Table ORDER BY id DESC")
+    LiveData<balanceEntity> getInHandBalData();
 
     //Salary------
 

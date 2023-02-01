@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "605fcb149d11f31aa85f5ae1387b5beb",
+    "identityHash": "6e769056620a0d85615823f91cb85352",
     "entities": [
       {
         "tableName": "Balance_Table",
@@ -193,12 +193,38 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "In_Hand_Bal_Table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `balance` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "balance",
+            "columnName": "balance",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '605fcb149d11f31aa85f5ae1387b5beb')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6e769056620a0d85615823f91cb85352')"
     ]
   }
 }
