@@ -99,15 +99,15 @@ public class allDues extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                 } else {
                     debtEntity entity = adapter.getDebtAt(viewHolder.getAdapterPosition());
-                    if(!entity.getStatus().equals(Constants.DEBT_PAID)) {
+                    if (!entity.getStatus().equals(Constants.DEBT_PAID)) {
                         entity.setStatus(Constants.DEBT_PAID);
                         entity.setDate(Commons.getDate());
                         vm.DeleteDebt(adapter.getDebtAt(viewHolder.getAdapterPosition()));
                         vm.InsertDebt(entity);
 
                         Commons.SnackBar(recyclerView, "Debt marked as paid.");
-                    }else{
-                        Commons.SnackBar(recyclerView, "Debt marked as paid on "+entity.getDate()+".");
+                    } else {
+                        Commons.SnackBar(recyclerView, "Debt marked as paid on " + entity.getDate() + ".");
                         adapter.notifyDataSetChanged();
                     }
                 }

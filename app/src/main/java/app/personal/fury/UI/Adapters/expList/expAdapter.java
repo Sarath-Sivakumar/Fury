@@ -33,7 +33,7 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
     @Override
     public void onBindViewHolder(@NonNull expHolder holder, int position) {
         expEntity currentExp = exp.get(position);
-        String DisplayAmt = Constants.RUPEE + currentExp.getExpenseAmt();
+        String DisplayAmt = "+"+Constants.RUPEE + currentExp.getExpenseAmt();
         holder.expAmt.setText(DisplayAmt);
         holder.expName.setText(currentExp.getExpenseName());
         holder.expDate.setText(currentExp.getDate());

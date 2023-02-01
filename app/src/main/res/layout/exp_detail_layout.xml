@@ -97,6 +97,7 @@
                             android:id="@+id/amt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/work_sans_medium"
                             android:textColor="@color/white"
                             android:textSize="15sp" />
 
@@ -110,7 +111,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginBottom="6dp"
-                    android:text="Metadata"
+                    android:text="Other details"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
@@ -130,6 +131,7 @@
 
                     <TextView
                         android:id="@+id/time"
+                        android:fontFamily="@font/work_sans_medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white" />
@@ -143,6 +145,7 @@
 
                     <TextView
                         android:id="@+id/date"
+                        android:fontFamily="@font/work_sans_medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white" />
@@ -156,6 +159,7 @@
 
                     <TextView
                         android:id="@+id/day"
+                        android:fontFamily="@font/work_sans_medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white" />
