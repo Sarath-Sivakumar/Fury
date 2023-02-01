@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".UI.Exp_Tracker">
 
     <androidx.core.widget.NestedScrollView
@@ -19,126 +19,127 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="6dp"
                 android:background="?attr/colorOnSecondary"
+                android:elevation="6dp"
                 android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:layout_weight=".8"
-                    android:text="@string/total_expense_today"
-                    android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/exp_trac_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="14dp"
-                android:gravity="center"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/todayExp"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="12dp"
-            android:background="@drawable/border_bg"
-            android:gravity="center"
-            android:textSize="36sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:baselineAligned="false">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="@string/account_balance"
-                    android:textSize="16sp" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_weight=".8"
+                        android:fontFamily="@font/raleway_bold"
+                        android:text="@string/total_expense_today"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/exp_trac_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="14dp"
+                        android:fontFamily="@font/work_sans_semibold"
+                        android:gravity="center"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/expBalance"
+                    android:id="@+id/todayExp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginEnd="22dp"
-                    android:layout_marginBottom="10dp"
-                    android:textColor="@color/theme_gold"
-                    android:textSize="22sp" />
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="12dp"
+                    android:background="@drawable/border_bg"
+                    android:fontFamily="@font/work_sans_semibold"
+                    android:gravity="center"
+                    android:textSize="36sp" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/raleway_bold"
+                            android:text="@string/account_balance"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/expBalance"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginEnd="22dp"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/work_sans_semibold"
+                            android:textSize="22sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/raleway_bold"
+                            android:gravity="end"
+                            android:text="Daily Average"
+                            android:textSize="16sp" />
+
+                        <com.google.android.material.progressindicator.LinearProgressIndicator
+                            android:id="@+id/progress"
+                            android:layout_width="180dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="end|top"
+                            android:padding="12dp"
+                            app:trackColor="?attr/colorOnPrimary"
+                            app:trackThickness="12dp" />
+
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="12dp"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="end"
-                    android:text="Daily Average"
-                    android:textSize="16sp" />
-
-                <com.google.android.material.progressindicator.LinearProgressIndicator
-                    android:id="@+id/progress"
-                    android:layout_width="180dp"
-                    android:layout_gravity="end|top"
-                    android:layout_height="match_parent"
-                    android:padding="12dp"
-                    app:trackColor="?attr/colorOnPrimary"
-                    app:trackThickness="12dp" />
-
-            </LinearLayout>
-        </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/exp_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="500dp"
                 android:paddingStart="6dp"
                 android:paddingTop="6dp"
                 android:paddingEnd="6dp"
                 tools:listitem="@layout/exp_list_item" />
 
-        </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -148,6 +149,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="12dp"
-        android:src="@drawable/ic_add"
-        android:contentDescription="@null" />
+        android:contentDescription="@null"
+        android:src="@drawable/ic_add" />
 </FrameLayout>

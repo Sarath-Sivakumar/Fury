@@ -15,10 +15,10 @@
 
         <androidx.cardview.widget.CardView
             android:layout_marginTop="12dp"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="?attr/colorOnSecondary"
-            app:cardCornerRadius="50dp">
+            app:cardCornerRadius="30dp">
 
             <TextView
                 android:id="@+id/icoText"
@@ -32,6 +32,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -41,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
                 android:paddingEnd="0dp"
-                android:layout_marginTop="12dp"
+                android:fontFamily="@font/raleway_bold"
                 android:text="Due_Name"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
@@ -51,9 +52,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
+                android:layout_marginTop="6dp"
                 android:paddingTop="6dp"
                 android:paddingEnd="0dp"
                 android:text="Due_Status"
+                android:visibility="gone"
                 android:textColor="@android:color/holo_red_light"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -87,6 +90,7 @@
                     android:paddingTop="0dp"
                     android:paddingEnd="0dp"
                     android:text="12/12/2023"
+                    android:fontFamily="@font/work_sans_medium"
                     android:textColor="@android:color/holo_red_light"
                     android:textSize="12sp" />
 
@@ -127,6 +131,7 @@
                     android:paddingStart="12dp"
                     android:layout_marginTop="6dp"
                     android:text="12/12/2023"
+                    android:fontFamily="@font/work_sans_medium"
                     android:textColor="@android:color/holo_red_light"
                     android:textSize="12sp" />
 
@@ -146,6 +151,7 @@
             android:gravity="center"
             android:paddingStart="0dp"
             android:textSize="24sp"
+            android:fontFamily="@font/work_sans_semibold"
             android:text="Due_AMOUNT"
             android:textColor="@color/white" />
     </LinearLayout>

@@ -184,10 +184,11 @@
             </LinearLayout>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginTop="12dp"
+                android:layout_marginStart="6dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="6dp"
                 android:fontFamily="@font/raleway_bold"
@@ -224,7 +225,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
@@ -258,34 +259,6 @@
                 android:layout_marginBottom="6dp"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/theme_gold"
-                        android:text="Ad" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.4dp"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="2dp"
-                        android:background="@android:color/darker_gray"/>
-                </LinearLayout>
-
-                <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/adView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="50dp"
-                    android:minWidth="320dp"
-                    ads:adSize="BANNER"
-                    ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
-                <!--Test ID ca-app-pub-3940256099942544/6300978111-->
 
                 <View
                     android:layout_width="match_parent"
@@ -391,6 +364,34 @@
                     android:layout_height="0.4dp"
                     android:layout_gravity="center"
                     android:background="@android:color/darker_gray" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/theme_gold"
+                        android:text="Ad" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.4dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="2dp"
+                        android:background="@android:color/darker_gray"/>
+                </LinearLayout>
+
+                <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/adView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="50dp"
+                    android:minWidth="320dp"
+                    ads:adSize="BANNER"
+                    ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+                <!--Test ID ca-app-pub-3940256099942544/6300978111-->
 
             </LinearLayout>
         </LinearLayout>

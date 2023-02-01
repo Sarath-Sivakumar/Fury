@@ -46,7 +46,7 @@ public class allExp extends AppCompatActivity {
         setUi();
     }
 
-    private void setUi(){
+    private void setUi() {
         TextView title = findViewById(R.id.title);
         String s = "All Expenses";
         title.setText(s);
@@ -64,20 +64,20 @@ public class allExp extends AppCompatActivity {
         touchHelper();
         getExp();
     }
-    
-    private void showRecyclerView(){
+
+    private void showRecyclerView() {
         recyclerView.setVisibility(View.VISIBLE);
         empty.setVisibility(View.GONE);
     }
-    
-    private void showEmpty(){
+
+    private void showEmpty() {
         recyclerView.setVisibility(View.GONE);
         empty.setVisibility(View.VISIBLE);
         String s = "No Recorded Expenses Yet..";
         emptyMsg.setText(s);
     }
 
-    private void itemDeletePopUp(){
+    private void itemDeletePopUp() {
         PopupWindow popupWindow = new PopupWindow(this);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
@@ -117,7 +117,7 @@ public class allExp extends AppCompatActivity {
         vm.getBalance().observe(this, entity -> {
             if (entity != null) {
                 Balance.set(entity.getBalance());
-                Log.e("Bal",String.valueOf(entity.getBalance()));
+                Log.e("Bal", String.valueOf(entity.getBalance()));
             }
         });
         return Balance.get();
@@ -146,17 +146,17 @@ public class allExp extends AppCompatActivity {
 
     private void getExp() {
         vm.getExp().observe(this, entity -> {
-            if (!entity.isEmpty()){
+            if (!entity.isEmpty()) {
                 adapter.clear();
                 adapter.setExp(entity, false);
                 showRecyclerView();
-            }else{
+            } else {
                 showEmpty();
             }
         });
     }
 
-    private void expDetailPopup(expEntity exp){
+    private void expDetailPopup(expEntity exp) {
         PopupWindow popupWindow = new PopupWindow(this);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
@@ -173,7 +173,7 @@ public class allExp extends AppCompatActivity {
         time = view.findViewById(R.id.time);
 
         cat.setText(exp.getExpenseName());
-        String s = Constants.RUPEE+exp.getExpenseAmt();
+        String s = Constants.RUPEE + exp.getExpenseAmt();
         amt.setText(s);
         date.setText(exp.getDate());
         day.setText(Commons.getDisplayDay(exp.getDay()));
