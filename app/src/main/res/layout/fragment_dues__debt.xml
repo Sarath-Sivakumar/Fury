@@ -94,7 +94,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
+                    android:textSize="8sp"
                     android:text="Mark as paid" />
 
                 <View
@@ -105,27 +105,39 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
+                    android:textSize="8sp"
                     android:text="Delete" />
 
             </LinearLayout>
 
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Upcoming Dues"
-                android:textSize="18sp"
-                android:fontFamily="@font/raleway_semibold"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/raleway_semibold"
+                android:text="Upcoming Dues"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@drawable/border_bg"
+                android:layout_margin="12dp"
+                android:layout_gravity="center_horizontal" >
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dueList"
-                android:layout_width="match_parent"
+                android:layout_width="337dp"
                 android:layout_height="500dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="12dp"
                 tools:listitem="@layout/due_item1" />
             <!--Hide paid date textview in adapter-->
+
+            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

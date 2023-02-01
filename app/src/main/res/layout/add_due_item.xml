@@ -81,6 +81,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="Add"
+                        android:fontFamily="@font/raleway_bold"
                         android:background="@drawable/card_view_theme"
                         android:textAllCaps="false" />
 
@@ -90,6 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Cancel"
+                        android:fontFamily="@font/raleway_bold"
                         android:textAllCaps="false"
                         android:textColor="?attr/colorSecondaryVariant"/>
 
