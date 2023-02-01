@@ -9,8 +9,9 @@ public class Constants {
             salaryTable = "Salary_Table",
             debtTable = "Debt_Table",
             budgetTable="Budget_Table",
+            inHandBalTable = "In_Hand_Bal_Table",
             dbName = "Fury_Database";
-    public static final int DB_VERSION = 1;
+    public static final int DB_LATEST_VERSION = 2;
     //--------------------------------------------------------------
     public static final String Dues = "Dues",
             Exp = "Expenses",
@@ -24,11 +25,6 @@ public class Constants {
             RUPEE = "₹",
             DEBT_PAID = "Paid",
             DEBT_NOT_PAID = "Not Paid",
-            DUE_SRC = "DueSource",
-            DUE_AMT = "DueAmount",
-            DUE_FINAL_DATE = "DueFinalDate",
-            DUE_STATUS = "DueStatus",
-            DUE_PAID_DATE = "DuePaidDate",
             dAvgNoData = "Collecting data!";
     //Internal-------------------------------------------------------
     public static final int itemDelete = 0,

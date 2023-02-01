@@ -5,6 +5,8 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import app.personal.MVVM.Dao.localDao;
 import app.personal.MVVM.Entity.balanceEntity;
@@ -20,7 +22,7 @@ import app.personal.Utls.Constants;
         expEntity.class,
         salaryEntity.class,
         budgetEntity.class},
-        version = Constants.DB_VERSION)
+        version = Constants.DB_LATEST_VERSION)
 public abstract class localDB extends RoomDatabase {
 
     private static localDB instance;
@@ -32,9 +34,17 @@ public abstract class localDB extends RoomDatabase {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                             localDB.class, Constants.dbName)
                     .fallbackToDestructiveMigration()
+                    .addMigrations(MIGRATION_1_2)
                     .build();
         }
         return instance;
     }
+
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE 'In_Hand_Bal_Table' ('id' INTEGER, 'balance' INTEGER, PRIMARY KEY('id'))");
+        }
+    };
 
 }
