@@ -34,4 +34,55 @@
             android:textSize="24sp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight=".5">
+        
+        <EditText
+            android:id="@+id/u_name"
+            android:layout_width="300dp"
+            android:layout_height="?actionBarSize"
+            android:hint="Name"
+            android:fontFamily="@font/raleway_semibold"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/u_mail"
+            android:layout_width="300dp"
+            android:layout_height="?actionBarSize"
+            android:hint="Email"
+            android:fontFamily="@font/raleway_semibold"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/u_pass"
+            android:layout_width="300dp"
+            android:layout_height="?actionBarSize"
+            android:hint="Password"
+            android:fontFamily="@font/raleway_semibold"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/s_btn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_btn"
+            android:layout_marginTop="20dp"
+            android:text="SignUp"
+            android:fontFamily="@font/raleway_semibold"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/swi_logpg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already have account? login"
+            android:layout_marginTop="20dp"/>
+
+
+    </LinearLayout>
+
 </LinearLayout>
