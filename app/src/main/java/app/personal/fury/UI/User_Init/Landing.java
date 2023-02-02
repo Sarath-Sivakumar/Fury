@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import app.personal.fury.R;
 import app.personal.fury.UI.MainActivity;
+import app.personal.fury.UI.User_Init.signUp.signUp;
 
 public class Landing extends AppCompatActivity {
 
@@ -22,8 +23,8 @@ public class Landing extends AppCompatActivity {
 
     private void init() {
         login = findViewById(R.id.login);
-//        signup = findViewById(R.id.signup);
+        signup = findViewById(R.id.signup);
         login.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
-//        signup.setOnClickListener(v -> startActivity(new Intent(this, signUp.class)));
+        signup.setOnClickListener(v -> startActivity(new Intent(this, signUp.class)));
     }
 }
