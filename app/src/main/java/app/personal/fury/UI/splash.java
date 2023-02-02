@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewPropertyAnimatorCompat;
 
 import app.personal.fury.R;
+import app.personal.fury.UI.User_Init.Landing;
 
 public class splash extends AppCompatActivity {
 
@@ -44,11 +45,11 @@ public class splash extends AppCompatActivity {
             viewAnimator = ViewCompat.animate(v)
                     .scaleX(20).scaleY(20)
                     .setStartDelay(0)
-                    .setDuration(10000);
+                    .setDuration(15000);
             viewAnimator.setInterpolator(new DecelerateInterpolator()).start();
             animationStarted=true;
         }
-        startActivity(new Intent(splash.this, MainActivity.class));
+        startActivity(new Intent(splash.this, Landing.class));
         finish();
     }
 }
