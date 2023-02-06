@@ -13,10 +13,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import app.personal.MVVM.Entity.expEntity;
 
 public class Commons {
+
+//    Change this later for better accuracy!
+    private static final Pattern EMAIL_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",Pattern.CASE_INSENSITIVE);
 
     public static void SnackBar(View v, String Text) {
         Snackbar.make(v, Text, Snackbar.LENGTH_SHORT).show();
@@ -195,5 +200,18 @@ public class Commons {
 
     public static String getDailyAvg(float budget){
         return String.valueOf((int)(budget/getDays(Integer.parseInt(getMonth()))));
+    }
+
+    public static boolean isEmail(String Email){
+        Matcher matcher = EMAIL_REGEX.matcher(Email);
+        return matcher.find();
+    }
+
+    public static boolean isValidPass(String Password){
+        if (Password.length()>=6){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

@@ -8,14 +8,14 @@
         android:pathData="M0,0h411v823h-411z"/>
     <path
         android:pathData="M0,0h411v823h-411z"
-        android:fillColor="#ffffff"/>
+        android:fillColor="?attr/colorOnSecondary"/>
     <path
         android:pathData="M191.61,241.99C186.04,134.86 55.04,32.13 -9.77,-5.84L-37,-71H610.84L641.23,173.24C656.38,296.38 684.34,510.48 697.35,569.1C702.08,571.04 704.45,574.4 703.93,579.61C703.01,588.85 700.66,583.99 697.35,569.1C650.42,549.76 370.83,668.57 370.83,476.99C370.83,266.11 198.58,375.91 191.61,241.99Z"
-        android:fillColor="#121212"/>
+        android:fillColor="?attr/colorSecondary"/>
     <path
         android:strokeWidth="1"
         android:pathData="M-9.77,-5.84C55.04,32.13 186.04,134.86 191.61,241.99C198.58,375.91 370.83,266.11 370.83,476.99C370.83,687.88 709.63,522.66 703.93,579.61C699.37,625.18 660.23,327.68 641.23,173.24L610.84,-71H-37L-9.77,-5.84Z"
         android:fillColor="#00000000"
-        android:strokeColor="#FCFCFC"/>
+        android:strokeColor="?attr/colorPrimary"/>
   </group>
 </vector>

@@ -10,13 +10,16 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewPropertyAnimatorCompat;
+import androidx.lifecycle.ViewModelProvider;
 
+import app.personal.MVVM.Viewmodel.userInitViewModel;
 import app.personal.fury.R;
 import app.personal.fury.UI.User_Init.Landing;
 
 public class splash extends AppCompatActivity {
 
     private ViewGroup container;
+    private userInitViewModel uvm;
 
     private boolean animationStarted = false;
 
@@ -49,7 +52,19 @@ public class splash extends AppCompatActivity {
             viewAnimator.setInterpolator(new DecelerateInterpolator()).start();
             animationStarted=true;
         }
-        startActivity(new Intent(splash.this, Landing.class));
-        finish();
+        setViewModel();
+    }
+
+    private void setViewModel(){
+        uvm = new ViewModelProvider(this).get(userInitViewModel.class);
+        uvm.getUserId().observe(this, firebaseUser -> {
+            if (firebaseUser!=null){
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+            }else{
+                startActivity(new Intent(splash.this, Landing.class));
+                finish();
+            }
+        });
     }
 }
