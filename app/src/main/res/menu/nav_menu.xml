@@ -9,13 +9,17 @@
             android:id="@+id/help"
             android:title="Help" />
 
-<!--        <item-->
-<!--            android:id="@+id/settings"-->
-<!--            android:title="Settings" />-->
+        <item
+            android:id="@+id/settings"
+            android:title="Settings" />
 
         <item
             android:id="@+id/about"
             android:title="About" />
+
+        <item
+            android:id="@+id/logout"
+            android:title="Logout" />
 
     </group>
 </menu>

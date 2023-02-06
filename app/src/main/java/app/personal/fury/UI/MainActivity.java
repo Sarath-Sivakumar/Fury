@@ -1,29 +1,34 @@
 package app.personal.fury.UI;
 
-import android.content.res.ColorStateList;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
 
+import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
+import app.personal.MVVM.Viewmodel.userInitViewModel;
 import app.personal.Utls.Constants;
 import app.personal.Utls.ViewPager.viewPager;
 import app.personal.fury.R;
+import app.personal.fury.UI.User_Init.Landing;
 import app.personal.fury.ViewPagerAdapter.vpAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
     private static viewPager vp;
+    private userInitViewModel uvm;
+    private LoggedInUserViewModel luvm;
     private TabLayout tl;
     private DrawerLayout dl;
     private Toolbar tb;
@@ -32,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setUserViewModel();
         init();
         setNav();
 
@@ -44,6 +50,23 @@ public class MainActivity extends AppCompatActivity {
         //init AD here..
         findView();
         initViewPager();
+    }
+
+    private void setUserViewModel(){
+        uvm = new ViewModelProvider(this).get(userInitViewModel.class);
+        luvm = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
+        luvm.getIsLoggedOut().observe(this, Boolean->{
+            if (Boolean){
+                startActivity(new Intent(this, Landing.class));
+                finish();
+            }
+        });
+        uvm.getUserId().observe(this, firebaseUser -> {
+            if (firebaseUser==null){
+                startActivity(new Intent(this, Landing.class));
+                finish();
+            }
+        });
     }
 
     private void setNav(){
@@ -61,9 +84,23 @@ public class MainActivity extends AppCompatActivity {
         navView.inflateMenu(R.menu.nav_menu);
         navView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
-
+                case R.id.notification:
+//                    todo
+                    break;
+                case R.id.help:
+//                    todo
+                    break;
+                case R.id.settings:
+//                    todo
+                    break;
+                case R.id.about:
+//                    todo
+                    break;
+                case R.id.logout:
+                    luvm.LogOut();
+                    break;
                 default:
-                    Log.e("NavView", "Fu*k");
+                    Log.e("NavView", "Default");
                     break;
             }
             dl.closeDrawer(GravityCompat.START);
