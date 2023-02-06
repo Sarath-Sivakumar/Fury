@@ -2,6 +2,7 @@ package app.personal.fury.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
@@ -60,6 +61,7 @@ public class splash extends AppCompatActivity {
         uvm.getUserId().observe(this, firebaseUser -> {
             if (firebaseUser!=null){
                 startActivity(new Intent(this, MainActivity.class));
+                Log.e("Splash", firebaseUser.getUid());
                 finish();
             }else{
                 startActivity(new Intent(splash.this, Landing.class));
