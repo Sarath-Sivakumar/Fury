@@ -7,24 +7,27 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import app.personal.fury.R;
-import app.personal.fury.UI.MainActivity;
+import app.personal.fury.UI.User_Init.login.Login;
 import app.personal.fury.UI.User_Init.signUp.signUp;
 
 public class Landing extends AppCompatActivity {
-
-    private Button login,signup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing);
         init();
+        getAllPermissions();
     }
 
     private void init() {
-        login = findViewById(R.id.login);
-        signup = findViewById(R.id.signup);
-        login.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
+        Button login = findViewById(R.id.login);
+        Button signup = findViewById(R.id.signup);
+        login.setOnClickListener(v -> startActivity(new Intent(this, Login.class)));
         signup.setOnClickListener(v -> startActivity(new Intent(this, signUp.class)));
+    }
+
+    private void getAllPermissions(){
+        //Get all necessary permissions here..
     }
 }

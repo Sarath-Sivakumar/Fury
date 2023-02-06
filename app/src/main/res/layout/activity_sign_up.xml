@@ -34,18 +34,23 @@
             android:textSize="24sp" />
     </LinearLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:gravity="center"
         android:layout_weight=".5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
         
         <EditText
             android:id="@+id/u_name"
             android:layout_width="300dp"
             android:layout_height="?actionBarSize"
             android:hint="Name"
+            android:singleLine="true"
             android:fontFamily="@font/raleway_semibold"
             android:textSize="16sp" />
 
@@ -54,14 +59,25 @@
             android:layout_width="300dp"
             android:layout_height="?actionBarSize"
             android:hint="Email"
+            android:singleLine="true"
             android:fontFamily="@font/raleway_semibold"
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/u_pass"
+            android:id="@+id/u_pass1"
             android:layout_width="300dp"
             android:layout_height="?actionBarSize"
             android:hint="Password"
+            android:singleLine="true"
+            android:fontFamily="@font/raleway_semibold"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/u_pass2"
+            android:layout_width="300dp"
+            android:layout_height="?actionBarSize"
+            android:hint="Retype Password"
+            android:singleLine="true"
             android:fontFamily="@font/raleway_semibold"
             android:textSize="16sp" />
 
@@ -76,13 +92,12 @@
             android:textSize="16dp" />
 
         <TextView
-            android:id="@+id/swi_logpg"
+            android:id="@+id/to_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Already have account? login"
-            android:layout_marginTop="20dp"/>
-
-
+            android:text="@string/login_frm_signup"
+            android:layout_marginTop="20dp" />
+        
     </LinearLayout>
-
+    </ScrollView>
 </LinearLayout>

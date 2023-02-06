@@ -35,4 +35,6 @@ public class Constants {
             monthly = 0,
             daily = 1,
             hourly = -1;
+    //Firebase-------------------------------------------------------
+    public static final String DB_INSTANCE="https://fury-d3622-default-rtdb.asia-southeast1.firebasedatabase.app";
 }

@@ -122,10 +122,10 @@
                             android:id="@+id/progress"
                             android:layout_width="180dp"
                             android:layout_height="match_parent"
-                            android:layout_gravity="end|top"
+                            android:layout_gravity="end|top|center"
                             android:padding="12dp"
                             app:trackColor="?attr/colorOnPrimary"
-                            app:trackThickness="12dp" />
+                            app:trackThickness="6dp" />
 
                     </LinearLayout>
                 </LinearLayout>
