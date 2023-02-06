@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:minWidth="120dp"
+    android:minWidth="125dp"
     android:minHeight="60dp"
     android:layout_margin="6dp"
     android:elevation="6dp"
@@ -22,6 +22,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="start"
+            android:layout_marginStart="6dp"
             android:src="@drawable/ic_home" />
 
         <TextView
@@ -32,12 +33,13 @@
             android:layout_marginEnd="2dp"
             android:fontFamily="@font/work_sans_semibold"
             android:gravity="center|end"
-            android:textSize="20sp" />
+            android:textSize="22sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="0.5">
 
     <TextView
@@ -45,6 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:fontFamily="@font/raleway_semibold"
         android:textSize="16sp" />
 
     </LinearLayout>
