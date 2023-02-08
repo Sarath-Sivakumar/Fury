@@ -44,5 +44,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fury_desc">Money management made easy</string>
     <string name="log_in">Log In</string>
+    <string name="current_balance">Current Balance</string>
+    <string name="total_expense">Total Expense</string>
+    <string name="my_budget">My Budget</string>
 
 </resources>

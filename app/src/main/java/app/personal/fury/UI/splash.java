@@ -53,20 +53,22 @@ public class splash extends AppCompatActivity {
             viewAnimator.setInterpolator(new DecelerateInterpolator()).start();
             animationStarted=true;
         }
-        setViewModel();
+//            setViewModel();
+        startActivity(new Intent(this, MainActivity.class));
     }
 
-    private void setViewModel(){
-        uvm = new ViewModelProvider(this).get(userInitViewModel.class);
-        uvm.getUserId().observe(this, firebaseUser -> {
-            if (firebaseUser!=null){
-                startActivity(new Intent(this, MainActivity.class));
-                Log.e("Splash", firebaseUser.getUid());
-                finish();
-            }else{
-                startActivity(new Intent(splash.this, Landing.class));
-                finish();
-            }
-        });
-    }
+//    private void setViewModel(){
+//        uvm = new ViewModelProvider(this).get(userInitViewModel.class);
+//        uvm.getUserId().observe(this, firebaseUser -> {
+//            if (firebaseUser!=null){
+//                startActivity(new Intent(this, MainActivity.class));
+//                Log.e("Splash", firebaseUser.getUid());
+//                finish();
+//            }else{
+//                startActivity(new Intent(splash.this, Landing.class));
+//                finish();
+//            }
+//        });
+//    }
+
 }

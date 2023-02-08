@@ -3,6 +3,7 @@ package app.personal.fury.UI;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
@@ -23,6 +26,7 @@ import app.personal.Utls.ViewPager.viewPager;
 import app.personal.fury.R;
 import app.personal.fury.UI.User_Init.Landing;
 import app.personal.fury.ViewPagerAdapter.vpAdapter;
+import app.personal.MVVM.DB.Models.user;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tl;
     private DrawerLayout dl;
     private Toolbar tb;
+
+    private TextView UserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +113,12 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
     }
+//todo
+//    private void profileinfo() {
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        String uid = user.getUid();
+//        Log.e("username",uid);
+//    }
 
     private void findView() {
         vp = findViewById(R.id.viewPager);
