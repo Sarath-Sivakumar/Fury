@@ -1,4 +1,4 @@
-package app.personal.fury.UI.Adapters.IG_fragment;
+package app.personal.fury.UI.IG_fragment;
 
 import android.os.Bundle;
 

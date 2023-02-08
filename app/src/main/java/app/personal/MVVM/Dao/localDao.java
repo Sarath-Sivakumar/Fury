@@ -32,6 +32,8 @@ public interface localDao {
     @Query("SELECT * FROM Exp_Table ORDER BY id DESC")
     LiveData<List<expEntity>> getExpData();
 
+    @Query("DELETE FROM Exp_Table")
+    void deleteAllExpData();
     //Balance------
 
     @Insert
