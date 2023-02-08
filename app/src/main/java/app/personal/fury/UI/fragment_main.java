@@ -17,6 +17,8 @@ import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,7 +36,7 @@ import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
-import app.personal.fury.UI.Adapters.IG_fragment.ig;
+import app.personal.fury.UI.IG_fragment.ig;
 import app.personal.fury.UI.Adapters.mainLists.categoryAdapter;
 import app.personal.fury.UI.Adapters.mainLists.duesAdapter;
 import app.personal.fury.ViewPagerAdapter.infoGraphicsAdapter;
@@ -56,6 +58,8 @@ public class fragment_main extends Fragment {
     private ViewPager ig_vp;
     private TabLayout ig_tl;
     private ImageButton avgInfo;
+    private infoGraphicsAdapter igAdapter;
+    private ArrayList<Fragment> FragmentList;
 
     public fragment_main() {}
 
@@ -76,12 +80,13 @@ public class fragment_main extends Fragment {
         dueList = v.findViewById(R.id.dueList);
         ig_vp = v.findViewById(R.id.infoGraphics_vp);
         ig_tl = v.findViewById(R.id.infoGraphics_tab);
+        igAdapter = new infoGraphicsAdapter(getParentFragmentManager());
+        FragmentList = new ArrayList<>();
         budgetView.setOnClickListener(v1 -> {
             if(budgetView.getText().toString().equals("Set a budget.")){
                 MainActivity.redirectTo(2);
             }
         });
-        setIG_VP();
         Button allExp = v.findViewById(R.id.allExp);
         allExp.setOnClickListener(v1 -> startActivity(new Intent(getContext(), allExp.class)));
         Button allDues = v.findViewById(R.id.allDues);
@@ -108,13 +113,11 @@ public class fragment_main extends Fragment {
     }
 
     private void setIG_VP(){
-        infoGraphicsAdapter adapter = new infoGraphicsAdapter(getParentFragmentManager());
-        ArrayList<Fragment> FragmentList = new ArrayList<>();
         FragmentList.add(ig.newInstance(R.drawable.furybanner));
         FragmentList.add(ig.newInstance(R.drawable.furybanner_1));
         FragmentList.add(ig.newInstance(R.drawable.furybanner));
-        adapter.setInfoGraphics(FragmentList);
-        ig_vp.setAdapter(adapter);
+        igAdapter.setInfoGraphics(FragmentList);
+        ig_vp.setAdapter(igAdapter);
         ig_tl.setupWithViewPager(ig_vp, true);
     }
 
@@ -135,6 +138,12 @@ public class fragment_main extends Fragment {
         findView(v);
         initViewModel();
         return v;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setIG_VP();
     }
 
     private void initViewModel() {
@@ -243,7 +252,6 @@ public class fragment_main extends Fragment {
         });
     }
 
-
     private void setMain(int progress) {
         mainProgressBar.setProgress(progress, true);
         String prg;
@@ -260,6 +268,7 @@ public class fragment_main extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+//        setIG_VP();
         progress = 0;
         salary = 0;
         expense = 0;
@@ -276,6 +285,7 @@ public class fragment_main extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+//        setIG_VP();
         progress = 0;
         salary = 0;
         expense = 0;
