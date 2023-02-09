@@ -16,9 +16,6 @@
         android:theme="@style/Theme.Fury"
         tools:targetApi="31">
         <activity
-            android:name=".UI.Activity_budget"
-            android:exported="false" />
-        <activity
             android:name=".UI.User_Init.Landing"
             android:exported="false" />
         <activity

@@ -20,7 +20,7 @@ public class mainViewModel extends AndroidViewModel {
     private final localRepository repo;
     private final LiveData<balanceEntity> getBalance;
     private final LiveData<List<debtEntity>> getDebt;
-    private final LiveData<List<budgetEntity>> getBudget;
+    private final LiveData<budgetEntity> getBudget;
     private final LiveData<List<expEntity>> getExp;
     private final LiveData<List<salaryEntity>> getSalary;
 
@@ -100,7 +100,7 @@ public class mainViewModel extends AndroidViewModel {
         return getExp;
     }
 
-    public LiveData<List<budgetEntity>> getBudget(){
+    public LiveData<budgetEntity> getBudget(){
         return getBudget;
     }
 }
