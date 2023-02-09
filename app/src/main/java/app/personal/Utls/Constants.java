@@ -17,6 +17,13 @@ public class Constants {
             Exp = "Expenses",
             Salary = "Salary",
             main = "Fury",
+
+            home = "Home",
+
+            income = "Income",
+
+            budget = "Budget",
+
             EXP_NAME = "EXPENSE_NAME",
             EXP_AMT = "EXPENSE_AMOUNT",
             EXP_DATE = "EXPENSE_DATE",

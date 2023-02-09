@@ -231,8 +231,7 @@
 
                 <View
                     android:layout_width="0.3dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/black" />
+                    android:layout_height="match_parent" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/catList"
@@ -248,8 +247,7 @@
 
                 <View
                     android:layout_width="0.3dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/black" />
+                    android:layout_height="match_parent" />
             </LinearLayout>
 
             <LinearLayout

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.navigation.NavigationView;
@@ -26,7 +27,7 @@ import app.personal.Utls.ViewPager.viewPager;
 import app.personal.fury.R;
 import app.personal.fury.UI.User_Init.Landing;
 import app.personal.fury.ViewPagerAdapter.vpAdapter;
-import app.personal.MVVM.DB.Models.user;
+import app.personal.MVVM.Entity.user;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -132,10 +133,12 @@ public class MainActivity extends AppCompatActivity {
         vpAdapter adapter = new vpAdapter(getSupportFragmentManager());
 
         //Add fragments here
-        adapter.addFragment(new fragment_main(), Constants.main);
+        adapter.addFragment(new fragment_main(), Constants.home);
         adapter.addFragment(new Exp_Tracker(), Constants.Exp);
-        adapter.addFragment(new Salary_Planner(), Constants.Salary);
+        adapter.addFragment(new Salary_Planner(), Constants.income);
+        adapter.addFragment(new Fragment(),Constants.budget);
         adapter.addFragment(new Dues_Debt(), Constants.Dues);
+
 
         vp.setAdapter(adapter);
         vp.setPagingEnabled(false);
@@ -143,7 +146,8 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(tl.getTabAt(0)).setIcon(R.drawable.rent);
         Objects.requireNonNull(tl.getTabAt(1)).setIcon(R.drawable.bill);
         Objects.requireNonNull(tl.getTabAt(2)).setIcon(R.drawable.fees);
-        Objects.requireNonNull(tl.getTabAt(3)).setIcon(R.drawable.subscription);
+        Objects.requireNonNull(tl.getTabAt(3)).setIcon(R.drawable.fury_logo);
+        Objects.requireNonNull(tl.getTabAt(4)).setIcon(R.drawable.subscription);
         tl.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

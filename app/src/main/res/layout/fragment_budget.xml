@@ -126,6 +126,15 @@
                     android:fontFamily="@font/raleway_semibold"
                     android:text="@string/top_categories"
                     android:textSize="18sp" />
+
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/Cat_top"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="500dp"-->
+<!--                android:paddingStart="6dp"-->
+<!--                android:paddingTop="6dp"-->
+<!--                android:paddingEnd="6dp"-->
+<!--                tools:listitem="" />-->
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
