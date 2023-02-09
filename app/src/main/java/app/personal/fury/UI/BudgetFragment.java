@@ -30,7 +30,7 @@ public class BudgetFragment extends Fragment {
     private FloatingActionButton addBudget;
     private TextView BudgetAmt, Balance, Expense;
     private mainViewModel vm;
-    private List<expEntity> allExp = new ArrayList<>();
+    private List<expEntity> allExpense = new ArrayList<>();
     private RecyclerView topExp;
 
     public BudgetFragment() {
@@ -80,7 +80,7 @@ public class BudgetFragment extends Fragment {
 
         vm.getExp().observe(getViewLifecycleOwner(), expEntities -> {
             if (expEntities != null && !expEntities.isEmpty()) {
-                allExp = expEntities;
+                allExpense = expEntities;
                 int total = 0;
                 for (int i = 0; i < expEntities.size(); i++) {
                     total = total + expEntities.get(i).getExpenseAmt();
