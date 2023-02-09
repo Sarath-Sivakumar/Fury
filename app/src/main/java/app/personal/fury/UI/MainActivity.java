@@ -26,7 +26,7 @@ import app.personal.Utls.ViewPager.viewPager;
 import app.personal.fury.R;
 import app.personal.fury.UI.User_Init.Landing;
 import app.personal.fury.ViewPagerAdapter.vpAdapter;
-import app.personal.MVVM.DB.Models.user;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -113,11 +113,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
     }
-//todo
+
 //    private void profileinfo() {
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        String uid = user.getUid();
-//        Log.e("username",uid);
 //    }
 
     private void findView() {
@@ -136,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new Exp_Tracker(), Constants.Exp);
         adapter.addFragment(new Salary_Planner(), Constants.Salary);
         adapter.addFragment(new Dues_Debt(), Constants.Dues);
+        adapter.addFragment(new BudgetFragment(), Constants.Budget);
 
         vp.setAdapter(adapter);
         vp.setPagingEnabled(false);
@@ -144,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(tl.getTabAt(1)).setIcon(R.drawable.bill);
         Objects.requireNonNull(tl.getTabAt(2)).setIcon(R.drawable.fees);
         Objects.requireNonNull(tl.getTabAt(3)).setIcon(R.drawable.subscription);
+        Objects.requireNonNull(tl.getTabAt(4)).setIcon(R.drawable.subscription);
         tl.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

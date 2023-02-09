@@ -19,7 +19,7 @@ public class localRepository {
     private final localDao dao;
     private final LiveData<balanceEntity> getBalance;
     private final LiveData<List<debtEntity>> getDebt;
-    private final LiveData<List<budgetEntity>> getBudget;
+    private final LiveData<budgetEntity> getBudget;
     private final LiveData<List<expEntity>> getExp;
     private final LiveData<List<salaryEntity>> getSalary;
 
@@ -90,7 +90,7 @@ public class localRepository {
         new DeleteBudgetAsyncTask(dao).execute(budgetEntity);
     }
 
-    public LiveData<List<budgetEntity>> getBudget(){return getBudget;}
+    public LiveData<budgetEntity> getBudget(){return getBudget;}
 
     public LiveData<balanceEntity> getBalance(){
         return getBalance;

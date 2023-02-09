@@ -84,7 +84,7 @@ public class fragment_main extends Fragment {
         FragmentList = new ArrayList<>();
         budgetView.setOnClickListener(v1 -> {
             if(budgetView.getText().toString().equals("Set a budget.")){
-                MainActivity.redirectTo(2);
+                MainActivity.redirectTo(4);
             }
         });
         Button allExp = v.findViewById(R.id.allExp);
@@ -149,7 +149,7 @@ public class fragment_main extends Fragment {
     private void initViewModel() {
         getSal();
         vm.getBudget().observe(requireActivity(), budgetEntities -> {
-            if (budgetEntities==null||budgetEntities.isEmpty()){
+            if (budgetEntities==null){
                 String s = "Set a budget.";
                 budgetView.setText(s);
                 budgetView.setTextSize(13);
@@ -268,7 +268,6 @@ public class fragment_main extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-//        setIG_VP();
         progress = 0;
         salary = 0;
         expense = 0;
@@ -285,7 +284,6 @@ public class fragment_main extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-//        setIG_VP();
         progress = 0;
         salary = 0;
         expense = 0;

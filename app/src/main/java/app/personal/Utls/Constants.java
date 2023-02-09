@@ -8,7 +8,7 @@ public class Constants {
             expTable = "Exp_Table",
             salaryTable = "Salary_Table",
             debtTable = "Debt_Table",
-            budgetTable="Budget_Table",
+            budgetTable = "Budget_Table",
             inHandBalTable = "In_Hand_Bal_Table",
             dbName = "Fury_Database";
     public static final int DB_LATEST_VERSION = 2;
@@ -17,6 +17,7 @@ public class Constants {
             Exp = "Expenses",
             Salary = "Salary",
             main = "Fury",
+            Budget = "Budget",
             EXP_NAME = "EXPENSE_NAME",
             EXP_AMT = "EXPENSE_AMOUNT",
             EXP_DATE = "EXPENSE_DATE",
@@ -25,7 +26,17 @@ public class Constants {
             RUPEE = "₹",
             DEBT_PAID = "Paid",
             DEBT_NOT_PAID = "Not Paid",
-            dAvgNoData = "Collecting data!";
+            dAvgNoData = "Collecting data!",
+            Food = "Food",
+            Travel = "Travel",
+            Rent = "Rent",
+            Gas = "Gas",
+            Electricity = "Electricity",
+            Recharge = "Recharge",
+            Fees = "Fees",
+            Subscriptions = "Subscriptions",
+            Health_Care = "Health Care",
+            Bills = "Bills";
     //Internal-------------------------------------------------------
     public static final int itemDelete = 0,
             itemAdd = 1,
@@ -36,5 +47,5 @@ public class Constants {
             daily = 1,
             hourly = -1;
     //Firebase-------------------------------------------------------
-    public static final String DB_INSTANCE="https://fury-d3622-default-rtdb.asia-southeast1.firebasedatabase.app";
+    public static final String DB_INSTANCE = "https://fury-d3622-default-rtdb.asia-southeast1.firebasedatabase.app";
 }
