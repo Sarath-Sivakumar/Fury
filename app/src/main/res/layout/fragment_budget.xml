@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="12dp"
     android:paddingStart="12dp"
+    android:paddingTop="12dp"
     android:paddingEnd="12dp"
-    tools:context=".UI.Activity_budget">
+    tools:context=".UI.BudgetFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -21,15 +21,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:gravity="center"
-                android:paddingLeft="12dp"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginEnd="6dp"
-                android:paddingRight="12dp"
                 android:background="@drawable/card_view_theme"
                 android:elevation="6dp"
-                android:orientation="vertical">
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -44,12 +44,13 @@
                     android:id="@+id/bgtAmt"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:singleLine="true"
                     android:fontFamily="@font/work_sans_semibold"
                     android:gravity="center"
+                    android:singleLine="true"
                     android:textSize="26sp" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -109,14 +110,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="14dp"
-                        android:layout_marginBottom="10dp"
                         android:layout_marginEnd="12dp"
+                        android:layout_marginBottom="10dp"
                         android:fontFamily="@font/work_sans_semibold"
                         android:textSize="22sp" />
 
                 </LinearLayout>
             </LinearLayout>
 
+<<<<<<< HEAD
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -135,6 +137,27 @@
 <!--                android:paddingTop="6dp"-->
 <!--                android:paddingEnd="6dp"-->
 <!--                tools:listitem="" />-->
+=======
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/raleway_semibold"
+                android:gravity="center"
+                android:text="@string/top_categories"
+                android:textSize="18sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/top_exp"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:paddingStart="6dp"
+                android:paddingTop="6dp"
+                android:paddingEnd="6dp"
+                tools:listitem="@layout/exp_list_item" />
+
+>>>>>>> bea2219850e962411c48c0c8fe3494c08bffdd02
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

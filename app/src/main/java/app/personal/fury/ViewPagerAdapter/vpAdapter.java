@@ -9,8 +9,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 
-import app.personal.fury.UI.Activity_budget;
-
 public class vpAdapter extends FragmentPagerAdapter{
     private final ArrayList<Fragment> fragments;
     private final ArrayList<String> titles;
@@ -41,10 +39,9 @@ public class vpAdapter extends FragmentPagerAdapter{
     public void setPrimaryItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         super.setPrimaryItem(container, position, object);
     }
-
     @Override
     public CharSequence getPageTitle(int position) {
-        return titles.get(position);
+        return null;
     }
 
 }

@@ -96,5 +96,5 @@ public interface localDao {
     void DeleteBudget(budgetEntity budgetEntity);
 
     @Query("SELECT * FROM Budget_Table")
-    LiveData<List<budgetEntity>> getBudgetData();
+    LiveData<budgetEntity> getBudgetData();
 }

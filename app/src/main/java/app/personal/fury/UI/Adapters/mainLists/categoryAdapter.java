@@ -15,6 +15,7 @@ import java.util.List;
 
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.Utls.Commons;
+import app.personal.Utls.Constants;
 import app.personal.fury.R;
 
 public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHolder> {
@@ -69,34 +70,34 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         }
 
         switch (entity.getExpenseName()) {
-            case "Food":
+            case Constants.Food:
                 holder.expIcon.setImageResource(R.drawable.hamburger);
                 break;
-            case "Travel":
+            case Constants.Travel:
                 holder.expIcon.setImageResource(R.drawable.destination);
                 break;
-            case "Rent":
+            case Constants.Rent:
                 holder.expIcon.setImageResource(R.drawable.rent);
                 break;
-            case "Gas":
+            case Constants.Gas:
                 holder.expIcon.setImageResource(R.drawable.gaspump);
                 break;
-            case "Electricity":
+            case Constants.Electricity:
                 holder.expIcon.setImageResource(R.drawable.electricalenergy);
                 break;
-            case "Recharge":
+            case Constants.Recharge:
                 holder.expIcon.setImageResource(R.drawable.recharge);
                 break;
-            case "Fees":
+            case Constants.Fees:
                 holder.expIcon.setImageResource(R.drawable.fees);
                 break;
-            case "Subscriptions":
+            case Constants.Subscriptions:
                 holder.expIcon.setImageResource(R.drawable.subscription);
                 break;
-            case "Health Care":
+            case Constants.Health_Care:
                 holder.expIcon.setImageResource(R.drawable.healthcare);
                 break;
-            case "Bills":
+            case Constants.Bills:
                 holder.expIcon.setImageResource(R.drawable.bill);
                 break;
             default:
@@ -158,45 +159,45 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
 
     private void setExpMerge(expEntity exp) {
         switch (exp.getExpenseName()) {
-            case "Food":
+            case Constants.Food:
                 food.add(exp);
-                merge(food, "Food");
+                merge(food, Constants.Food);
                 break;
-            case "Travel":
+            case Constants.Travel:
                 travel.add(exp);
-                merge(travel, "Travel");
+                merge(travel, Constants.Travel);
                 break;
-            case "Rent":
+            case Constants.Rent:
                 rent.add(exp);
-                merge(rent, "Rent");
+                merge(rent, Constants.Rent);
                 break;
-            case "Gas":
+            case Constants.Gas:
                 gas.add(exp);
-                merge(gas, "Gas");
+                merge(gas, Constants.Gas);
                 break;
-            case "Electricity":
+            case Constants.Electricity:
                 electricity.add(exp);
-                merge(electricity, "Electricity");
+                merge(electricity, Constants.Electricity);
                 break;
-            case "Recharge":
+            case Constants.Recharge:
                 recharge.add(exp);
-                merge(recharge, "Recharge");
+                merge(recharge, Constants.Recharge);
                 break;
-            case "Fees":
+            case Constants.Fees:
                 fees.add(exp);
-                merge(fees, "Fees");
+                merge(fees, Constants.Fees);
                 break;
-            case "Subscriptions":
+            case Constants.Subscriptions:
                 subscriptions.add(exp);
-                merge(subscriptions, "Subscriptions");
+                merge(subscriptions, Constants.Subscriptions);
                 break;
-            case "Health Care":
+            case Constants.Health_Care:
                 health.add(exp);
-                merge(health, "Health Care");
+                merge(health, Constants.Health_Care);
                 break;
-            case "Bills":
+            case Constants.Bills:
                 bills.add(exp);
-                merge(bills, "Bills");
+                merge(bills, Constants.Bills);
                 break;
             default:
                 break;
@@ -204,16 +205,16 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
     }
 
     private void setDefaultList() {
-        sumExp.add(foodIndex, defaultExp("Food"));
-        sumExp.add(travelIndex, defaultExp("Travel"));
-        sumExp.add(rentIndex, defaultExp("Rent"));
-        sumExp.add(gasIndex, defaultExp("Gas"));
-        sumExp.add(electricityIndex, defaultExp("Electricity"));
-        sumExp.add(rechargeIndex, defaultExp("Recharge"));
-        sumExp.add(feesIndex, defaultExp("Fees"));
-        sumExp.add(subsIndex, defaultExp("Subscriptions"));
-        sumExp.add(healthIndex, defaultExp("Health Care"));
-        sumExp.add(billsIndex, defaultExp("Bills"));
+        sumExp.add(foodIndex, defaultExp(Constants.Food));
+        sumExp.add(travelIndex, defaultExp(Constants.Travel));
+        sumExp.add(rentIndex, defaultExp(Constants.Rent));
+        sumExp.add(gasIndex, defaultExp(Constants.Gas));
+        sumExp.add(electricityIndex, defaultExp(Constants.Electricity));
+        sumExp.add(rechargeIndex, defaultExp(Constants.Recharge));
+        sumExp.add(feesIndex, defaultExp(Constants.Fees));
+        sumExp.add(subsIndex, defaultExp(Constants.Subscriptions));
+        sumExp.add(healthIndex, defaultExp(Constants.Health_Care));
+        sumExp.add(billsIndex, defaultExp(Constants.Bills));
     }
 
     private expEntity defaultExp(String Name) {
@@ -242,7 +243,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         exp.setDate("Null");
         exp.setExpenseName(expName);
         switch (expName) {
-            case "Food":
+            case Constants.Food:
                 try {
                     sumExp.remove(foodIndex);
                     sumExp.add(foodIndex, exp);
@@ -251,7 +252,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                     setDefaultList();
                 }
                 break;
-            case "Travel":
+            case Constants.Travel:
                 try {
                     sumExp.remove(travelIndex);
                     sumExp.add(travelIndex, exp);
@@ -261,7 +262,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                 }
 
                 break;
-            case "Rent":
+            case Constants.Rent:
                 try {
                     sumExp.remove(rentIndex);
                     sumExp.add(rentIndex, exp);
@@ -271,7 +272,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                 }
 
                 break;
-            case "Gas":
+            case Constants.Gas:
                 try {
                     sumExp.remove(gasIndex);
                     sumExp.add(gasIndex, exp);
@@ -281,7 +282,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                 }
 
                 break;
-            case "Electricity":
+            case Constants.Electricity:
                 try {
                     sumExp.remove(electricityIndex);
                     sumExp.add(electricityIndex, exp);
@@ -291,7 +292,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                 }
 
                 break;
-            case "Recharge":
+            case Constants.Recharge:
                 try {
                     sumExp.remove(rechargeIndex);
                     sumExp.add(rechargeIndex, exp);
@@ -301,7 +302,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                 }
 
                 break;
-            case "Fees":
+            case Constants.Fees:
                 try {
                     sumExp.remove(feesIndex);
                     sumExp.add(feesIndex, exp);
@@ -311,7 +312,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                 }
 
                 break;
-            case "Subscriptions":
+            case Constants.Subscriptions:
                 try {
                     sumExp.remove(subsIndex);
                     sumExp.add(subsIndex, exp);
@@ -321,7 +322,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                 }
 
                 break;
-            case "Health Care":
+            case Constants.Health_Care:
                 try {
                     sumExp.remove(healthIndex);
                     sumExp.add(healthIndex, exp);
@@ -331,7 +332,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                 }
 
                 break;
-            case "Bills":
+            case Constants.Bills:
                 try {
                     sumExp.remove(billsIndex);
                     sumExp.add(billsIndex, exp);
