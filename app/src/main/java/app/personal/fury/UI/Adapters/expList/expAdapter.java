@@ -42,7 +42,7 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
 
         switch(currentExp.getExpenseName()){
             case "Food":
-                holder.expIcon.setImageResource(R.drawable.hamburger);
+                holder.expIcon.setImageResource(R.drawable.fastfood);
                 break;
             case "Travel":
                 holder.expIcon.setImageResource(R.drawable.destination);

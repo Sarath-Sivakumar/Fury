@@ -95,6 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="8sp"
+                    android:visibility="invisible"
                     android:text="Mark as paid" />
 
                 <View
@@ -106,6 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="8sp"
+                    android:visibility="invisible"
                     android:text="Delete" />
 
             </LinearLayout>

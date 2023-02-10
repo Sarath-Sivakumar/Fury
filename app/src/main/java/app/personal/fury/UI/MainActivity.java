@@ -27,11 +27,9 @@ import app.personal.Utls.ViewPager.viewPager;
 import app.personal.fury.R;
 import app.personal.fury.UI.User_Init.Landing;
 import app.personal.fury.ViewPagerAdapter.vpAdapter;
-<<<<<<< HEAD
-import app.personal.MVVM.Entity.user;
-=======
 
->>>>>>> bea2219850e962411c48c0c8fe3494c08bffdd02
+import app.personal.MVVM.Entity.user;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -134,26 +132,21 @@ public class MainActivity extends AppCompatActivity {
         vpAdapter adapter = new vpAdapter(getSupportFragmentManager());
 
         //Add fragments here
-        adapter.addFragment(new fragment_main(), Constants.home);
         adapter.addFragment(new Exp_Tracker(), Constants.Exp);
-        adapter.addFragment(new Salary_Planner(), Constants.income);
-        adapter.addFragment(new Fragment(),Constants.budget);
-        adapter.addFragment(new Dues_Debt(), Constants.Dues);
         adapter.addFragment(new BudgetFragment(), Constants.Budget);
+        adapter.addFragment(new fragment_main(), Constants.home);
+        adapter.addFragment(new Salary_Planner(), Constants.income);
+        adapter.addFragment(new Dues_Debt(), Constants.Dues);
 
 
         vp.setAdapter(adapter);
         vp.setPagingEnabled(false);
         tl.setupWithViewPager(vp, true);
-        Objects.requireNonNull(tl.getTabAt(0)).setIcon(R.drawable.rent);
-        Objects.requireNonNull(tl.getTabAt(1)).setIcon(R.drawable.bill);
-        Objects.requireNonNull(tl.getTabAt(2)).setIcon(R.drawable.fees);
-<<<<<<< HEAD
-        Objects.requireNonNull(tl.getTabAt(3)).setIcon(R.drawable.fury_logo);
-=======
-        Objects.requireNonNull(tl.getTabAt(3)).setIcon(R.drawable.subscription);
->>>>>>> bea2219850e962411c48c0c8fe3494c08bffdd02
-        Objects.requireNonNull(tl.getTabAt(4)).setIcon(R.drawable.subscription);
+        Objects.requireNonNull(tl.getTabAt(0)).setIcon(R.drawable.expense);
+        Objects.requireNonNull(tl.getTabAt(1)).setIcon(R.drawable.budget);
+        Objects.requireNonNull(tl.getTabAt(2)).setIcon(R.drawable.home);
+        Objects.requireNonNull(tl.getTabAt(3)).setIcon(R.drawable.rupee);
+        Objects.requireNonNull(tl.getTabAt(4)).setIcon(R.drawable.invoice);
         tl.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

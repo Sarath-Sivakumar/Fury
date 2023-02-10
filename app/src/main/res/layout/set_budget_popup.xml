@@ -63,6 +63,7 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:hint="Budget Amount"
+                        android:fontFamily="@font/work_sans_medium"
                         android:inputType="text"
                         android:padding="12dp"
                         android:singleLine="true" />

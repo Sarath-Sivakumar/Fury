@@ -13,7 +13,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:fontFamily">@font/raleway_medium</item>
+        <item name="android:fontFamily">@font/raleway_semibold</item>
         <!-- Customize your theme here. -->
 <!--        <item name="android:windowDisablePreview">true</item>-->
     </style>

@@ -3,7 +3,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="6dp"
-    android:background="@drawable/card_view_theme"
     android:elevation="6dp"
     android:minWidth="125dp"
     android:minHeight="63dp"
