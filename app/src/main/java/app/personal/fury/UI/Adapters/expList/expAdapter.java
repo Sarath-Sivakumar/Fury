@@ -53,6 +53,9 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
             case "Gas":
                 holder.expIcon.setImageResource(R.drawable.gaspump);
                 break;
+            case "Groceries":
+                holder.expIcon.setImageResource(R.drawable.grocery);
+                break;
             case "Electricity":
                 holder.expIcon.setImageResource(R.drawable.electricalenergy);
                 break;

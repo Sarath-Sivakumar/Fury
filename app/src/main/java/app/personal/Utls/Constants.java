@@ -42,6 +42,8 @@ public class Constants {
             Fees = "Fees",
             Subscriptions = "Subscriptions",
             Health_Care = "Health Care",
+
+            Groceries = "Groceries",
             Bills = "Bills";
     //Internal-------------------------------------------------------
     public static final int itemDelete = 0,

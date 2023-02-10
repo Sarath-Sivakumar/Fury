@@ -7,12 +7,13 @@
     android:minWidth="125dp"
     android:minHeight="63dp"
     android:orientation="vertical"
+    android:background="@drawable/card"
     android:padding="6dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_weight="0.6"
         android:gravity="center|start"
         android:orientation="horizontal">
 
@@ -28,7 +29,7 @@
             android:id="@+id/indicatorText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
+            android:layout_marginEnd="4dp"
             android:fontFamily="@font/work_sans_semibold"
             android:gravity="center|end"
             android:singleLine="true"
@@ -39,13 +40,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="6dp"
-        android:layout_weight="0.5">
+        android:layout_weight="0.4">
 
         <TextView
             android:id="@+id/exp_cat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/raleway_semibold"
+            android:fontFamily="@font/raleway_bold"
             android:gravity="center"
             android:textSize="16sp" />
 
