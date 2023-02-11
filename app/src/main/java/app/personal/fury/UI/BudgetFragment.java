@@ -1,13 +1,10 @@
 package app.personal.fury.UI;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.ViewPropertyAnimatorCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,29 +14,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.AbsListView;
 import android.widget.Button;
-import android.widget.CalendarView;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
-import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
 
@@ -111,7 +96,7 @@ public class BudgetFragment extends Fragment {
 
         vm.getBudget().observe(getViewLifecycleOwner(), budgetEntities -> {
             try {
-                String s = Constants.RUPEE + budgetEntities.getPercent();
+                String s = Constants.RUPEE + budgetEntities.getAmount();
                 BudgetAmt.setText(s);
             } catch (Exception e) {
                 Log.e("Budget", "Error: " + e.getMessage());
@@ -154,7 +139,7 @@ public class BudgetFragment extends Fragment {
         View view = inflater.inflate(R.layout.manual_budget_popup, null);
         popupWindow.setContentView(view);
 
-        Button yes = view.findViewById(R.id.y_btn);
+        Button yes = view.findViewById(R.id.yes_btn);
 
         yes.setOnClickListener(v -> {
             popupWindow.dismiss();
