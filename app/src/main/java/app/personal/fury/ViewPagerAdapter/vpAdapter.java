@@ -11,12 +11,10 @@ import java.util.ArrayList;
 
 public class vpAdapter extends FragmentPagerAdapter{
     private final ArrayList<Fragment> fragments;
-    private final ArrayList<String> titles;
 
     public vpAdapter(FragmentManager fm){
         super(fm);
         this.fragments = new ArrayList<>();
-        this.titles = new ArrayList<>();
     }
 
     @NonNull
@@ -30,9 +28,8 @@ public class vpAdapter extends FragmentPagerAdapter{
         return fragments.size();
     }
 
-    public void addFragment(Fragment fragment, String title){
+    public void addFragment(Fragment fragment){
         fragments.add(fragment);
-        titles.add(title);
     }
 
     @Override

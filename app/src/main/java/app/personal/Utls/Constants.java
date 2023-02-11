@@ -13,17 +13,12 @@ public class Constants {
             dbName = "Fury_Database";
     public static final int DB_LATEST_VERSION = 2;
     //--------------------------------------------------------------
-    public static final String Dues = "Dues",
-            Exp = "Expenses",
-            Salary = "Salary",
+    public static final String Dues = "Dues And Debt",
+            Exp = "Expense Tracker",
+            Earnings = "Earnings Tracker",
             main = "Fury",
+            Budget = "Budgets",
 
-            home = "Home",
-
-            income = "Income",
-
-
-            Budget = "Budget",
             EXP_NAME = "EXPENSE_NAME",
             EXP_AMT = "EXPENSE_AMOUNT",
             EXP_DATE = "EXPENSE_DATE",
