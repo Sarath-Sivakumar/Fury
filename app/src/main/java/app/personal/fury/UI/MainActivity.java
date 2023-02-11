@@ -10,13 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
@@ -30,7 +27,6 @@ import app.personal.fury.ViewPagerAdapter.vpAdapter;
 
 import app.personal.MVVM.Entity.user;
 
-
 public class MainActivity extends AppCompatActivity {
 
     private static viewPager vp;
@@ -40,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout dl;
     private Toolbar tb;
 
-    private TextView UserId;
+    private TextView userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setNav();
 
         if (savedInstanceState==null){
-            vp.setCurrentItem(0,true);
+            vp.setCurrentItem(2,true);
         }
     }
 
