@@ -128,11 +128,11 @@ public class MainActivity extends AppCompatActivity {
         vpAdapter adapter = new vpAdapter(getSupportFragmentManager());
 
         //Add fragments here
-        adapter.addFragment(new Exp_Tracker(), Constants.Exp);
-        adapter.addFragment(new BudgetFragment(), Constants.Budget);
-        adapter.addFragment(new fragment_main(), Constants.home);
-        adapter.addFragment(new Salary_Planner(), Constants.income);
-        adapter.addFragment(new Dues_Debt(), Constants.Dues);
+        adapter.addFragment(new Exp_Tracker());
+        adapter.addFragment(new BudgetFragment());
+        adapter.addFragment(new fragment_main());
+        adapter.addFragment(new Salary_Planner());
+        adapter.addFragment(new Dues_Debt());
 
 
         vp.setAdapter(adapter);
@@ -147,6 +147,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 vp.setCurrentItem(tab.getPosition());
+                switch(tab.getPosition()){
+                    case 0:
+                        tb.setTitle(Constants.Exp);
+                        break;
+                    case 1:
+                        tb.setTitle(Constants.Budget);
+                        break;
+                    case 2:
+                        tb.setTitle(Constants.main);
+                        break;
+                    case 3:
+                        tb.setTitle(Constants.Earnings);
+                        break;
+                    case 4:
+                        tb.setTitle(Constants.Dues);
+                        break;
+                }
             }
 
             @Override
