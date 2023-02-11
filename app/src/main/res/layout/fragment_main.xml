@@ -73,7 +73,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/work_sans_semibold"
                                 android:gravity="center"
-                                android:textSize="24sp" />
+                                android:textSize="28sp" />
                         </FrameLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -219,7 +219,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center"
                     android:text="View All"
-                    android:fontFamily="@font/raleway_medium"
+                    android:fontFamily="@font/raleway_semibold"
                     android:textAllCaps="false"
                     android:textColor="?attr/colorPrimary" />
             </LinearLayout>
@@ -310,7 +310,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center"
                     android:text="View All"
-                    android:fontFamily="@font/raleway_medium"
+                    android:fontFamily="@font/raleway_semibold"
                     android:textAllCaps="false"
                     android:textColor="?attr/colorPrimary" />
 
