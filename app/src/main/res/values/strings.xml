@@ -29,6 +29,7 @@
 
     <string-array name="ExpenseItems">
         <item>Food</item>
+        <item>Groceries</item>
         <item>Travel</item>
         <item>Gas</item>
         <item>Rent</item>

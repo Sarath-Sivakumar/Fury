@@ -11,7 +11,9 @@ public class budgetEntity {
 
     @PrimaryKey(autoGenerate = false)
     private int id;
+//    Value
     private int percent;
+//    private int bal;
 
     @Ignore
     public budgetEntity(int id, int percent) {
