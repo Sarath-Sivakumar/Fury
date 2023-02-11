@@ -35,47 +35,12 @@
                         android:layout_weight=".5"
                         android:fontFamily="@font/raleway_bold"
                         android:padding="12dp"
+                        android:gravity="center"
                         android:text="Set Budget"
                         android:textSize="24sp" />
 
                 </LinearLayout>
 
-                <FrameLayout
-                    android:id="@+id/expNameTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <Spinner
-                        android:id="@+id/expOptions"
-                        style="@android:style/Widget.Material.Spinner.Underlined"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center|end"
-                        android:dropDownWidth="match_parent"
-                        android:entries="@array/ExpenseItems"
-                        android:padding="12dp"
-                        android:spinnerMode="dropdown"
-                        android:visibility="gone" />
-
-                    <EditText
-                        android:id="@+id/budget_Amt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:hint="Budget Amount"
-                        android:fontFamily="@font/work_sans_medium"
-                        android:inputType="text"
-                        android:padding="12dp"
-                        android:singleLine="true" />
-
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/radioTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="12dp"
-                    android:text="Select salary type" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -84,23 +49,34 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="Let Fury create your ideal Budget"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        android:fontFamily="@font/raleway_semibold"
+                        />
+
                     <Button
-                        android:id="@+id/add_yes"
+                        android:id="@+id/continue_btn"
                         style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/card_view_theme"
+                        android:background="@drawable/border_bg"
                         android:fontFamily="@font/raleway_bold"
-                        android:text="Add"
+                        android:text="Continue"
                         android:textAllCaps="false" />
 
                     <Button
-                        android:id="@+id/add_no"
+                        android:id="@+id/No_btn"
                         style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:fontFamily="@font/raleway_bold"
-                        android:text="Cancel"
+                        android:fontFamily="@font/raleway_medium"
+                        android:layout_marginTop="10dp"
+                        android:text="No thanks,Let me do it myself"
                         android:textAllCaps="false"
                         android:textColor="?attr/colorSecondaryVariant" />
 

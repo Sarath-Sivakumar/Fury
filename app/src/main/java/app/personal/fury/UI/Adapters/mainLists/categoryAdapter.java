@@ -20,18 +20,18 @@ import app.personal.fury.R;
 
 public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHolder> {
 
-    //    private onItemClickListener listener;
+//    private onItemClickListener listener;
     private final List<expEntity> sumExp = new ArrayList<>();
     private final List<expEntity> orgExp = new ArrayList<>();
     private final List<expEntity> food = new ArrayList<>(), travel = new ArrayList<>(),
-            rent = new ArrayList<>(), gas = new ArrayList<>(), electricity = new ArrayList<>(),
+            rent = new ArrayList<>(), gas = new ArrayList<>(), groceries = new ArrayList<>(), electricity = new ArrayList<>(),
             recharge = new ArrayList<>(), fees = new ArrayList<>(), subscriptions = new ArrayList<>(),
             health = new ArrayList<>(), bills = new ArrayList<>();
     private float salary;
     private int filter;
     private final int foodIndex = 0, travelIndex = 1, rentIndex = 2,
-            gasIndex = 3, electricityIndex = 4, rechargeIndex = 5,
-            feesIndex = 6, subsIndex = 7, healthIndex = 8, billsIndex = 9;
+            gasIndex = 3, groceryIndex = 4 ,electricityIndex = 5, rechargeIndex = 6,
+            feesIndex = 7, subsIndex = 8, healthIndex = 9, billsIndex = 10;
 
     @NonNull
     @Override
@@ -48,6 +48,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         travel.clear();
         rent.clear();
         gas.clear();
+        groceries.clear();
         electricity.clear();
         recharge.clear();
         fees.clear();
@@ -81,6 +82,9 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                 break;
             case Constants.Gas:
                 holder.expIcon.setImageResource(R.drawable.gaspump);
+                break;
+            case Constants.Groceries:
+                holder.expIcon.setImageResource(R.drawable.grocery);
                 break;
             case Constants.Electricity:
                 holder.expIcon.setImageResource(R.drawable.electricalenergy);
@@ -175,6 +179,10 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                 gas.add(exp);
                 merge(gas, Constants.Gas);
                 break;
+            case Constants.Groceries:
+                groceries.add(exp);
+                merge(groceries, Constants.Groceries);
+                break;
             case Constants.Electricity:
                 electricity.add(exp);
                 merge(electricity, Constants.Electricity);
@@ -209,6 +217,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         sumExp.add(travelIndex, defaultExp(Constants.Travel));
         sumExp.add(rentIndex, defaultExp(Constants.Rent));
         sumExp.add(gasIndex, defaultExp(Constants.Gas));
+        sumExp.add(groceryIndex, defaultExp(Constants.Groceries));
         sumExp.add(electricityIndex, defaultExp(Constants.Electricity));
         sumExp.add(rechargeIndex, defaultExp(Constants.Recharge));
         sumExp.add(feesIndex, defaultExp(Constants.Fees));
@@ -276,6 +285,17 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                 try {
                     sumExp.remove(gasIndex);
                     sumExp.add(gasIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
+
+                break;
+
+            case Constants.Groceries:
+                try {
+                    sumExp.remove(groceryIndex);
+                    sumExp.add(groceryIndex, exp);
                 } catch (Exception e) {
                     e.printStackTrace();
                     setDefaultList();
