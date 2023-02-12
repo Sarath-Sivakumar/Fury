@@ -1,5 +1,6 @@
 package app.personal.MVVM.Entity;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -13,21 +14,25 @@ public class salaryEntity {
     private int id;
     private String incName;
     private int salary;
-    private int incType;  //Daily = 1, Monthly = 0, Hourly = -1(To be implemented in a future update).
+    private int incType;  //Daily = 1, Monthly = 0, Hourly = -1
+    @ColumnInfo(defaultValue = "Not Set")
+    private String creationDate;
 
     @Ignore
-    public salaryEntity(int salary, String incName, int incType) {
+    public salaryEntity(int salary, String incName, int incType, String creationDate) {
         this.salary = salary;
         this.incName = incName;
         this.incType = incType;
     }
 
+
     @Ignore
-    public salaryEntity(int id, int salary, String incName, int incType) {
+    public salaryEntity(int id, int salary, String incName, int incType, String creationDate) {
         this.id = id;
         this.incName = incName;
         this.salary = salary;
         this.incType = incType;
+        this.creationDate = creationDate;
     }
 
     public salaryEntity() {}
@@ -48,6 +53,10 @@ public class salaryEntity {
         return incType;
     }
 
+    public String getCreationDate() {
+        return creationDate;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -62,5 +71,9 @@ public class salaryEntity {
 
     public void setIncType(int incType) {
         this.incType = incType;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
     }
 }
