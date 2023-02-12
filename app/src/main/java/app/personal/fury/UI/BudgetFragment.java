@@ -154,7 +154,7 @@ public class BudgetFragment extends Fragment {
         View view = inflater.inflate(R.layout.manual_budget_popup, null);
         popupWindow.setContentView(view);
 
-        Button yes = view.findViewById(R.id.y_btn);
+        Button yes = view.findViewById(R.id.yes_btn);
 
         yes.setOnClickListener(v -> {
             popupWindow.dismiss();
