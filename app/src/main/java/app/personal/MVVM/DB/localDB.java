@@ -40,7 +40,7 @@ public abstract class localDB extends RoomDatabase {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                             localDB.class, Constants.dbName)
                     .fallbackToDestructiveMigration()
-                    .addMigrations(MIGRATION_1_2,MIGRATION_2_3,MIGRATION_3_4)
+                    .addMigrations(MIGRATION_1_2,MIGRATION_2_3,MIGRATION_3_4,MIGRATION_4_5)
                     .build();
         }
         return instance;
@@ -67,4 +67,10 @@ public abstract class localDB extends RoomDatabase {
         }
     };
 
+    static final Migration MIGRATION_4_5 = new Migration(4, 5) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE 'Salary_Table' ADD COLUMN 'creationDate' VARCHAR(15) DEFAULT 'Not Set'");
+        }
+    };
 }

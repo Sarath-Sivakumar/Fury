@@ -2,6 +2,7 @@ package app.personal.fury.UI;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Entity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -116,6 +117,7 @@ public class Salary_Planner extends Fragment {
                 salaryEntity entity = new salaryEntity();
                 entity.setIncName(name.getText().toString());
                 entity.setSalary(Integer.parseInt(amt.getText().toString()));
+                entity.setCreationDate(Commons.getDate());
                 if (grp.getCheckedRadioButtonId() == R.id.daily) {
                     entity.setIncType(Constants.daily);
                     vm.InsertSalary(entity);
