@@ -84,7 +84,7 @@ public class fragment_main extends Fragment {
         FragmentList = new ArrayList<>();
         budgetView.setOnClickListener(v1 -> {
             if(budgetView.getText().toString().equals("Set a budget.")){
-                MainActivity.redirectTo(4);
+                MainActivity.redirectTo(1);
             }
         });
         Button allExp = v.findViewById(R.id.allExp);
