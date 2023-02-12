@@ -11,8 +11,9 @@ public class Constants {
             budgetTable = "Budget_Table",
             inHandBalTable = "In_Hand_Bal_Table",
             dbName = "Fury_Database";
-    public static final int DB_LATEST_VERSION = 2;
-    //--------------------------------------------------------------
+//DO NOT CHANGE----------------------------------------------------
+    public static final int DB_LATEST_VERSION = 4;
+    //-------------------------------------------------------------
     public static final String Dues = "Dues And Debt",
             Exp = "Expense Tracker",
             Earnings = "Earnings Tracker",

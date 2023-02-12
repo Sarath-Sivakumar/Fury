@@ -40,7 +40,7 @@ public abstract class localDB extends RoomDatabase {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                             localDB.class, Constants.dbName)
                     .fallbackToDestructiveMigration()
-                    .addMigrations(MIGRATION_1_2)
+                    .addMigrations(MIGRATION_1_2,MIGRATION_2_3,MIGRATION_3_4)
                     .build();
         }
         return instance;
@@ -50,6 +50,20 @@ public abstract class localDB extends RoomDatabase {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL("CREATE TABLE IF NOT EXISTS 'In_Hand_Bal_Table' ('id' INTEGER, 'balance' INTEGER, PRIMARY KEY('id'))");
+        }
+    };
+
+    static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE 'Budget_Table' RENAME COLUMN 'percent' TO 'Amount'");
+        }
+    };
+
+    static final Migration MIGRATION_3_4 = new Migration(3, 4) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE 'Budget_Table' ADD COLUMN 'bal' INTEGER NOT NULL DEFAULT 0");
         }
     };
 
