@@ -28,8 +28,8 @@
                 android:layout_height="61dp"
                 android:background="?attr/colorOnSecondary"
                 android:contentDescription="@null"
-                android:scaleType="centerCrop"/>
-<!--                android:src="@drawable/ic_baseline_account_circle_24" />-->
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_account" />
 
         </androidx.cardview.widget.CardView>
 

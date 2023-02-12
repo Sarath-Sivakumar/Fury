@@ -11,8 +11,16 @@
     <color name="theme_green">#3EC099</color>
     <color name="theme_gold">#DAFFD600</color>
     <color name="theme_green_dark">#319577</color>
+    <color name="Status_bar">#1E3749</color>
+
 
 <!--    font colors-->
+    <color name="appbar_style1_day">#ffffff</color>
+    <color name="h1_day">#555F61</color>
 
-    <color name="font_color1">#ffffff</color>
+<!--    Apptheme-->
+    <color name="app_theme_primary">#4DF0BF</color>
+    <color name="app_theme_secondary">#1E3749</color>
+    <color name="app_theme_third">#4DF0BF</color>
+
 </resources>

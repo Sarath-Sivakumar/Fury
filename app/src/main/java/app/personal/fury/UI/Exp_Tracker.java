@@ -62,9 +62,9 @@ public class Exp_Tracker extends Fragment {
         fltBtn = v.findViewById(R.id.exp_actionBtn);
         recyclerView = v.findViewById(R.id.exp_list);
         balanceView = v.findViewById(R.id.expBalance);
-        TextView dateView = v.findViewById(R.id.exp_trac_date);
+//        TextView dateView = v.findViewById(R.id.exp_trac_date);
         String s = Commons.getDisplayDay(Commons.getDay())+" | "+Commons.getDate();
-        dateView.setText(s);
+//        dateView.setText(s);
         limiter = v.findViewById(R.id.progress);
         expView = v.findViewById(R.id.todayExp);
         limiter.setMax(Constants.LIMITER_MAX);
