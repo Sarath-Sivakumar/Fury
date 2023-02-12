@@ -11,7 +11,7 @@ public class Constants {
             budgetTable = "Budget_Table",
             inHandBalTable = "In_Hand_Bal_Table",
             dbName = "Fury_Database";
-//DO NOT CHANGE----------------------------------------------------
+    //DO NOT CHANGE----------------------------------------------------
     public static final int DB_LATEST_VERSION = 4;
     //-------------------------------------------------------------
     public static final String Dues = "Dues And Debt",
@@ -20,7 +20,7 @@ public class Constants {
             main = "Fury",
             Budget = "Budgets",
 
-            EXP_NAME = "EXPENSE_NAME",
+    EXP_NAME = "EXPENSE_NAME",
             EXP_AMT = "EXPENSE_AMOUNT",
             EXP_DATE = "EXPENSE_DATE",
             EXP_TIME = "EXPENSE_TIME",

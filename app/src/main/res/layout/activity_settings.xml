@@ -24,15 +24,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center|start"
-            android:text="Notifications"
+            android:text="Settings"
             android:textColor="@color/appbar_style1_day"
             android:textSize="18sp" />
 
     </LinearLayout>
-
-    <ListView
-        android:id="@+id/notificationList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
 </LinearLayout>

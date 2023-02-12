@@ -8,6 +8,7 @@
     android:minHeight="63dp"
     android:orientation="vertical"
     android:background="@drawable/card"
+    android:backgroundTint="@color/app_theme_secondary"
     android:padding="6dp">
 
     <LinearLayout
@@ -33,6 +34,7 @@
             android:fontFamily="@font/work_sans_semibold"
             android:gravity="center|end"
             android:singleLine="true"
+            android:textColor="@color/appbar_style1_day"
             android:textSize="22sp" />
     </LinearLayout>
 
@@ -48,6 +50,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/raleway_bold"
             android:gravity="center"
+            android:textColor="@color/appbar_style1_day"
             android:textSize="16sp" />
 
     </LinearLayout>

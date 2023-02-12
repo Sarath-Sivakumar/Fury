@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Fury"
         tools:targetApi="31">
         <activity
+            android:name=".UI.Drawer.Settings_Activity"
+            android:exported="false" />
+        <activity
             android:name=".UI.User_Init.Landing"
             android:exported="false" />
         <activity
@@ -28,10 +31,10 @@
             android:name=".UI.allDues"
             android:exported="false" />
         <activity
-            android:name=".UI.help_Activity"
+            android:name=".UI.Drawer.help_Activity"
             android:exported="false" />
         <activity
-            android:name=".UI.Notification_Activity"
+            android:name=".UI.Drawer.Notification_Activity"
             android:exported="false" />
         <activity
             android:name=".UI.allExp"

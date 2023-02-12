@@ -22,10 +22,10 @@ import app.personal.MVVM.Viewmodel.userInitViewModel;
 import app.personal.Utls.Constants;
 import app.personal.Utls.ViewPager.viewPager;
 import app.personal.fury.R;
+import app.personal.fury.UI.Drawer.Notification_Activity;
+import app.personal.fury.UI.Drawer.Settings_Activity;
 import app.personal.fury.UI.User_Init.Landing;
 import app.personal.fury.ViewPagerAdapter.vpAdapter;
-
-import app.personal.MVVM.Entity.user;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -84,19 +84,23 @@ public class MainActivity extends AppCompatActivity {
         dl.addDrawerListener(toggle);
         toggle.syncState();
 
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu);
+
         NavigationView navView = findViewById(R.id.navView);
         navView.inflateHeaderView(R.layout.nav_header);
         navView.inflateMenu(R.menu.nav_menu);
         navView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.notification:
-//                    todo
+                    startActivity(new Intent(MainActivity.this, Notification_Activity.class));
                     break;
                 case R.id.help:
 //                    todo
                     break;
                 case R.id.settings:
-//                    todo
+                    startActivity(new Intent(MainActivity.this, Settings_Activity.class));
                     break;
                 case R.id.about:
 //                    todo
