@@ -27,7 +27,8 @@ import app.personal.Utls.Constants;
         inHandBalEntity.class},
         version = Constants.DB_LATEST_VERSION,
         autoMigrations = {
-                @AutoMigration(from = 1, to = 2)
+                @AutoMigration(from = 1, to = 2),
+                @AutoMigration(from = 5, to = 6)
         })
 public abstract class localDB extends RoomDatabase {
 
