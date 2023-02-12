@@ -1,5 +1,6 @@
 package app.personal.MVVM.Entity;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -11,14 +12,15 @@ public class budgetEntity {
 
     @PrimaryKey(autoGenerate = false)
     private int id;
-//    Value
-    private int percent;
-//    private int bal;
+    private int Amount;
+    @ColumnInfo(defaultValue = "0")
+    private int bal;
 
     @Ignore
-    public budgetEntity(int id, int percent) {
+    public budgetEntity(int id, int Amount, int bal) {
         this.id = id;
-        this.percent = percent;
+        this.Amount = Amount;
+        this.bal = bal;
     }
 
     public budgetEntity(){}
@@ -27,15 +29,23 @@ public class budgetEntity {
         return id;
     }
 
-    public int getPercent() {
-        return percent;
+    public int getBal() {
+        return bal;
+    }
+
+    public int getAmount() {
+        return Amount;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setPercent(int percent) {
-        this.percent = percent;
+    public void setBal(int bal) {
+        this.bal = bal;
+    }
+
+    public void setAmount(int amount) {
+        this.Amount = amount;
     }
 }
