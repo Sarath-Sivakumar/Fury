@@ -10,7 +10,7 @@ import app.personal.Utls.Constants;
 @Entity(tableName = Constants.budgetTable)
 public class budgetEntity {
 
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private int Amount;
     @ColumnInfo(defaultValue = "0")

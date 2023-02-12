@@ -12,7 +12,7 @@ public class Constants {
             inHandBalTable = "In_Hand_Bal_Table",
             dbName = "Fury_Database";
 //DO NOT CHANGE----------------------------------------------------
-    public static final int DB_LATEST_VERSION = 5;
+    public static final int DB_LATEST_VERSION = 6;
     //-------------------------------------------------------------
     public static final String Dues = "Dues And Debt",
             Exp = "Expense Tracker",
