@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/expense_overview"
                 android:textSize="18sp"
-                android:textColor="@color/h1_day"
+                android:layout_marginStart="6dp"
                 android:fontFamily="@font/raleway_bold"
                 android:paddingBottom="12dp" />
 
@@ -34,6 +34,7 @@
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="9dp"
                 android:background="@drawable/card_view_theme"
+                android:backgroundTint="?attr/colorSecondary"
                 android:elevation="6dp"
                 android:padding="3dp">
 
@@ -48,7 +49,7 @@
                         android:layout_width="125dp"
                         android:layout_height="125dp"
                         android:layout_margin="12dp"
-                        app:cardBackgroundColor="?attr/colorOnPrimary"
+                        app:cardBackgroundColor="?attr/colorSecondary"
                         app:cardCornerRadius="150dp">
 
                         <FrameLayout
@@ -73,6 +74,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/work_sans_semibold"
                                 android:gravity="center"
+                                android:textColor="?attr/colorOnPrimary"
                                 android:textSize="28sp" />
                         </FrameLayout>
                     </androidx.cardview.widget.CardView>
@@ -98,6 +100,7 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/raleway_bold"
                                     android:text="@string/expense"
+                                    android:textColor="?attr/colorSecondaryVariant"
                                     android:textSize="14sp" />
 
                                 <TextView
@@ -105,6 +108,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
+                                    android:textColor="?attr/colorOnPrimary"
                                     android:fontFamily="@font/work_sans_semibold"
                                     android:textSize="21sp" />
                             </LinearLayout>
@@ -119,16 +123,18 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/raleway_bold"
+                                    android:textColor="?attr/colorSecondaryVariant"
                                     android:text="@string/budget"
                                     android:textSize="14sp" />
 
                                 <TextView
                                     android:id="@+id/budgetText"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_marginTop="3dp"
+                                    android:layout_marginTop="4dp"
                                     android:gravity="start|center"
-                                    android:fontFamily="@font/raleway_bold"
+                                    android:textColor="?attr/colorOnPrimary"
+                                    android:fontFamily="@font/work_sans_semibold"
                                     android:textSize="21sp" />
 
                             </LinearLayout>
@@ -152,6 +158,7 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/raleway_bold"
                                     android:text="@string/daily_average"
+                                    android:textColor="?attr/colorSecondaryVariant"
                                     android:textSize="14sp" />
 
                                 <LinearLayout
@@ -300,6 +307,7 @@
                     android:layout_gravity="start|center"
                     android:layout_weight="1"
                     android:text="@string/dues_overview"
+                    android:layout_marginStart="6dp"
                     android:fontFamily="@font/raleway_bold"
                     android:textSize="18sp" />
 

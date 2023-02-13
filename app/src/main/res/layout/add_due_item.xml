@@ -93,7 +93,7 @@
                         android:text="Cancel"
                         android:fontFamily="@font/raleway_bold"
                         android:textAllCaps="false"
-                        android:textColor="?attr/colorSecondaryVariant"/>
+                        />
 
                 </LinearLayout>
             </LinearLayout>

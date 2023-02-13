@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,8 @@ import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
+import app.personal.fury.UI.IG_fragment.ig;
+import app.personal.fury.ViewPagerAdapter.infoGraphicsAdapter;
 
 public class BudgetFragment extends Fragment {
 
@@ -39,6 +43,7 @@ public class BudgetFragment extends Fragment {
     private List<expEntity> allExpense = new ArrayList<>();
     private int totalSalary = 0;
     private RecyclerView topExp;
+
 
     public BudgetFragment() {
         // Required empty public constructor

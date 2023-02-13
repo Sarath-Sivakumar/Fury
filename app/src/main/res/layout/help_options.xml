@@ -11,13 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Contact us"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:layout_margin="12dp"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height=".1dp"
-        android:background="@color/app_theme_secondary" />
+        android:layout_marginStart="12dp"
+        android:background="?attr/colorSecondary"
+        />
 
 
     <TextView
@@ -25,25 +27,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Frequently asked questions?"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:layout_margin="12dp"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height=".1dp"
-        android:background="@color/app_theme_secondary" />
+        android:layout_marginStart="12dp"
+        android:background="?attr/colorSecondary"
+        />
 
     <TextView
         android:id="@+id/feedback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Report a problem"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:layout_margin="12dp"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height=".1dp"
-        android:background="@color/app_theme_secondary" />
+        android:layout_marginStart="12dp"
+        android:background="?attr/colorSecondary"
+        />
 
 </LinearLayout>

@@ -156,7 +156,7 @@
                         android:fontFamily="@font/raleway_bold"
                         android:text="Cancel"
                         android:textAllCaps="false"
-                        android:textColor="?attr/colorSecondaryVariant" />
+                         />
 
                 </LinearLayout>
             </LinearLayout>

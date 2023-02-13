@@ -11,7 +11,7 @@
         android:padding="6dp"
         android:layout_height="match_parent"
         android:textColor="?attr/colorOnSecondary"
-        android:text="Your daily average should start showing within 7 days.."
+        android:text="Daily average needs to collect some data which are processed after 7 days of usage"
         android:gravity="center|start"
         android:textSize="12sp"/>
 

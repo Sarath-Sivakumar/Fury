@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -113,9 +114,9 @@ public class fragment_main extends Fragment {
     }
 
     private void setIG_VP(){
-        FragmentList.add(ig.newInstance(R.drawable.furybanner));
         FragmentList.add(ig.newInstance(R.drawable.furybanner_1));
-        FragmentList.add(ig.newInstance(R.drawable.furybanner));
+        FragmentList.add(ig.newInstance(R.drawable.budget_ig));
+        FragmentList.add(ig.newInstance(R.drawable.info_graph2));
         igAdapter.setInfoGraphics(FragmentList);
         ig_vp.setAdapter(igAdapter);
         ig_tl.setupWithViewPager(ig_vp, true);
@@ -150,7 +151,7 @@ public class fragment_main extends Fragment {
         getSal();
         vm.getBudget().observe(requireActivity(), budgetEntities -> {
             if (budgetEntities==null){
-                String s = "Set a budget.";
+                String s = "set a budget";
                 budgetView.setText(s);
                 budgetView.setTextSize(13);
                 budgetView.setElegantTextHeight(true);
@@ -158,6 +159,20 @@ public class fragment_main extends Fragment {
                 Resources.Theme theme = requireActivity().getTheme();
                 theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true);
                 budgetView.setTextColor(typedValue.data);
+            }
+            else{
+
+                try {
+                    String s = Constants.RUPEE + budgetEntities.getAmount();
+                    budgetView.setText(s);
+                    Log.e("Budget", "Amount: " + s);
+
+                } catch (Exception e) {
+                    Log.e("Budget", "Error: " + e.getMessage());
+                    String s = Constants.RUPEE + "0";
+                    budgetView.setText(s);
+                }
+
             }
         });
 

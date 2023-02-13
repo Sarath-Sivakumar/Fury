@@ -43,7 +43,6 @@
                         android:gravity="center_horizontal"
                         android:paddingTop="6dp"
                         android:text="@string/total_expense_today"
-                        android:textColor="@color/h1_day"
                         android:textSize="18sp" />
 
                     <TextView

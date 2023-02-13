@@ -6,8 +6,8 @@
         <item name="colorPrimaryVariant">@color/theme_red</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/theme_green</item>
-        <item name="colorSecondaryVariant">@color/h1_day</item>
+        <item name="colorSecondary">@color/app_theme_secondary</item>
+        <item name="colorSecondaryVariant">@color/app_theme_third</item>
         <!--Color of item inside floating action button-->
         <item name="colorOnSecondary">@color/total_lite</item>
         <!-- Status bar color. -->
@@ -15,6 +15,7 @@
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:fontFamily">@font/raleway_semibold</item>
         <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/h1_day</item>
 
 <!--        <item name="android:windowDisablePreview">true</item>-->
     </style>
