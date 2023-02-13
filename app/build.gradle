@@ -54,9 +54,6 @@ dependencies {
 
     //(Don't specify version for dependencies)
     implementation 'com.google.firebase:firebase-auth'
-    
-    //CountryCodePicker
-    implementation 'com.hbb20:ccp:2.5.4'
 
     //Room
     implementation 'androidx.room:room-runtime:2.5.0'
