@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -23,8 +24,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.personal.MVVM.Entity.budgetEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
+import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
 
@@ -34,6 +37,7 @@ public class BudgetFragment extends Fragment {
     private TextView BudgetAmt, Balance, Expense;
     private mainViewModel vm;
     private List<expEntity> allExpense = new ArrayList<>();
+    private int totalSalary = 0;
     private RecyclerView topExp;
 
     public BudgetFragment() {
@@ -71,17 +75,6 @@ public class BudgetFragment extends Fragment {
     }
 
     private void initItems() {
-        vm.getBalance().observe(getViewLifecycleOwner(), balanceEntity -> {
-            try {
-                String s = Constants.RUPEE + balanceEntity.getBalance();
-                Balance.setText(s);
-            } catch (Exception e) {
-                Log.e("Bud_Bal", "Error: " + e.getMessage());
-                String s = Constants.RUPEE + "0";
-                Balance.setText(s);
-            }
-        });
-
         vm.getExp().observe(getViewLifecycleOwner(), expEntities -> {
             if (expEntities != null && !expEntities.isEmpty()) {
                 allExpense = expEntities;
@@ -94,14 +87,26 @@ public class BudgetFragment extends Fragment {
             }
         });
 
+        vm.getSalary().observe(getViewLifecycleOwner(), salaryEntities -> {
+            if (salaryEntities!=null&&!salaryEntities.isEmpty()){
+                for (int i = 0;i<salaryEntities.size();i++){
+                    totalSalary = totalSalary + salaryEntities.get(i).getSalary();
+                }
+            }
+        });
+
         vm.getBudget().observe(getViewLifecycleOwner(), budgetEntities -> {
             try {
                 String s = Constants.RUPEE + budgetEntities.getAmount();
                 BudgetAmt.setText(s);
+                String s1 = Constants.RUPEE + budgetEntities.getBal();
+                Balance.setText(s1);
             } catch (Exception e) {
                 Log.e("Budget", "Error: " + e.getMessage());
                 String s = Constants.RUPEE + "0";
                 BudgetAmt.setText(s);
+                String s1 = Constants.RUPEE + "0";
+                Balance.setText(s1);
             }
         });
     }
@@ -140,9 +145,21 @@ public class BudgetFragment extends Fragment {
         popupWindow.setContentView(view);
 
         Button yes = view.findViewById(R.id.yes_btn);
+        EditText Amt = view.findViewById(R.id.budget);
+        TextView income = view.findViewById(R.id.income);
 
+        String s = Constants.RUPEE+totalSalary;
+        income.setText(s);
         yes.setOnClickListener(v -> {
-            popupWindow.dismiss();
+            if (!Amt.getText().toString().trim().isEmpty()){
+                budgetEntity budget = new budgetEntity();
+                budget.setAmount(Integer.parseInt(Amt.getText().toString()));
+                budget.setBal(Integer.parseInt(Amt.getText().toString()));
+                vm.InsertBudget(budget);
+                popupWindow.dismiss();
+            }else{
+                Commons.SnackBar(getView(),"Set a budget.");
+            }
         });
 
         popupWindow.setFocusable(true);
