@@ -55,19 +55,19 @@ public class splash extends AppCompatActivity {
         startActivity(new Intent(this, MainActivity.class));
         finish();
 
-        userInitViewModel uvm = new ViewModelProvider(this).get(userInitViewModel.class);
-        Log.e("Splash", "VM");
-
-        uvm.getUserId().observe(this, firebaseUser -> {
-            if (firebaseUser != null) {
-                startActivity(new Intent(this, MainActivity.class));
-                Log.e("Splash", firebaseUser.getUid());
-                finish();
-            } else {
-                startActivity(new Intent(splash.this, Landing.class));
-                Log.e("Splash", "User Init..");
-                finish();
-            }
-        });
+//        userInitViewModel uvm = new ViewModelProvider(this).get(userInitViewModel.class);
+//        Log.e("Splash", "VM");
+//
+//        uvm.getUserId().observe(this, firebaseUser -> {
+//            if (firebaseUser != null) {
+//                startActivity(new Intent(this, MainActivity.class));
+//                Log.e("Splash", firebaseUser.getUid());
+//                finish();
+//            } else {
+//                startActivity(new Intent(splash.this, Landing.class));
+//                Log.e("Splash", "User Init..");
+//                finish();
+//            }
+//        });
     }
 }
