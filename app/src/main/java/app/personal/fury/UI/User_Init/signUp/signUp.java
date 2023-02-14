@@ -10,8 +10,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import app.personal.MVVM.Entity.userEntity;
 import app.personal.MVVM.Viewmodel.userInitViewModel;
 import app.personal.Utls.Commons;
+import app.personal.Utls.Constants;
 import app.personal.fury.R;
 import app.personal.fury.UI.MainActivity;
 import app.personal.fury.UI.User_Init.login.Login;
@@ -63,7 +65,10 @@ public class signUp extends AppCompatActivity {
                 if (p1.trim().equals(p2.trim())){
                     if (Commons.isEmail(mail)){
                         if (Commons.isValidPass(p1.trim())){
-                            uvm.Signup(mail, p1);
+                            userEntity userData = new userEntity();
+                            userData.setName(name);
+                            userData.setImgUrl(Constants.DEFAULT_DP);
+                            uvm.Signup(mail, p1, userData);
                         }else{
                             Commons.SnackBar(signUp, "Password should be at least 6 characters.");
                             pass1.setText("");
