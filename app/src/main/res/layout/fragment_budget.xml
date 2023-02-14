@@ -138,7 +138,7 @@
                 android:id="@+id/top_exp"
                 android:layout_width="match_parent"
                 android:background="@drawable/border_bg"
-                android:layout_height="270dp"
+                android:layout_height="350dp"
                 android:paddingStart="6dp"
                 android:paddingTop="6dp"
                 android:paddingEnd="6dp"
