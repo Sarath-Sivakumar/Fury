@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 import app.personal.MVVM.Entity.userEntity;
 import app.personal.Utls.Constants;
@@ -61,7 +62,7 @@ public class AuthRepository{
         HashMap<String, Object> map = new HashMap<>();
         map.put("name", userData.getName());
         map.put("imgUrl", userData.getImgUrl());
-        String user = firebaseAuth.getCurrentUser().getUid();
+        String user = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
         Log.e("Firebase", "signup: User: "+user);
         db.getReference(Constants.Users).child(user)
                 .setValue(map, (error, ref) -> {
@@ -74,7 +75,7 @@ public class AuthRepository{
     }
 
     public void fetchUserData(){
-        userDataRef.child(firebaseAuth.getCurrentUser().getUid())
+        userDataRef.child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -112,7 +113,11 @@ public class AuthRepository{
         return userLiveData;
     }
     public MutableLiveData<userEntity> getUserData(){
-        fetchUserData();
+        try{
+            fetchUserData();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         return userData;
     }
     public MutableLiveData<Boolean> getIsLoggedOutLiveData(){
