@@ -162,6 +162,7 @@ public class BudgetFragment extends Fragment {
 
         String s = Constants.RUPEE+totalSalary;
         income.setText(s);
+
         yes.setOnClickListener(v -> {
             if (!Amt.getText().toString().trim().isEmpty() && (Integer.parseInt(Amt.getText().toString().trim())<Integer.parseInt(String.valueOf(totalSalary)))){
                 budgetEntity budget = new budgetEntity();

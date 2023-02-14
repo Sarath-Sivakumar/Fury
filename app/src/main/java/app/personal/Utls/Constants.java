@@ -10,9 +10,10 @@ public class Constants {
             debtTable = "Debt_Table",
             budgetTable = "Budget_Table",
             inHandBalTable = "In_Hand_Bal_Table",
-            dbName = "Fury_Database";
+            dbName = "Fury_Database",
+            userTable = "User_Table";
 //DO NOT CHANGE----------------------------------------------------
-    public static final int DB_LATEST_VERSION = 6;
+    public static final int DB_LATEST_VERSION = 7;
     //-------------------------------------------------------------
     public static final String Dues = "Dues And Debt",
             Exp = "Expense Tracker",
@@ -39,7 +40,15 @@ public class Constants {
             Subscriptions = "Subscriptions",
             Health_Care = "Health Care",
             Groceries = "Groceries",
-            Bills = "Bills";
+            Bills = "Bills",
+//    Firebase------------------------------------
+            DEFAULT_DP = "Default_DP",
+            Users = "USERS",
+            Metadata = "METADATA",
+            ExpensesData = "EXPENSES",
+            DuesData = "DUES",
+            EarningsData = "EARNINGS",
+            BudgetData = "BUDGET";
     //Internal-------------------------------------------------------
     public static final int itemDelete = 0,
             itemAdd = 1,

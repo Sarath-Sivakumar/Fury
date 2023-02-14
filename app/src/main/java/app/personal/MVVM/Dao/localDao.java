@@ -15,6 +15,7 @@ import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Entity.inHandBalEntity;
 import app.personal.MVVM.Entity.salaryEntity;
+import app.personal.MVVM.Entity.userEntity;
 
 @Dao
 public interface localDao {
@@ -97,4 +98,17 @@ public interface localDao {
 
     @Query("SELECT * FROM Budget_Table")
     LiveData<budgetEntity> getBudgetData();
+
+    //User-------
+    @Insert
+    void InsertUser(budgetEntity budgetEntity);
+
+    @Update
+    void UpdateUser(budgetEntity budgetEntity);
+
+    @Delete
+    void DeleteUser(budgetEntity budgetEntity);
+
+    @Query("SELECT * FROM User_Table")
+    LiveData<userEntity> getUserData();
 }
