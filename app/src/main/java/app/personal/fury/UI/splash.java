@@ -20,7 +20,6 @@ import app.personal.fury.UI.User_Init.Landing;
 public class splash extends AppCompatActivity {
 
     private ViewGroup container;
-    private userInitViewModel uvm;
 
     private boolean animationStarted = false;
 
@@ -47,28 +46,28 @@ public class splash extends AppCompatActivity {
             View v = container.getChildAt(i);
             ViewPropertyAnimatorCompat viewAnimator;
             viewAnimator = ViewCompat.animate(v)
-                    .scaleX(20).scaleY(20)
+                    .scaleX(5).scaleY(5)
                     .setStartDelay(0)
-                    .setDuration(15000);
+                    .setDuration(100);
             viewAnimator.setInterpolator(new DecelerateInterpolator()).start();
-            animationStarted=true;
+            animationStarted = true;
         }
-//            setViewModel();
         startActivity(new Intent(this, MainActivity.class));
-    }
+        finish();
 
-//    private void setViewModel(){
-//        uvm = new ViewModelProvider(this).get(userInitViewModel.class);
+//        userInitViewModel uvm = new ViewModelProvider(this).get(userInitViewModel.class);
+//        Log.e("Splash", "VM");
+//
 //        uvm.getUserId().observe(this, firebaseUser -> {
-//            if (firebaseUser!=null){
+//            if (firebaseUser != null) {
 //                startActivity(new Intent(this, MainActivity.class));
 //                Log.e("Splash", firebaseUser.getUid());
 //                finish();
-//            }else{
+//            } else {
 //                startActivity(new Intent(splash.this, Landing.class));
+//                Log.e("Splash", "User Init..");
 //                finish();
 //            }
 //        });
-//    }
-
+    }
 }

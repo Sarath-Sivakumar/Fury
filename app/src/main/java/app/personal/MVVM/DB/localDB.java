@@ -16,6 +16,7 @@ import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Entity.inHandBalEntity;
 import app.personal.MVVM.Entity.salaryEntity;
+import app.personal.MVVM.Entity.userEntity;
 import app.personal.Utls.Constants;
 
 @Database(entities = {
@@ -24,7 +25,8 @@ import app.personal.Utls.Constants;
         expEntity.class,
         salaryEntity.class,
         budgetEntity.class,
-        inHandBalEntity.class},
+        inHandBalEntity.class,
+        userEntity.class},
         version = Constants.DB_LATEST_VERSION,
         autoMigrations = {
                 @AutoMigration(from = 1, to = 2),
@@ -41,7 +43,7 @@ public abstract class localDB extends RoomDatabase {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                             localDB.class, Constants.dbName)
                     .fallbackToDestructiveMigration()
-                    .addMigrations(MIGRATION_1_2,MIGRATION_2_3,MIGRATION_3_4,MIGRATION_4_5)
+                    .addMigrations(MIGRATION_1_2,MIGRATION_2_3,MIGRATION_3_4,MIGRATION_4_5,MIGRATION_6_7)
                     .build();
         }
         return instance;
@@ -72,6 +74,13 @@ public abstract class localDB extends RoomDatabase {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE 'Salary_Table' ADD COLUMN 'creationDate' VARCHAR(15) DEFAULT 'Not Set'");
+        }
+    };
+
+    static final Migration MIGRATION_6_7 = new Migration(6, 7) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS 'User_Table' ('id' INTEGER NOT NULL, 'name' VARCHAR(25), 'imgUrl' VARCHAR(30), PRIMARY KEY('id'))");
         }
     };
 }

@@ -93,6 +93,7 @@ public class BudgetFragment extends Fragment {
         });
 
         vm.getSalary().observe(getViewLifecycleOwner(), salaryEntities -> {
+            totalSalary = 0;
             if (salaryEntities!=null&&!salaryEntities.isEmpty()){
                 for (int i = 0;i<salaryEntities.size();i++){
                     totalSalary = totalSalary + salaryEntities.get(i).getSalary();
@@ -155,6 +156,7 @@ public class BudgetFragment extends Fragment {
 
         String s = Constants.RUPEE+totalSalary;
         income.setText(s);
+
         yes.setOnClickListener(v -> {
             if (!Amt.getText().toString().trim().isEmpty()){
                 budgetEntity budget = new budgetEntity();

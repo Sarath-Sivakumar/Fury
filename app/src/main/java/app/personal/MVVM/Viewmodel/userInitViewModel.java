@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.FirebaseUser;
 
+import app.personal.MVVM.Entity.userEntity;
 import app.personal.MVVM.Repository.AuthRepository;
 
 public class userInitViewModel extends AndroidViewModel {
@@ -25,8 +26,8 @@ public class userInitViewModel extends AndroidViewModel {
         authRepo.login(Email, Password);
     }
 
-    public void Signup(String Email, String Password){
-        authRepo.signup(Email, Password);
+    public void Signup(String Email, String Password, userEntity userData){
+        authRepo.signup(Email, Password, userData);
     }
 
     public MutableLiveData<FirebaseUser> getUserId(){

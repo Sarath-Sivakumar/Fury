@@ -3,6 +3,8 @@ package app.personal.fury.UI;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -12,11 +14,13 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
 
+import app.personal.MVVM.Entity.userEntity;
 import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
 import app.personal.MVVM.Viewmodel.userInitViewModel;
 import app.personal.Utls.Constants;
@@ -36,17 +40,16 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tl;
     private DrawerLayout dl;
     private Toolbar tb;
-
+    private ImageView userDp;
     private TextView userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setUserViewModel();
         init();
         setNav();
-
+        setUserViewModel();
         if (savedInstanceState==null){
             vp.setCurrentItem(2,true);
         }
@@ -54,19 +57,32 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         //init AD here..
+        uvm = new ViewModelProvider(this).get(userInitViewModel.class);
+        luvm = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
         findView();
         initViewPager();
     }
 
     private void setUserViewModel(){
-        uvm = new ViewModelProvider(this).get(userInitViewModel.class);
-        luvm = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
         luvm.getIsLoggedOut().observe(this, Boolean->{
             if (Boolean){
                 startActivity(new Intent(this, Landing.class));
                 finish();
             }
         });
+
+        luvm.getUserData().observe(this, userEntity -> {
+            if (userEntity!=null){
+                String s = "Hello! "+userEntity.getName()+".";
+                userName.setText(s);
+                if (userEntity.getImgUrl().equals(Constants.DEFAULT_DP)){
+                    userDp.setImageResource(R.drawable.ic_account);
+                }else{
+                    Glide.with(this).load(userEntity.getImgUrl()).circleCrop().into(userDp);
+                }
+            }
+        });
+
         uvm.getUserId().observe(this, firebaseUser -> {
             if (firebaseUser==null){
                 startActivity(new Intent(this, Landing.class));
@@ -91,6 +107,12 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationView navView = findViewById(R.id.navView);
         navView.inflateHeaderView(R.layout.nav_header);
+
+        View v = navView.getHeaderView(0);
+
+        userDp = (ImageView) v.findViewById(R.id.userDP);
+        userName = (TextView) v.findViewById(R.id.profileName);
+
         navView.inflateMenu(R.menu.nav_menu);
         navView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
@@ -107,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.logout:
                     luvm.LogOut();
+                    finishAffinity();
                     break;
                 default:
                     Log.e("NavView", "Default");

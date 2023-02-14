@@ -173,6 +173,7 @@
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/work_sans_semibold"
                                         android:layout_gravity="center"
+                                        android:layout_marginEnd="3dp"
                                         android:textSize="20sp" />
 
                                     <ImageButton
@@ -180,7 +181,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:backgroundTint="@android:color/transparent"
+                                        android:background="@android:color/transparent"
                                         android:src="@drawable/ic_outline_info_24"
                                         android:visibility="gone"/>
                                 </LinearLayout>
