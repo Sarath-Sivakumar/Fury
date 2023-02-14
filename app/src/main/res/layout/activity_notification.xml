@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:gravity="center|start"
             android:text="Notifications"
-            android:textColor="@color/appbar_style1_day"
+            android:textColor="@color/appbar_textcolor"
             android:textSize="18sp" />
 
     </LinearLayout>

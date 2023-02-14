@@ -25,21 +25,43 @@
                 android:layout_marginTop="3dp"
                 android:layout_marginEnd="6dp"
                 android:background="@drawable/card_view_theme"
+                android:backgroundTint="?attr/colorSecondary"
                 android:elevation="6dp"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".6"
+                    android:gravity="end"
                     android:paddingTop="6dp"
                     android:fontFamily="@font/raleway_bold"
-                    android:textColor="@color/h1_day"
+                    android:textColor="?attr/colorOnSecondary"
                     android:text="@string/my_budget"
                     android:textSize="18sp" />
+
+                    <ImageButton
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="0dp"
+                        android:layout_weight=".1"
+                        android:layout_height="match_parent"
+                        android:tint="?attr/colorOnSecondary"
+                        android:src="@drawable/ic_edit" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".3"/>
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/bgtAmt"
@@ -55,7 +77,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/border_bg"
+                android:orientation="vertical" >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 
@@ -73,8 +103,8 @@
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/raleway_bold"
                         android:text="@string/current_balance"
-                        android:textColor="@color/h1_day"
-                        android:textSize="16sp" />
+                        android:textColor="@color/h1"
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/B_Balance"
@@ -84,7 +114,7 @@
                         android:layout_marginEnd="22dp"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/work_sans_semibold"
-                        android:textSize="22sp" />
+                        android:textSize="18sp" />
 
                 </LinearLayout>
 
@@ -105,8 +135,8 @@
                         android:fontFamily="@font/raleway_bold"
                         android:gravity="end"
                         android:text="@string/total_expense"
-                        android:textColor="@color/h1_day"
-                        android:textSize="16sp" />
+                        android:textColor="@color/h1"
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/T_exp"
@@ -117,10 +147,85 @@
                         android:layout_marginEnd="12dp"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/work_sans_semibold"
-                        android:textSize="22sp" />
+                        android:textSize="18sp" />
 
                 </LinearLayout>
             </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".5"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/raleway_bold"
+                            android:text="Ideal daily Limit"
+                            android:textColor="@color/h1"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/ID_avg"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginEnd="22dp"
+                            android:hint="₹0"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/work_sans_semibold"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".5"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/raleway_bold"
+                            android:gravity="end"
+                            android:text="Current daily Limit"
+                            android:textColor="@color/h1"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/C_avg"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="14dp"
+                            android:gravity="end"
+                            android:layout_marginEnd="12dp"
+                            android:layout_marginBottom="10dp"
+                            android:hint="₹0"
+                            android:fontFamily="@font/work_sans_semibold"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
 
 
             <TextView

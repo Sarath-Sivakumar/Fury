@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new Exp_Tracker());
         adapter.addFragment(new BudgetFragment());
         adapter.addFragment(new fragment_main());
-        adapter.addFragment(new Salary_Planner());
+        adapter.addFragment(new Ear_Tracker());
         adapter.addFragment(new Dues_Debt());
 
 

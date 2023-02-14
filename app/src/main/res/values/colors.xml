@@ -7,16 +7,16 @@
     <color name="white">#EAF1EC</color>
     <color name="total_lite">#ffffff</color>
     <color name="theme_red">#DA3846</color>
-    <color name="theme_red_dark">#9E232D</color>
+    <color name="theme_red_dark">#C60000</color>
     <color name="theme_green">#3EC099</color>
-    <color name="theme_gold">#DAFFD600</color>
+    <color name="theme_gold">#FFD700</color>
     <color name="theme_green_dark">#319577</color>
     <color name="Status_bar">#1E3749</color>
 
 
 <!--    font colors-->
-    <color name="appbar_style1_day">#ffffff</color>
-    <color name="h1_day">#555F61</color>
+    <color name="appbar_textcolor">#ffffff</color>
+    <color name="h1">#555F61</color>
 
 <!--    Apptheme-->
     <color name="app_theme_primary">#4DF0BF</color>

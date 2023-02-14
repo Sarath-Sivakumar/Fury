@@ -155,6 +155,7 @@
                         android:layout_height="match_parent"
                         android:fontFamily="@font/raleway_bold"
                         android:text="Cancel"
+                        android:textColor="?attr/colorPrimaryVariant"
                         android:textAllCaps="false"
                          />
 

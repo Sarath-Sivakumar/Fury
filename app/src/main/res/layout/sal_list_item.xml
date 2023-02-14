@@ -4,19 +4,37 @@
     android:layout_width="match_parent"
     android:layout_height="70dp"
     android:orientation="horizontal"
-    android:layout_marginTop="6dp"
+    android:layout_margin="6dp"
     android:background="@drawable/border_bg"
+    android:backgroundTint="?attr/colorPrimary"
     app:cardCornerRadius="10dp" >
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="10dp"
+        android:background="?attr/colorOnSecondary"
+        app:cardCornerRadius="30dp">
+
+        <TextView
+            android:id="@+id/icoText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="A"
+            android:textSize="18sp" />
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/salName"
-        android:layout_width="200dp"
+        android:layout_width="150dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="10dp"
         android:gravity="center|start"
         android:fontFamily="@font/raleway_semibold"
         android:text="salary"
-        android:textSize="18sp" />
+        android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -10,12 +10,7 @@
     <item android:right="1dp" android:left="1dp" android:bottom="2dp">
         <shape
             android:shape="rectangle">
-            <gradient
-                android:type="linear"
-                android:angle="0"
-                android:startColor="#0F2027"
-                android:centerColor="@color/app_theme_secondary"
-                android:endColor="#141E30"/>
+            <solid android:color="?attr/colorPrimary" />
             <corners android:radius="12dp"/>
         </shape>
     </item>

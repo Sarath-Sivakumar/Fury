@@ -67,11 +67,14 @@ public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.salHolder>
         private final TextView incName;
         private final TextView incTyp;
 
+        private final TextView icoText;
+
         public salHolder(@NonNull View itemView) {
             super(itemView);
             incAmt = itemView.findViewById(R.id.salAmt);
             incName = itemView.findViewById(R.id.salName);
             incTyp = itemView.findViewById(R.id.salTyp);
+            icoText = itemView.findViewById(R.id.icoText);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();

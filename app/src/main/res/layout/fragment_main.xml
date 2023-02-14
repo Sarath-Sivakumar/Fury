@@ -33,8 +33,7 @@
                 android:layout_height="160dp"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="9dp"
-                android:background="@drawable/card_view_theme"
-                android:backgroundTint="?attr/colorSecondary"
+                android:background="@drawable/card_view_theme2"
                 android:elevation="6dp"
                 android:padding="3dp">
 

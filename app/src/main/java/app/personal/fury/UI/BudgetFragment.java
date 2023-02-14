@@ -1,6 +1,7 @@
 package app.personal.fury.UI;
 
 import android.content.Context;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -38,7 +39,7 @@ import app.personal.fury.ViewPagerAdapter.infoGraphicsAdapter;
 public class BudgetFragment extends Fragment {
 
     private FloatingActionButton addBudget;
-    private TextView BudgetAmt, Balance, Expense;
+    private TextView BudgetAmt, Balance, Expense , Dailylimitallowed ,CurrentDailylimit;
     private mainViewModel vm;
     private List<expEntity> allExpense = new ArrayList<>();
     private int totalSalary = 0;
@@ -76,6 +77,8 @@ public class BudgetFragment extends Fragment {
         Balance = v.findViewById(R.id.B_Balance);
         Expense = v.findViewById(R.id.T_exp);
         topExp = v.findViewById(R.id.top_exp);
+        Dailylimitallowed = v.findViewById(R.id.ID_avg);
+        CurrentDailylimit = v.findViewById(R.id.C_avg);
         addBudget.setOnClickListener(v1 -> callAddBudgetPopup());
     }
 
@@ -93,6 +96,7 @@ public class BudgetFragment extends Fragment {
         });
 
         vm.getSalary().observe(getViewLifecycleOwner(), salaryEntities -> {
+            totalSalary = 0;
             if (salaryEntities!=null&&!salaryEntities.isEmpty()){
                 for (int i = 0;i<salaryEntities.size();i++){
                     totalSalary = totalSalary + salaryEntities.get(i).getSalary();
@@ -106,6 +110,8 @@ public class BudgetFragment extends Fragment {
                 BudgetAmt.setText(s);
                 String s1 = Constants.RUPEE + budgetEntities.getBal();
                 Balance.setText(s1);
+                String s2 = Constants.RUPEE + (budgetEntities.getAmount() / Commons.getDays(Calendar.MONTH)) + " /day";
+                Dailylimitallowed.setText(s2);
             } catch (Exception e) {
                 Log.e("Budget", "Error: " + e.getMessage());
                 String s = Constants.RUPEE + "0";
@@ -114,6 +120,7 @@ public class BudgetFragment extends Fragment {
                 Balance.setText(s1);
             }
         });
+
     }
 
 
@@ -156,13 +163,17 @@ public class BudgetFragment extends Fragment {
         String s = Constants.RUPEE+totalSalary;
         income.setText(s);
         yes.setOnClickListener(v -> {
-            if (!Amt.getText().toString().trim().isEmpty()){
+            if (!Amt.getText().toString().trim().isEmpty() && (Integer.parseInt(Amt.getText().toString().trim())<Integer.parseInt(String.valueOf(totalSalary)))){
                 budgetEntity budget = new budgetEntity();
                 budget.setAmount(Integer.parseInt(Amt.getText().toString()));
                 budget.setBal(Integer.parseInt(Amt.getText().toString()));
                 vm.InsertBudget(budget);
                 popupWindow.dismiss();
-            }else{
+            }
+            else if(!Amt.getText().toString().trim().isEmpty() && (Integer.parseInt(Amt.getText().toString().trim())>Integer.parseInt(String.valueOf(totalSalary)))){
+                Commons.SnackBar(getView(),"Budget Amount should be less than total earnings.");
+            }
+            else {
                 Commons.SnackBar(getView(),"Set a budget.");
             }
         });

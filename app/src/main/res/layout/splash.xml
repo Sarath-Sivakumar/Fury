@@ -41,8 +41,8 @@
             android:layout_height="wrap_content"
             android:text="@string/version"
             android:layout_marginBottom="24dp"
-            android:fontFamily="@font/raleway_semibold"
-            android:textSize="12sp"
+            android:fontFamily="@font/work_sans_semibold"
+            android:textSize="8sp"
             android:gravity="center"/>
 
     </LinearLayout>

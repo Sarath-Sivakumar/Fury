@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="75dp"
-    android:background="@drawable/card_view_theme2"
+    android:background="@drawable/exp_list_card"
     android:layout_margin="6dp"
     android:orientation="horizontal">
 
@@ -67,6 +67,7 @@
         android:gravity="center|end"
         android:padding="12dp"
         android:textSize="22sp"
+        android:textColor="@color/theme_red_dark"
         android:fontFamily="@font/work_sans_semibold"
         />
 

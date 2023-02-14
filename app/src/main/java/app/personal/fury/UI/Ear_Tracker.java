@@ -2,7 +2,6 @@ package app.personal.fury.UI;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Entity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +33,7 @@ import app.personal.Utls.Constants;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.salaryList.salaryAdapter;
 
-public class Salary_Planner extends Fragment {
+public class Ear_Tracker extends Fragment {
     //Daily = 1, Monthly = 0, Hourly = -1, oneTime = ?(To be implemented in a future update).
 
     private RecyclerView salSplitList;
@@ -43,7 +42,7 @@ public class Salary_Planner extends Fragment {
     private salaryAdapter adapter;
     private TextView salAmt;
 
-    public Salary_Planner() {}
+    public Ear_Tracker() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

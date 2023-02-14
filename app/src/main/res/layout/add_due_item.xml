@@ -61,6 +61,7 @@
                     android:layout_height="wrap_content"
                     android:padding="12dp"
                     android:text="Select Date"
+                    android:fontFamily="@font/work_sans_medium"
                     android:textSize="18sp"/>
 
                 <CalendarView
@@ -91,6 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="Cancel"
+                        android:textColor="?attr/colorPrimaryVariant"
                         android:fontFamily="@font/raleway_bold"
                         android:textAllCaps="false"
                         />
