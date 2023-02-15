@@ -8,8 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +22,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +32,7 @@ import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
-import app.personal.fury.UI.IG_fragment.ig;
-import app.personal.fury.ViewPagerAdapter.infoGraphicsAdapter;
+import app.personal.fury.UI.Adapters.budgetList.budgetAdapter;
 
 public class BudgetFragment extends Fragment {
 
@@ -44,6 +42,7 @@ public class BudgetFragment extends Fragment {
     private List<expEntity> allExpense = new ArrayList<>();
     private int totalSalary = 0;
     private RecyclerView topExp;
+    private budgetAdapter adapter;
 
 
     public BudgetFragment() {
@@ -54,6 +53,7 @@ public class BudgetFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+        adapter = new budgetAdapter();
     }
 
     @Override
@@ -77,6 +77,9 @@ public class BudgetFragment extends Fragment {
         Balance = v.findViewById(R.id.B_Balance);
         Expense = v.findViewById(R.id.T_exp);
         topExp = v.findViewById(R.id.top_exp);
+        topExp.setLayoutManager(new LinearLayoutManager(requireContext()));
+        topExp.setHasFixedSize(true);
+        topExp.setAdapter(adapter);
         Dailylimitallowed = v.findViewById(R.id.ID_avg);
         CurrentDailylimit = v.findViewById(R.id.C_avg);
         addBudget.setOnClickListener(v1 -> callAddBudgetPopup());
@@ -86,11 +89,16 @@ public class BudgetFragment extends Fragment {
         vm.getExp().observe(getViewLifecycleOwner(), expEntities -> {
             int total = 0;
             if (expEntities != null && !expEntities.isEmpty()) {
-                allExpense = expEntities;
+                adapter.clear();
+                adapter.setExp(expEntities);
                 for (int i = 0; i < expEntities.size(); i++) {
                     total = total + expEntities.get(i).getExpenseAmt();
                 }
+                adapter.notifyDataSetChanged();
             }
+//            else{
+//                No Expenses..
+//            }
             String s = Constants.RUPEE + total;
             Expense.setText(s);
         });
@@ -118,6 +126,7 @@ public class BudgetFragment extends Fragment {
                 BudgetAmt.setText(s);
                 String s1 = Constants.RUPEE + "0";
                 Balance.setText(s1);
+                Commons.SnackBar(getView(), "Create a budget..");
             }
         });
 
@@ -186,4 +195,6 @@ public class BudgetFragment extends Fragment {
         popupWindow.setElevation(6);
         popupWindow.showAsDropDown(addBudget);
     }
+
+
 }

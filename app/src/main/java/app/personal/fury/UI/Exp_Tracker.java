@@ -200,6 +200,8 @@ public class Exp_Tracker extends Fragment {
             //------------------------------------------------------
             EditText salNm = view.findViewById(R.id.salSrc);
             salNm.setVisibility(View.GONE);
+            EditText salDate = view.findViewById(R.id.salDate);
+            salDate.setVisibility(View.GONE);
             TextView v1 = view.findViewById(R.id.radioTitle);
             v1.setVisibility(View.GONE);
             RadioGroup grp = view.findViewById(R.id.RadioGroup);
@@ -280,13 +282,6 @@ public class Exp_Tracker extends Fragment {
 
         }).attachToRecyclerView(recyclerView);
 
-        //            Intent intent = new Intent(requireActivity(), allExp.class);
-        //            intent.putExtra(Constants.EXP_NAME, exp.getExpenseName());
-        //            intent.putExtra(Constants.EXP_AMT, exp.getExpenseAmt());
-        //            intent.putExtra(Constants.EXP_DAY, exp.getDay());
-        //            intent.putExtra(Constants.EXP_DATE, exp.getDate());
-        //            intent.putExtra(Constants.EXP_TIME, exp.getTime());
-        //            startActivity(intent);
         adapter.setOnItemClickListener(this::expDetailPopup);
     }
 

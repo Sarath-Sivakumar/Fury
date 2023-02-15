@@ -131,9 +131,9 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
             super(itemView);
             expAmt = itemView.findViewById(R.id.itemAmt);
             expName = itemView.findViewById(R.id.itemTitle);
+            expIcon = itemView.findViewById(R.id.itemIcon);
             expTime = itemView.findViewById(R.id.itemTime);
             expDate = itemView.findViewById(R.id.itemDate);
-            expIcon = itemView.findViewById(R.id.itemIcon);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
