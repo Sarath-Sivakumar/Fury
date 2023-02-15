@@ -37,7 +37,7 @@ android {
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.preference:preference:1.2.0'
@@ -48,8 +48,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
 
-    implementation 'com.google.android.gms:play-services-ads:21.4.0'
-    implementation 'com.google.android.gms:play-services-ads-lite:21.4.0'
+    implementation 'com.google.android.gms:play-services-ads:21.5.0'
+    implementation 'com.google.android.gms:play-services-ads-lite:21.5.0'
 
     //FirebaseBoM(AutoUpdate mapped dependencies)
     implementation platform('com.google.firebase:firebase-bom:31.2.0')
@@ -72,4 +72,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'org.jetbrains:annotations:15.0'
     annotationProcessor "com.github.bumptech.glide:compiler:4.11.0"
+
+    //PdfViewer
+    implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
 }

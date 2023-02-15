@@ -26,6 +26,7 @@ import app.personal.MVVM.Viewmodel.userInitViewModel;
 import app.personal.Utls.Constants;
 import app.personal.Utls.ViewPager.viewPager;
 import app.personal.fury.R;
+import app.personal.fury.UI.Drawer.About_Activity;
 import app.personal.fury.UI.Drawer.Notification_Activity;
 import app.personal.fury.UI.Drawer.Settings_Activity;
 import app.personal.fury.UI.Drawer.help_Activity;
@@ -132,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(MainActivity.this, Settings_Activity.class));
                     break;
                 case R.id.about:
+                    startActivity(new Intent(MainActivity.this, About_Activity.class));
                     break;
                 case R.id.logout:
                     luvm.LogOut();

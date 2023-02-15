@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:layout_weight=".6"
-        android:background="@drawable/card_view_theme2"
+        android:background="@drawable/exp_list_card"
         android:elevation="3dp"
         android:orientation="vertical">
 
