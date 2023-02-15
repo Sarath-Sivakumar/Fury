@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="70dp"
-    android:orientation="horizontal"
     android:layout_margin="6dp"
     android:background="@drawable/border_bg"
     android:backgroundTint="?attr/colorPrimary"
-    app:cardCornerRadius="10dp" >
+    android:orientation="horizontal"
+    app:cardCornerRadius="10dp">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginStart="10dp"
         android:background="?attr/colorOnSecondary"
@@ -22,7 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="A"
             android:textSize="18sp" />
     </androidx.cardview.widget.CardView>
 
@@ -31,33 +30,34 @@
         android:layout_width="150dp"
         android:layout_height="match_parent"
         android:layout_marginStart="10dp"
-        android:gravity="center|start"
         android:fontFamily="@font/raleway_semibold"
+        android:gravity="center|start"
         android:text="salary"
         android:textSize="20sp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="vertical" >
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/salAmt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="24sp"
             android:layout_marginEnd="12dp"
-            android:gravity="end"
             android:fontFamily="@font/work_sans_semibold"
+            android:gravity="end"
             android:text=""
-            android:textColor="?attr/colorSecondary"/>
+            android:textColor="?attr/colorSecondary"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/salTyp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="12dp"
             android:fontFamily="@font/raleway_medium"
             android:gravity="end"
             android:text="Monthly"

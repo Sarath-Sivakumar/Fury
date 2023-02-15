@@ -8,8 +8,8 @@ import app.personal.fury.BuildConfig;
 public class FuryApp extends Application {
 
     public FuryApp() {
-        if(BuildConfig.DEBUG)
-//            Enabling logcat strict mode.
-            StrictMode.enableDefaults();
+//        if(BuildConfig.DEBUG)
+////            Enabling logcat strict mode.
+//            StrictMode.enableDefaults();
     }
 }
