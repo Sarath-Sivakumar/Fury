@@ -84,15 +84,15 @@ public class BudgetFragment extends Fragment {
 
     private void initItems() {
         vm.getExp().observe(getViewLifecycleOwner(), expEntities -> {
+            int total = 0;
             if (expEntities != null && !expEntities.isEmpty()) {
                 allExpense = expEntities;
-                int total = 0;
                 for (int i = 0; i < expEntities.size(); i++) {
                     total = total + expEntities.get(i).getExpenseAmt();
                 }
-                String s = Constants.RUPEE + total;
-                Expense.setText(s);
             }
+            String s = Constants.RUPEE + total;
+            Expense.setText(s);
         });
 
         vm.getSalary().observe(getViewLifecycleOwner(), salaryEntities -> {

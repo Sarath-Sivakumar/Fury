@@ -89,6 +89,16 @@
                     android:padding="12dp"
                     android:singleLine="true" />
 
+                <EditText
+                    android:id="@+id/salDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Salary Date"
+                    android:inputType="text"
+                    android:padding="12dp"
+                    android:singleLine="true" />
+
                 <TextView
                     android:id="@+id/radioTitle"
                     android:layout_width="wrap_content"
