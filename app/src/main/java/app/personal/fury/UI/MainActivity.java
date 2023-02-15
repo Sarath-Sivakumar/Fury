@@ -73,7 +73,13 @@ public class MainActivity extends AppCompatActivity {
 
         luvm.getUserData().observe(this, userEntity -> {
             if (userEntity!=null){
-                String s = "Hello! "+userEntity.getName()+".";
+                String uname = userEntity.getName();
+                String[] arr= uname.split(" ");
+                String fname=arr[0];
+                String lname=arr[1];
+                Log.d("First name",fname);
+                Log.d("last name",lname);
+                String s = "Hello "+fname;
                 userName.setText(s);
                 if (userEntity.getImgUrl().equals(Constants.DEFAULT_DP)){
                     userDp.setImageResource(R.drawable.ic_account);
