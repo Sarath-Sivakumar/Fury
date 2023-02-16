@@ -27,7 +27,7 @@
                 android:id="@+id/userDP"
                 android:layout_width="61dp"
                 android:layout_height="61dp"
-                android:background="?attr/colorOnPrimary"
+                android:background="?attr/colorPrimaryVariant"
                 android:contentDescription="@null"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_account" />
@@ -43,6 +43,7 @@
             android:layout_marginEnd="24dp"
             android:fontFamily="@font/raleway_bold"
             android:text="Hello! User..."
+            android:textColor="?attr/colorPrimary"
             android:textSize="16sp" />
 
         <View

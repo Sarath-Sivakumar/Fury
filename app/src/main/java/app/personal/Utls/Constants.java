@@ -51,7 +51,7 @@ public class Constants {
             BudgetData = "BUDGET";
     //Internal-------------------------------------------------------
     public static final int itemDelete = 0,
-            TOP_CAT_DISPLAY_LIMIT = 3,
+            TOP_CAT_DISPLAY_LIMIT = 11,
             itemAdd = 1,
             itemPaid = 2,
             LIMITER_MAX = 100,

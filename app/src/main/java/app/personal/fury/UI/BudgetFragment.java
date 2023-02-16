@@ -21,6 +21,8 @@ import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -43,6 +45,8 @@ public class BudgetFragment extends Fragment {
     private int totalSalary = 0;
     private RecyclerView topExp;
     private budgetAdapter adapter;
+
+    private AdView ad;
 
 
     public BudgetFragment() {
@@ -71,6 +75,11 @@ public class BudgetFragment extends Fragment {
         initItems();
     }
 
+    private void requestAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        ad.loadAd(adRequest);
+    }
+
     private void findView(View v) {
         addBudget = v.findViewById(R.id.setBud);
         BudgetAmt = v.findViewById(R.id.bgtAmt);
@@ -82,7 +91,9 @@ public class BudgetFragment extends Fragment {
         topExp.setAdapter(adapter);
         Dailylimitallowed = v.findViewById(R.id.ID_avg);
         CurrentDailylimit = v.findViewById(R.id.C_avg);
+        ad = v.findViewById(R.id.adView2);
         addBudget.setOnClickListener(v1 -> callAddBudgetPopup());
+        requestAd();
     }
 
     private void initItems() {
