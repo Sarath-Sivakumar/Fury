@@ -26,6 +26,7 @@
             android:layout_height="match_parent"
             android:gravity="center|start"
             android:text="About Us"
+            android:textColor="@color/actionbar_title"
             android:textSize="18sp" />
 
     </LinearLayout>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/popup_bg_shader"
+    android:padding="33dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="51dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/popup_bg"
+                android:backgroundTint="?attr/colorOnPrimary"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:fontFamily="@font/raleway_bold"
+                        android:gravity="center"
+                        android:padding="12dp"
+                        android:text="Edit your Budget"
+                        android:textSize="24sp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="9dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="0.4"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/raleway_semibold"
+                            android:gravity="center"
+                            android:text="Total Income"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/income"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.6"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:text="Your Income"
+                            android:fontFamily="@font/work_sans_semibold"
+                            android:layout_marginStart="6dp"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/border_bg"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/raleway_semibold"
+                            android:gravity="center"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="6dp"
+                            android:text="Set Budget"
+                            android:textSize="16sp" />
+
+                        <EditText
+                            android:id="@+id/edit_txt_budget"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:gravity="center"
+                            android:fontFamily="@font/work_sans_medium"
+                            android:hint="₹" />
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/add_new_bud"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_bg"
+                        android:fontFamily="@font/raleway_bold"
+                        android:text="Add new amount"
+                        android:textAllCaps="false" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"/>
+
+                    <Button
+                        android:id="@+id/edt_cur_bud"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_bg"
+                        android:fontFamily="@font/raleway_bold"
+                        android:text="Edit amount"
+                        android:textAllCaps="false" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"/>
+
+
+                    <Button
+                        android:id="@+id/y_btn"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/border_bg"
+                        android:fontFamily="@font/raleway_bold"
+                        android:text="Continue"
+                        android:textAllCaps="false" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

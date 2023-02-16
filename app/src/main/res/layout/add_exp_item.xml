@@ -96,6 +96,7 @@
                     android:background="@android:color/transparent"
                     android:hint="Salary Date"
                     android:inputType="text"
+                    android:fontFamily="@font/work_sans_medium"
                     android:padding="12dp"
                     android:singleLine="true" />
 

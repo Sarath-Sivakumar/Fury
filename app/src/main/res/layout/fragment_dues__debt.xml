@@ -14,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="6dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -23,6 +23,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
                 android:background="@drawable/card_view_theme"
+                android:backgroundTint="?attr/colorPrimaryVariant"
                 android:elevation="6dp"
                 android:orientation="vertical">
 
@@ -39,6 +40,7 @@
                         android:gravity="start"
                         android:padding="6dp"
                         android:text="Total Amount"
+                        android:textColor="?attr/colorSecondary"
                         android:fontFamily="@font/raleway_bold"
                         android:textSize="16sp" />
 
@@ -50,6 +52,7 @@
                         android:gravity="end"
                         android:padding="6dp"
                         android:text="Due Count"
+                        android:textColor="?attr/colorSecondary"
                         android:fontFamily="@font/raleway_bold"
                         android:textSize="16sp" />
 
@@ -69,6 +72,7 @@
                         android:layout_weight="0.3"
                         android:gravity="start"
                         android:padding="6dp"
+                        android:textColor="?attr/colorSecondaryContainer"
                         android:fontFamily="@font/work_sans_semibold"
                         android:textSize="26sp" />
 
@@ -81,6 +85,7 @@
                         android:layout_weight="0.3"
                         android:gravity="end"
                         android:padding="6dp"
+                        android:textColor="?attr/colorSecondaryContainer"
                         android:fontFamily="@font/work_sans_semibold"
                         android:textSize="26sp" />
                 </LinearLayout>
@@ -126,7 +131,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:background="@drawable/border_bg"
                 android:layout_margin="12dp"
                 android:layout_gravity="center_horizontal" >
