@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +30,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 import app.personal.MVVM.Entity.balanceEntity;
+import app.personal.MVVM.Entity.budgetEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
@@ -63,7 +66,7 @@ public class Exp_Tracker extends Fragment {
         recyclerView = v.findViewById(R.id.exp_list);
         balanceView = v.findViewById(R.id.expBalance);
 //        TextView dateView = v.findViewById(R.id.exp_trac_date);
-        String s = Commons.getDisplayDay(Commons.getDay())+" | "+Commons.getDate();
+//        String s = Commons.getDisplayDay(Commons.getDay())+" | "+Commons.getDate();
 //        dateView.setText(s);
         limiter = v.findViewById(R.id.progress);
         expView = v.findViewById(R.id.todayExp);
@@ -110,16 +113,37 @@ public class Exp_Tracker extends Fragment {
         vm.getExp().observe(requireActivity(), entity -> {
             adapter.clear();
             adapter.setExp(entity, true);
-            int avg = Integer.parseInt(Commons.getAvg(entity, false));
+            int avg = Integer.parseInt(Commons.getDailyAvg(getBudget().getBal()));
             int progress = Commons.setProgress(adapter.getTotalExpInt(), avg);
+            Log.e("Progress", " main: "+progress+" "+avg+" "+getBudget().getAmount());
             try {
                 limiter.setProgress(progress, true);
-                setColor(Commons.setProgress(adapter.getTotalExpInt(), avg));
+                setColor(progress);
                 expView.setText(adapter.getTotalExpStr());
             }catch (Exception e){
                 e.printStackTrace();
             }
         });
+    }
+
+    private budgetEntity getBudget(){
+        AtomicReference<budgetEntity> entity = new AtomicReference<>(new budgetEntity());
+        vm.getBudget().observe(requireActivity(), budgetEntity -> {
+            try{
+                entity.set(budgetEntity);
+            }catch (Exception e){
+                e.printStackTrace();
+                budgetEntity e1 = new budgetEntity();
+                e1.setBal(0);
+                if (budgetEntity.getAmount()!=0){
+                    e1.setAmount(budgetEntity.getAmount());
+                }else{
+                    e1.setAmount(0);
+                }
+                entity.set(e1);
+            }
+        });
+        return entity.get();
     }
 
     private int getBalance() {
@@ -237,7 +261,12 @@ public class Exp_Tracker extends Fragment {
 
                 //Balance
                 int oldBal = getBalance();
+                budgetEntity oldBudget = getBudget();
                 vm.DeleteBalance();
+                vm.DeleteBudget();
+                budgetEntity bud = oldBudget;
+                bud.setBal(oldBudget.getBal() - Integer.parseInt(expAmt.getText().toString()));
+                vm.InsertBudget(bud);
                 balanceEntity bal = new balanceEntity();
                 bal.setBalance(oldBal - Integer.parseInt(expAmt.getText().toString()));
                 vm.InsertBalance(bal);

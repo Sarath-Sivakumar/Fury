@@ -118,7 +118,6 @@
                             android:layout_gravity="end|top|center"
                             android:layout_marginBottom="12dp"
                             android:layout_marginEnd="12dp"
-                            android:visibility="invisible"
                             app:trackColor="?attr/colorOnPrimary"
                             app:trackThickness="6dp" />
 

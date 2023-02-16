@@ -80,8 +80,8 @@ public class mainViewModel extends AndroidViewModel {
         repo.UpdateBudget(entity);
     }
 
-    public void DeleteBudget(budgetEntity entity){
-        repo.DeleteBudget(entity);
+    public void DeleteBudget(){
+        repo.DeleteBudget();
     }
 
     public LiveData<balanceEntity> getBalance() {
