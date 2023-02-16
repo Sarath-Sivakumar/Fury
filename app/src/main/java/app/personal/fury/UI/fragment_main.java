@@ -32,7 +32,9 @@ import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
+import app.personal.MVVM.Entity.budgetEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
@@ -50,7 +52,7 @@ public class fragment_main extends Fragment {
     private mainViewModel vm;
     private duesAdapter dAdapter;
     private categoryAdapter cAdapter;
-    private float salary = 0, expense = 0;
+    private int salary = 0, expense = 0;
     private int progress = 0;
     private AdView ad;
     private RecyclerView dueList;
@@ -62,7 +64,8 @@ public class fragment_main extends Fragment {
     private infoGraphicsAdapter igAdapter;
     private ArrayList<Fragment> FragmentList;
 
-    public fragment_main() {}
+    public fragment_main() {
+    }
 
     private void requestAd() {
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -84,7 +87,7 @@ public class fragment_main extends Fragment {
         igAdapter = new infoGraphicsAdapter(getParentFragmentManager());
         FragmentList = new ArrayList<>();
         budgetView.setOnClickListener(v1 -> {
-            if(budgetView.getText().toString().equals("Set a budget.")){
+            if (budgetView.getText().toString().equals("Set a budget.")) {
                 MainActivity.redirectTo(1);
             }
         });
@@ -101,7 +104,7 @@ public class fragment_main extends Fragment {
         catList.setAdapter(cAdapter);
         requestAd();
         catFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            Total 3 pos available , 0-today, 1-month, 2-year.
+            //            Total 3 pos available , 0-today, 1-month, 2-year.
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 filter = position;
@@ -109,11 +112,12 @@ public class fragment_main extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent){}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
     }
 
-    private void setIG_VP(){
+    private void setIG_VP() {
         FragmentList.add(ig.newInstance(R.drawable.furybanner_1));
         FragmentList.add(ig.newInstance(R.drawable.budget_ig));
         FragmentList.add(ig.newInstance(R.drawable.info_graph2));
@@ -129,6 +133,7 @@ public class fragment_main extends Fragment {
         cAdapter = new categoryAdapter();
         dAdapter = new duesAdapter();
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+        getExp(filter);
     }
 
     @Override
@@ -145,13 +150,31 @@ public class fragment_main extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setIG_VP();
+        if (savedInstanceState==null){
+            budgetEntity entity = getBud();
+            if (entity.getAmount()>0&&expense>0){
+                entity.setBal(entity.getAmount() - expense);
+                Log.e("Budget main", "Exp: " + expense);
+                Log.e("Budget main", "Amt: " + entity.getAmount());
+                Log.e("Budget main", "Bal: " + entity.getBal());
+                vm.DeleteBudget();
+                vm.InsertBudget(entity);
+            }
+        }
     }
 
     private void initViewModel() {
         getSal();
+        getDebt();
+    }
+    private budgetEntity getBud(){
+        AtomicReference<budgetEntity> bud = new AtomicReference<>(new budgetEntity());
         vm.getBudget().observe(requireActivity(), budgetEntities -> {
-            if (budgetEntities==null){
-                String s = "set a budget";
+            try {
+                String s = Constants.RUPEE + budgetEntities.getAmount();
+                budgetView.setText(s);
+            } catch (Exception e) {
+                String s = "Set a budget.";
                 budgetView.setText(s);
                 budgetView.setTextSize(13);
                 budgetView.setElegantTextHeight(true);
@@ -159,25 +182,13 @@ public class fragment_main extends Fragment {
                 Resources.Theme theme = requireActivity().getTheme();
                 theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true);
                 budgetView.setTextColor(typedValue.data);
+                Log.e("Budget", "Error: " + e.getMessage());
             }
-            else{
-
-                try {
-                    String s = Constants.RUPEE + budgetEntities.getAmount();
-                    budgetView.setText(s);
-                    Log.e("Budget", "Amount: " + s);
-
-                } catch (Exception e) {
-                    Log.e("Budget", "Error: " + e.getMessage());
-                    String s = Constants.RUPEE + "0";
-                    budgetView.setText(s);
-                }
-
+            if (budgetEntities!=null){
+                bud.set(budgetEntities);
             }
         });
-
-        getExp(filter);
-        getDebt();
+        return bud.get();
     }
 
     private void getSal() {
@@ -212,7 +223,7 @@ public class fragment_main extends Fragment {
                 dAvg.setTextSize(12);
             }
             dAvg.setText(Commons.getAvg(expEntities, true));
-            if (dAvg.getText().equals(Constants.dAvgNoData)){
+            if (dAvg.getText().equals(Constants.dAvgNoData)) {
                 avgInfo.setVisibility(View.VISIBLE);
                 avgInfo.setOnClickListener(v -> dAvgPopup());
                 TypedValue typedValue = new TypedValue();
@@ -227,7 +238,7 @@ public class fragment_main extends Fragment {
         });
     }
 
-    private void dAvgPopup(){
+    private void dAvgPopup() {
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
@@ -254,11 +265,11 @@ public class fragment_main extends Fragment {
                 if (dAdapter.getItemCount() <= 0) {
                     dueList.setVisibility(View.GONE);
                     noDues.setVisibility(View.VISIBLE);
-                } else if (dAdapter.getItemCount() <= 0 && debtEntities.isEmpty()){
+                } else if (dAdapter.getItemCount() <= 0 && debtEntities.isEmpty()) {
                     dueList.setVisibility(View.GONE);
                     noDues.setVisibility(View.VISIBLE);
 //                    noDues;
-                }else{
+                } else {
                     dueList.setVisibility(View.VISIBLE);
                     noDues.setVisibility(View.GONE);
                 }
@@ -276,7 +287,7 @@ public class fragment_main extends Fragment {
             prg = 0 + "%";
         }
         mainProgressText.setText(prg);
-        String p = Constants.RUPEE + (int)expense;
+        String p = Constants.RUPEE + (int) expense;
         expView.setText(p);
     }
 
@@ -288,11 +299,11 @@ public class fragment_main extends Fragment {
         expense = 0;
         cAdapter.clear();
         dAdapter.clear();
-        try{
+        try {
             initViewModel();
             setMain(progress);
-        }catch(Exception e){
-           e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -304,10 +315,10 @@ public class fragment_main extends Fragment {
         expense = 0;
         cAdapter.clear();
         dAdapter.clear();
-        try{
+        try {
             initViewModel();
             setMain(progress);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

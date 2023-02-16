@@ -86,8 +86,8 @@ public class localRepository {
         new UpdateBudgetAsyncTask(dao).execute(budgetEntity);
     }
 
-    public void DeleteBudget(budgetEntity budgetEntity){
-        new DeleteBudgetAsyncTask(dao).execute(budgetEntity);
+    public void DeleteBudget(){
+        new DeleteBudgetAsyncTask(dao).execute();
     }
 
     public LiveData<budgetEntity> getBudget(){return getBudget;}
@@ -288,15 +288,15 @@ public class localRepository {
         }
     }
 
-    private static class DeleteBudgetAsyncTask extends AsyncTask<budgetEntity,Void,Void> {
+    private static class DeleteBudgetAsyncTask extends AsyncTask<Void,Void,Void> {
         private  localDao dao;
         private DeleteBudgetAsyncTask(localDao dao){
             this.dao = dao;
         }
 
         @Override
-        protected Void doInBackground(budgetEntity... entities) {
-            dao.DeleteBudget(entities[0]);
+        protected Void doInBackground(Void... voids) {
+            dao.DeleteBudget();
             return null;
         }
     }

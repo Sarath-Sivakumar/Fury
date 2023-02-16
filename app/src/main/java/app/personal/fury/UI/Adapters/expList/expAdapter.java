@@ -18,7 +18,7 @@ import app.personal.Utls.Constants;
 import app.personal.fury.R;
 
 public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
-    private final List<expEntity> exp = new ArrayList<>();
+    private final List<expEntity> exp = new ArrayList<>(), budProg = new ArrayList<>();
     private onItemClickListener listener;
 
     @NonNull
@@ -86,8 +86,8 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
 
     public int getTotalExpInt() {
         int totalSum = 0;
-        for (int i = 0; i < exp.size(); i++) {
-            totalSum = totalSum + exp.get(i).getExpenseAmt();
+        for (int i = 0; i < budProg.size(); i++) {
+            totalSum = totalSum + budProg.get(i).getExpenseAmt();
         }
         return totalSum;
     }
@@ -98,6 +98,7 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
 
     public void setExp(List<expEntity> exp, boolean filter) {
         clear();
+        budProg.addAll(exp);
         if (filter) {
             int size = exp.size();
             for (int i = 0; i < size; i++) {

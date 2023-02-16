@@ -93,8 +93,8 @@ public interface localDao {
     @Update
     void UpdateBudget(budgetEntity budgetEntity);
 
-    @Delete
-    void DeleteBudget(budgetEntity budgetEntity);
+    @Query("DELETE FROM Budget_Table")
+    void DeleteBudget();
 
     @Query("SELECT * FROM Budget_Table")
     LiveData<budgetEntity> getBudgetData();
