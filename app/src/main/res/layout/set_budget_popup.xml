@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/popup_bg"
-                android:backgroundTint="?attr/colorOnSecondary"
+                android:backgroundTint="?attr/colorOnPrimary"
                 android:orientation="vertical"
                 android:padding="24dp">
 
@@ -80,8 +80,7 @@
                         android:layout_marginTop="10dp"
                         android:background="@drawable/border_bg"
                         android:text="No thanks, I will do it myself"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white" />
+                        android:textAllCaps="false" />
 
                 </LinearLayout>
             </LinearLayout>

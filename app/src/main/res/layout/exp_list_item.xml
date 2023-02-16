@@ -30,7 +30,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/raleway_semibold"
-            android:textColor="@color/white"
+            android:textColor="@color/h1_light"
             android:textSize="20sp" />
 
         <LinearLayout
@@ -67,7 +67,7 @@
         android:gravity="center|end"
         android:padding="12dp"
         android:textSize="22sp"
-        android:textColor="@color/theme_red_dark"
+        android:textColor="@color/h2_dark"
         android:fontFamily="@font/work_sans_semibold"
         />
 

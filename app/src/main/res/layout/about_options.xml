@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height=".1dp"
         android:layout_marginStart="12dp"
-        android:background="?attr/colorSecondary" />
+        android:background="?attr/colorPrimaryVariant" />
 
 
     <TextView
@@ -46,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height=".1dp"
         android:layout_marginStart="12dp"
-        android:background="?attr/colorSecondary"
+        android:background="?attr/colorPrimaryVariant"
         />
 
     <TextView
@@ -61,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height=".1dp"
         android:layout_marginStart="12dp"
-        android:background="?attr/colorSecondary" />
+        android:background="?attr/colorPrimaryVariant" />
        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </FrameLayout>

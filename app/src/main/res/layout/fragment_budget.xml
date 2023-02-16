@@ -26,7 +26,7 @@
                 android:layout_marginTop="3dp"
                 android:layout_marginEnd="6dp"
                 android:background="@drawable/card_view_theme"
-                android:backgroundTint="?attr/colorSecondary"
+                android:backgroundTint="?attr/colorPrimaryVariant"
                 android:elevation="6dp"
                 android:gravity="center"
                 android:orientation="vertical"
@@ -45,7 +45,6 @@
                     android:gravity="end"
                     android:paddingTop="6dp"
                     android:fontFamily="@font/raleway_bold"
-                    android:textColor="?attr/colorOnSecondary"
                     android:text="@string/my_budget"
                     android:textSize="18sp" />
 
@@ -55,7 +54,7 @@
                         android:layout_weight=".1"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_edit"
-                        app:tint="?attr/colorOnSecondary" />
+                        app:tint="?attr/colorOnPrimary" />
 
                     <View
                         android:layout_width="0dp"
@@ -104,7 +103,6 @@
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/raleway_bold"
                         android:text="@string/current_balance"
-                        android:textColor="@color/h1"
                         android:textSize="12sp" />
 
                     <TextView
@@ -136,7 +134,6 @@
                         android:fontFamily="@font/raleway_bold"
                         android:gravity="end"
                         android:text="@string/total_expense"
-                        android:textColor="@color/h1"
                         android:textSize="12sp" />
 
                     <TextView
@@ -174,7 +171,6 @@
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/raleway_bold"
                             android:text="Ideal daily Limit"
-                            android:textColor="@color/h1"
                             android:textSize="12sp" />
 
                         <TextView
@@ -207,7 +203,6 @@
                             android:fontFamily="@font/raleway_bold"
                             android:gravity="end"
                             android:text="Current daily Limit"
-                            android:textColor="@color/h1"
                             android:textSize="12sp" />
 
                         <TextView

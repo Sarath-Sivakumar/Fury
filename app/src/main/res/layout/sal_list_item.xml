@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="70dp"
-    android:layout_margin="6dp"
+    android:layout_margin="12dp"
     android:background="@drawable/border_bg"
-    android:backgroundTint="?attr/colorPrimary"
+    android:backgroundTint="?attr/colorPrimaryVariant"
     android:orientation="horizontal"
     app:cardCornerRadius="10dp">
 
@@ -14,20 +14,22 @@
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginStart="10dp"
-        android:background="?attr/colorOnSecondary"
+        android:background="?attr/colorOnPrimary"
         app:cardCornerRadius="30dp">
 
         <TextView
             android:id="@+id/icoText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fontFamily="@font/raleway_bold"
+            android:textAllCaps="true"
             android:gravity="center"
             android:textSize="18sp" />
     </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/salName"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginStart="10dp"
         android:fontFamily="@font/raleway_semibold"
@@ -50,7 +52,6 @@
             android:fontFamily="@font/work_sans_semibold"
             android:gravity="end"
             android:text=""
-            android:textColor="?attr/colorSecondary"
             android:textSize="18sp" />
 
         <TextView

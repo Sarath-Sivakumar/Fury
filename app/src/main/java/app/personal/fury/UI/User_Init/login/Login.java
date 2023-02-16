@@ -20,7 +20,6 @@ public class Login extends AppCompatActivity {
     private userInitViewModel uvm;
     private EditText Email, Password;
     private Button Login;
-    private TextView f_pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,7 @@ public class Login extends AppCompatActivity {
         Email = findViewById(R.id.l_mail);
         Password = findViewById(R.id.l_pass);
         Login = findViewById(R.id.l_btn);
-        f_pass = findViewById(R.id.f_pass);
+        TextView f_pass = findViewById(R.id.f_pass);
         f_pass.setOnClickListener(view -> forgotPassword());
         Login.setOnClickListener(view -> {
             String email = Email.getText().toString();
@@ -60,6 +59,6 @@ public class Login extends AppCompatActivity {
     }
 
     private void forgotPassword(){
-//        To be implemented..
+        startActivity(new Intent(Login.this,forgot_pass.class));
     }
 }

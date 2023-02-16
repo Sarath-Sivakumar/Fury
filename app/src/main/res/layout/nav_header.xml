@@ -27,7 +27,7 @@
                 android:id="@+id/userDP"
                 android:layout_width="61dp"
                 android:layout_height="61dp"
-                android:background="?attr/colorOnSecondary"
+                android:background="?attr/colorOnPrimary"
                 android:contentDescription="@null"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_account" />
@@ -50,6 +50,6 @@
             android:layout_height="0.5dp"
             android:layout_gravity="bottom"
             android:layout_marginTop="6dp"
-            android:background="?attr/colorSecondary" />
+            android:background="?attr/colorPrimaryVariant" />
     </LinearLayout>
 </LinearLayout>

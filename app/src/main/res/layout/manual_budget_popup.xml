@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/popup_bg"
-                android:backgroundTint="?attr/colorOnSecondary"
+                android:backgroundTint="?attr/colorOnPrimary"
                 android:orientation="vertical"
                 android:padding="24dp">
 
@@ -82,7 +82,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:background="@drawable/card"
+                        android:background="@drawable/border_bg"
                         android:orientation="vertical">
 
                         <TextView
@@ -103,6 +103,7 @@
                             android:gravity="center"
                             android:fontFamily="@font/work_sans_medium"
                             android:hint="₹" />
+
                     </LinearLayout>
 
 <!--                    <View-->

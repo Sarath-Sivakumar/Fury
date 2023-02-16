@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/raleway_bold"
             android:text="@string/app_name"
+            android:textColor="?attr/colorSecondaryVariant"
             android:textAllCaps="true"
             android:layout_marginStart="51dp"
             android:layout_gravity="start"
@@ -49,6 +50,7 @@
             android:layout_marginStart="51dp"
             android:layout_gravity="start"
             android:text="@string/fury_desc"
+            android:textColor="@color/h2_dark"
             android:textSize="16sp" />
 
         <Button
@@ -60,8 +62,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="51dp"
             android:text="@string/log_in"
-            android:background="@drawable/login_btn"
-            android:textColor="?attr/colorOnSecondary" />
+            android:background="@drawable/login_btn" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,7 +77,7 @@
                 android:layout_height="1.5dp"
                 android:layout_marginStart="51dp"
                 android:layout_weight="0.5"
-                android:background="@android:color/darker_gray" />
+                android:background="?attr/colorPrimary"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -85,7 +86,6 @@
                 android:gravity="center"
                 android:padding="6dp"
                 android:text="or"
-                android:textColor="@android:color/darker_gray"
                 android:textSize="15sp" />
 
             <View
@@ -93,7 +93,7 @@
                 android:layout_height="1.5dp"
                 android:layout_marginEnd="51dp"
                 android:layout_weight="0.5"
-                android:background="@android:color/darker_gray" />
+                android:background="?attr/colorPrimary" />
         </LinearLayout>
 
         <Button

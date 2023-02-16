@@ -54,6 +54,7 @@
 
 <!--    Long Strings-->
 
+    <string name="reset_txt">Please enter your registered mail ID.</string>
 
 
 
@@ -72,5 +73,8 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="terms_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="forgot_pass">Forgot\nPassword</string>
+
 
 </resources>

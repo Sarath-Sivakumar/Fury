@@ -26,7 +26,6 @@
             android:layout_height="match_parent"
             android:gravity="center|start"
             android:text="About Us"
-            android:textColor="@color/appbar_textcolor"
             android:textSize="18sp" />
 
     </LinearLayout>

@@ -48,7 +48,7 @@
                         android:layout_width="125dp"
                         android:layout_height="125dp"
                         android:layout_margin="12dp"
-                        app:cardBackgroundColor="?attr/colorSecondary"
+                        app:cardBackgroundColor="?attr/colorPrimaryVariant"
                         app:cardCornerRadius="150dp">
 
                         <FrameLayout
@@ -64,7 +64,7 @@
                                 android:elevation="8dp"
                                 app:indicatorColor="?attr/colorPrimary"
                                 app:indicatorSize="125dp"
-                                app:trackColor="?attr/colorOnSecondary"
+                                app:trackColor="?attr/colorOnPrimary"
                                 app:trackThickness="12dp" />
 
                             <TextView
@@ -73,7 +73,6 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/work_sans_semibold"
                                 android:gravity="center"
-                                android:textColor="?attr/colorOnPrimary"
                                 android:textSize="28sp" />
                         </FrameLayout>
                     </androidx.cardview.widget.CardView>
@@ -99,7 +98,6 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/raleway_bold"
                                     android:text="@string/expense"
-                                    android:textColor="?attr/colorSecondaryVariant"
                                     android:textSize="14sp" />
 
                                 <TextView
@@ -107,7 +105,6 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
-                                    android:textColor="?attr/colorOnPrimary"
                                     android:fontFamily="@font/work_sans_semibold"
                                     android:textSize="21sp" />
                             </LinearLayout>
@@ -122,7 +119,6 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/raleway_bold"
-                                    android:textColor="?attr/colorSecondaryVariant"
                                     android:text="@string/budget"
                                     android:textSize="14sp" />
 
@@ -132,7 +128,6 @@
                                     android:layout_height="match_parent"
                                     android:layout_marginTop="4dp"
                                     android:gravity="start|center"
-                                    android:textColor="?attr/colorOnPrimary"
                                     android:fontFamily="@font/work_sans_semibold"
                                     android:textSize="21sp" />
 
@@ -157,7 +152,6 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/raleway_bold"
                                     android:text="@string/daily_average"
-                                    android:textColor="?attr/colorSecondaryVariant"
                                     android:textSize="14sp" />
 
                                 <LinearLayout
@@ -227,8 +221,7 @@
                     android:layout_gravity="end|center"
                     android:text="View All"
                     android:fontFamily="@font/raleway_semibold"
-                    android:textAllCaps="false"
-                    android:textColor="?attr/colorPrimary" />
+                    android:textAllCaps="false" />
             </LinearLayout>
 
             <LinearLayout
@@ -319,8 +312,7 @@
                     android:layout_gravity="end|center"
                     android:text="View All"
                     android:fontFamily="@font/raleway_semibold"
-                    android:textAllCaps="false"
-                    android:textColor="?attr/colorPrimary" />
+                    android:textAllCaps="false" />
 
             </LinearLayout>
 
@@ -379,8 +371,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/theme_gold"
                         android:text="Ad" />
+<!--                        android:textColor="@color/theme_gold"-->
+
 
                     <View
                         android:layout_width="match_parent"

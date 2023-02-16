@@ -39,7 +39,6 @@
                         android:gravity="start"
                         android:padding="6dp"
                         android:text="Total Amount"
-                        android:textColor="@color/h1"
                         android:fontFamily="@font/raleway_bold"
                         android:textSize="16sp" />
 
@@ -51,7 +50,6 @@
                         android:gravity="end"
                         android:padding="6dp"
                         android:text="Due Count"
-                        android:textColor="@color/h1"
                         android:fontFamily="@font/raleway_bold"
                         android:textSize="16sp" />
 

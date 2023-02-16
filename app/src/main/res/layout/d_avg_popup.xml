@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="150dp"
+    android:layout_width="180dp"
     android:layout_height="wrap_content"
     android:background="@drawable/card_view_theme2"
     android:elevation="6dp">
@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:padding="6dp"
         android:layout_height="match_parent"
-        android:textColor="?attr/colorOnSecondary"
         android:text="Daily average needs to collect some data which are processed after 7 days of usage"
         android:gravity="center|start"
         android:textSize="12sp"/>
