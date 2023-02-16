@@ -179,7 +179,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginStart="14dp"
                             android:layout_marginEnd="22dp"
-                            android:hint="₹0"
+                            android:text="₹0"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/work_sans_semibold"
                             android:textSize="18sp" />
@@ -213,7 +213,7 @@
                             android:gravity="end"
                             android:layout_marginEnd="12dp"
                             android:layout_marginBottom="10dp"
-                            android:hint="₹0"
+                            android:text="₹0"
                             android:fontFamily="@font/work_sans_semibold"
                             android:textSize="18sp" />
 
@@ -221,8 +221,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
-
 
             <TextView
                 android:layout_width="match_parent"
