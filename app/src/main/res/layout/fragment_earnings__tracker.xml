@@ -28,6 +28,7 @@
                     android:layout_marginEnd="6dp"
                     android:paddingRight="12dp"
                     android:background="@drawable/card_view_theme"
+                    android:backgroundTint="?attr/colorPrimaryVariant"
                     android:elevation="6dp"
                     android:orientation="vertical">
 
@@ -38,7 +39,7 @@
                         android:gravity="center_horizontal"
                         android:paddingTop="6dp"
                         android:text="Total Earnings"
-                        android:textColor="@color/h1"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="18sp" />
 
                     <TextView
@@ -48,6 +49,7 @@
                         android:singleLine="true"
                         android:fontFamily="@font/work_sans_semibold"
                         android:gravity="center"
+                        android:textColor="?attr/colorSecondaryContainer"
                         android:textSize="26sp" />
 
                 </LinearLayout>
@@ -67,7 +69,6 @@
                     android:fontFamily="@font/raleway_bold"
                     android:layout_marginStart="6dp"
                     android:layout_marginBottom="12dp"
-                    android:textColor="@color/h1"
                     android:textSize="18sp" />
 
                 <LinearLayout
@@ -78,7 +79,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/salList"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"
+                    android:layout_height="350dp"
                     tools:listitem="@layout/sal_list_item" />
 
                 </LinearLayout>

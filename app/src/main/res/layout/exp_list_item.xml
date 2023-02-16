@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="75dp"
+    android:layout_height="60dp"
     android:background="@drawable/exp_list_card"
     android:layout_margin="6dp"
     android:orientation="horizontal">
@@ -28,9 +28,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/raleway_semibold"
-            android:textColor="@color/white"
+            android:textColor="@color/h1_light"
             android:textSize="20sp" />
 
         <LinearLayout
@@ -66,8 +66,9 @@
         android:layout_height="match_parent"
         android:gravity="center|end"
         android:padding="12dp"
-        android:textSize="18sp"
-        android:textColor="@color/theme_red_dark"
-        android:fontFamily="@font/work_sans_semibold" />
+        android:textSize="22sp"
+        android:textColor="@color/h2_dark"
+        android:fontFamily="@font/work_sans_semibold"
+        />
 
 </LinearLayout>

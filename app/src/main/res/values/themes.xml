@@ -1,15 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Fury" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
+        <style name="Theme.Fury" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color(Widgets Color) -->
         <item name="colorPrimary">@color/theme_green</item>
-        <item name="colorPrimaryVariant">@color/black</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/app_theme_secondary</item>
-        <item name="colorSecondaryVariant">@color/app_theme_third</item>
-        <!--Color of item inside floating action button-->
-        <item name="colorOnSecondary">@color/total_lite</item>
+        <item name="colorPrimaryVariant">@color/app_theme_secondary</item>
+        <item name="colorOnPrimary">@color/full_white</item>
+        <item name="colorPrimaryContainer">@color/d1</item>
+
+        <!-- Secondary brand color(Texts Colors)-->
+        <item name="colorSecondary">@color/h1_light</item>
+        <item name="colorSecondaryVariant">@color/h1_dark</item>
+        <item name="colorOnSecondary">@color/h2_dark</item>
+        <item name="colorSecondaryContainer">@color/h2_light</item>
+
          <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/Status_bar</item>
         <item name="android:windowLightStatusBar">false</item>

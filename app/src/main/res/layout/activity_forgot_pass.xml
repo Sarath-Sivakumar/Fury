@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.6"
+        android:layout_weight="0.5"
         android:orientation="horizontal">
 
         <ImageButton
@@ -30,15 +30,15 @@
             android:layout_marginStart="0dp"
             android:layout_marginTop="80sp"
             android:fontFamily="@font/raleway_bold"
-            android:text="Welcome\nBack"
+            android:text="@string/forgot_pass"
             android:textColor="?attr/colorSecondary"
-            android:textSize="22sp" />
+            android:textSize="24sp" />
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".4">
+        android:layout_weight=".3">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,49 +46,35 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/l_mail"
-                android:layout_width="300dp"
-                android:layout_height="?actionBarSize"
-                android:fontFamily="@font/raleway_semibold"
-                android:hint="Email"
-                android:singleLine="true"
-                android:textSize="16sp" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-
-            <EditText
-                android:id="@+id/l_pass"
-                android:layout_width="300dp"
-                android:layout_height="?actionBarSize"
-                android:fontFamily="@font/raleway_semibold"
-                android:hint="Password"
-                android:singleLine="true"
-                android:textSize="16sp" />
-
-
-            </LinearLayout>
-
             <TextView
-                android:id="@+id/f_pass"
-                android:layout_marginTop="10dp"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
+                android:layout_margin="12dp"
+                android:gravity="center"
+                android:text="@string/reset_txt"
                 android:textColor="?attr/colorOnSecondary"
-                android:text="@string/forgot_password" />
+                android:textSize="18sp" />
+
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="360dp"
+            android:layout_height="50dp"
+            android:hint="example@gmail.com"
+            android:layout_margin="12dp"
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:textSize="14sp" />
 
             <Button
-                android:id="@+id/l_btn"
-                android:layout_width="300dp"
+                android:id="@+id/passchange"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="360dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/login_btn"
-                android:fontFamily="@font/raleway_semibold"
-                android:text="Login"
+                android:text="Send mail"
                 android:textSize="16sp" />
 
         </LinearLayout>

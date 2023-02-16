@@ -19,7 +19,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/colorOnSecondary"
                 android:layout_margin="12dp"
                 android:orientation="vertical">
 
@@ -33,6 +32,7 @@
                     android:layout_marginEnd="6dp"
                     android:paddingRight="12dp"
                     android:background="@drawable/card_view_theme"
+                    android:backgroundTint="?attr/colorPrimaryVariant"
                     android:elevation="6dp"
                     android:orientation="vertical">
 
@@ -43,6 +43,7 @@
                         android:gravity="center_horizontal"
                         android:paddingTop="6dp"
                         android:text="@string/total_expense_today"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="18sp" />
 
                     <TextView
@@ -52,6 +53,7 @@
                         android:singleLine="true"
                         android:fontFamily="@font/work_sans_semibold"
                         android:gravity="center"
+                        android:textColor="?attr/colorSecondaryContainer"
                         android:textSize="26sp" />
 
                 </LinearLayout>
@@ -78,7 +80,7 @@
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/raleway_bold"
                             android:text="@string/account_balance"
-                            android:textColor="@color/h1"
+                            android:textColor="?attr/colorOnSecondary"
                             android:textSize="16sp" />
 
                         <TextView
@@ -108,7 +110,7 @@
                             android:fontFamily="@font/raleway_bold"
                             android:gravity="end"
                             android:text="Daily Limit"
-                            android:textColor="@color/h1"
+                            android:textColor="?attr/colorOnSecondary"
                             android:textSize="16sp" />
 
                         <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -128,13 +130,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Expenses"
+                android:text="Today's expense"
                 android:gravity="center"
-                android:textColor="@color/h1"
                 android:textSize="18sp"
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -145,6 +145,16 @@
                 android:background="@drawable/border_bg"
                 tools:listitem="@layout/exp_list_item" />
 
+<!--            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+<!--                android:id="@+id/adView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:minHeight="50dp"-->
+<!--                android:minWidth="320dp"-->
+<!--                ads:adSize="BANNER"-->
+<!--                ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />-->
+<!--            &lt;!&ndash;Test ID ca-app-pub-3940256099942544/6300978111&ndash;&gt;-->
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -154,6 +164,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="12dp"
+        app:backgroundTint="?attr/colorPrimary"
         android:contentDescription="@null"
         android:src="@drawable/ic_add" />
 </FrameLayout>

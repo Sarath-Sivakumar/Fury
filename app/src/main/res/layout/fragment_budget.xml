@@ -21,17 +21,17 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingLeft="12dp"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginEnd="6dp"
+                android:paddingRight="12dp"
                 android:background="@drawable/card_view_theme"
-                android:backgroundTint="?attr/colorSecondary"
+                android:backgroundTint="?attr/colorPrimaryVariant"
                 android:elevation="6dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -45,9 +45,13 @@
                     android:gravity="end"
                     android:paddingTop="6dp"
                     android:fontFamily="@font/raleway_bold"
-                    android:textColor="?attr/colorOnSecondary"
+                    android:textColor="?attr/colorSecondary"
                     android:text="@string/my_budget"
                     android:textSize="18sp" />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".02"/>
 
                     <ImageButton
                         style="@style/Widget.AppCompat.Button.Borderless"
@@ -55,13 +59,12 @@
                         android:layout_weight=".1"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_edit"
-                        app:tint="?attr/colorOnSecondary"
-                        android:contentDescription="@null" />
+                        app:tint="?attr/colorOnPrimary" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight=".3"/>
+                        android:layout_weight=".28"/>
 
                 </LinearLayout>
 
@@ -69,7 +72,9 @@
                     android:id="@+id/bgtAmt"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:layout_marginBottom="5dp"
                     android:fontFamily="@font/work_sans_semibold"
+                    android:textColor="?attr/colorSecondaryContainer"
                     android:gravity="center"
                     android:singleLine="true"
                     android:textSize="26sp" />
@@ -105,7 +110,6 @@
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/raleway_bold"
                         android:text="@string/current_balance"
-                        android:textColor="@color/h1"
                         android:textSize="12sp" />
 
                     <TextView
@@ -137,7 +141,6 @@
                         android:fontFamily="@font/raleway_bold"
                         android:gravity="end"
                         android:text="@string/total_expense"
-                        android:textColor="@color/h1"
                         android:textSize="12sp" />
 
                     <TextView
@@ -175,7 +178,6 @@
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/raleway_bold"
                             android:text="Ideal daily Limit"
-                            android:textColor="@color/h1"
                             android:textSize="12sp" />
 
                         <TextView
@@ -208,7 +210,6 @@
                             android:fontFamily="@font/raleway_bold"
                             android:gravity="end"
                             android:text="Current daily Limit"
-                            android:textColor="@color/h1"
                             android:textSize="12sp" />
 
                         <TextView
@@ -242,18 +243,29 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/top_exp"
                 android:layout_width="match_parent"
+                android:layout_height="248dp"
+                android:layout_margin="6dp"
                 android:background="@drawable/border_bg"
-                android:layout_height="350dp"
-                android:paddingStart="6dp"
-                android:paddingTop="6dp"
-                android:paddingEnd="6dp"
-                tools:listitem="@layout/exp_list_item" />
+                tools:listitem="@layout/top_catlist_item" />
 
-<!--            <ImageView-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="200dp"-->
-<!--                android:src="@drawable/info_graph1"/>-->
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="50dp"
+                android:minWidth="320dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginTop="12dp"
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+<!--            Test ID ca-app-pub-3940256099942544/6300978111-->
+
+            <ImageView
+                android:layout_margin="6sp"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:src="@drawable/info_1"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
@@ -265,5 +277,7 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="12dp"
         android:contentDescription="@null"
-        android:src="@drawable/ic_add" />
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/theme_green"
+        tools:ignore="SpeakableTextPresentCheck" />
 </FrameLayout>

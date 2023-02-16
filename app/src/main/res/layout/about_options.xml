@@ -16,6 +16,12 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height=".1dp"
+        android:layout_marginStart="12dp"
+        android:background="?attr/colorPrimaryVariant" />
+
             <TextView
                 android:id="@+id/p_policies"
                 android:layout_width="match_parent"
@@ -35,6 +41,12 @@
                 android:layout_marginStart="12dp"
                 android:background="?attr/colorSecondary" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height=".1dp"
+        android:layout_marginStart="12dp"
+        android:background="?attr/colorPrimaryVariant"
+        />
 
             <TextView
                 android:id="@+id/t_c"
@@ -43,6 +55,12 @@
                 android:layout_margin="12dp"
                 android:text="@string/terms_conditions"
                 android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height=".1dp"
+        android:layout_marginStart="12dp"
+        android:background="?attr/colorPrimaryVariant" />
 
             <View
                 android:layout_width="match_parent"

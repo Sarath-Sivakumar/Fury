@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/popup_bg"
-                android:backgroundTint="?attr/colorOnSecondary"
+                android:backgroundTint="?attr/colorOnPrimary"
                 android:orientation="vertical"
                 android:padding="24dp">
 
@@ -83,19 +83,20 @@
                         android:layout_height="match_parent"
                         android:text="Add"
                         android:fontFamily="@font/raleway_bold"
-                        android:background="@drawable/card_view_theme"
+                        android:background="@drawable/login_btn"
                         android:textAllCaps="false" />
 
                     <Button
                         android:id="@+id/due_c"
                         style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Cancel"
-                        android:textColor="?attr/colorPrimaryVariant"
                         android:fontFamily="@font/raleway_bold"
-                        android:textAllCaps="false"
-                        />
+                        android:layout_marginTop="5dp"
+                        android:text="Cancel"
+                        android:background="@drawable/signup_btn"
+                        android:textColor="?attr/colorPrimary"
+                        android:textAllCaps="false" />
 
                 </LinearLayout>
             </LinearLayout>

@@ -52,10 +52,10 @@ public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
                 String s = Constants.RUPEE+entity.getAmount();
                 holder.dueAmt.setText(s);
                 holder.dueName.setText(entity.getSource());
-                if (daysDiff<4){
+                if (daysDiff<5){
                     holder.day.setTextColor(Color.RED);
                 }else{
-                    holder.day.setTextColor(Color.WHITE);
+                    holder.day.setTextColor(Color.BLACK);
                 }
             }
         } catch (ParseException e) {

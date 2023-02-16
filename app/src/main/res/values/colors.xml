@@ -2,25 +2,38 @@
 <resources>
     <color name="primary">#000000</color>
     <color name="black">#323232</color>
-    <color name="total_dark">#000000</color>
     <color name="due_item_color">#80323232</color>
     <color name="white">#EAF1EC</color>
-    <color name="total_lite">#ffffff</color>
+    <color name="full_white">#ffffff</color>
     <color name="theme_red">#DA3846</color>
     <color name="theme_red_dark">#C60000</color>
     <color name="theme_green">#3EC099</color>
-    <color name="theme_gold">#FFD700</color>
     <color name="theme_green_dark">#319577</color>
+    <color name="theme_gold">#FFD700</color>
+
+<!--    Darkshades-->
+    <color name="d1">#343434</color>
+    <color name="d2">#492645</color>
+    <color name="d3">#132238</color>
+
+
+    <!--    Action & Status Bars-->
     <color name="Status_bar">#1E3749</color>
+    <color name="actionbar_title">#f1fcfd</color>
 
 
-<!--    font colors-->
-    <color name="appbar_textcolor">#ffffff</color>
-    <color name="h1">#555F61</color>
+<!--    font colors(light shade)-->
+    <color name="h1_light">#f2f4f7</color>
+    <color name="h2_light">#fef8dd</color>
 
-<!--    Apptheme-->
+
+<!--    font colors(dark shade)-->
+    <color name="h1_dark">#020205</color>
+    <color name="h2_dark">#3e3e3e</color>
+
+
+<!--    App theme-->
     <color name="app_theme_primary">#4DF0BF</color>
     <color name="app_theme_secondary">#1E3749</color>
-    <color name="app_theme_third">#4DF0BF</color>
 
 </resources>

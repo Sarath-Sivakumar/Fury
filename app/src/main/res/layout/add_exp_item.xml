@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/popup_bg"
-                android:backgroundTint="?attr/colorOnSecondary"
+                android:backgroundTint="?attr/colorOnPrimary"
                 android:orientation="vertical"
                 android:padding="24dp">
 
@@ -96,6 +96,7 @@
                     android:background="@android:color/transparent"
                     android:hint="Salary Date"
                     android:inputType="text"
+                    android:fontFamily="@font/work_sans_medium"
                     android:padding="12dp"
                     android:singleLine="true" />
 
@@ -153,7 +154,7 @@
                         style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/card_view_theme"
+                        android:background="@drawable/login_btn"
                         android:fontFamily="@font/raleway_bold"
                         android:text="Add"
                         android:textAllCaps="false" />
@@ -161,13 +162,14 @@
                     <Button
                         android:id="@+id/add_no"
                         style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/raleway_bold"
+                        android:layout_marginTop="5dp"
                         android:text="Cancel"
-                        android:textColor="?attr/colorPrimaryVariant"
-                        android:textAllCaps="false"
-                         />
+                        android:background="@drawable/signup_btn"
+                        android:textColor="?attr/colorPrimary"
+                        android:textAllCaps="false" />
 
                 </LinearLayout>
             </LinearLayout>

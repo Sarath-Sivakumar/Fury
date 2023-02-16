@@ -30,7 +30,7 @@
             android:layout_marginTop="80sp"
             android:fontFamily="@font/raleway_bold"
             android:text="Create\nAccount"
-            android:textColor="@color/white"
+            android:textColor="?attr/colorSecondary"
             android:textSize="24sp" />
     </LinearLayout>
 
@@ -96,6 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_frm_signup"
+            android:textColor="?attr/colorOnSecondary"
             android:layout_marginTop="20dp" />
         
     </LinearLayout>
