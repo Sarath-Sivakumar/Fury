@@ -47,7 +47,7 @@ public class Ear_Tracker extends Fragment {
     private FloatingActionButton addSal;
     private mainViewModel vm;
     private salaryAdapter adapter;
-    private TextView salAmt;
+    private TextView salAmt,InhandAmt,AccountAmt,InhandCount,AccountCount;
     private RecyclerView.ViewHolder ViewHolder;
     private ViewPager ig_vp;
     private TabLayout ig_tl;
@@ -96,6 +96,10 @@ public class Ear_Tracker extends Fragment {
         salSplitList.setLayoutManager(new LinearLayoutManager(requireContext()));
         salSplitList.setHasFixedSize(true);
         salSplitList.setAdapter(adapter);
+        InhandAmt = v.findViewById(R.id.inhand_Amt);
+        InhandCount = v.findViewById(R.id.inhand_count);
+        AccountAmt = v.findViewById(R.id.account_amt);
+        AccountCount = v.findViewById(R.id.account_count);
         ig_vp = v.findViewById(R.id.infoGraphics_earvp);
         ig_tl = v.findViewById(R.id.infoGraphics_ear);
         igAdapter = new infoGraphicsAdapter(getParentFragmentManager());
