@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/popup_bg_shader">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/popup_bg"
+        android:backgroundTint="?attr/colorOnPrimary"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/update" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:gravity="center"
+                android:text="Update your app"
+                android:textColor="?attr/colorSecondaryVariant"
+                android:fontFamily="@font/raleway_bold"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/work_sans_medium"
+            android:text="@string/update_txt"
+            android:textSize="16dp"
+            android:gravity="center"
+            android:textColor="?attr/colorSecondaryVariant"
+            android:layout_marginBottom="15dp"
+            android:padding="12dp" />
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/ignore"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".5"
+                android:text="Later"
+                android:fontFamily="@font/raleway_bold"
+                android:background="@drawable/login_btn"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/update"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_weight=".5"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/raleway_bold"
+                android:text="Update"
+                android:background="@drawable/signup_btn"
+                android:textColor="?attr/colorPrimary"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
