@@ -160,8 +160,8 @@ public class Ear_Tracker extends Fragment {
         }
 
         title.setText("New Income");
-        name.setHint("Income Name");
-        amt.setHint("Income Amount");
+        name.setHint("Source");
+        amt.setHint(Constants.RUPEE + "Amount");
 
         FrameLayout frm = view.findViewById(R.id.expNameTitle);
         frm.setVisibility(View.GONE);

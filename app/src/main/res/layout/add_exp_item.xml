@@ -101,46 +101,108 @@
                     android:singleLine="true" />
 
                 <TextView
+                    android:id="@+id/radioTitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:text="Credit mode" />
+
+                <RadioGroup
+                    android:id="@+id/RadioGroup2"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:layout_weight="1" >
+
+                    <RadioButton
+                        android:id="@+id/via_inhand"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Cash"
+                        android:textSize="13sp" />
+
+                    <RadioButton
+                        android:id="@+id/via_account"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Bank Account"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+                </RadioGroup>
+
+                <TextView
                     android:id="@+id/radioTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="12dp"
-                    android:text="Select salary type" />
+                    android:text="Select payperiod" />
 
-                <RadioGroup
-                    android:id="@+id/RadioGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
-                    <RadioButton
-                        android:id="@+id/hourly"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="6dp"
-                        android:text="Hourly" />
+                    <RadioGroup
+                        android:id="@+id/RadioGroup"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                    <RadioButton
-                        android:id="@+id/daily"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="6dp"
-                        android:text="Daily" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="12dp"
+                            android:layout_weight="1" >
 
-                    <RadioButton
-                        android:id="@+id/monthly"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="6dp"
-                        android:text="Monthly" />
+                            <RadioButton
+                                android:id="@+id/hourly"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Hourly"
+                                android:textSize="13sp" />
 
-                    <RadioButton
-                        android:id="@+id/oneTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="6dp"
-                        android:text="One Time" />
+                            <RadioButton
+                                android:id="@+id/daily"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Daily"
+                                android:textSize="13sp" />
 
-                </RadioGroup>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:paddingStart="12dp"
+                            android:orientation="horizontal" >
+
+                            <RadioButton
+                                android:id="@+id/monthly"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Monthly"
+                                android:textSize="13sp" />
+
+                            <RadioButton
+                                android:id="@+id/oneTime"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="OneTime"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+
+                    </RadioGroup>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -170,7 +232,6 @@
                         android:background="@drawable/signup_btn"
                         android:textColor="?attr/colorPrimary"
                         android:textAllCaps="false" />
-
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
