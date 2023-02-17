@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingTop="12dp"
     android:paddingStart="12dp"
     android:paddingEnd="12dp"
@@ -65,6 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
+                    android:textColor="?attr/colorSecondaryVariant"
                     android:text="Earnings Category"
                     android:fontFamily="@font/raleway_bold"
                     android:layout_marginStart="6dp"
@@ -81,8 +83,54 @@
                     android:layout_width="match_parent"
                     android:layout_height="350dp"
                     tools:listitem="@layout/sal_list_item" />
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".8"
+                    android:layout_marginTop="12dp"
+                    android:text="Fury learning corner"
+                    android:fontFamily="@font/raleway_bold"
+                    android:layout_marginStart="6dp"
+                    android:textColor="?attr/colorOnSecondary"
+                    android:layout_marginBottom="12dp"
+                    android:textSize="14sp" />
+
+
 
                 </LinearLayout>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@drawable/border_bg"
+                    android:backgroundTint="?attr/colorSecondary"
+                    android:orientation="vertical">
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/infoGraphics_earvp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="6dp"
+                        android:minHeight="300dp" />
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/infoGraphics_ear"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:background="@android:color/transparent"
+                        app:tabBackground="@drawable/tab_selector"
+                        app:tabGravity="center"
+                        app:tabIndicatorHeight="0dp" />
+                </FrameLayout>
 
             </LinearLayout>
         </LinearLayout>

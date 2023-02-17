@@ -261,11 +261,36 @@
                 ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
 <!--            Test ID ca-app-pub-3940256099942544/6300978111-->
 
-            <ImageView
-                android:layout_margin="6sp"
+<!--            <ImageView-->
+<!--                android:layout_margin="6sp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="350dp"-->
+<!--                android:src="@drawable/info_1"/>-->
+
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
-                android:src="@drawable/info_1"/>
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/infoGraphics_vp2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="6dp"
+                    android:minHeight="300dp" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/infoGraphics_tab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@android:color/transparent"
+                    app:tabBackground="@drawable/tab_selector"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp" />
+
+            </FrameLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

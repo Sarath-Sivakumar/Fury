@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,7 +24,9 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +38,8 @@ import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.budgetList.budgetAdapter;
+import app.personal.fury.UI.IG_fragment.ig;
+import app.personal.fury.ViewPagerAdapter.infoGraphicsAdapter;
 
 public class BudgetFragment extends Fragment {
 
@@ -45,6 +50,10 @@ public class BudgetFragment extends Fragment {
     private int totalSalary = 0;
     private RecyclerView topExp;
     private budgetAdapter adapter;
+    private infoGraphicsAdapter igAdapter;
+    private ViewPager ig_vp;
+    private TabLayout ig_tl;
+    private ArrayList<Fragment> FragmentList;
 
     private AdView ad;
 
@@ -58,6 +67,7 @@ public class BudgetFragment extends Fragment {
         super.onCreate(savedInstanceState);
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         adapter = new budgetAdapter();
+        MobileAds.initialize(requireContext());
     }
 
     @Override
@@ -73,6 +83,7 @@ public class BudgetFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initItems();
+        setIG_VP();
     }
 
     private void requestAd() {
@@ -91,9 +102,21 @@ public class BudgetFragment extends Fragment {
         topExp.setAdapter(adapter);
         Dailylimitallowed = v.findViewById(R.id.ID_avg);
         CurrentDailylimit = v.findViewById(R.id.C_avg);
+        ig_vp = v.findViewById(R.id.infoGraphics_vp2);
+        ig_tl = v.findViewById(R.id.infoGraphics_tab2);
+        igAdapter = new infoGraphicsAdapter(getParentFragmentManager());
+        FragmentList = new ArrayList<>();
         ad = v.findViewById(R.id.adView2);
         addBudget.setOnClickListener(v1 -> callAddBudgetPopup());
         requestAd();
+    }
+    private void setIG_VP(){
+        FragmentList.add(ig.newInstance(R.drawable.info_1));
+        FragmentList.add(ig.newInstance(R.drawable.info_2));
+        FragmentList.add(ig.newInstance(R.drawable.info_3));
+        igAdapter.setInfoGraphics(FragmentList);
+        ig_vp.setAdapter(igAdapter);
+        ig_tl.setupWithViewPager(ig_vp, true);
     }
 
     private void initItems() {
@@ -206,6 +229,7 @@ public class BudgetFragment extends Fragment {
         popupWindow.setElevation(6);
         popupWindow.showAsDropDown(addBudget);
     }
+
 
 
 }

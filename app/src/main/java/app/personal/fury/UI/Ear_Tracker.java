@@ -22,9 +22,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import app.personal.MVVM.Entity.balanceEntity;
@@ -34,6 +37,8 @@ import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.salaryList.salaryAdapter;
+import app.personal.fury.UI.IG_fragment.ig;
+import app.personal.fury.ViewPagerAdapter.infoGraphicsAdapter;
 
 public class Ear_Tracker extends Fragment {
     //Daily = 1, Monthly = 0, Hourly = -1, oneTime = ?(To be implemented in a future update).
@@ -44,6 +49,10 @@ public class Ear_Tracker extends Fragment {
     private salaryAdapter adapter;
     private TextView salAmt;
     private RecyclerView.ViewHolder ViewHolder;
+    private ViewPager ig_vp;
+    private TabLayout ig_tl;
+    private infoGraphicsAdapter igAdapter;
+    private ArrayList<Fragment> FragmentList;
 
     public Ear_Tracker() {
     }
@@ -76,6 +85,7 @@ public class Ear_Tracker extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         String s = Constants.RUPEE + getSalary();
         salAmt.setText(s);
+        setIG_VP();
     }
 
     private void findView(View v) {
@@ -86,8 +96,25 @@ public class Ear_Tracker extends Fragment {
         salSplitList.setLayoutManager(new LinearLayoutManager(requireContext()));
         salSplitList.setHasFixedSize(true);
         salSplitList.setAdapter(adapter);
+        ig_vp = v.findViewById(R.id.infoGraphics_earvp);
+        ig_tl = v.findViewById(R.id.infoGraphics_ear);
+        igAdapter = new infoGraphicsAdapter(getParentFragmentManager());
+        FragmentList = new ArrayList<>();
         touchHelper();
     }
+    private void setIG_VP(){
+        FragmentList.add(ig.newInstance(R.drawable.info_h1));
+        FragmentList.add(ig.newInstance(R.drawable.info_h2));
+        FragmentList.add(ig.newInstance(R.drawable.info_h3));
+        FragmentList.add(ig.newInstance(R.drawable.info_h4));
+        FragmentList.add(ig.newInstance(R.drawable.info_h5));
+        FragmentList.add(ig.newInstance(R.drawable.info_h6));
+        igAdapter.setInfoGraphics(FragmentList);
+        ig_vp.setAdapter(igAdapter);
+        ig_tl.setupWithViewPager(ig_vp, true);
+    }
+
+
 
     @SuppressLint("SetTextI18n")
     private void callPopUpWindow(boolean isEdit, @Nullable salaryEntity salary) {
