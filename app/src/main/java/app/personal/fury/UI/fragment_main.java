@@ -133,7 +133,6 @@ public class fragment_main extends Fragment {
         cAdapter = new categoryAdapter();
         dAdapter = new duesAdapter();
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-        getExp(filter);
     }
 
     @Override
@@ -142,6 +141,7 @@ public class fragment_main extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_main, container, false);
         findView(v);
+        getExp(filter);
         initViewModel();
         return v;
     }
