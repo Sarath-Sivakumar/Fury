@@ -13,6 +13,7 @@ import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.budgetEntity;
 import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Entity.expEntity;
+import app.personal.MVVM.Entity.inHandBalEntity;
 import app.personal.MVVM.Entity.salaryEntity;
 
 public class localRepository {
@@ -20,6 +21,7 @@ public class localRepository {
     private final LiveData<balanceEntity> getBalance;
     private final LiveData<List<debtEntity>> getDebt;
     private final LiveData<budgetEntity> getBudget;
+    private final LiveData<inHandBalEntity> getInHandBal;
     private final LiveData<List<expEntity>> getExp;
     private final LiveData<List<salaryEntity>> getSalary;
 
@@ -31,6 +33,7 @@ public class localRepository {
         getExp = dao.getExpData();
         getSalary = dao.getSalData();
         getBudget = dao.getBudgetData();
+        getInHandBal = dao.getInHandBalData();
     }
 
     //----------------------------------------------------------------------------------------------
@@ -40,6 +43,13 @@ public class localRepository {
 
     public void DeleteBalance(){
         new DeleteBalAsyncTask(dao).execute();
+    }
+    public void InsertInHandBalance(inHandBalEntity balance) {
+        new InsertInHandAsyncTask(dao).execute(balance);
+    }
+
+    public void DeleteInHandBalance(){
+        new DeleteInHandAsyncTask(dao).execute();
     }
 
     public void InsertDebt(debtEntity debt) {
@@ -91,7 +101,7 @@ public class localRepository {
     }
 
     public LiveData<budgetEntity> getBudget(){return getBudget;}
-
+    public LiveData<inHandBalEntity> getInHandBal(){return getInHandBal;}
     public LiveData<balanceEntity> getBalance(){
         return getBalance;
     }
@@ -176,6 +186,33 @@ public class localRepository {
         @Override
         protected Void doInBackground(Void... voids) {
             dao.DeleteBal();
+            return null;
+        }
+    }
+    //----------------------------------------------------------------------------------------------
+    //Balance background task-----------------------------------------------------------------------
+    private static class InsertInHandAsyncTask extends AsyncTask<inHandBalEntity,Void,Void> {
+        private  localDao dao;
+        private InsertInHandAsyncTask(localDao dao){
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(inHandBalEntity... entities) {
+            dao.InsertInHandBal(entities[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteInHandAsyncTask extends AsyncTask<Void,Void,Void> {
+        private  localDao dao;
+        private DeleteInHandAsyncTask(localDao dao){
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            dao.DeleteInHandBal();
             return null;
         }
     }

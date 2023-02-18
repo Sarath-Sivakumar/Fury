@@ -3,6 +3,7 @@ package app.personal.MVVM.Entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -16,27 +17,31 @@ public class expEntity implements Parcelable{
     private int id;
     private int ExpenseAmt;
     private int day;
+    @ColumnInfo(defaultValue = "1")
+    private int expMode;
     private String ExpenseName, Date, Time;
 
     @Ignore
     public expEntity(int expenseAmt, String expenseName,
-                     String Date, String Time, int day) {
+                     String Date, String Time, int day, int expMode) {
         ExpenseAmt = expenseAmt;
         ExpenseName = expenseName;
         this.Date = Date;
         this.Time = Time;
         this.day = day;
+        this.expMode = expMode;
     }
 
     @Ignore
     public expEntity(int id, int expenseAmt, String expenseName,
-                     String date, String time, int day) {
+                     String date, String time, int day, int expMode) {
         this.id = id;
         ExpenseAmt = expenseAmt;
         ExpenseName = expenseName;
         Date = date;
         Time = time;
         this.day = day;
+        this.expMode = expMode;
     }
 
     public expEntity() {}
@@ -51,6 +56,10 @@ public class expEntity implements Parcelable{
 
     public int getExpenseAmt() {
         return ExpenseAmt;
+    }
+
+    public int getExpMode() {
+        return expMode;
     }
 
     public String getExpenseName() {
@@ -75,6 +84,10 @@ public class expEntity implements Parcelable{
 
     public void setExpenseAmt(int expenseAmt) {
         ExpenseAmt = expenseAmt;
+    }
+
+    public void setExpMode(int expMode) {
+        this.expMode = expMode;
     }
 
     public void setExpenseName(String expenseName) {

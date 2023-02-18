@@ -55,7 +55,7 @@ public interface localDao {
     void DeleteInHandBal();
 
     @Query("SELECT * FROM In_Hand_Bal_Table ORDER BY id DESC")
-    LiveData<balanceEntity> getInHandBalData();
+    LiveData<inHandBalEntity> getInHandBalData();
 
     //Salary------
 

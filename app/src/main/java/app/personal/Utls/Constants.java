@@ -13,19 +13,13 @@ public class Constants {
             dbName = "Fury_Database",
             userTable = "User_Table";
 //DO NOT CHANGE----------------------------------------------------
-    public static final int DB_LATEST_VERSION = 7;
+    public static final int DB_LATEST_VERSION = 9;
     //-------------------------------------------------------------
     public static final String Dues = "Dues And Debt",
             Exp = "Expense Tracker",
             Earnings = "Earnings Tracker",
             main = "Fury",
             Budget = "Budgets",
-
-            EXP_NAME = "EXPENSE_NAME",
-            EXP_AMT = "EXPENSE_AMOUNT",
-            EXP_DATE = "EXPENSE_DATE",
-            EXP_TIME = "EXPENSE_TIME",
-            EXP_DAY = "EXPENSE_DAY",
             RUPEE = "₹",
             DEBT_PAID = "Paid",
             DEBT_NOT_PAID = "Not Paid",
@@ -51,14 +45,18 @@ public class Constants {
             BudgetData = "BUDGET";
     //Internal-------------------------------------------------------
     public static final int itemDelete = 0,
-            TOP_CAT_DISPLAY_LIMIT = 11,
             itemAdd = 1,
             itemPaid = 2,
             LIMITER_MAX = 100,
+//    Earnings-------------------------------------------
             oneTime = 2,
             monthly = 0,
             daily = 1,
-            hourly = -1;
+            hourly = -1,
+//    ---------------------------------------------------
+            TOP_CAT_DISPLAY_LIMIT = 11,
+            SAL_MODE_CASH = 0,
+            SAL_MODE_ACC = 1;
     //Firebase-------------------------------------------------------
     public static final String DB_INSTANCE = "https://fury-d3622-default-rtdb.asia-southeast1.firebasedatabase.app";
 }

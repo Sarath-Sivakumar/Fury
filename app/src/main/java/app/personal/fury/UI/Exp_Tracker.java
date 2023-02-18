@@ -35,6 +35,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.budgetEntity;
 import app.personal.MVVM.Entity.expEntity;
+import app.personal.MVVM.Entity.inHandBalEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
@@ -44,13 +45,12 @@ import app.personal.fury.UI.Adapters.expList.expAdapter;
 public class Exp_Tracker extends Fragment {
 
     private FloatingActionButton fltBtn;
-    private LinearProgressIndicator limiter;
     private mainViewModel vm;
     private RecyclerView recyclerView;
     private expAdapter adapter;
     private TextView balanceView, expView;
     private RecyclerView.ViewHolder ViewHolder;
-    private int finalTotalSalary = 0;
+    private int finalTotalSalary = 0, accBal = 0, inHandBal = 0;
 
     public Exp_Tracker() {
     }
@@ -59,6 +59,8 @@ public class Exp_Tracker extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initViewModel();
+        accBal = getBalance();
+        inHandBal = getInHandBalance();
     }
 
     private void init(View v) {
@@ -68,26 +70,14 @@ public class Exp_Tracker extends Fragment {
 //        TextView dateView = v.findViewById(R.id.exp_trac_date);
 //        String s = Commons.getDisplayDay(Commons.getDay())+" | "+Commons.getDate();
 //        dateView.setText(s);
-        limiter = v.findViewById(R.id.progress);
         expView = v.findViewById(R.id.todayExp);
-        limiter.setMax(Constants.LIMITER_MAX);
         touchHelper();
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         fltBtn.setOnClickListener(v1 -> callPopupWindow(Constants.itemAdd));
-        String s1 = Constants.RUPEE + getBalance();
+        String s1 = Constants.RUPEE + (getBalance()+getInHandBalance());
         balanceView.setText(s1);
-    }
-
-    private void setColor(int progress){
-        if (progress<34){
-            limiter.setIndicatorColor(Color.GREEN);
-        }else if (progress<67){
-            limiter.setIndicatorColor(Color.YELLOW);
-        }else{
-            limiter.setIndicatorColor(Color.RED);
-        }
     }
 
     private void initViewModel() {
@@ -113,31 +103,26 @@ public class Exp_Tracker extends Fragment {
         vm.getExp().observe(requireActivity(), entity -> {
             adapter.clear();
             adapter.setExp(entity, true);
-            int avg = Integer.parseInt(Commons.getDailyAvg(getBudget().getBal()));
-            int progress = Commons.setProgress(adapter.getTotalExpInt(), avg);
-            Log.e("Progress", " main: "+progress+" "+avg+" "+getBudget().getAmount());
             try {
-                limiter.setProgress(progress, true);
-                setColor(progress);
                 expView.setText(adapter.getTotalExpStr());
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
     }
 
-    private budgetEntity getBudget(){
+    private budgetEntity getBudget() {
         AtomicReference<budgetEntity> entity = new AtomicReference<>(new budgetEntity());
         vm.getBudget().observe(requireActivity(), budgetEntity -> {
-            try{
+            try {
                 entity.set(budgetEntity);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 budgetEntity e1 = new budgetEntity();
                 e1.setBal(0);
-                if (budgetEntity.getAmount()!=0){
+                if (budgetEntity.getAmount() != 0) {
                     e1.setAmount(budgetEntity.getAmount());
-                }else{
+                } else {
                     e1.setAmount(0);
                 }
                 entity.set(e1);
@@ -146,25 +131,32 @@ public class Exp_Tracker extends Fragment {
         return entity.get();
     }
 
+
     private int getBalance() {
-        AtomicInteger Balance = new AtomicInteger();
+        AtomicReference<balanceEntity> Balance = new AtomicReference<>(new balanceEntity());
         vm.getBalance().observe(requireActivity(), entity -> {
             if (entity != null) {
-                Balance.set(entity.getBalance());
-            }
-            String s = Constants.RUPEE + Balance.get();
-            try{
-                balanceView.setText(s);
-            }catch (Exception e){
-                e.printStackTrace();
+                Balance.set(entity);
             }
         });
-        return Balance.get();
+        return Balance.get().getBalance();
+    }
+
+    private int getInHandBalance() {
+        AtomicReference<inHandBalEntity> Balance = new AtomicReference<>(new inHandBalEntity());
+        vm.getInHandBalance().observe(requireActivity(), entity -> {
+            if (entity != null) {
+                Balance.set(entity);
+            }
+        });
+        return Balance.get().getBalance();
     }
 
     @SuppressLint({"UseCompatLoadingForDrawables"})
     private void callPopupWindow(int layout) {
         //Value of layout in Constants
+        accBal = getBalance();
+        inHandBal = getInHandBalance();
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
@@ -177,13 +169,32 @@ public class Exp_Tracker extends Fragment {
             del.setOnClickListener(v -> {
                 expEntity entity = adapter.getExpAt(ViewHolder.getAdapterPosition());
                 int amt = entity.getExpenseAmt();
-                int oldBal = getBalance();
-                vm.DeleteBalance();
-                balanceEntity entity1 = new balanceEntity();
-                entity1.setBalance(oldBal + amt);
-                vm.InsertBalance(entity1);
-                vm.DeleteExp(adapter.getExpAt(ViewHolder.getAdapterPosition()));
+
+                if (entity.getExpMode()==Constants.SAL_MODE_ACC){
+                    int oldBal = accBal;
+                    vm.DeleteBalance();
+                    balanceEntity entity1 = new balanceEntity();
+                    entity1.setBalance(oldBal + amt);
+                    vm.InsertBalance(entity1);
+                }else{
+                    int oldBal = inHandBal;
+                    vm.DeleteInHandBalance();
+                    inHandBalEntity entity1 = new inHandBalEntity();
+                    entity1.setBalance(oldBal + amt);
+                    vm.InsertInHandBalance(entity1);
+                }
+
+                budgetEntity oldBudget = getBudget();
+                budgetEntity bud = oldBudget;
+                vm.DeleteBudget();
+                bud.setBal(oldBudget.getBal() + amt);
+                vm.InsertBudget(bud);
+
+                vm.DeleteExp(entity);
                 adapter.clear();
+                expView.setText(adapter.getTotalExpStr());
+                String s = Constants.RUPEE + (accBal+inHandBal);
+                balanceView.setText(s);
                 adapter.notifyDataSetChanged();
                 popupWindow.dismiss();
                 Commons.SnackBar(getView(), "Expense data deleted");
@@ -200,6 +211,10 @@ public class Exp_Tracker extends Fragment {
             Button add = view.findViewById(R.id.add_yes);
             Spinner sp = view.findViewById(R.id.expOptions);
             TextView expTitle = view.findViewById(R.id.expTitle);
+            TextView expMode = view.findViewById(R.id.radioTitle2);
+            String s = "Debit mode";
+            expMode.setText(s);
+            RadioGroup rdGrp = view.findViewById(R.id.RadioGroup2);
             expTitle.setOnClickListener(v -> {
                 sp.setVisibility(View.VISIBLE);
                 sp.performClick();
@@ -234,7 +249,7 @@ public class Exp_Tracker extends Fragment {
 
             cancel.setOnClickListener(v -> popupWindow.dismiss());
             add.setOnClickListener(v -> {
-                addExp(expName[0], expenseAmt);
+                addExp(expName[0], expenseAmt, rdGrp);
                 popupWindow.dismiss();
             });
         }
@@ -247,9 +262,8 @@ public class Exp_Tracker extends Fragment {
         popupWindow.showAsDropDown(fltBtn);
     }
 
-    private void addExp(String expName, EditText expAmt) {
+    private void addExp(String expName, EditText expAmt, RadioGroup rdGrp) {
         if (expName != null && !expAmt.getText().toString().trim().isEmpty()) {
-            try {
                 //Exp
                 expEntity entity = new expEntity();
                 entity.setExpenseName(expName);
@@ -257,28 +271,74 @@ public class Exp_Tracker extends Fragment {
                 entity.setTime(Commons.getTime());
                 entity.setDay(Commons.getDay());
                 entity.setDate(Commons.getDate());
-                vm.InsertExp(entity);
+                int fromCash=0;
+                int fromAcc=0;
 
-                //Balance
-                int oldBal = getBalance();
-                budgetEntity oldBudget = getBudget();
-                vm.DeleteBalance();
-                vm.DeleteBudget();
-                budgetEntity bud = oldBudget;
-                bud.setBal(oldBudget.getBal() - Integer.parseInt(expAmt.getText().toString()));
-                vm.InsertBudget(bud);
-                balanceEntity bal = new balanceEntity();
-                bal.setBalance(oldBal - Integer.parseInt(expAmt.getText().toString()));
-                vm.InsertBalance(bal);
-                expView.setText(adapter.getTotalExpStr());
-                String s = Constants.RUPEE + getBalance();
-                balanceView.setText(s);
+
+                switch (rdGrp.getCheckedRadioButtonId()) {
+                    case R.id.inHand:
+                        if (getInHandBalance() >= entity.getExpenseAmt()) {
+                            entity.setExpMode(Constants.SAL_MODE_CASH);
+                            vm.InsertExp(entity);
+                            updateVals(entity, expAmt);
+                        } else {
+                            if(fromAcc==0){
+                                Commons.SnackBar(getView(), "Not enough money to spend as cash.\nTry bank account instead.");
+                                fromCash = 1;
+                            }else{
+                                Commons.SnackBar(getView(), "Not enough money to spend.");
+                            }
+                        }
+                        break;
+                    case R.id.account:
+                        if (getBalance() >= entity.getExpenseAmt()) {
+                            entity.setExpMode(Constants.SAL_MODE_ACC);
+                            vm.InsertExp(entity);
+                            updateVals(entity, expAmt);
+                        }else{
+                            if (fromCash==0){
+                                Commons.SnackBar(getView(), "Not enough money to spend as cash.\nTry bank account instead.");
+                                fromAcc = 1;
+                            }else{
+                                Commons.SnackBar(getView(), "Not enough money to spend.");
+                            }
+                        }
+                        break;
+                    default:
+                        Commons.SnackBar(getView(), "Select a Debit method.");
+                        break;
+                }
                 adapter.notifyDataSetChanged();
-            } catch (Exception e) {
-                e.printStackTrace();
-                Commons.SnackBar(getView(), "Please set salary");
-            }
+        }else{
+            Commons.SnackBar(getView(), "Please fill all field(s)");
         }
+    }
+
+    private void updateVals(expEntity entity, EditText expAmt){
+        if (entity.getExpMode()==Constants.SAL_MODE_ACC){
+            //Balance
+            int oldBal = accBal;
+            vm.DeleteBalance();
+            balanceEntity bal = new balanceEntity();
+            bal.setBalance(oldBal - Integer.parseInt(expAmt.getText().toString()));
+            vm.InsertBalance(bal);
+        }else{
+            int oldBal = inHandBal;
+            vm.DeleteBalance();
+            inHandBalEntity bal = new inHandBalEntity();
+            bal.setBalance(oldBal - Integer.parseInt(expAmt.getText().toString()));
+            vm.InsertInHandBalance(bal);
+        }
+
+        budgetEntity oldBudget = getBudget();
+        budgetEntity bud = oldBudget;
+        vm.DeleteBudget();
+        bud.setBal(oldBudget.getBal() - Integer.parseInt(expAmt.getText().toString()));
+        vm.InsertBudget(bud);
+
+        expView.setText(adapter.getTotalExpStr());
+        String s = Constants.RUPEE + (accBal+inHandBal);
+        balanceView.setText(s);
     }
 
     @Override
@@ -314,7 +374,7 @@ public class Exp_Tracker extends Fragment {
         adapter.setOnItemClickListener(this::expDetailPopup);
     }
 
-    private void expDetailPopup(expEntity exp){
+    private void expDetailPopup(expEntity exp) {
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
@@ -331,7 +391,7 @@ public class Exp_Tracker extends Fragment {
         time = view.findViewById(R.id.time);
 
         cat.setText(exp.getExpenseName());
-        String s = Constants.RUPEE+exp.getExpenseAmt();
+        String s = Constants.RUPEE + exp.getExpenseAmt();
         amt.setText(s);
         date.setText(exp.getDate());
         day.setText(Commons.getDisplayDay(exp.getDay()));
@@ -359,6 +419,10 @@ public class Exp_Tracker extends Fragment {
         getBalance();
         getSal();
         getExp();
+//        String s1 = Constants.RUPEE + getBalance()+getInHandBalance();
+//        balanceView.setText(s1);
+        accBal = getBalance();
+        inHandBal = getInHandBalance();
     }
 
     @Override
