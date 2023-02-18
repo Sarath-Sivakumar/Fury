@@ -15,24 +15,30 @@ public class salaryEntity {
     private String incName;
     private int salary;
     private int incType;  //Daily = 1, Monthly = 0, Hourly = -1
+//    Update this after every repetition.
     @ColumnInfo(defaultValue = "Not Set")
     private String creationDate;
+    @ColumnInfo(defaultValue = "1")
+    private int salMode;
 
     @Ignore
-    public salaryEntity(int salary, String incName, int incType, String creationDate) {
+    public salaryEntity(int salary, String incName, int incType, String creationDate, int salMode) {
         this.salary = salary;
         this.incName = incName;
         this.incType = incType;
+        this.creationDate = creationDate;
+        this.salMode = salMode;
     }
 
 
     @Ignore
-    public salaryEntity(int id, int salary, String incName, int incType, String creationDate) {
+    public salaryEntity(int id, int salary, String incName, int incType, String creationDate, int salMode) {
         this.id = id;
         this.incName = incName;
         this.salary = salary;
         this.incType = incType;
         this.creationDate = creationDate;
+        this.salMode = salMode;
     }
 
     public salaryEntity() {}
@@ -57,6 +63,10 @@ public class salaryEntity {
         return creationDate;
     }
 
+    public int getSalMode() {
+        return salMode;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -75,5 +85,9 @@ public class salaryEntity {
 
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public void setSalMode(int salMode) {
+        this.salMode = salMode;
     }
 }

@@ -86,8 +86,8 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
 
     public int getTotalExpInt() {
         int totalSum = 0;
-        for (int i = 0; i < budProg.size(); i++) {
-            totalSum = totalSum + budProg.get(i).getExpenseAmt();
+        for (int i = 0; i < exp.size(); i++) {
+            totalSum = totalSum + exp.get(i).getExpenseAmt();
         }
         return totalSum;
     }

@@ -217,7 +217,11 @@ public class fragment_main extends Fragment {
             }
             progress = Commons.setProgress(expense, salary);
             cAdapter.setExpes(expEntities, salary, filter);
-            setMain(progress);
+            try {
+                setMain(progress);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             if (Commons.getAvg(expEntities, true).equals(Constants.dAvgNoData)) {
                 dAvg.setTextSize(12);

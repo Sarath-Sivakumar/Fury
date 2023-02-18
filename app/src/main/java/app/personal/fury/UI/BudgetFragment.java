@@ -160,7 +160,7 @@ public class BudgetFragment extends Fragment {
                 BudgetAmt.setText(s);
                 String s1 = Constants.RUPEE + "0";
                 Balance.setText(s1);
-                Commons.SnackBar(getView(), "Create a budget..");
+//                Commons.SnackBar(getView(), "Create a budget..");
             }
         });
 
