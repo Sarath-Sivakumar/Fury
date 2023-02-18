@@ -71,7 +71,9 @@
                         android:layout_marginStart="12dp"
                         android:layout_weight="0.3"
                         android:gravity="start"
-                        android:padding="6dp"
+                        android:paddingStart="6dp"
+                        android:paddingBottom="6dp"
+                        android:paddingEnd="6dp"
                         android:textColor="?attr/colorSecondaryContainer"
                         android:fontFamily="@font/work_sans_semibold"
                         android:textSize="26sp" />
@@ -84,8 +86,9 @@
                         android:layout_marginEnd="12dp"
                         android:layout_weight="0.3"
                         android:gravity="end"
-                        android:padding="6dp"
-                        android:textColor="?attr/colorSecondaryContainer"
+                        android:paddingStart="6dp"
+                        android:paddingBottom="6dp"
+                        android:paddingEnd="6dp"                        android:textColor="?attr/colorSecondaryContainer"
                         android:fontFamily="@font/work_sans_semibold"
                         android:textSize="26sp" />
                 </LinearLayout>
@@ -97,24 +100,13 @@
                 android:padding="12dp"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="8sp"
-                    android:visibility="invisible"
-                    android:text="Mark as paid" />
+
 
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_weight="1" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="8sp"
-                    android:visibility="invisible"
-                    android:text="Delete" />
 
             </LinearLayout>
 
@@ -131,7 +123,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border_bg"
                 android:layout_margin="12dp"
                 android:layout_gravity="center_horizontal" >
 
@@ -139,8 +130,10 @@
                 android:id="@+id/dueList"
                 android:layout_width="wrap_content"
                 android:layout_height="500dp"
+                android:background="@drawable/border_bg"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
                 tools:listitem="@layout/due_item1" />
             <!--Hide paid date textview in adapter-->
 

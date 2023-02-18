@@ -64,7 +64,8 @@
                 android:layout_weight=".5"
                 android:text="Later"
                 android:fontFamily="@font/raleway_bold"
-                android:background="@drawable/login_btn"
+                android:background="@drawable/signup_btn"
+                android:textColor="?attr/colorPrimary"
                 android:textAllCaps="false" />
 
             <Button
@@ -75,8 +76,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/raleway_bold"
                 android:text="Update"
-                android:background="@drawable/signup_btn"
-                android:textColor="?attr/colorPrimary"
+                android:background="@drawable/login_btn"
                 android:textAllCaps="false" />
 
         </LinearLayout>

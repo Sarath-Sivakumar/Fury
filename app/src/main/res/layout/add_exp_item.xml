@@ -152,12 +152,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingStart="12dp"
-                            android:layout_weight="1" >
-
                             <RadioButton
                                 android:id="@+id/hourly"
                                 android:layout_width="fill_parent"
@@ -174,15 +168,6 @@
                                 android:text="Daily"
                                 android:textSize="13sp" />
 
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:paddingStart="12dp"
-                            android:orientation="horizontal" >
-
                             <RadioButton
                                 android:id="@+id/monthly"
                                 android:layout_width="fill_parent"
@@ -198,8 +183,6 @@
                                 android:layout_weight="1"
                                 android:text="OneTime"
                                 android:textSize="13sp" />
-
-                        </LinearLayout>
 
                     </RadioGroup>
 
