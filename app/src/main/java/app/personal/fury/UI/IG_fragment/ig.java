@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.DrawableRes;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ public class ig extends Fragment {
     private static final String ARG_PARAM1 = "param1";
 
     @DrawableRes
-    private int drawable;
+    private static int drawable;
 
     public ig() {
         // Required empty public constructor
@@ -28,6 +29,7 @@ public class ig extends Fragment {
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, Drawable);
         fragment.setArguments(args);
+        drawable = Drawable;
         return fragment;
     }
 
@@ -46,6 +48,7 @@ public class ig extends Fragment {
         View v = inflater.inflate(R.layout.fragment_info_graphics, container, false);
         ImageView i = v.findViewById(R.id.infoGraphics);
         i.setImageResource(drawable);
+        Log.e("Drawable", "Int: "+drawable);
         return v;
     }
 }

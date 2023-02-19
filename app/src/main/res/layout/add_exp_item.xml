@@ -35,7 +35,6 @@
                         android:layout_weight=".5"
                         android:fontFamily="@font/raleway_bold"
                         android:padding="12dp"
-
                         android:text="New expense"
                         android:textSize="24sp" />
 
@@ -61,7 +60,7 @@
                     <TextView
                         android:id="@+id/expTitle"
                         android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
+                        android:layout_height="match_parent"
                         android:fontFamily="@font/raleway_semibold"
                         android:gravity="start|center"
                         android:hint="Expense Name"
@@ -72,7 +71,7 @@
                 <EditText
                     android:id="@+id/salSrc"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:hint="Salary Source"
                     android:inputType="text"
@@ -82,7 +81,7 @@
                 <EditText
                     android:id="@+id/expAmt"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/work_sans_medium"
                     android:hint="Amount"
@@ -96,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:hint="Salary Date"
-                    android:inputType="text"
+                    android:inputType="date"
                     android:fontFamily="@font/work_sans_medium"
                     android:padding="12dp"
                     android:singleLine="true" />
@@ -110,18 +109,13 @@
 
                 <RadioGroup
                     android:id="@+id/RadioGroup2"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="12dp"
-                    android:layout_weight="1" >
+                    android:padding="12dp">
 
                     <RadioButton
-                        android:id="@+id/via_inhand"
+                        android:id="@+id/inHand"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -129,14 +123,13 @@
                         android:textSize="13sp" />
 
                     <RadioButton
-                        android:id="@+id/via_account"
+                        android:id="@+id/account"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Bank Account"
                         android:textSize="13sp" />
 
-                </LinearLayout>
                 </RadioGroup>
 
                 <TextView
@@ -144,48 +137,49 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="12dp"
-                    android:text="Select payperiod" />
+                    android:text="Select pay period" />
 
 
-                    <RadioGroup
-                        android:id="@+id/RadioGroup"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                <RadioGroup
+                    android:id="@+id/RadioGroup"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="12dp">
 
-                            <RadioButton
-                                android:id="@+id/hourly"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Hourly"
-                                android:textSize="13sp" />
+                    <RadioButton
+                        android:id="@+id/hourly"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Hourly"
+                        android:visibility="gone"
+                        android:textSize="13sp" />
 
-                            <RadioButton
-                                android:id="@+id/daily"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Daily"
-                                android:textSize="13sp" />
+                    <RadioButton
+                        android:id="@+id/daily"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Daily"
+                        android:textSize="13sp" />
 
-                            <RadioButton
-                                android:id="@+id/monthly"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Monthly"
-                                android:textSize="13sp" />
+                    <RadioButton
+                        android:id="@+id/monthly"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Monthly"
+                        android:textSize="13sp" />
 
-                            <RadioButton
-                                android:id="@+id/oneTime"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="OneTime"
-                                android:textSize="13sp" />
-
-                    </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/oneTime"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="OneTime"
+                        android:textSize="13sp" />
+                </RadioGroup>
 
 
                 <LinearLayout

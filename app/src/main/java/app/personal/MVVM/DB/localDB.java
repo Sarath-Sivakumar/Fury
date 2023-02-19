@@ -43,7 +43,9 @@ public abstract class localDB extends RoomDatabase {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                             localDB.class, Constants.dbName)
                     .fallbackToDestructiveMigration()
-                    .addMigrations(MIGRATION_1_2,MIGRATION_2_3,MIGRATION_3_4,MIGRATION_4_5,MIGRATION_6_7)
+                    .addMigrations(MIGRATION_1_2,MIGRATION_2_3,MIGRATION_3_4,
+                            MIGRATION_4_5,MIGRATION_6_7,MIGRATION_7_8,
+                            MIGRATION_8_9)
                     .build();
         }
         return instance;
@@ -52,7 +54,7 @@ public abstract class localDB extends RoomDatabase {
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
-            database.execSQL("CREATE TABLE IF NOT EXISTS 'In_Hand_Bal_Table' ('id' INTEGER, 'balance' INTEGER, PRIMARY KEY('id'))");
+            database.execSQL("CREATE TABLE IF NOT EXISTS 'In_Hand_Bal_Table' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL , 'balance' INTEGER)");
         }
     };
 
@@ -81,6 +83,20 @@ public abstract class localDB extends RoomDatabase {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL("CREATE TABLE IF NOT EXISTS 'User_Table' ('id' INTEGER NOT NULL, 'name' VARCHAR(25), 'imgUrl' VARCHAR(30), PRIMARY KEY('id'))");
+        }
+    };
+
+    static final Migration MIGRATION_7_8 = new Migration(7, 8) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE 'Salary_Table' ADD COLUMN 'salMode' INTEGER NOT NULL DEFAULT 1");
+        }
+    };
+
+    static final Migration MIGRATION_8_9 = new Migration(8, 9) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE 'Exp_Table' ADD COLUMN 'expMode' INTEGER NOT NULL DEFAULT 1");
         }
     };
 }
