@@ -145,15 +145,15 @@
                 android:background="@drawable/border_bg"
                 tools:listitem="@layout/exp_list_item" />
 
-            <!--            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"-->
-            <!--                android:id="@+id/adView"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:minHeight="50dp"-->
-            <!--                android:minWidth="320dp"-->
-            <!--                ads:adSize="BANNER"-->
-            <!--                ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />-->
-            <!--            &lt;!&ndash;Test ID ca-app-pub-3940256099942544/6300978111&ndash;&gt;-->
+<!--            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+<!--                android:id="@+id/adView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:minHeight="50dp"-->
+<!--                android:minWidth="320dp"-->
+<!--                ads:adSize="BANNER"-->
+<!--                ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />-->
+<!--            &lt;!&ndash;Test ID ca-app-pub-3940256099942544/6300978111&ndash;&gt;-->
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

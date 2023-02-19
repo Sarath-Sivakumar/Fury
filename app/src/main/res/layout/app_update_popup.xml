@@ -23,7 +23,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:src="@drawable/update" />
+                android:src="@drawable/ic_baseline_info_24" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/work_sans_medium"
-            android:text="@string/update_txt"
+            android:text="To enjoy our latest features\nplease update the app"
             android:textSize="16dp"
             android:gravity="center"
             android:textColor="?attr/colorSecondaryVariant"

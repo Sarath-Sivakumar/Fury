@@ -208,7 +208,11 @@ public class Commons {
     }
 
     public static boolean isValidPass(String Password){
-        return Password.length() >= 6;
+        if (Password.length()>=6){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

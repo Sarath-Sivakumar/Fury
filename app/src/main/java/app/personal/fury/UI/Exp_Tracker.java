@@ -271,8 +271,8 @@ public class Exp_Tracker extends Fragment {
             entity.setTime(Commons.getTime());
             entity.setDay(Commons.getDay());
             entity.setDate(Commons.getDate());
-            int fromCash=0;
-            int fromAcc=0;
+            int fromCash = 0;
+            int fromAcc = 0;
 
 
             switch (rdGrp.getCheckedRadioButtonId()) {
@@ -281,34 +281,33 @@ public class Exp_Tracker extends Fragment {
                         entity.setExpMode(Constants.SAL_MODE_CASH);
                         vm.InsertExp(entity);
                         updateVals(entity, expAmt);
+                    } else if (fromAcc == 0) {
+                        Commons.SnackBar(getView(), "Not enough money to spend as cash.\nTry bank account instead.");
+                        fromCash = 1;
                     } else {
-                        if(fromAcc==0){
-                            Commons.SnackBar(getView(), "Not enough money to spend as cash.\nTry bank account instead.");
-                            fromCash = 1;
-                        }else{
-                            Commons.SnackBar(getView(), "Not enough money to spend.");
-                        }
+                        Commons.SnackBar(getView(), "Not enough money to spend.");
                     }
                     break;
-                case R.id.account:
-                    if (getBalance() >= entity.getExpenseAmt()) {
-                        entity.setExpMode(Constants.SAL_MODE_ACC);
-                        vm.InsertExp(entity);
-                        updateVals(entity, expAmt);
-                    }else{
-                        if (fromCash==0){
-                            Commons.SnackBar(getView(), "Not enough money to spend as cash.\nTry bank account instead.");
-                            fromAcc = 1;
-                        }else{
-                            Commons.SnackBar(getView(), "Not enough money to spend.");
+
+                    case R.id.account:
+                        if (getBalance() >= entity.getExpenseAmt()) {
+                            entity.setExpMode(Constants.SAL_MODE_ACC);
+                            vm.InsertExp(entity);
+                            updateVals(entity, expAmt);
                         }
-                    }
-                    break;
-                default:
-                    Commons.SnackBar(getView(), "Select a Debit method.");
-                    break;
-            }
-            adapter.notifyDataSetChanged();
+                        else if (fromCash==0){
+                                Commons.SnackBar(getView(), "Not enough money to spend as cash.\nTry bank account instead.");
+                                fromAcc = 1;
+                            }
+                        else{
+                                Commons.SnackBar(getView(), "Not enough money to spend.");
+                            }
+                        break;
+                    default:
+                        Commons.SnackBar(getView(), "Select a Debit method.");
+                        break;
+                }
+                adapter.notifyDataSetChanged();
         }else{
             Commons.SnackBar(getView(), "Please fill all field(s)");
         }
@@ -320,7 +319,8 @@ public class Exp_Tracker extends Fragment {
             int oldBal = accBal;
             vm.DeleteBalance();
             balanceEntity bal = new balanceEntity();
-            bal.setBalance(oldBal - Integer.parseInt(expAmt.getText().toString()));
+            int v = Integer.parseInt(expAmt.getText().toString());
+            bal.setBalance(oldBal - v);
             vm.InsertBalance(bal);
         }else{
             int oldBal = inHandBal;

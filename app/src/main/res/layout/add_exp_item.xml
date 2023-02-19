@@ -140,46 +140,46 @@
                     android:text="Select pay period" />
 
 
-                <RadioGroup
-                    android:id="@+id/RadioGroup"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="12dp">
-
-                    <RadioButton
-                        android:id="@+id/hourly"
-                        android:layout_width="fill_parent"
+                    <RadioGroup
+                        android:id="@+id/RadioGroup"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Hourly"
-                        android:visibility="gone"
-                        android:textSize="13sp" />
+                        android:paddingStart="12dp">
 
-                    <RadioButton
-                        android:id="@+id/daily"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Daily"
-                        android:textSize="13sp" />
+                            <RadioButton
+                                android:id="@+id/hourly"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Hourly"
+                                android:visibility="gone"
+                                android:textSize="13sp" />
 
-                    <RadioButton
-                        android:id="@+id/monthly"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Monthly"
-                        android:textSize="13sp" />
+                            <RadioButton
+                                android:id="@+id/daily"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Daily"
+                                android:textSize="13sp" />
 
-                    <RadioButton
-                        android:id="@+id/oneTime"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="OneTime"
-                        android:textSize="13sp" />
-                </RadioGroup>
+                            <RadioButton
+                                android:id="@+id/monthly"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Monthly"
+                                android:textSize="13sp" />
+
+                            <RadioButton
+                                android:id="@+id/oneTime"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="OneTime"
+                                android:textSize="13sp" />
+                    </RadioGroup>
 
 
                 <LinearLayout
