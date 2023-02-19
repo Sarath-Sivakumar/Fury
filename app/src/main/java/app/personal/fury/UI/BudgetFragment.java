@@ -46,7 +46,7 @@ public class BudgetFragment extends Fragment {
     private FloatingActionButton addBudget;
     private TextView BudgetAmt, Balance, Expense , Dailylimitallowed ,CurrentDailylimit;
     private mainViewModel vm;
-    private List<expEntity> allExpense = new ArrayList<>();
+    private final List<expEntity> allExpense = new ArrayList<>();
     private int totalSalary = 0;
     private RecyclerView topExp;
     private budgetAdapter adapter;

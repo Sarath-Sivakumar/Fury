@@ -287,7 +287,7 @@ public class fragment_main extends Fragment {
             prg = 0 + "%";
         }
         mainProgressText.setText(prg);
-        String p = Constants.RUPEE + (int) expense;
+        String p = Constants.RUPEE + expense;
         expView.setText(p);
     }
 

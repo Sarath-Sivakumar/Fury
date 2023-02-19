@@ -117,8 +117,8 @@ public class MainActivity extends AppCompatActivity {
 
         View v = navView.getHeaderView(0);
 
-        userDp = (ImageView) v.findViewById(R.id.userDP);
-        userName = (TextView) v.findViewById(R.id.profileName);
+        userDp = v.findViewById(R.id.userDP);
+        userName = v.findViewById(R.id.profileName);
 
         navView.inflateMenu(R.menu.nav_menu);
         navView.setNavigationItemSelectedListener(item -> {

@@ -129,7 +129,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dueList"
                 android:layout_width="wrap_content"
-                android:layout_height="500dp"
+                android:layout_height="400dp"
                 android:background="@drawable/border_bg"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="12dp"

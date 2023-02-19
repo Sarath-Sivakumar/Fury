@@ -115,7 +115,7 @@ public class localRepository {
     //----------------------------------------------------------------------------------------------
     //Exp background task---------------------------------------------------------------------------
     private static class InsertExpAsyncTask extends AsyncTask<expEntity,Void,Void> {
-        private  localDao dao;
+        private final localDao dao;
         private InsertExpAsyncTask(localDao dao){
             this.dao = dao;
         }
@@ -128,7 +128,7 @@ public class localRepository {
     }
 
     private static class UpdateExpAsyncTask extends AsyncTask<expEntity,Void,Void> {
-        private  localDao dao;
+        private final localDao dao;
         private UpdateExpAsyncTask(localDao dao){
             this.dao = dao;
         }
@@ -141,7 +141,7 @@ public class localRepository {
     }
 
     private static class DeleteExpAsyncTask extends AsyncTask<expEntity,Void,Void> {
-        private  localDao dao;
+        private final localDao dao;
         private DeleteExpAsyncTask(localDao dao){
             this.dao = dao;
         }
@@ -155,7 +155,7 @@ public class localRepository {
     //----------------------------------------------------------------------------------------------
     //Balance background task-----------------------------------------------------------------------
     private static class InsertBalAsyncTask extends AsyncTask<balanceEntity,Void,Void> {
-        private  localDao dao;
+        private final localDao dao;
         private InsertBalAsyncTask(localDao dao){
             this.dao = dao;
         }
@@ -168,7 +168,7 @@ public class localRepository {
     }
 
     private static class DeleteBalAsyncTask extends AsyncTask<Void,Void,Void> {
-        private  localDao dao;
+        private final localDao dao;
         private DeleteBalAsyncTask(localDao dao){
             this.dao = dao;
         }
@@ -182,7 +182,7 @@ public class localRepository {
     //----------------------------------------------------------------------------------------------
     //Salary background task------------------------------------------------------------------------
     private static class InsertSalAsyncTask extends AsyncTask<salaryEntity,Void,Void> {
-        private  localDao dao;
+        private final localDao dao;
         private InsertSalAsyncTask(localDao dao){
             this.dao = dao;
         }
@@ -195,7 +195,7 @@ public class localRepository {
     }
 
     private static class UpdateSalAsyncTask extends AsyncTask<salaryEntity,Void,Void> {
-        private  localDao dao;
+        private final localDao dao;
         private UpdateSalAsyncTask(localDao dao){
             this.dao = dao;
         }
@@ -208,7 +208,7 @@ public class localRepository {
     }
 
     private static class DeleteSalAsyncTask extends AsyncTask<salaryEntity,Void,Void> {
-        private  localDao dao;
+        private final localDao dao;
         private DeleteSalAsyncTask(localDao dao){
             this.dao = dao;
         }
@@ -222,7 +222,7 @@ public class localRepository {
     //----------------------------------------------------------------------------------------------
     //Debt background task------------------------------------------------------------------------
     private static class InsertDebtAsyncTask extends AsyncTask<debtEntity,Void,Void> {
-        private  localDao dao;
+        private final localDao dao;
         private InsertDebtAsyncTask(localDao dao){
             this.dao = dao;
         }
@@ -235,7 +235,7 @@ public class localRepository {
     }
 
     private static class UpdateDebtAsyncTask extends AsyncTask<debtEntity,Void,Void> {
-        private  localDao dao;
+        private final localDao dao;
         private UpdateDebtAsyncTask(localDao dao){
             this.dao = dao;
         }
@@ -248,7 +248,7 @@ public class localRepository {
     }
 
     private static class DeleteDebtAsyncTask extends AsyncTask<debtEntity,Void,Void> {
-        private  localDao dao;
+        private final localDao dao;
         private DeleteDebtAsyncTask(localDao dao){
             this.dao = dao;
         }
@@ -263,7 +263,7 @@ public class localRepository {
     //Budget background task------------------------------------------------------------------------
 
     private static class InsertBudgetAsyncTask extends AsyncTask<budgetEntity,Void,Void> {
-        private  localDao dao;
+        private final localDao dao;
         private InsertBudgetAsyncTask(localDao dao){
             this.dao = dao;
         }
@@ -276,7 +276,7 @@ public class localRepository {
     }
 
     private static class UpdateBudgetAsyncTask extends AsyncTask<budgetEntity,Void,Void> {
-        private  localDao dao;
+        private final localDao dao;
         private UpdateBudgetAsyncTask(localDao dao){
             this.dao = dao;
         }
@@ -289,7 +289,7 @@ public class localRepository {
     }
 
     private static class DeleteBudgetAsyncTask extends AsyncTask<Void,Void,Void> {
-        private  localDao dao;
+        private final localDao dao;
         private DeleteBudgetAsyncTask(localDao dao){
             this.dao = dao;
         }

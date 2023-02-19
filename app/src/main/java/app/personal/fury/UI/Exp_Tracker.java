@@ -80,12 +80,12 @@ public class Exp_Tracker extends Fragment {
         balanceView.setText(s1);
     }
 
-    private void setColor(int progress){
-        if (progress<34){
+    private void setColor(int progress) {
+        if (progress < 34) {
             limiter.setIndicatorColor(Color.GREEN);
-        }else if (progress<67){
+        } else if (progress < 67) {
             limiter.setIndicatorColor(Color.YELLOW);
-        }else{
+        } else {
             limiter.setIndicatorColor(Color.RED);
         }
     }
@@ -115,29 +115,29 @@ public class Exp_Tracker extends Fragment {
             adapter.setExp(entity, true);
             int avg = Integer.parseInt(Commons.getDailyAvg(getBudget().getBal()));
             int progress = Commons.setProgress(adapter.getTotalExpInt(), avg);
-            Log.e("Progress", " main: "+progress+" "+avg+" "+getBudget().getAmount());
+            Log.e("Progress", " main: " + progress + " " + avg + " " + getBudget().getAmount());
             try {
                 limiter.setProgress(progress, true);
                 setColor(progress);
                 expView.setText(adapter.getTotalExpStr());
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
     }
 
-    private budgetEntity getBudget(){
+    private budgetEntity getBudget() {
         AtomicReference<budgetEntity> entity = new AtomicReference<>(new budgetEntity());
         vm.getBudget().observe(requireActivity(), budgetEntity -> {
-            try{
+            try {
                 entity.set(budgetEntity);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 budgetEntity e1 = new budgetEntity();
                 e1.setBal(0);
-                if (budgetEntity.getAmount()!=0){
+                if (budgetEntity.getAmount() != 0) {
                     e1.setAmount(budgetEntity.getAmount());
-                }else{
+                } else {
                     e1.setAmount(0);
                 }
                 entity.set(e1);
@@ -153,9 +153,9 @@ public class Exp_Tracker extends Fragment {
                 Balance.set(entity.getBalance());
             }
             String s = Constants.RUPEE + Balance.get();
-            try{
+            try {
                 balanceView.setText(s);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
@@ -314,7 +314,7 @@ public class Exp_Tracker extends Fragment {
         adapter.setOnItemClickListener(this::expDetailPopup);
     }
 
-    private void expDetailPopup(expEntity exp){
+    private void expDetailPopup(expEntity exp) {
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
@@ -331,7 +331,7 @@ public class Exp_Tracker extends Fragment {
         time = view.findViewById(R.id.time);
 
         cat.setText(exp.getExpenseName());
-        String s = Constants.RUPEE+exp.getExpenseAmt();
+        String s = Constants.RUPEE + exp.getExpenseAmt();
         amt.setText(s);
         date.setText(exp.getDate());
         day.setText(Commons.getDisplayDay(exp.getDay()));
