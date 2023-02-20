@@ -72,37 +72,37 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
 
         switch (entity.getExpenseName()) {
             case Constants.Food:
-                holder.expIcon.setImageResource(R.drawable.hamburger);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_food);
                 break;
             case Constants.Travel:
-                holder.expIcon.setImageResource(R.drawable.destination);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_travel);
                 break;
             case Constants.Rent:
-                holder.expIcon.setImageResource(R.drawable.rent);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_rent);
                 break;
             case Constants.Gas:
-                holder.expIcon.setImageResource(R.drawable.gaspump);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_gas);
                 break;
             case Constants.Groceries:
-                holder.expIcon.setImageResource(R.drawable.grocery);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_grocery);
                 break;
             case Constants.Electricity:
-                holder.expIcon.setImageResource(R.drawable.electricalenergy);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_electricity);
                 break;
             case Constants.Recharge:
-                holder.expIcon.setImageResource(R.drawable.recharge);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_recharge);
                 break;
             case Constants.Fees:
-                holder.expIcon.setImageResource(R.drawable.fees);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_fees);
                 break;
             case Constants.Subscriptions:
-                holder.expIcon.setImageResource(R.drawable.subscription);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_subscription);
                 break;
             case Constants.Health_Care:
-                holder.expIcon.setImageResource(R.drawable.healthcare);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_health);
                 break;
             case Constants.Bills:
-                holder.expIcon.setImageResource(R.drawable.bill);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_bill);
                 break;
             default:
                 break;

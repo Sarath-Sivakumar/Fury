@@ -17,7 +17,7 @@
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_baseline_close_24"
+            android:src="@drawable/common_icon_close"
             android:layout_marginStart="-12dp"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:contentDescription="@string/back" />

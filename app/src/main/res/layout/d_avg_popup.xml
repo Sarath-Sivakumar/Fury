@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="180dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/card_view_theme2"
+    android:background="@drawable/background_overviewcard"
     android:elevation="6dp">
 
     <TextView

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/popup_bg_shader"
+    android:background="@drawable/background_popupshade"
     android:padding="33dp">
 
     <ScrollView
@@ -18,7 +18,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/popup_bg"
+                android:background="@drawable/background_popup"
                 android:backgroundTint="?attr/colorOnPrimary"
                 android:orientation="vertical"
                 android:padding="24dp">
@@ -194,7 +194,7 @@
                         style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/login_btn"
+                        android:background="@drawable/button_login"
                         android:fontFamily="@font/raleway_bold"
                         android:text="Add"
                         android:textAllCaps="false" />
@@ -207,7 +207,7 @@
                         android:fontFamily="@font/raleway_bold"
                         android:layout_marginTop="5dp"
                         android:text="Cancel"
-                        android:background="@drawable/signup_btn"
+                        android:background="@drawable/button_signup"
                         android:textColor="?attr/colorPrimary"
                         android:textAllCaps="false" />
                 </LinearLayout>

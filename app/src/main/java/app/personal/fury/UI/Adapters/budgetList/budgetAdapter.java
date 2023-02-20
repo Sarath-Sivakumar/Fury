@@ -1,6 +1,5 @@
 package app.personal.fury.UI.Adapters.budgetList;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import app.personal.MVVM.Entity.expEntity;
@@ -44,37 +42,37 @@ public class budgetAdapter extends RecyclerView.Adapter<budgetAdapter.topCatHold
 
         switch (currentExp.getExpenseName()) {
             case "Food":
-                holder.ico.setImageResource(R.drawable.fastfood);
+                holder.ico.setImageResource(R.drawable.cat_icon_food);
                 break;
             case "Travel":
-                holder.ico.setImageResource(R.drawable.destination);
+                holder.ico.setImageResource(R.drawable.cat_icon_travel);
                 break;
             case "Rent":
-                holder.ico.setImageResource(R.drawable.rent);
+                holder.ico.setImageResource(R.drawable.cat_icon_rent);
                 break;
             case "Gas":
-                holder.ico.setImageResource(R.drawable.gaspump);
+                holder.ico.setImageResource(R.drawable.cat_icon_gas);
                 break;
             case "Groceries":
-                holder.ico.setImageResource(R.drawable.grocery);
+                holder.ico.setImageResource(R.drawable.cat_icon_grocery);
                 break;
             case "Electricity":
-                holder.ico.setImageResource(R.drawable.electricalenergy);
+                holder.ico.setImageResource(R.drawable.cat_icon_electricity);
                 break;
             case "Recharge":
-                holder.ico.setImageResource(R.drawable.recharge);
+                holder.ico.setImageResource(R.drawable.cat_icon_recharge);
                 break;
             case "Fees":
-                holder.ico.setImageResource(R.drawable.fees);
+                holder.ico.setImageResource(R.drawable.cat_icon_fees);
                 break;
             case "Subscriptions":
-                holder.ico.setImageResource(R.drawable.subscription);
+                holder.ico.setImageResource(R.drawable.cat_icon_subscription);
                 break;
             case "Health Care":
-                holder.ico.setImageResource(R.drawable.healthcare);
+                holder.ico.setImageResource(R.drawable.cat_icon_health);
                 break;
             case "Bills":
-                holder.ico.setImageResource(R.drawable.bill);
+                holder.ico.setImageResource(R.drawable.cat_icon_bill);
                 break;
             default:
                 break;

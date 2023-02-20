@@ -34,7 +34,7 @@
                 android:layout_height="160dp"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="9dp"
-                android:background="@drawable/card_view_theme2"
+                android:background="@drawable/background_overviewcard"
                 android:elevation="6dp"
                 android:padding="3dp">
 
@@ -183,7 +183,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
                                         android:background="@android:color/transparent"
-                                        android:src="@drawable/ic_outline_info_24"
+                                        android:src="@drawable/common_icon_infopaid"
                                         android:visibility="gone"/>
                                 </LinearLayout>
                             </LinearLayout>

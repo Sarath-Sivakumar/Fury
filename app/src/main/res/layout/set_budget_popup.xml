@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/popup_bg_shader"
+    android:background="@drawable/background_popupshade"
     android:padding="33dp">
 
     <ScrollView
@@ -18,7 +18,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/popup_bg"
+                android:background="@drawable/background_popup"
                 android:backgroundTint="?attr/colorOnPrimary"
                 android:orientation="vertical"
                 android:padding="24dp">
@@ -66,7 +66,7 @@
                         style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/border_bg"
+                        android:background="@drawable/background_borderonly"
                         android:fontFamily="@font/raleway_bold"
                         android:text="Continue"
                         android:textAllCaps="false" />
@@ -78,7 +78,7 @@
                         android:layout_height="match_parent"
                         android:fontFamily="@font/raleway_bold"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/border_bg"
+                        android:background="@drawable/background_borderonly"
                         android:text="No thanks, I will do it myself"
                         android:textAllCaps="false" />
 

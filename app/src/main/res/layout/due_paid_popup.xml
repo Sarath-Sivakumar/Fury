@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/popup_bg_shader">
+    android:background="@drawable/background_popupshade">
 
     <ImageView
         android:id="@+id/check"
@@ -13,7 +13,7 @@
         android:minHeight="90dp"
         android:minWidth="90dp"
         android:contentDescription="@null"
-        android:src="@drawable/ic_baseline_check_circle_outline_24" />
+        android:src="@drawable/common_icon_done" />
 
     <Button
         android:id="@+id/done"

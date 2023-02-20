@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:background="@drawable/exp_list_card"
+    android:background="@drawable/background_recyclersitems"
+    android:backgroundTint="@color/theme_green"
     android:layout_margin="6dp"
     android:orientation="horizontal">
 

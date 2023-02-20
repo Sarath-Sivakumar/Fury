@@ -7,7 +7,8 @@
     android:minWidth="125dp"
     android:minHeight="63dp"
     android:orientation="vertical"
-    android:background="@drawable/card"
+    android:background="@drawable/background_recyclersitems"
+    android:backgroundTint="@color/app_theme_secondary"
     android:padding="6dp">
 
     <LinearLayout
@@ -23,7 +24,7 @@
             android:layout_height="24dp"
             android:layout_gravity="start"
             android:layout_marginStart="6dp"
-            android:src="@drawable/ic_home" />
+            android:src="@drawable/frag_icon_home" />
 
         <TextView
             android:id="@+id/indicatorText"

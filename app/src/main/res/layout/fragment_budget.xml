@@ -28,7 +28,7 @@
                 android:layout_marginTop="3dp"
                 android:layout_marginEnd="6dp"
                 android:paddingRight="12dp"
-                android:background="@drawable/card_view_theme"
+                android:background="@drawable/background_mainamount"
                 android:backgroundTint="?attr/colorPrimaryVariant"
                 android:elevation="6dp"
                 android:orientation="vertical">
@@ -58,7 +58,7 @@
                         android:layout_width="0dp"
                         android:layout_weight=".1"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_edit"
+                        android:src="@drawable/common_icon_edit"
                         app:tint="?attr/colorOnPrimary" />
 
                     <View
@@ -87,7 +87,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="6dp"
                 android:layout_marginEnd="6dp"
-                android:background="@drawable/border_bg"
+                android:background="@drawable/background_borderonly"
                 android:orientation="vertical" >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -245,7 +245,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="248dp"
                 android:layout_margin="6dp"
-                android:background="@drawable/border_bg"
+                android:background="@drawable/background_borderonly"
                 tools:listitem="@layout/top_catlist_item" />
 
             <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
@@ -302,7 +302,7 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="12dp"
         android:contentDescription="@null"
-        android:src="@drawable/ic_add"
+        android:src="@drawable/common_icon_add"
         app:backgroundTint="@color/theme_green"
         tools:ignore="SpeakableTextPresentCheck" />
 </FrameLayout>

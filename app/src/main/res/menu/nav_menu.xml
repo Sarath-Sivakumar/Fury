@@ -3,28 +3,28 @@
     <group>
         <item
             android:id="@+id/notification"
-            android:icon="@drawable/message"
+            android:icon="@drawable/nav_icon_notification"
             android:title="Notification" />
 
         <item
             android:id="@+id/settings"
-            android:icon="@drawable/settings"
+            android:icon="@drawable/nav_icon_settings"
             android:title="Settings" />
 
         <item
             android:id="@+id/help"
-            android:icon="@drawable/help"
+            android:icon="@drawable/nav_icon_help"
             android:title="@string/help_support" />
 
 
         <item
             android:id="@+id/about"
-            android:icon="@drawable/about"
+            android:icon="@drawable/nav_icon_about"
             android:title="About Us" />
 
         <item
             android:id="@+id/logout"
-            android:icon="@drawable/logout"
+            android:icon="@drawable/nav_icon_logout"
             android:title="Logout" />
 
     </group>

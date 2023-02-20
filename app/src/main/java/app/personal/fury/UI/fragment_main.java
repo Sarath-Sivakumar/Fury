@@ -118,8 +118,8 @@ public class fragment_main extends Fragment {
     }
 
     private void setIG_VP() {
-        FragmentList.add(ig.newInstance(R.drawable.furybanner_1));
-        FragmentList.add(ig.newInstance(R.drawable.budget_ig));
+        FragmentList.add(ig.newInstance(R.drawable.info_appbanner));
+//        FragmentList.add(ig.newInstance(R.drawable.budget_ig));
         igAdapter.setInfoGraphics(FragmentList);
         ig_vp.setAdapter(igAdapter);
         ig_tl.setupWithViewPager(ig_vp, true);
