@@ -70,6 +70,11 @@ public class signUp extends AppCompatActivity {
                                 userData.setName(name);
                                 userData.setImgUrl(Constants.DEFAULT_DP);
                                 uvm.Signup(mail, p1, userData);
+                                uvm.getUserId().observe(this, firebaseUser -> {
+                                    if (firebaseUser.getEmail().equals(mail)){
+                                        finish();
+                                    }
+                                });
                             } else {
                                 Commons.SnackBar(signUp, "Password should be at least 6 characters.");
                                 pass1.setText("");

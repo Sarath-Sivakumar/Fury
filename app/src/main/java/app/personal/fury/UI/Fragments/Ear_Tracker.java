@@ -61,8 +61,7 @@ public class Ear_Tracker extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-        adapter = new salaryAdapter();
+
         //Comes before onCreateView
         //initialise methods that don't require activity or context
     }
@@ -75,6 +74,8 @@ public class Ear_Tracker extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+        adapter = new salaryAdapter();
         View v = inflater.inflate(R.layout.fragment_earnings__tracker, container, false);
         initAd();
         findView(v);
@@ -247,30 +248,29 @@ public class Ear_Tracker extends Fragment {
                 if (sal!=null){
                     if (!isEdit){
                         vm.InsertSalary(sal);
+                        if (sal.getSalMode()==Constants.SAL_MODE_ACC){
+                            balanceEntity bal = getBal();
+                            int oldBal = sal.getSalary();
+                            if (bal!=null){
+                                oldBal = oldBal + bal.getBalance();
+                                bal.setBalance(oldBal);
+                            }
+                            vm.DeleteBalance();
+                            vm.InsertBalance(bal);
+                        }else{
+                            inHandBalEntity bal = getInHandBal();
+                            int oldBal = sal.getSalary();
+                            if (bal!=null){
+                                oldBal = oldBal + bal.getBalance();
+                                bal.setBalance(oldBal);
+                            }
+                            vm.DeleteInHandBalance();
+                            vm.InsertInHandBalance(bal);
+                        }
                     }else{
                         sal.setId(salary.getId());
                         vm.UpdateSalary(sal);
                     }
-                    if (sal.getSalMode()==Constants.SAL_MODE_ACC){
-                        balanceEntity bal = getBal();
-                        int oldBal = sal.getSalary();
-                        if (bal!=null){
-                            oldBal = oldBal + bal.getBalance();
-                            bal.setBalance(oldBal);
-                        }
-                        vm.DeleteBalance();
-                        vm.InsertBalance(bal);
-                    }else{
-                        inHandBalEntity bal = getInHandBal();
-                        int oldBal = sal.getSalary();
-                        if (bal!=null){
-                            oldBal = oldBal + bal.getBalance();
-                            bal.setBalance(oldBal);
-                        }
-                        vm.DeleteInHandBalance();
-                        vm.InsertInHandBalance(bal);
-                    }
-
                 }
             }else{
                 Commons.SnackBar(getView(),"Field(s) may be empty");
@@ -292,8 +292,8 @@ public class Ear_Tracker extends Fragment {
                 ViewHolder = viewHolder;
                 adapter.notifyDataSetChanged();
                 vm.DeleteSalary(adapter.getSalaryEntity(viewHolder.getPosition()));
-                int type = adapter.getSalaryEntity(viewHolder.getPosition()).getIncType();
-                int salary = adapter.getSalaryEntity(viewHolder.getPosition()).getSalary();
+//                int type = adapter.getSalaryEntity(viewHolder.getPosition()).getIncType();
+//                int salary = adapter.getSalaryEntity(viewHolder.getPosition()).getSalary();
 //Popup to remove from balance or no needed...
 //                if (type==Constants.SAL_MODE_ACC){
 //                    balanceEntity bal = getBal();
