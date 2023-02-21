@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 import app.personal.MVVM.Viewmodel.userInitViewModel;
 import app.personal.Utls.Commons;
 import app.personal.fury.R;
@@ -86,6 +88,11 @@ public class Login extends AppCompatActivity {
             if (new Commons().isConnectedToInternet(this)) {
                 if (Commons.isValidPass(password) && Commons.isEmail(email)) {
                     uvm.Login(email, password);
+                    uvm.getUserId().observe(this, firebaseUser -> {
+                        if (Objects.equals(firebaseUser.getEmail(), email)){
+                            finishAffinity();
+                        }
+                    });
                 } else {
                     Commons.SnackBar(Login, "Invalid Credentials.");
                 }
