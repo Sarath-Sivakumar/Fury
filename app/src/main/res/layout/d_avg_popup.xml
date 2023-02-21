@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:text="Daily average needs to collect some data which are processed after 7 days of usage"
         android:gravity="center|start"
+        android:textColor="@color/full_white"
         android:textSize="12sp"/>
 
 <!-- Your daily average should start showing within (TIME_PERIOD) day(s). -->

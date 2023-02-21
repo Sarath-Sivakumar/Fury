@@ -35,7 +35,12 @@ public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.salHolder>
         salaryEntity entity = salList.get(position);
         holder.incAmt.setText("+" + entity.getSalary());
         holder.incName.setText(entity.getIncName());
-        String ico = String.valueOf(entity.getIncName().charAt(0)).toUpperCase();
+        if (entity.getSalMode()==Constants.SAL_MODE_ACC){
+            holder.salMod.setText("Account");
+        }else{
+            holder.salMod.setText("Cash");
+
+        }        String ico = String.valueOf(entity.getIncName().charAt(0)).toUpperCase();
         holder.icoText.setText(ico);
         if (entity.getIncType()==Constants.monthly){
             holder.incTyp.setText("Monthly");
@@ -73,6 +78,7 @@ public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.salHolder>
         private final TextView incName;
         private final TextView incTyp;
         private final TextView icoText;
+        private final TextView salMod;
 
         public salHolder(@NonNull View itemView) {
             super(itemView);
@@ -80,6 +86,7 @@ public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.salHolder>
             incName = itemView.findViewById(R.id.salName);
             incTyp = itemView.findViewById(R.id.salTyp);
             icoText = itemView.findViewById(R.id.icoText);
+            salMod = itemView.findViewById(R.id.salMod);
 
             itemView.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
