@@ -29,6 +29,11 @@ import app.personal.fury.UI.Drawer.About_Activity;
 import app.personal.fury.UI.Drawer.Notification_Activity;
 import app.personal.fury.UI.Drawer.Settings_Activity;
 import app.personal.fury.UI.Drawer.help_Activity;
+import app.personal.fury.UI.Fragments.BudgetFragment;
+import app.personal.fury.UI.Fragments.Dues_Debt;
+import app.personal.fury.UI.Fragments.Ear_Tracker;
+import app.personal.fury.UI.Fragments.Exp_Tracker;
+import app.personal.fury.UI.Fragments.fragment_main;
 import app.personal.fury.UI.User_Init.Landing;
 import app.personal.fury.ViewPagerAdapter.vpAdapter;
 

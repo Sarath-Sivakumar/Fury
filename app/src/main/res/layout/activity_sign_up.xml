@@ -50,6 +50,7 @@
             android:layout_width="300dp"
             android:layout_height="?actionBarSize"
             android:hint="Name"
+            android:drawableRight="@drawable/common_icon_person"
             android:singleLine="true"
             android:fontFamily="@font/raleway_semibold"
             android:textSize="16sp" />
@@ -59,6 +60,7 @@
             android:layout_width="300dp"
             android:layout_height="?actionBarSize"
             android:hint="Email"
+            android:drawableRight="@drawable/common_icon_mail"
             android:singleLine="true"
             android:fontFamily="@font/raleway_semibold"
             android:textSize="16sp" />
@@ -67,8 +69,10 @@
             android:id="@+id/u_pass1"
             android:layout_width="300dp"
             android:layout_height="?actionBarSize"
-            android:hint="Password"
+            android:hint="Create Password"
+            android:drawableRight="@drawable/common_icon_password"
             android:singleLine="true"
+            android:inputType="textPassword"
             android:fontFamily="@font/raleway_semibold"
             android:textSize="16sp" />
 
@@ -76,8 +80,9 @@
             android:id="@+id/u_pass2"
             android:layout_width="300dp"
             android:layout_height="?actionBarSize"
-            android:hint="Retype Password"
+            android:hint="Confirm Password"
             android:singleLine="true"
+            android:inputType="textPassword"
             android:fontFamily="@font/raleway_semibold"
             android:textSize="16sp" />
 

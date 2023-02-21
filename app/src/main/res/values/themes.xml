@@ -6,6 +6,7 @@
         <item name="colorPrimaryVariant">@color/app_theme_secondary</item>
         <item name="colorOnPrimary">@color/full_white</item>
         <item name="colorPrimaryContainer">@color/d1</item>
+        <item name="colorAccent">@color/h1_dark</item>
 
         <!-- Secondary brand color(Texts Colors)-->
         <item name="colorSecondary">@color/h1_light</item>

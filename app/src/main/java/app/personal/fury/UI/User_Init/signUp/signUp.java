@@ -60,29 +60,36 @@ public class signUp extends AppCompatActivity {
             String mail = email.getText().toString();
             String p1 = pass1.getText().toString();
             String p2 = pass2.getText().toString();
-            if (!name.trim().isEmpty()&&!mail.trim().isEmpty()&&
-                    !p1.trim().isEmpty()&&!p2.trim().isEmpty()){
-                if (p1.trim().equals(p2.trim())){
-                    if (Commons.isEmail(mail)){
-                        if (Commons.isValidPass(p1.trim())){
-                            userEntity userData = new userEntity();
-                            userData.setName(name);
-                            userData.setImgUrl(Constants.DEFAULT_DP);
-                            uvm.Signup(mail, p1, userData);
-                        }else{
-                            Commons.SnackBar(signUp, "Password should be at least 6 characters.");
-                            pass1.setText("");
-                            pass2.setText("");
+            if (new Commons().isConnectedToInternet(this)) {
+                if (!name.trim().isEmpty() && !mail.trim().isEmpty() &&
+                        !p1.trim().isEmpty() && !p2.trim().isEmpty()) {
+                    if (p1.trim().equals(p2.trim())) {
+                        if (Commons.isEmail(mail)) {
+                            if (Commons.isValidPass(p1.trim())) {
+                                userEntity userData = new userEntity();
+                                userData.setName(name);
+                                userData.setImgUrl(Constants.DEFAULT_DP);
+                                uvm.Signup(mail, p1, userData);
+                            } else {
+                                Commons.SnackBar(signUp, "Password should be at least 6 characters.");
+                                pass1.setText("");
+                                pass2.setText("");
+                            }
+                        } else {
+                            Commons.SnackBar(signUp, "Check your email again");
                         }
-                    }else{
-                        Commons.SnackBar(signUp, "Check your email again");
+                    } else {
+                        Commons.SnackBar(signUp, "Passwords don't match.");
+                        pass1.setText("");
+                        pass2.setText("");
                     }
-                }else{
-                    Commons.SnackBar(signUp, "Passwords don't match.");
-                    pass1.setText("");
-                    pass2.setText("");
                 }
             }
+            else
+            {
+                Commons.SnackBar(signUp, "No internet available");
+            }
         });
+
     }
 }

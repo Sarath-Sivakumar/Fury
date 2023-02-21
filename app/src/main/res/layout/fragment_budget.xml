@@ -7,7 +7,7 @@
     android:paddingTop="12dp"
     android:paddingStart="12dp"
     android:paddingEnd="12dp"
-    tools:context=".UI.BudgetFragment">
+    tools:context=".UI.Fragments.BudgetFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

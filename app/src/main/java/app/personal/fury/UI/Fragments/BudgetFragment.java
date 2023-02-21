@@ -1,4 +1,4 @@
-package app.personal.fury.UI;
+package app.personal.fury.UI.Fragments;
 
 import android.content.Context;
 import android.icu.util.Calendar;

@@ -65,7 +65,10 @@
                 android:layout_height="?actionBarSize"
                 android:fontFamily="@font/raleway_semibold"
                 android:hint="Password"
+                android:inputType="textPassword"
+                android:longClickable="false"
                 android:singleLine="true"
+                android:drawableRight="@drawable/common_icon_eyeclose"
                 android:textSize="16sp" />
 
 

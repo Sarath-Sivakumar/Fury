@@ -2,6 +2,9 @@ package app.personal.Utls;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 import android.view.View;
 
@@ -207,12 +210,23 @@ public class Commons {
         return matcher.find();
     }
 
+    public boolean isConnectedToInternet(Context c){
+        return checkNet(c);
+    }
+
     public static boolean isValidPass(String Password){
         if (Password.length()>=6){
             return true;
         }else{
             return false;
         }
+    }
+    private boolean checkNet(Context c) {
+        //To check internet connectivity.
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
 }
