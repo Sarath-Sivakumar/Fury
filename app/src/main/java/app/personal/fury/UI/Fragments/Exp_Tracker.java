@@ -137,7 +137,10 @@ public class Exp_Tracker extends Fragment {
         vm.getBalance().observe(requireActivity(), entity -> {
             if (entity != null) {
                 Balance.set(entity);
+                accBal = entity.getBalance();
             }
+            String s = Constants.RUPEE + (accBal+inHandBal);
+            balanceView.setText(s);
         });
         return Balance.get().getBalance();
     }
@@ -147,7 +150,10 @@ public class Exp_Tracker extends Fragment {
         vm.getInHandBalance().observe(requireActivity(), entity -> {
             if (entity != null) {
                 Balance.set(entity);
+                inHandBal = entity.getBalance();
             }
+            String s = Constants.RUPEE + (accBal+inHandBal);
+            balanceView.setText(s);
         });
         return Balance.get().getBalance();
     }
@@ -324,7 +330,7 @@ public class Exp_Tracker extends Fragment {
             vm.InsertBalance(bal);
         }else{
             int oldBal = inHandBal;
-            vm.DeleteBalance();
+            vm.DeleteInHandBalance();
             inHandBalEntity bal = new inHandBalEntity();
             bal.setBalance(oldBal - Integer.parseInt(expAmt.getText().toString()));
             vm.InsertInHandBalance(bal);
