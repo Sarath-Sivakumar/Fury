@@ -90,7 +90,7 @@ public class Login extends AppCompatActivity {
                     uvm.Login(email, password);
                     uvm.getUserId().observe(this, firebaseUser -> {
                         if (Objects.equals(firebaseUser.getEmail(), email)){
-                            finish();
+                            finishAffinity();
                         }
                     });
                 } else {

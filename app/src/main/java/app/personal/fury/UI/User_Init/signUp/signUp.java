@@ -72,7 +72,7 @@ public class signUp extends AppCompatActivity {
                                 uvm.Signup(mail, p1, userData);
                                 uvm.getUserId().observe(this, firebaseUser -> {
                                     if (firebaseUser.getEmail().equals(mail)){
-                                        finish();
+                                        finishAffinity();
                                     }
                                 });
                             } else {
