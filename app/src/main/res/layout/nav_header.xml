@@ -30,7 +30,7 @@
                 android:background="?attr/colorPrimaryVariant"
                 android:contentDescription="@null"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_account" />
+                android:src="@drawable/nav_icon_account" />
 
         </androidx.cardview.widget.CardView>
 

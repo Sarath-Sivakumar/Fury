@@ -22,7 +22,7 @@
             android:layout_marginTop="65sp"
             android:background="@android:color/transparent"
             android:padding="24dp"
-            android:src="@drawable/ic_back" />
+            android:src="@drawable/common_icon_back" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -65,7 +65,10 @@
                 android:layout_height="?actionBarSize"
                 android:fontFamily="@font/raleway_semibold"
                 android:hint="Password"
+                android:inputType="textPassword"
+                android:longClickable="false"
                 android:singleLine="true"
+                android:drawableRight="@drawable/common_icon_eyeclose"
                 android:textSize="16sp" />
 
 
@@ -86,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/login_btn"
+                android:background="@drawable/button_login"
                 android:fontFamily="@font/raleway_semibold"
                 android:text="Login"
                 android:textSize="16sp" />

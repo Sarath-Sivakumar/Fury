@@ -20,7 +20,6 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
 
-import app.personal.MVVM.Entity.userEntity;
 import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
 import app.personal.MVVM.Viewmodel.userInitViewModel;
 import app.personal.Utls.Constants;
@@ -30,6 +29,11 @@ import app.personal.fury.UI.Drawer.About_Activity;
 import app.personal.fury.UI.Drawer.Notification_Activity;
 import app.personal.fury.UI.Drawer.Settings_Activity;
 import app.personal.fury.UI.Drawer.help_Activity;
+import app.personal.fury.UI.Fragments.BudgetFragment;
+import app.personal.fury.UI.Fragments.Dues_Debt;
+import app.personal.fury.UI.Fragments.Ear_Tracker;
+import app.personal.fury.UI.Fragments.Exp_Tracker;
+import app.personal.fury.UI.Fragments.fragment_main;
 import app.personal.fury.UI.User_Init.Landing;
 import app.personal.fury.ViewPagerAdapter.vpAdapter;
 
@@ -83,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 String s = "Hello "+fname;
                 userName.setText(s);
                 if (userEntity.getImgUrl().equals(Constants.DEFAULT_DP)){
-                    userDp.setImageResource(R.drawable.ic_account);
+                    userDp.setImageResource(R.drawable.nav_icon_account);
                 }else{
                     Glide.with(this).load(userEntity.getImgUrl()).circleCrop().into(userDp);
                 }
@@ -110,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.common_icon_menu);
 
         NavigationView navView = findViewById(R.id.navView);
         navView.inflateHeaderView(R.layout.nav_header);
@@ -173,11 +177,11 @@ public class MainActivity extends AppCompatActivity {
         vp.setAdapter(adapter);
         vp.setPagingEnabled(false);
         tl.setupWithViewPager(vp, true);
-        Objects.requireNonNull(tl.getTabAt(0)).setIcon(R.drawable.expense);
-        Objects.requireNonNull(tl.getTabAt(1)).setIcon(R.drawable.budget);
-        Objects.requireNonNull(tl.getTabAt(2)).setIcon(R.drawable.home);
-        Objects.requireNonNull(tl.getTabAt(3)).setIcon(R.drawable.rupee);
-        Objects.requireNonNull(tl.getTabAt(4)).setIcon(R.drawable.invoice);
+        Objects.requireNonNull(tl.getTabAt(0)).setIcon(R.drawable.frag_icon_expense);
+        Objects.requireNonNull(tl.getTabAt(1)).setIcon(R.drawable.frag_icon_budget);
+        Objects.requireNonNull(tl.getTabAt(2)).setIcon(R.drawable.frag_icon_home);
+        Objects.requireNonNull(tl.getTabAt(3)).setIcon(R.drawable.frag_icon_earnings);
+        Objects.requireNonNull(tl.getTabAt(4)).setIcon(R.drawable.frag_icon_dues);
         tl.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

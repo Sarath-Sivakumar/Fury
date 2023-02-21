@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import app.personal.Utls.Commons;
 import app.personal.fury.R;
 
 public class forgot_pass extends AppCompatActivity {
@@ -35,24 +36,29 @@ public class forgot_pass extends AppCompatActivity {
     private void resetpassword(){
         String email = email_add.getText().toString().trim();
 
-        if (email.isEmpty()) {
-            email_add.setError("Provide an email address!");
-            email_add.requestFocus();
-            return;
-        }
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            email_add.setError("Please provide a valid email!");
-            email_add.requestFocus();
-            return;
-        }
-        auth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
-                Toast.makeText(forgot_pass.this, "Check your email to reset your password", Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(forgot_pass.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+        if (new Commons().isConnectedToInternet(this)) {
+            if (email.isEmpty()) {
+                email_add.setError("Provide an email address!");
+                email_add.requestFocus();
+                return;
             }
-        });
+
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                email_add.setError("Please provide a valid email!");
+                email_add.requestFocus();
+                return;
+            }
+            auth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(forgot_pass.this, "Check your email to reset your password", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(forgot_pass.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        else {
+            Commons.SnackBar(resetpass, "No internet available");
+        }
     }
 
 }

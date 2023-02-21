@@ -1,4 +1,4 @@
-package app.personal.fury.UI;
+package app.personal.fury.UI.Fragments;
 
 import android.content.Context;
 import android.icu.util.Calendar;
@@ -229,7 +229,4 @@ public class BudgetFragment extends Fragment {
         popupWindow.setElevation(6);
         popupWindow.showAsDropDown(addBudget);
     }
-
-
-
 }

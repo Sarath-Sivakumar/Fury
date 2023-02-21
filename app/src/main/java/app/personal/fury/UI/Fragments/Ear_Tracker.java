@@ -1,4 +1,4 @@
-package app.personal.fury.UI;
+package app.personal.fury.UI.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

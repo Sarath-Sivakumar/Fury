@@ -6,7 +6,7 @@
     android:layout_marginTop="6dp"
     android:layout_marginStart="12dp"
     android:layout_marginEnd="12dp"
-    android:background="@drawable/card_view_theme"
+    android:background="@drawable/background_recyclersitems"
     android:backgroundTint="?attr/colorPrimary"
     android:orientation="horizontal"
     app:cardCornerRadius="10dp">

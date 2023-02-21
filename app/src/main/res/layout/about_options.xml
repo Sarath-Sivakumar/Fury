@@ -30,11 +30,6 @@
                 android:text="Privacy policy"
                 android:textSize="14sp" />
 
-            <com.github.barteksc.pdfviewer.PDFView
-                android:id="@+id/policy_pdf"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height=".1dp"
@@ -81,6 +76,12 @@
                 android:layout_height=".1dp"
                 android:layout_marginStart="12dp"
                 android:background="?attr/colorSecondary" />
+
+            <WebView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/myWebView"
+                android:visibility="gone"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </FrameLayout>

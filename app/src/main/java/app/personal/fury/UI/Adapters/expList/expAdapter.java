@@ -42,37 +42,37 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
 
         switch(currentExp.getExpenseName()){
             case "Food":
-                holder.expIcon.setImageResource(R.drawable.fastfood);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_food);
                 break;
             case "Travel":
-                holder.expIcon.setImageResource(R.drawable.destination);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_travel);
                 break;
             case "Rent":
-                holder.expIcon.setImageResource(R.drawable.rent);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_rent);
                 break;
             case "Gas":
-                holder.expIcon.setImageResource(R.drawable.gaspump);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_gas);
                 break;
             case "Groceries":
-                holder.expIcon.setImageResource(R.drawable.grocery);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_grocery);
                 break;
             case "Electricity":
-                holder.expIcon.setImageResource(R.drawable.electricalenergy);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_electricity);
                 break;
             case "Recharge":
-                holder.expIcon.setImageResource(R.drawable.recharge);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_recharge);
                 break;
             case "Fees":
-                holder.expIcon.setImageResource(R.drawable.fees);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_fees);
                 break;
             case "Subscriptions":
-                holder.expIcon.setImageResource(R.drawable.subscription);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_subscription);
                 break;
             case "Health Care":
-                holder.expIcon.setImageResource(R.drawable.healthcare);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_health);
                 break;
             case "Bills":
-                holder.expIcon.setImageResource(R.drawable.bill);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_bill);
                 break;
             default:
                 break;

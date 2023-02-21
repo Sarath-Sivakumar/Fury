@@ -1,4 +1,4 @@
-package app.personal.fury.UI;
+package app.personal.fury.UI.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -42,6 +42,9 @@ import app.personal.fury.R;
 import app.personal.fury.UI.IG_fragment.ig;
 import app.personal.fury.UI.Adapters.mainLists.categoryAdapter;
 import app.personal.fury.UI.Adapters.mainLists.duesAdapter;
+import app.personal.fury.UI.MainActivity;
+import app.personal.fury.UI.allDues;
+import app.personal.fury.UI.allExp;
 import app.personal.fury.ViewPagerAdapter.infoGraphicsAdapter;
 
 public class fragment_main extends Fragment {
@@ -92,9 +95,9 @@ public class fragment_main extends Fragment {
             }
         });
         Button allExp = v.findViewById(R.id.allExp);
-        allExp.setOnClickListener(v1 -> startActivity(new Intent(getContext(), allExp.class)));
+        allExp.setOnClickListener(v1 -> startActivity(new Intent(getContext(), app.personal.fury.UI.allExp.class)));
         Button allDues = v.findViewById(R.id.allDues);
-        allDues.setOnClickListener(v1 -> startActivity(new Intent(getContext(), allDues.class)));
+        allDues.setOnClickListener(v1 -> startActivity(new Intent(getContext(), app.personal.fury.UI.allDues.class)));
         Spinner catFilter = v.findViewById(R.id.catFilter);
         RecyclerView catList = v.findViewById(R.id.catList);
         dueList.setHasFixedSize(true);
@@ -118,9 +121,8 @@ public class fragment_main extends Fragment {
     }
 
     private void setIG_VP() {
-        FragmentList.add(ig.newInstance(R.drawable.furybanner_1));
-        FragmentList.add(ig.newInstance(R.drawable.budget_ig));
-        FragmentList.add(ig.newInstance(R.drawable.info_graph2));
+        FragmentList.add(ig.newInstance(R.drawable.info_appbanner));
+//        FragmentList.add(ig.newInstance(R.drawable.budget_ig));
         igAdapter.setInfoGraphics(FragmentList);
         ig_vp.setAdapter(igAdapter);
         ig_tl.setupWithViewPager(ig_vp, true);

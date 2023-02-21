@@ -1,4 +1,4 @@
-package app.personal.fury.UI;
+package app.personal.fury.UI.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -270,45 +270,44 @@ public class Exp_Tracker extends Fragment {
 
     private void addExp(String expName, EditText expAmt, RadioGroup rdGrp) {
         if (expName != null && !expAmt.getText().toString().trim().isEmpty()) {
-                //Exp
-                expEntity entity = new expEntity();
-                entity.setExpenseName(expName);
-                entity.setExpenseAmt(Integer.parseInt(expAmt.getText().toString()));
-                entity.setTime(Commons.getTime());
-                entity.setDay(Commons.getDay());
-                entity.setDate(Commons.getDate());
-                int fromCash=0;
-                int fromAcc=0;
+            //Exp
+            expEntity entity = new expEntity();
+            entity.setExpenseName(expName);
+            entity.setExpenseAmt(Integer.parseInt(expAmt.getText().toString()));
+            entity.setTime(Commons.getTime());
+            entity.setDay(Commons.getDay());
+            entity.setDate(Commons.getDate());
+            int fromCash = 0;
+            int fromAcc = 0;
 
 
-                switch (rdGrp.getCheckedRadioButtonId()) {
-                    case R.id.inHand:
-                        if (getInHandBalance() >= entity.getExpenseAmt()) {
-                            entity.setExpMode(Constants.SAL_MODE_CASH);
-                            vm.InsertExp(entity);
-                            updateVals(entity, expAmt);
-                        } else {
-                            if(fromAcc==0){
-                                Commons.SnackBar(getView(), "Not enough money to spend as cash.\nTry bank account instead.");
-                                fromCash = 1;
-                            }else{
-                                Commons.SnackBar(getView(), "Not enough money to spend.");
-                            }
-                        }
-                        break;
+            switch (rdGrp.getCheckedRadioButtonId()) {
+                case R.id.inHand:
+                    if (getInHandBalance() >= entity.getExpenseAmt()) {
+                        entity.setExpMode(Constants.SAL_MODE_CASH);
+                        vm.InsertExp(entity);
+                        updateVals(entity, expAmt);
+                    } else if (fromAcc == 0) {
+                        Commons.SnackBar(getView(), "Not enough money to spend as cash.\nTry bank account instead.");
+                        fromCash = 1;
+                    } else {
+                        Commons.SnackBar(getView(), "Not enough money to spend.");
+                    }
+                    break;
+
                     case R.id.account:
                         if (getBalance() >= entity.getExpenseAmt()) {
                             entity.setExpMode(Constants.SAL_MODE_ACC);
                             vm.InsertExp(entity);
                             updateVals(entity, expAmt);
-                        }else{
-                            if (fromCash==0){
+                        }
+                        else if (fromCash==0){
                                 Commons.SnackBar(getView(), "Not enough money to spend as cash.\nTry bank account instead.");
                                 fromAcc = 1;
-                            }else{
+                            }
+                        else{
                                 Commons.SnackBar(getView(), "Not enough money to spend.");
                             }
-                        }
                         break;
                     default:
                         Commons.SnackBar(getView(), "Select a Debit method.");
@@ -326,7 +325,8 @@ public class Exp_Tracker extends Fragment {
             int oldBal = accBal;
             vm.DeleteBalance();
             balanceEntity bal = new balanceEntity();
-            bal.setBalance(oldBal - Integer.parseInt(expAmt.getText().toString()));
+            int v = Integer.parseInt(expAmt.getText().toString());
+            bal.setBalance(oldBal - v);
             vm.InsertBalance(bal);
         }else{
             int oldBal = inHandBal;
