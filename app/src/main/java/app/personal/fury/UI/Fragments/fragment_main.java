@@ -65,7 +65,7 @@ public class fragment_main extends Fragment {
     private TabLayout ig_tl;
     private ImageButton avgInfo;
     private infoGraphicsAdapter igAdapter;
-    private ArrayList<Fragment> FragmentList;
+    private final int[] FragmentList  = new int[]{R.drawable.info_appbanner};
 
     public fragment_main() {
     }
@@ -87,8 +87,11 @@ public class fragment_main extends Fragment {
         dueList = v.findViewById(R.id.dueList);
         ig_vp = v.findViewById(R.id.infoGraphics_vp);
         ig_tl = v.findViewById(R.id.infoGraphics_tab);
-        igAdapter = new infoGraphicsAdapter(getParentFragmentManager());
-        FragmentList = new ArrayList<>();
+
+        igAdapter = new infoGraphicsAdapter(requireContext(), FragmentList);
+        ig_vp.setAdapter(igAdapter);
+        ig_tl.setupWithViewPager(ig_vp, true);
+
         budgetView.setOnClickListener(v1 -> {
             if (budgetView.getText().toString().equals("Set a budget.")) {
                 MainActivity.redirectTo(1);
@@ -120,14 +123,6 @@ public class fragment_main extends Fragment {
         });
     }
 
-    private void setIG_VP() {
-        FragmentList.add(ig.newInstance(R.drawable.info_appbanner));
-//        FragmentList.add(ig.newInstance(R.drawable.budget_ig));
-        igAdapter.setInfoGraphics(FragmentList);
-        ig_vp.setAdapter(igAdapter);
-        ig_tl.setupWithViewPager(ig_vp, true);
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,14 +146,10 @@ public class fragment_main extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setIG_VP();
         if (savedInstanceState==null){
             budgetEntity entity = getBud();
             if (entity.getAmount()>0&&expense>0){
                 entity.setBal(entity.getAmount() - expense);
-                Log.e("Budget main", "Exp: " + expense);
-                Log.e("Budget main", "Amt: " + entity.getAmount());
-                Log.e("Budget main", "Bal: " + entity.getBal());
                 vm.DeleteBudget();
                 vm.InsertBudget(entity);
             }

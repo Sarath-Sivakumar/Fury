@@ -53,7 +53,7 @@ public class BudgetFragment extends Fragment {
     private infoGraphicsAdapter igAdapter;
     private ViewPager ig_vp;
     private TabLayout ig_tl;
-    private ArrayList<Fragment> FragmentList;
+    private int[] FragmentList = new int[]{R.drawable.info_1, R.drawable.info_2, R.drawable.info_3};
 
     private AdView ad;
 
@@ -83,7 +83,6 @@ public class BudgetFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initItems();
-        setIG_VP();
     }
 
     private void requestAd() {
@@ -104,19 +103,14 @@ public class BudgetFragment extends Fragment {
         CurrentDailylimit = v.findViewById(R.id.C_avg);
         ig_vp = v.findViewById(R.id.infoGraphics_vp2);
         ig_tl = v.findViewById(R.id.infoGraphics_tab2);
-        igAdapter = new infoGraphicsAdapter(getParentFragmentManager());
-        FragmentList = new ArrayList<>();
+
+        igAdapter = new infoGraphicsAdapter(requireContext(), FragmentList);
+        ig_vp.setAdapter(igAdapter);
+        ig_tl.setupWithViewPager(ig_vp, true);
+
         ad = v.findViewById(R.id.adView2);
         addBudget.setOnClickListener(v1 -> callAddBudgetPopup());
         requestAd();
-    }
-    private void setIG_VP(){
-        FragmentList.add(ig.newInstance(R.drawable.info_1));
-        FragmentList.add(ig.newInstance(R.drawable.info_2));
-        FragmentList.add(ig.newInstance(R.drawable.info_3));
-        igAdapter.setInfoGraphics(FragmentList);
-        ig_vp.setAdapter(igAdapter);
-        ig_tl.setupWithViewPager(ig_vp, true);
     }
 
     private void initItems() {

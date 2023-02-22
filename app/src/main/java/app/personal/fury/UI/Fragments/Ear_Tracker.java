@@ -27,6 +27,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -53,7 +54,8 @@ public class Ear_Tracker extends Fragment {
     private ViewPager ig_vp;
     private TabLayout ig_tl;
     private infoGraphicsAdapter igAdapter;
-    private ArrayList<Fragment> FragmentList;
+    private final int[] FragmentList = new int[]{R.drawable.info_h1, R.drawable.info_h2, R.drawable.info_h3, R.drawable.info_h4,
+            R.drawable.info_h5, R.drawable.info_h6};;
     private int cashAmt, cashCount, accAmt, accCount;
 
     public Ear_Tracker() {
@@ -88,7 +90,6 @@ public class Ear_Tracker extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         String s = Constants.RUPEE + getSalary();
         salAmt.setText(s);
-        setIG_VP();
     }
 
     private void findView(View v) {
@@ -105,24 +106,11 @@ public class Ear_Tracker extends Fragment {
         accountCount = v.findViewById(R.id.account_count);
         ig_vp = v.findViewById(R.id.infoGraphics_earvp);
         ig_tl = v.findViewById(R.id.infoGraphics_ear);
-        igAdapter = new infoGraphicsAdapter(getParentFragmentManager());
-        FragmentList = new ArrayList<>();
-        touchHelper();
-    }
-
-    private void setIG_VP() {
-        FragmentList.add(ig.newInstance(R.drawable.info_h1));
-        FragmentList.add(ig.newInstance(R.drawable.info_h2));
-        FragmentList.add(ig.newInstance(R.drawable.info_h3));
-        FragmentList.add(ig.newInstance(R.drawable.info_h4));
-        FragmentList.add(ig.newInstance(R.drawable.info_h5));
-        FragmentList.add(ig.newInstance(R.drawable.info_h6));
-        igAdapter.setInfoGraphics(FragmentList);
+        igAdapter = new infoGraphicsAdapter(requireContext(), FragmentList);
         ig_vp.setAdapter(igAdapter);
         ig_tl.setupWithViewPager(ig_vp, true);
+        touchHelper();
     }
-
-
     @SuppressLint("SetTextI18n")
     private void callPopUpWindow(boolean isEdit, @Nullable salaryEntity salary) {
         PopupWindow popupWindow = new PopupWindow(getContext());
