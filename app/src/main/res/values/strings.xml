@@ -126,6 +126,14 @@
     <string name="contact_us">Contact us</string>
     <string name="faq">Frequently asked questions?</string>
     <string name="report_a_problem">Report a problem</string>
+    <string name="total_earnings">Total Earnings</string>
+    <string name="sources">Source</string>
+    <string name="account_earnings">Account Earnings</string>
+    <string name="cash_earnings">Cash Earnings</string>
+    <string name="cash_expenses">Cash Expenses</string>
+    <string name="account_expenses">Account Expenses</string>
+    <string name="total">Total</string>
+    <string name="count">Count</string>
 
 
 </resources>

@@ -48,12 +48,13 @@ public class Ear_Tracker extends Fragment {
     private FloatingActionButton addSal;
     private mainViewModel vm;
     private salaryAdapter adapter;
-    private TextView salAmt, InhandAmt, AccountAmt, InhandCount, AccountCount;
+    private TextView salAmt, inHandAmt, accountAmt, inHandCount, accountCount;
     private RecyclerView.ViewHolder ViewHolder;
     private ViewPager ig_vp;
     private TabLayout ig_tl;
     private infoGraphicsAdapter igAdapter;
     private ArrayList<Fragment> FragmentList;
+    private int cashAmt, cashCount, accAmt, accCount;
 
     public Ear_Tracker() {
     }
@@ -98,10 +99,10 @@ public class Ear_Tracker extends Fragment {
         salSplitList.setLayoutManager(new LinearLayoutManager(requireContext()));
         salSplitList.setHasFixedSize(true);
         salSplitList.setAdapter(adapter);
-        InhandAmt = v.findViewById(R.id.inhand_Amt);
-        InhandCount = v.findViewById(R.id.inhand_count);
-        AccountAmt = v.findViewById(R.id.account_amt);
-        AccountCount = v.findViewById(R.id.account_count);
+        inHandAmt = v.findViewById(R.id.inhand_Amt);
+        inHandCount = v.findViewById(R.id.inhand_count);
+        accountAmt = v.findViewById(R.id.account_amt);
+        accountCount = v.findViewById(R.id.account_count);
         ig_vp = v.findViewById(R.id.infoGraphics_earvp);
         ig_tl = v.findViewById(R.id.infoGraphics_ear);
         igAdapter = new infoGraphicsAdapter(getParentFragmentManager());
@@ -334,12 +335,34 @@ public class Ear_Tracker extends Fragment {
             if (entity != null) {
                 adapter.setSal(entity);
                 int total = 0;
+                accAmt = 0;
+                accCount = 0;
+                cashAmt = 0;
+                cashCount = 0;
                 for (int i = 0; i < entity.size(); i++) {
                     total = total + entity.get(i).getSalary();
+                    if (entity.get(i).getSalMode()==Constants.SAL_MODE_ACC){
+                        accCount = accCount+1;
+                        accAmt = accAmt + entity.get(i).getSalary();
+                    }else{
+                        cashCount = cashCount + 1;
+                        cashAmt = cashAmt + entity.get(i).getSalary();
+                    }
                 }
                 finalTotalSalary.set(total);
-                String s = Constants.RUPEE + " " + finalTotalSalary.get();
-                salAmt.setText(s);
+                try{
+                    String s1 = Constants.RUPEE + "" + finalTotalSalary.get();
+                    salAmt.setText(s1);
+                    inHandCount.setText(String.valueOf(cashCount));
+                    accountCount.setText(String.valueOf(accCount));
+                    String s2 = Constants.RUPEE + ""+accAmt;
+                    accountAmt.setText(s2);
+                    String s3 = Constants.RUPEE + ""+cashAmt;
+                    inHandAmt.setText(s3);
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
         return finalTotalSalary.get();
