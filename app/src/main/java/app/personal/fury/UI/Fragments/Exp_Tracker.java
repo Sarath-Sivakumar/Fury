@@ -98,7 +98,7 @@ public class Exp_Tracker extends Fragment {
                 cashCount = 0;
                 accAmt = 0;
                 accCount = 0;
-                if (e != null && !e.isEmpty()) {
+                if (e != null) {
                     dLimit.setText(Commons.getAvg(e, true));
                     for (int i = 0; i < e.size(); i++) {
                         if (e.get(i).getExpMode()==Constants.SAL_MODE_ACC){
