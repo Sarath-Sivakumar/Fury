@@ -2,9 +2,7 @@ package app.personal.fury.UI.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.progressindicator.LinearProgressIndicator;
 
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 import app.personal.MVVM.Entity.balanceEntity;
@@ -48,9 +44,9 @@ public class Exp_Tracker extends Fragment {
     private mainViewModel vm;
     private RecyclerView recyclerView;
     private expAdapter adapter;
-    private TextView balanceView, expView;
+    private TextView balanceView, expView, inHandExp, accountExp, inHandCount, accountCount;;
     private RecyclerView.ViewHolder ViewHolder;
-    private int finalTotalSalary = 0, accBal = 0, inHandBal = 0;
+    private int finalTotalSalary = 0, accBal = 0, inHandBal = 0, cashAmt, cashCount, accAmt, accCount;
 
     public Exp_Tracker() {
     }
@@ -67,6 +63,10 @@ public class Exp_Tracker extends Fragment {
         fltBtn = v.findViewById(R.id.exp_actionBtn);
         recyclerView = v.findViewById(R.id.exp_list);
         balanceView = v.findViewById(R.id.expBalance);
+        inHandExp = v.findViewById(R.id.inhand_Amt);
+        inHandCount = v.findViewById(R.id.inhand_count);
+        accountExp = v.findViewById(R.id.account_amt);
+        accountCount = v.findViewById(R.id.account_count);
 //        TextView dateView = v.findViewById(R.id.exp_trac_date);
 //        String s = Commons.getDisplayDay(Commons.getDay())+" | "+Commons.getDate();
 //        dateView.setText(s);
@@ -89,24 +89,43 @@ public class Exp_Tracker extends Fragment {
     }
 
     private void getSal() {
-        vm.getSalary().observe(requireActivity(), entities -> {
+        vm.getSalary().observe(requireActivity(), e -> {
             finalTotalSalary = 0;
-            if (entities != null) {
-                for (int i = 0; i < entities.size(); i++) {
-                    finalTotalSalary = finalTotalSalary + entities.get(i).getSalary();
-                }
-            }
         });
     }
 
     private void getExp() {
-        vm.getExp().observe(requireActivity(), entity -> {
+        vm.getExp().observe(requireActivity(), e -> {
             adapter.clear();
-            adapter.setExp(entity, true);
+            adapter.setExp(e, true);
             try {
                 expView.setText(adapter.getTotalExpStr());
-            } catch (Exception e) {
-                e.printStackTrace();
+                cashAmt = 0;
+                cashCount = 0;
+                accAmt = 0;
+                accCount = 0;
+                if (e != null) {
+                    for (int i = 0; i < e.size(); i++) {
+                        if (e.get(i).getExpMode()==Constants.SAL_MODE_ACC){
+                            accCount = accCount + 1;
+                            accAmt = accAmt + e.get(i).getExpenseAmt();
+                        }else{
+                            cashCount = cashCount + 1;
+                            cashAmt = cashAmt + e.get(i).getExpenseAmt();
+                        }
+                    }
+                    try {
+                        String s1 = Constants.RUPEE + cashAmt, s2 = Constants.RUPEE + accAmt;
+                        inHandExp.setText(s1);
+                        accountExp.setText(s2);
+                        inHandCount.setText(String.valueOf(cashCount));
+                        accountCount.setText(String.valueOf(accCount));
+                    }catch(Exception e1){
+                        e1.printStackTrace();
+                    }
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
             }
         });
     }
