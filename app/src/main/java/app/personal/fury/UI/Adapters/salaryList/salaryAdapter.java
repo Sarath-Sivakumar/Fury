@@ -33,7 +33,7 @@ public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.salHolder>
     @Override
     public void onBindViewHolder(@NonNull salHolder holder, int position) {
         salaryEntity entity = salList.get(position);
-        holder.incAmt.setText("+" + entity.getSalary());
+        holder.incAmt.setText("+" +Constants.RUPEE+ entity.getSalary());
         holder.incName.setText(entity.getIncName());
         if (entity.getSalMode()==Constants.SAL_MODE_ACC){
             holder.salMod.setText("Account");
