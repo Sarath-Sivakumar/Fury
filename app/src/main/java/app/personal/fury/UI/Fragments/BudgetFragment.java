@@ -38,7 +38,6 @@ import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.budgetList.budgetAdapter;
-import app.personal.fury.UI.IG_fragment.ig;
 import app.personal.fury.ViewPagerAdapter.infoGraphicsAdapter;
 
 public class BudgetFragment extends Fragment {
@@ -107,6 +106,7 @@ public class BudgetFragment extends Fragment {
         igAdapter = new infoGraphicsAdapter(requireContext(), FragmentList);
         ig_vp.setAdapter(igAdapter);
         ig_tl.setupWithViewPager(ig_vp, true);
+        Commons.timedSliderInit(ig_vp, FragmentList, 5);
 
         ad = v.findViewById(R.id.adView2);
         addBudget.setOnClickListener(v1 -> callAddBudgetPopup());

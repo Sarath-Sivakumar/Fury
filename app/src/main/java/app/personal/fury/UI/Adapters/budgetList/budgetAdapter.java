@@ -36,7 +36,7 @@ public class budgetAdapter extends RecyclerView.Adapter<budgetAdapter.topCatHold
     @Override
     public void onBindViewHolder(@NonNull topCatHolder holder, int position) {
         expEntity currentExp = toDisplay.get(position);
-        String DisplayAmt = "+" + Constants.RUPEE + currentExp.getExpenseAmt();
+        String DisplayAmt = Constants.RUPEE + currentExp.getExpenseAmt();
         holder.amt.setText(DisplayAmt);
         holder.name.setText(currentExp.getExpenseName());
 

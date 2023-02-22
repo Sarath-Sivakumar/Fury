@@ -53,12 +53,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        init();
-        setNav();
-        setUserViewModel();
-        if (savedInstanceState==null){
-            vp.setCurrentItem(2,true);
-        }
+        try{
+            init();
+            setNav();
+            setUserViewModel();
+            if (savedInstanceState == null) {
+                vp.setCurrentItem(2, true);
+            }
+        }catch (Exception ignored){}
     }
 
     private void init() {
