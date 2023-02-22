@@ -1,7 +1,6 @@
 package app.personal.fury.UI;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -84,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 String uname = userEntity.getName();
                 String[] arr= uname.split(" ");
                 String fname=arr[0];
+//                Put this in a try block
 //                String lname=arr[1];
 //                Log.d("First name",fname);
 //                Log.d("last name",lname);
