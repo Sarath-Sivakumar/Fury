@@ -99,7 +99,12 @@ public class Exp_Tracker extends Fragment {
                 accAmt = 0;
                 accCount = 0;
                 if (e != null) {
-                    dLimit.setText(Commons.getAvg(e, true));
+                    if (!e.isEmpty()) {
+                        dLimit.setText(Commons.getAvg(e, true));
+                    }else{
+                        String s = "No data to process.";
+                        dLimit.setText(s);
+                    }
                     for (int i = 0; i < e.size(); i++) {
                         if (e.get(i).getExpMode()==Constants.SAL_MODE_ACC){
                             accCount = accCount + 1;
@@ -118,9 +123,6 @@ public class Exp_Tracker extends Fragment {
                     }catch(Exception e1){
                         e1.printStackTrace();
                     }
-                }else{
-                    String s = "No data to process.";
-                    dLimit.setText(s);
                 }
             } catch (Exception ignored) {}
         });
