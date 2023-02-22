@@ -10,7 +10,7 @@
         android:id="@+id/Contact_us"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Contact us"
+        android:text="@string/contact_us"
         android:textSize="14sp"
         android:layout_margin="12dp"/>
 
@@ -25,7 +25,7 @@
         android:id="@+id/faq"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Frequently asked questions?"
+        android:text="@string/faq"
         android:textSize="14sp"
         android:layout_margin="12dp"/>
 
@@ -40,7 +40,7 @@
         android:id="@+id/feedback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Report a problem"
+        android:text="@string/report_a_problem"
         android:textSize="14sp"
         android:layout_margin="12dp"/>
 
@@ -50,4 +50,9 @@
         android:layout_marginStart="12dp"
         android:background="?attr/colorPrimaryVariant" />
 
+    <WebView
+        android:id="@+id/helpweb"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 </LinearLayout>

@@ -14,9 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import app.personal.fury.R;
 
 public class About_Activity extends AppCompatActivity {
-    private TextView policy,terms,about_app;
+    private TextView policy,terms,about_app,navtitle;
     private ImageButton back;
-
     WebView webView;
 
     @Override
@@ -33,6 +32,7 @@ public class About_Activity extends AppCompatActivity {
 
     private void findView(){
         back = findViewById(R.id.nBack);
+        navtitle = findViewById(R.id.title);
         policy = findViewById(R.id.p_policies);
         terms = findViewById(R.id.t_c);
         about_app = findViewById(R.id.app_info);
@@ -67,6 +67,7 @@ public class About_Activity extends AppCompatActivity {
             terms.setVisibility(View.GONE);
             about_app.setVisibility(View.GONE);
             webView.setVisibility(View.VISIBLE);
+            navtitle.setText(R.string.privacy_policy);
             webView.loadUrl("file:///android_asset/web_resources/privacy_policy.html");
         });
 
@@ -75,6 +76,7 @@ public class About_Activity extends AppCompatActivity {
             terms.setVisibility(View.GONE);
             about_app.setVisibility(View.GONE);
             webView.setVisibility(View.VISIBLE);
+            navtitle.setText(R.string.terms_conditions);
             webView.loadUrl("file:///android_asset/web_resources/t_c.html");
         });
 
@@ -83,6 +85,7 @@ public class About_Activity extends AppCompatActivity {
             terms.setVisibility(View.GONE);
             about_app.setVisibility(View.GONE);
             webView.setVisibility(View.VISIBLE);
+            navtitle.setText(R.string.about_us);
             webView.loadUrl("file:///android_asset/web_resources/about_app.html");
         });
     }

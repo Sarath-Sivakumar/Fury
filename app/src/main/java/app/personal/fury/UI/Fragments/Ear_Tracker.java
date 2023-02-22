@@ -351,13 +351,13 @@ public class Ear_Tracker extends Fragment {
                 }
                 finalTotalSalary.set(total);
                 try{
-                    String s1 = Constants.RUPEE + " " + finalTotalSalary.get();
+                    String s1 = Constants.RUPEE + "" + finalTotalSalary.get();
                     salAmt.setText(s1);
                     inHandCount.setText(String.valueOf(cashCount));
                     accountCount.setText(String.valueOf(accCount));
-                    String s2 = Constants.RUPEE + " "+accAmt;
+                    String s2 = Constants.RUPEE + ""+accAmt;
                     accountAmt.setText(s2);
-                    String s3 = Constants.RUPEE + " "+cashAmt;
+                    String s3 = Constants.RUPEE + ""+cashAmt;
                     inHandAmt.setText(s3);
 
                 }catch (Exception e){

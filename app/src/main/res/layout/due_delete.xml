@@ -37,8 +37,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="12dp"
-                        android:text="Have you done the payment?"
+                        android:text="@string/have_you_done_the_payment"
+                        android:textColor="?attr/colorSecondary"
                         android:textSize="24sp" />
+
 
                 </LinearLayout>
 
@@ -46,7 +48,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="12dp"
-                    android:text="This will set your payment status to paid" />
+                    android:textColor="?attr/colorSecondaryContainer"
+                    android:text="@string/this_will_set_your_payment_status_to_paid" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

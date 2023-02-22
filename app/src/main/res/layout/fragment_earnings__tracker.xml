@@ -39,7 +39,7 @@
                     android:fontFamily="@font/raleway_bold"
                     android:gravity="center_horizontal"
                     android:paddingTop="6dp"
-                    android:text="Total Earnings"
+                    android:text="@string/total_earnings"
                     android:textColor="?attr/colorSecondary"
                     android:textSize="18sp" />
 
@@ -58,19 +58,20 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp">
+                android:layout_marginTop="12dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="12dp">
+                    android:padding="1dp">
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
                         android:layout_height="wrap_content"
                         android:layout_margin="6dp"
-                        app:cardCornerRadius="15dp"
+                        app:cardCornerRadius="10dp"
                         android:layout_gravity="start"
                         app:cardElevation="3dp">
 
@@ -84,42 +85,55 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
-                                android:paddingTop="48dp">
+                                android:paddingTop="42dp">
 
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:padding="6dp"
-                                    android:text="Amount" />
+                                    android:textSize="15sp"
+                                    android:text="@string/amount" />
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:layout_weight=".1" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="6dp"
-                                    android:text="Sources" />
+                                    android:textSize="15sp"
+                                    android:text="@string/sources" />
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
-                                android:paddingTop="6dp">
+                                android:paddingTop="2dp">
 
                                 <TextView
                                     android:id="@+id/inhand_Amt"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
+                                    android:layout_weight=".9"
+                                    android:fontFamily="@font/work_sans_semibold"
                                     android:padding="6dp"
-                                    android:text="999999" />
+                                    android:textSize="18sp"
+                                    android:text="999999"
+                                    tools:ignore="HardcodedText" />
 
                                 <TextView
                                     android:id="@+id/inhand_count"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:fontFamily="@font/work_sans_semibold"
                                     android:padding="6dp"
-                                    android:text="1" />
+                                    android:textSize="18sp"
+                                    android:text="1"
+                                    tools:ignore="HardcodedText" />
                             </LinearLayout>
 
                         </LinearLayout>
@@ -128,14 +142,14 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_weight="1" />
+                        android:layout_weight=".1" />
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"                        android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_margin="6dp"
-                        app:cardCornerRadius="15dp"
+                        app:cardCornerRadius="10dp"
                         app:cardElevation="3dp">
 
                         <LinearLayout
@@ -148,41 +162,52 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
-                                android:paddingTop="48dp">
+                                android:paddingTop="42dp">
 
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:padding="6dp"
+                                    android:textSize="15sp"
                                     android:text="Amount" />
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:layout_weight=".1" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="6dp"
-                                    android:text="Sources" />
+                                    android:textSize="15sp"
+                                    android:text="@string/sources" />
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
-                                android:paddingTop="6dp">
+                                android:paddingTop="2dp">
 
                                 <TextView
                                     android:id="@+id/account_amt"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
+                                    android:fontFamily="@font/work_sans_semibold"
+                                    android:layout_weight=".9"
                                     android:padding="6dp"
+                                    android:textSize="18sp"
                                     android:text="999999" />
 
                                 <TextView
                                     android:id="@+id/account_count"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:fontFamily="@font/work_sans_semibold"
                                     android:padding="6dp"
+                                    android:textSize="18sp"
                                     android:text="1" />
                             </LinearLayout>
 
@@ -195,7 +220,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
                     android:layout_margin="6dp"
-                    app:cardCornerRadius="15dp"
+                    app:cardCornerRadius="10dp"
                     app:cardElevation="6dp">
 
                     <LinearLayout
@@ -208,16 +233,18 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Cash Earnings"
-                            android:textSize="15sp" />
+                            android:fontFamily="@font/raleway_bold"
+                            android:text="@string/cash_earnings"
+                            android:textSize="16sp" />
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="end"
-                            android:text="Account Earnings"
-                            android:textSize="15sp" />
+                            android:fontFamily="@font/raleway_bold"
+                            android:text="@string/account_earnings"
+                            android:textSize="16sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </FrameLayout>

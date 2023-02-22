@@ -30,7 +30,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginTop="80sp"
             android:fontFamily="@font/raleway_bold"
-            android:text="Welcome\nBack"
+            android:text="@string/welcome_nback"
             android:textColor="?attr/colorSecondary"
             android:textSize="22sp" />
     </LinearLayout>
@@ -51,7 +51,7 @@
                 android:layout_width="300dp"
                 android:layout_height="?actionBarSize"
                 android:fontFamily="@font/raleway_semibold"
-                android:hint="Email"
+                android:hint="@string/email"
                 android:singleLine="true"
                 android:textSize="16sp" />
 
@@ -64,7 +64,7 @@
                 android:layout_width="300dp"
                 android:layout_height="?actionBarSize"
                 android:fontFamily="@font/raleway_semibold"
-                android:hint="Password"
+                android:hint="@string/password"
                 android:inputType="textPassword"
                 android:longClickable="false"
                 android:singleLine="true"
@@ -91,7 +91,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/button_login"
                 android:fontFamily="@font/raleway_semibold"
-                android:text="Login"
+                android:text="@string/log_in"
                 android:textSize="16sp" />
 
         </LinearLayout>
