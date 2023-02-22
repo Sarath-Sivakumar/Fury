@@ -132,9 +132,6 @@ public class BudgetFragment extends Fragment {
                     CurrentDailylimit.setText(s);
                 }catch (Exception ignored){}
             }
-//            else{
-//                No Expenses..
-//            }
             String s = Constants.RUPEE + total;
             Expense.setText(s);
         });
@@ -179,6 +176,10 @@ public class BudgetFragment extends Fragment {
         Button no = view.findViewById(R.id.No_btn);
 
         yes.setOnClickListener(v -> {
+            budgetEntity bud = new budgetEntity();
+            bud.setAmount(Commons.getValueByPercent(totalSalary, 80));
+            bud.setBal(Commons.getValueByPercent(totalSalary, 80));
+            vm.InsertBudget(bud);
             popupWindow.dismiss();
         });
 

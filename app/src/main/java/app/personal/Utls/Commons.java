@@ -162,7 +162,7 @@ public class Commons {
 
     private static String findAvg(ArrayList<Integer> totalExp) {
         //7 for 1 week
-        if (totalExp.size() >= 7) {
+        if (totalExp.size() >= 1) {
             int total = 0;
             for (int i = 0; i < totalExp.size(); i++) {
                 total = total + totalExp.get(i);
@@ -172,6 +172,10 @@ public class Commons {
         } else {
             return Constants.dAvgNoData;
         }
+    }
+
+    public static int getValueByPercent(int totalSalary, int Percent){
+        return (int)(totalSalary*Percent)/100;
     }
 
     public static int getDays(int month){
