@@ -5,8 +5,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
+
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -229,4 +232,27 @@ public class Commons {
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
+    public static void timedSliderInit(ViewPager ig_vp , int[] FragmentList, int Seconds) {
+        new CountDownTimer(Seconds* 1000L, 1000) {
+            int i = 0;
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                i = ig_vp.getCurrentItem();
+            }
+
+            @Override
+            public void onFinish() {
+                i = ig_vp.getCurrentItem();
+                try{
+                    if (i == FragmentList.length - 1) {
+                        ig_vp.setCurrentItem(0);
+                    } else {
+                        ig_vp.setCurrentItem(i + 1);
+                    }
+                }catch (Exception ignored){}
+                timedSliderInit(ig_vp, FragmentList, Seconds);
+            }
+        }.start();
+    }
 }

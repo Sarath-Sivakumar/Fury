@@ -39,12 +39,9 @@ import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
-import app.personal.fury.UI.IG_fragment.ig;
 import app.personal.fury.UI.Adapters.mainLists.categoryAdapter;
 import app.personal.fury.UI.Adapters.mainLists.duesAdapter;
 import app.personal.fury.UI.MainActivity;
-import app.personal.fury.UI.allDues;
-import app.personal.fury.UI.allExp;
 import app.personal.fury.ViewPagerAdapter.infoGraphicsAdapter;
 
 public class fragment_main extends Fragment {

@@ -124,9 +124,7 @@ public class Exp_Tracker extends Fragment {
                         e1.printStackTrace();
                     }
                 }
-            } catch (Exception e2) {
-                e2.printStackTrace();
-            }
+            } catch (Exception ignored) {}
         });
     }
 
@@ -161,9 +159,7 @@ public class Exp_Tracker extends Fragment {
             try{
                 String s = Constants.RUPEE + (accBal + inHandBal);
                 balanceView.setText(s);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+            }catch (Exception ignored){}
         });
         return Balance.get().getBalance();
     }
@@ -178,9 +174,7 @@ public class Exp_Tracker extends Fragment {
             try{
                 String s = Constants.RUPEE + (accBal + inHandBal);
                 balanceView.setText(s);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+            }catch (Exception ignored){}
         });
         return Balance.get().getBalance();
     }
