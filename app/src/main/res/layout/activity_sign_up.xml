@@ -29,7 +29,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginTop="80sp"
             android:fontFamily="@font/raleway_bold"
-            android:text="Create\nAccount"
+            android:text="@string/create_naccount"
             android:textColor="?attr/colorSecondary"
             android:textSize="24sp" />
     </LinearLayout>
@@ -49,7 +49,7 @@
             android:id="@+id/u_name"
             android:layout_width="300dp"
             android:layout_height="?actionBarSize"
-            android:hint="Name"
+            android:hint="@string/name"
             android:drawableRight="@drawable/common_icon_person"
             android:singleLine="true"
             android:fontFamily="@font/raleway_semibold"
@@ -59,7 +59,7 @@
             android:id="@+id/u_mail"
             android:layout_width="300dp"
             android:layout_height="?actionBarSize"
-            android:hint="Email"
+            android:hint="@string/email"
             android:drawableRight="@drawable/common_icon_mail"
             android:singleLine="true"
             android:fontFamily="@font/raleway_semibold"
@@ -69,7 +69,7 @@
             android:id="@+id/u_pass1"
             android:layout_width="300dp"
             android:layout_height="?actionBarSize"
-            android:hint="Create Password"
+            android:hint="@string/create_password"
             android:drawableRight="@drawable/common_icon_password"
             android:singleLine="true"
             android:inputType="textPassword"
@@ -80,9 +80,10 @@
             android:id="@+id/u_pass2"
             android:layout_width="300dp"
             android:layout_height="?actionBarSize"
-            android:hint="Confirm Password"
+            android:hint="@string/confirm_password"
             android:singleLine="true"
             android:inputType="textPassword"
+            android:drawableRight="@drawable/common_icon_eyeclose"
             android:fontFamily="@font/raleway_semibold"
             android:textSize="16sp" />
 
@@ -92,7 +93,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_login"
             android:layout_marginTop="20dp"
-            android:text="SignUp"
+            android:text="@string/sign_up"
             android:fontFamily="@font/raleway_semibold"
             android:textSize="16dp" />
 

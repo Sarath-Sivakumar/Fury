@@ -58,7 +58,7 @@
             android:id="@+id/emptyMsg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No Expenses"
+            android:text="@string/no_expenses"
             android:gravity="center"
             android:layout_margin="24dp"
             android:textSize="18sp"/>

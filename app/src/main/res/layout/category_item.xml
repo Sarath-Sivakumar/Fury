@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="6dp"
-    android:elevation="6dp"
+    android:elevation="3dp"
     android:minWidth="125dp"
     android:minHeight="63dp"
     android:orientation="vertical"

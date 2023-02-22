@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center|start"
-            android:text="About Us"
+            android:text="@string/about_us"
             android:textColor="@color/actionbar_title"
             android:textSize="18sp" />
 

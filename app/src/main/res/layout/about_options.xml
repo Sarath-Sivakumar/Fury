@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
-                android:text="Privacy policy"
+                android:text="@string/privacy_policy"
                 android:textSize="14sp" />
 
             <View
@@ -68,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
-                android:text="About Fury"
+                android:text="@string/about_fury"
                 android:textSize="14sp" />
 
             <View

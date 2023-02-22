@@ -251,6 +251,7 @@
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:divider="@null"
+                    android:padding="3dp"
                     android:isScrollContainer="true"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

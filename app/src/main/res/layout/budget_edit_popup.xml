@@ -35,7 +35,7 @@
                         android:fontFamily="@font/raleway_bold"
                         android:gravity="center"
                         android:padding="12dp"
-                        android:text="Edit your Budget"
+                        android:text="@string/edit_your_budget"
                         android:textSize="24sp" />
 
                 </LinearLayout>
@@ -60,7 +60,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/raleway_semibold"
                             android:gravity="center"
-                            android:text="Total Income"
+                            android:text="@string/total_income"
                             android:textSize="16sp" />
 
                         <TextView
@@ -69,7 +69,7 @@
                             android:layout_weight="0.6"
                             android:layout_height="wrap_content"
                             android:gravity="end"
-                            android:text="Your Income"
+                            android:text="@string/your_income"
                             android:fontFamily="@font/work_sans_semibold"
                             android:layout_marginStart="6dp"/>
                     </LinearLayout>
@@ -92,7 +92,7 @@
                             android:gravity="center"
                             android:layout_marginTop="3dp"
                             android:layout_marginBottom="6dp"
-                            android:text="Set Budget"
+                            android:text="@string/set_budget"
                             android:textSize="16sp" />
 
                         <EditText
@@ -102,7 +102,7 @@
                             android:minHeight="48dp"
                             android:gravity="center"
                             android:fontFamily="@font/work_sans_medium"
-                            android:hint="₹" />
+                            android:hint="@string/rupee" />
 
                     </LinearLayout>
 
@@ -113,7 +113,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/background_borderonly"
                         android:fontFamily="@font/raleway_bold"
-                        android:text="Add new amount"
+                        android:text="@string/add_new_amount"
                         android:textAllCaps="false" />
 
                     <View
@@ -127,7 +127,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/background_borderonly"
                         android:fontFamily="@font/raleway_bold"
-                        android:text="Edit amount"
+                        android:text="@string/edit_amount"
                         android:textAllCaps="false" />
 
                     <View
@@ -142,7 +142,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/background_borderonly"
                         android:fontFamily="@font/raleway_bold"
-                        android:text="Continue"
+                        android:text="@string/cont"
                         android:textAllCaps="false" />
 
                 </LinearLayout>
