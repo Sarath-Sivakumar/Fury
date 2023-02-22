@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:layout_weight=".7"
+        android:layout_weight=".6"
         android:background="@drawable/background_recyclersitems"
         android:backgroundTint="?attr/colorPrimary"
         android:elevation="3dp"
@@ -34,11 +34,11 @@
                     android:layout_marginTop="10dp"
                     android:textColor="?attr/colorSecondaryVariant"
                     android:fontFamily="@font/raleway_bold"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="5dp" />
+                android:layout_height="10dp" />
 
             <TextView
                 android:id="@+id/dueAmt"
@@ -49,7 +49,7 @@
                 android:fontFamily="@font/work_sans_semibold"
                 android:textColor="?attr/colorSecondary"
                 android:text="100000"
-                android:textSize="18sp" />
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -60,9 +60,9 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:layout_weight="0.4"
+        android:layout_weight="0.3"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="12dp">
 
         <TextView
             android:id="@+id/dueDays"
