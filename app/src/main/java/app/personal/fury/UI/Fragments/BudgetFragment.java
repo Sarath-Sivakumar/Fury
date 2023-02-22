@@ -122,7 +122,15 @@ public class BudgetFragment extends Fragment {
                 for (int i = 0; i < expEntities.size(); i++) {
                     total = total + expEntities.get(i).getExpenseAmt();
                 }
+                try {
+                    CurrentDailylimit.setText(Commons.getAvg(expEntities, true));
+                }catch (Exception ignored){}
                 adapter.notifyDataSetChanged();
+            }else{
+                try {
+                    String s = "No data to process.";
+                    CurrentDailylimit.setText(s);
+                }catch (Exception ignored){}
             }
 //            else{
 //                No Expenses..

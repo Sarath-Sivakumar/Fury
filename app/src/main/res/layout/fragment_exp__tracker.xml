@@ -281,9 +281,9 @@
                             android:id="@+id/expBalance"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="14dp"
-                            android:layout_marginEnd="22dp"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="21dp"
+                            android:layout_marginBottom="12dp"
                             android:fontFamily="@font/work_sans_semibold"
                             android:textSize="22sp" />
 
@@ -307,15 +307,15 @@
                             android:textColor="?attr/colorOnSecondary"
                             android:textSize="16sp" />
 
-                        <com.google.android.material.progressindicator.LinearProgressIndicator
-                            android:id="@+id/progress"
-                            android:layout_width="180dp"
+                        <TextView
+                            android:id="@+id/dLimit"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_gravity="end|top|center"
+                            android:gravity="center|end"
+                            android:layout_marginStart="21dp"
+                            android:layout_marginEnd="15dp"
                             android:layout_marginBottom="12dp"
-                            android:layout_marginEnd="12dp"
-                            app:trackColor="?attr/colorOnPrimary"
-                            app:trackThickness="6dp" />
+                            android:textSize="15sp"/>
 
                     </LinearLayout>
                 </LinearLayout>

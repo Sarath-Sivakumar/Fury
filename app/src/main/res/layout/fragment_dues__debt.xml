@@ -132,17 +132,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_borderonly"
-                android:layout_margin="12dp"
-                android:layout_gravity="center_horizontal" >
+                android:layout_margin="12dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dueList"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="500dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="12dp"
                 tools:listitem="@layout/due_item1" />
-            <!--Hide paid date textview in adapter-->
 
             </LinearLayout>
         </LinearLayout>
