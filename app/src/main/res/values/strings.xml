@@ -134,6 +134,7 @@
     <string name="account_expenses">Account Expenses</string>
     <string name="total">Total</string>
     <string name="count">Count</string>
+    <string name="earnings_category">Earnings Category</string>
 
 
 </resources>

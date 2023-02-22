@@ -263,7 +263,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="12dp"
                     android:fontFamily="@font/raleway_bold"
-                    android:text="Earnings Category"
+                    android:text="@string/earnings_category"
                     android:textColor="?attr/colorSecondaryVariant"
                     android:textSize="18sp" />
 
