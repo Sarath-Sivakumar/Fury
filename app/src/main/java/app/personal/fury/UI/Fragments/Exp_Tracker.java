@@ -44,7 +44,7 @@ public class Exp_Tracker extends Fragment {
     private mainViewModel vm;
     private RecyclerView recyclerView;
     private expAdapter adapter;
-    private TextView balanceView, expView, inHandExp, accountExp, inHandCount, accountCount;;
+    private TextView balanceView, expView, inHandExp, accountExp, inHandCount, accountCount, dLimit;
     private RecyclerView.ViewHolder ViewHolder;
     private int finalTotalSalary = 0, accBal = 0, inHandBal = 0, cashAmt, cashCount, accAmt, accCount;
 
@@ -67,6 +67,7 @@ public class Exp_Tracker extends Fragment {
         inHandCount = v.findViewById(R.id.inhand_count);
         accountExp = v.findViewById(R.id.account_amt);
         accountCount = v.findViewById(R.id.account_count);
+        dLimit = v.findViewById(R.id.dLimit);
 //        TextView dateView = v.findViewById(R.id.exp_trac_date);
 //        String s = Commons.getDisplayDay(Commons.getDay())+" | "+Commons.getDate();
 //        dateView.setText(s);
@@ -83,15 +84,8 @@ public class Exp_Tracker extends Fragment {
     private void initViewModel() {
         adapter = new expAdapter();
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-        getSal();
         getExp();
 
-    }
-
-    private void getSal() {
-        vm.getSalary().observe(requireActivity(), e -> {
-            finalTotalSalary = 0;
-        });
     }
 
     private void getExp() {
@@ -105,6 +99,7 @@ public class Exp_Tracker extends Fragment {
                 accAmt = 0;
                 accCount = 0;
                 if (e != null) {
+                    dLimit.setText(Commons.getAvg(e, true));
                     for (int i = 0; i < e.size(); i++) {
                         if (e.get(i).getExpMode()==Constants.SAL_MODE_ACC){
                             accCount = accCount + 1;
@@ -123,10 +118,11 @@ public class Exp_Tracker extends Fragment {
                     }catch(Exception e1){
                         e1.printStackTrace();
                     }
+                }else{
+                    String s = "No data to process.";
+                    dLimit.setText(s);
                 }
-            } catch (Exception e2) {
-                e2.printStackTrace();
-            }
+            } catch (Exception ignored) {}
         });
     }
 
@@ -161,9 +157,7 @@ public class Exp_Tracker extends Fragment {
             try{
                 String s = Constants.RUPEE + (accBal + inHandBal);
                 balanceView.setText(s);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+            }catch (Exception ignored){}
         });
         return Balance.get().getBalance();
     }
@@ -178,9 +172,7 @@ public class Exp_Tracker extends Fragment {
             try{
                 String s = Constants.RUPEE + (accBal + inHandBal);
                 balanceView.setText(s);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+            }catch (Exception ignored){}
         });
         return Balance.get().getBalance();
     }
@@ -381,7 +373,6 @@ public class Exp_Tracker extends Fragment {
         View v = inflater.inflate(R.layout.fragment_exp__tracker, container, false);
         init(v);
         getBalance();
-        getSal();
         getExp();
         return v;
     }
@@ -442,7 +433,6 @@ public class Exp_Tracker extends Fragment {
     public void onResume() {
         super.onResume();
         getBalance();
-        getSal();
         getExp();
     }
 
@@ -450,10 +440,7 @@ public class Exp_Tracker extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getBalance();
-        getSal();
         getExp();
-//        String s1 = Constants.RUPEE + getBalance()+getInHandBalance();
-//        balanceView.setText(s1);
         accBal = getBalance();
         inHandBal = getInHandBalance();
     }
@@ -462,7 +449,6 @@ public class Exp_Tracker extends Fragment {
     public void onStart() {
         super.onStart();
         getBalance();
-        getSal();
         getExp();
     }
 }

@@ -57,73 +57,7 @@
                         android:textSize="26sp" />
 
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:baselineAligned="false"
-                    android:layout_margin="6dp"
-                    android:background="@drawable/background_borderonly"
-                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="14dp"
-                            android:layout_marginTop="12dp"
-                            android:layout_marginBottom="10dp"
-                            android:fontFamily="@font/raleway_bold"
-                            android:text="@string/account_balance"
-                            android:textColor="?attr/colorOnSecondary"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:id="@+id/expBalance"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="14dp"
-                            android:layout_marginEnd="22dp"
-                            android:layout_marginBottom="10dp"
-                            android:fontFamily="@font/work_sans_semibold"
-                            android:textSize="22sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:layout_marginEnd="12dp"
-                            android:layout_marginBottom="10dp"
-                            android:fontFamily="@font/raleway_bold"
-                            android:gravity="end"
-                            android:text="Daily Limit"
-                            android:textColor="?attr/colorOnSecondary"
-                            android:textSize="16sp" />
-
-                        <com.google.android.material.progressindicator.LinearProgressIndicator
-                            android:id="@+id/progress"
-                            android:layout_width="180dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="end|top|center"
-                            android:layout_marginBottom="12dp"
-                            android:layout_marginEnd="12dp"
-                            app:trackColor="?attr/colorOnPrimary"
-                            app:trackThickness="6dp" />
-
-                    </LinearLayout>
-                </LinearLayout>
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -288,7 +222,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="top"
-                        android:backgroundTint="?attr/colorSecondary"
                         android:layout_marginStart="6dp"
                         android:layout_marginEnd="6dp"
                         app:cardCornerRadius="10dp"
@@ -319,6 +252,74 @@
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </FrameLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/raleway_bold"
+                            android:text="@string/account_balance"
+                            android:textColor="?attr/colorOnSecondary"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/expBalance"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="21dp"
+                            android:layout_marginBottom="12dp"
+                            android:fontFamily="@font/work_sans_semibold"
+                            android:textSize="22sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/raleway_bold"
+                            android:gravity="end"
+                            android:text="Daily Average"
+                            android:textColor="?attr/colorOnSecondary"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/dLimit"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|end"
+                            android:fontFamily="@font/work_sans_semibold"
+                            android:layout_marginStart="21dp"
+                            android:layout_marginEnd="12dp"
+                            android:layout_marginBottom="12dp"
+                            android:textSize="20sp"/>
+
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
             <TextView
@@ -339,15 +340,15 @@
                 android:background="@drawable/background_borderonly"
                 tools:listitem="@layout/exp_list_item" />
 
-<!--            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"-->
-<!--                android:id="@+id/adView"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:minHeight="50dp"-->
-<!--                android:minWidth="320dp"-->
-<!--                ads:adSize="BANNER"-->
-<!--                ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />-->
-<!--            &lt;!&ndash;Test ID ca-app-pub-3940256099942544/6300978111&ndash;&gt;-->
+            <!--            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+            <!--                android:id="@+id/adView"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:minHeight="50dp"-->
+            <!--                android:minWidth="320dp"-->
+            <!--                ads:adSize="BANNER"-->
+            <!--                ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />-->
+            <!--            &lt;!&ndash;Test ID ca-app-pub-3940256099942544/6300978111&ndash;&gt;-->
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

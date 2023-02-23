@@ -3,6 +3,8 @@ package app.personal.fury.UI.Fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +41,6 @@ import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.salaryList.salaryAdapter;
-import app.personal.fury.UI.IG_fragment.ig;
 import app.personal.fury.ViewPagerAdapter.infoGraphicsAdapter;
 
 public class Ear_Tracker extends Fragment {
@@ -55,7 +56,8 @@ public class Ear_Tracker extends Fragment {
     private TabLayout ig_tl;
     private infoGraphicsAdapter igAdapter;
     private final int[] FragmentList = new int[]{R.drawable.info_h1, R.drawable.info_h2, R.drawable.info_h3, R.drawable.info_h4,
-            R.drawable.info_h5, R.drawable.info_h6};;
+            R.drawable.info_h5, R.drawable.info_h6};
+    ;
     private int cashAmt, cashCount, accAmt, accCount;
 
     public Ear_Tracker() {
@@ -109,8 +111,10 @@ public class Ear_Tracker extends Fragment {
         igAdapter = new infoGraphicsAdapter(requireContext(), FragmentList);
         ig_vp.setAdapter(igAdapter);
         ig_tl.setupWithViewPager(ig_vp, true);
+        Commons.timedSliderInit(ig_vp, FragmentList, 5);
         touchHelper();
     }
+
     @SuppressLint("SetTextI18n")
     private void callPopUpWindow(boolean isEdit, @Nullable salaryEntity salary) {
         PopupWindow popupWindow = new PopupWindow(getContext());
@@ -144,17 +148,17 @@ public class Ear_Tracker extends Fragment {
 //vm.DeleteBalance();
 //vm.DeleteInHandBalance();
 //        ----------------------------------------------------------------
-        if (!isEdit){
+        if (!isEdit) {
             salDate.setVisibility(View.GONE);
             date = Commons.getDate();
-        }else{
+        } else {
             rdGrp2.setVisibility(View.GONE);
             salModeTitle.setVisibility(View.GONE);
             salSource.setText(salary.getIncName());
             salAmt.setText(String.valueOf(salary.getSalary()));
             date = salary.getCreationDate();
             salDate.setText(date);
-            switch (salary.getSalMode()){
+            switch (salary.getSalMode()) {
                 case Constants.SAL_MODE_ACC:
                     rdGrp2.check(R.id.account);
                     break;
@@ -165,7 +169,7 @@ public class Ear_Tracker extends Fragment {
                     rdGrp2.check(R.id.account);
                     break;
             }
-            switch(salary.getIncType()){
+            switch (salary.getIncType()) {
                 case Constants.daily:
                     rdGrp1.check(R.id.daily);
                     break;
@@ -193,77 +197,77 @@ public class Ear_Tracker extends Fragment {
 
     private void onClickYesPopup(boolean isEdit, @Nullable salaryEntity salary,
                                  EditText salSrc, EditText salAmt, String salDate,
-                                 RadioGroup rdGrp1, RadioGroup rdGrp2){
+                                 RadioGroup rdGrp1, RadioGroup rdGrp2) {
 //            Insert new value.
-            if (!salSrc.getText().toString().trim().isEmpty()
-                    &&!salAmt.getText().toString().trim().isEmpty()){
-                salaryEntity sal = new salaryEntity();
-                sal.setCreationDate(salDate);
-                sal.setIncName(salSrc.getText().toString());
-                sal.setSalary(Integer.parseInt(salAmt.getText().toString()));
+        if (!salSrc.getText().toString().trim().isEmpty()
+                && !salAmt.getText().toString().trim().isEmpty()) {
+            salaryEntity sal = new salaryEntity();
+            sal.setCreationDate(salDate);
+            sal.setIncName(salSrc.getText().toString());
+            sal.setSalary(Integer.parseInt(salAmt.getText().toString()));
 //                Credit Mode.
-                switch (rdGrp2.getCheckedRadioButtonId()){
-                    case R.id.account:
-                        sal.setSalMode(Constants.SAL_MODE_ACC);
+            switch (rdGrp2.getCheckedRadioButtonId()) {
+                case R.id.account:
+                    sal.setSalMode(Constants.SAL_MODE_ACC);
+                    break;
+                case R.id.inHand:
+                    sal.setSalMode(Constants.SAL_MODE_CASH);
+                    break;
+                default:
+                    Commons.SnackBar(getView(), "Select a credit mode.");
+                    sal = null;
+                    break;
+            }
+//                Income Type.
+            try {
+                switch (rdGrp1.getCheckedRadioButtonId()) {
+                    case R.id.daily:
+                        sal.setIncType(Constants.daily);
                         break;
-                    case R.id.inHand:
-                        sal.setSalMode(Constants.SAL_MODE_CASH);
+                    case R.id.monthly:
+                        sal.setIncType(Constants.monthly);
+                        break;
+                    case R.id.oneTime:
+                        sal.setIncType(Constants.oneTime);
                         break;
                     default:
-                        Commons.SnackBar(getView(),"Select a credit mode.");
+                        Commons.SnackBar(getView(), "Select a pay period.");
                         sal = null;
                         break;
                 }
-//                Income Type.
-                try{
-                    switch (rdGrp1.getCheckedRadioButtonId()) {
-                        case R.id.daily:
-                            sal.setIncType(Constants.daily);
-                            break;
-                        case R.id.monthly:
-                            sal.setIncType(Constants.monthly);
-                            break;
-                        case R.id.oneTime:
-                            sal.setIncType(Constants.oneTime);
-                            break;
-                        default:
-                            Commons.SnackBar(getView(), "Select a pay period.");
-                            sal = null;
-                            break;
-                    }
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-                if (sal!=null){
-                    if (!isEdit){
-                        vm.InsertSalary(sal);
-                        if (sal.getSalMode()==Constants.SAL_MODE_ACC){
-                            balanceEntity bal = getBal();
-                            int oldBal = sal.getSalary();
-                            if (bal!=null){
-                                oldBal = oldBal + bal.getBalance();
-                                bal.setBalance(oldBal);
-                            }
-                            vm.DeleteBalance();
-                            vm.InsertBalance(bal);
-                        }else{
-                            inHandBalEntity bal = getInHandBal();
-                            int oldBal = sal.getSalary();
-                            if (bal!=null){
-                                oldBal = oldBal + bal.getBalance();
-                                bal.setBalance(oldBal);
-                            }
-                            vm.DeleteInHandBalance();
-                            vm.InsertInHandBalance(bal);
-                        }
-                    }else{
-                        sal.setId(salary.getId());
-                        vm.UpdateSalary(sal);
-                    }
-                }
-            }else{
-                Commons.SnackBar(getView(),"Field(s) may be empty");
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+            if (sal != null) {
+                if (!isEdit) {
+                    vm.InsertSalary(sal);
+                    if (sal.getSalMode() == Constants.SAL_MODE_ACC) {
+                        balanceEntity bal = getBal();
+                        int oldBal = sal.getSalary();
+                        if (bal != null) {
+                            oldBal = oldBal + bal.getBalance();
+                            bal.setBalance(oldBal);
+                        }
+                        vm.DeleteBalance();
+                        vm.InsertBalance(bal);
+                    } else {
+                        inHandBalEntity bal = getInHandBal();
+                        int oldBal = sal.getSalary();
+                        if (bal != null) {
+                            oldBal = oldBal + bal.getBalance();
+                            bal.setBalance(oldBal);
+                        }
+                        vm.DeleteInHandBalance();
+                        vm.InsertInHandBalance(bal);
+                    }
+                } else {
+                    sal.setId(salary.getId());
+                    vm.UpdateSalary(sal);
+                }
+            }
+        } else {
+            Commons.SnackBar(getView(), "Field(s) may be empty");
+        }
     }
 
     private void touchHelper() {
@@ -301,7 +305,7 @@ public class Ear_Tracker extends Fragment {
         adapter.setOnItemClickListener(exp -> callPopUpWindow(true, exp));
     }
 
-    private balanceEntity getBal(){
+    private balanceEntity getBal() {
         AtomicReference<balanceEntity> bal = new AtomicReference<>(new balanceEntity());
         vm.getBalance().observe(requireActivity(), balanceEntity -> {
             bal.set(balanceEntity);
@@ -309,7 +313,7 @@ public class Ear_Tracker extends Fragment {
         return bal.get();
     }
 
-    private inHandBalEntity getInHandBal(){
+    private inHandBalEntity getInHandBal() {
         AtomicReference<inHandBalEntity> bal = new AtomicReference<>(new inHandBalEntity());
         vm.getInHandBalance().observe(requireActivity(), inHandBalEntity -> {
             bal.set(inHandBalEntity);
@@ -329,26 +333,26 @@ public class Ear_Tracker extends Fragment {
                 cashCount = 0;
                 for (int i = 0; i < entity.size(); i++) {
                     total = total + entity.get(i).getSalary();
-                    if (entity.get(i).getSalMode()==Constants.SAL_MODE_ACC){
-                        accCount = accCount+1;
+                    if (entity.get(i).getSalMode() == Constants.SAL_MODE_ACC) {
+                        accCount = accCount + 1;
                         accAmt = accAmt + entity.get(i).getSalary();
-                    }else{
+                    } else {
                         cashCount = cashCount + 1;
                         cashAmt = cashAmt + entity.get(i).getSalary();
                     }
                 }
                 finalTotalSalary.set(total);
-                try{
+                try {
                     String s1 = Constants.RUPEE + "" + finalTotalSalary.get();
                     salAmt.setText(s1);
                     inHandCount.setText(String.valueOf(cashCount));
                     accountCount.setText(String.valueOf(accCount));
-                    String s2 = Constants.RUPEE + ""+accAmt;
+                    String s2 = Constants.RUPEE + "" + accAmt;
                     accountAmt.setText(s2);
-                    String s3 = Constants.RUPEE + ""+cashAmt;
+                    String s3 = Constants.RUPEE + "" + cashAmt;
                     inHandAmt.setText(s3);
 
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

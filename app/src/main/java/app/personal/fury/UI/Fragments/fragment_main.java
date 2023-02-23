@@ -31,7 +31,6 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 import app.personal.MVVM.Entity.budgetEntity;
@@ -39,17 +38,12 @@ import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
-import app.personal.fury.UI.IG_fragment.ig;
 import app.personal.fury.UI.Adapters.mainLists.categoryAdapter;
 import app.personal.fury.UI.Adapters.mainLists.duesAdapter;
 import app.personal.fury.UI.MainActivity;
-import app.personal.fury.UI.allDues;
-import app.personal.fury.UI.allExp;
 import app.personal.fury.ViewPagerAdapter.infoGraphicsAdapter;
 
 public class fragment_main extends Fragment {
-    //Color contains 6 usable colors...
-
     private CircularProgressIndicator mainProgressBar;
     private TextView mainProgressText, dAvg, expView, budgetView;
     private mainViewModel vm;
@@ -61,11 +55,8 @@ public class fragment_main extends Fragment {
     private RecyclerView dueList;
     private LinearLayout noDues;
     private int filter = 0;
-    private ViewPager ig_vp;
-    private TabLayout ig_tl;
     private ImageButton avgInfo;
-    private infoGraphicsAdapter igAdapter;
-    private final int[] FragmentList  = new int[]{R.drawable.info_appbanner};
+    private final int[] FragmentList = new int[]{R.drawable.info_appbanner};
 
     public fragment_main() {
     }
@@ -85,10 +76,10 @@ public class fragment_main extends Fragment {
         mainProgressBar.setMax(Constants.LIMITER_MAX);
         ad = v.findViewById(R.id.adView);
         dueList = v.findViewById(R.id.dueList);
-        ig_vp = v.findViewById(R.id.infoGraphics_vp);
-        ig_tl = v.findViewById(R.id.infoGraphics_tab);
+        ViewPager ig_vp = v.findViewById(R.id.infoGraphics_vp);
+        TabLayout ig_tl = v.findViewById(R.id.infoGraphics_tab);
 
-        igAdapter = new infoGraphicsAdapter(requireContext(), FragmentList);
+        infoGraphicsAdapter igAdapter = new infoGraphicsAdapter(requireContext(), FragmentList);
         ig_vp.setAdapter(igAdapter);
         ig_tl.setupWithViewPager(ig_vp, true);
 
@@ -97,6 +88,7 @@ public class fragment_main extends Fragment {
                 MainActivity.redirectTo(1);
             }
         });
+
         Button allExp = v.findViewById(R.id.allExp);
         allExp.setOnClickListener(v1 -> startActivity(new Intent(getContext(), app.personal.fury.UI.allExp.class)));
         Button allDues = v.findViewById(R.id.allDues);
@@ -146,21 +138,22 @@ public class fragment_main extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (savedInstanceState==null){
-            budgetEntity entity = getBud();
-            if (entity.getAmount()>0&&expense>0){
-                entity.setBal(entity.getAmount() - expense);
-                vm.DeleteBudget();
-                vm.InsertBudget(entity);
-            }
-        }
+        initViewModel();
     }
 
     private void initViewModel() {
+        getExp(filter);
+        budgetEntity entity = getBud();
+        if (entity.getAmount() > 0 && expense > 0) {
+            entity.setBal(entity.getAmount() - expense);
+            vm.DeleteBudget();
+            vm.InsertBudget(entity);
+        }
         getSal();
         getDebt();
     }
-    private budgetEntity getBud(){
+
+    private budgetEntity getBud() {
         AtomicReference<budgetEntity> bud = new AtomicReference<>(new budgetEntity());
         vm.getBudget().observe(requireActivity(), budgetEntities -> {
             try {
@@ -177,7 +170,7 @@ public class fragment_main extends Fragment {
                 budgetView.setTextColor(typedValue.data);
                 Log.e("Budget", "Error: " + e.getMessage());
             }
-            if (budgetEntities!=null){
+            if (budgetEntities != null) {
                 bud.set(budgetEntities);
             }
         });
@@ -210,16 +203,21 @@ public class fragment_main extends Fragment {
             }
             progress = Commons.setProgress(expense, salary);
             cAdapter.setExpes(expEntities, salary, filter);
+            if (Commons.getAvg(expEntities, true).equals(Constants.dAvgNoData)) {
+                dAvg.setTextSize(12);
+            }
             try {
                 setMain(progress);
+                if (expEntities != null && !expEntities.isEmpty()){
+                    dAvg.setText(Commons.getAvg(expEntities, true));
+                }else {
+                    String s = "No data to process.";
+                    dAvg.setText(s);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            if (Commons.getAvg(expEntities, true).equals(Constants.dAvgNoData)) {
-                dAvg.setTextSize(12);
-            }
-            dAvg.setText(Commons.getAvg(expEntities, true));
             if (dAvg.getText().equals(Constants.dAvgNoData)) {
                 avgInfo.setVisibility(View.VISIBLE);
                 avgInfo.setOnClickListener(v -> dAvgPopup());
@@ -296,6 +294,7 @@ public class fragment_main extends Fragment {
         expense = 0;
         cAdapter.clear();
         dAdapter.clear();
+        initViewModel();
         try {
             initViewModel();
             setMain(progress);

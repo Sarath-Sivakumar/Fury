@@ -177,7 +177,7 @@
                             android:layout_marginTop="12dp"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/raleway_bold"
-                            android:text="Ideal daily Limit"
+                            android:text="Ideal daily Average"
                             android:textSize="12sp" />
 
                         <TextView
@@ -209,7 +209,7 @@
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/raleway_bold"
                             android:gravity="end"
-                            android:text="Current daily Limit"
+                            android:text="Current daily Average"
                             android:textSize="12sp" />
 
                         <TextView
