@@ -118,10 +118,10 @@ public class fragment_main extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MobileAds.initialize(requireContext());
+        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         cAdapter = new categoryAdapter();
         dAdapter = new duesAdapter();
-        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+        MobileAds.initialize(requireContext());
     }
 
     @Override
@@ -160,15 +160,16 @@ public class fragment_main extends Fragment {
                 String s = Constants.RUPEE + budgetEntities.getAmount();
                 budgetView.setText(s);
             } catch (Exception e) {
-                String s = "Set a budget.";
-                budgetView.setText(s);
-                budgetView.setTextSize(13);
-                budgetView.setElegantTextHeight(true);
-                TypedValue typedValue = new TypedValue();
-                Resources.Theme theme = requireActivity().getTheme();
-                theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true);
-                budgetView.setTextColor(typedValue.data);
-                Log.e("Budget", "Error: " + e.getMessage());
+                try{
+                    String s = "Set a budget.";
+                    budgetView.setText(s);
+                    budgetView.setTextSize(13);
+                    budgetView.setElegantTextHeight(true);
+                    TypedValue typedValue = new TypedValue();
+                    Resources.Theme theme = requireActivity().getTheme();
+                    theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true);
+                    budgetView.setTextColor(typedValue.data);
+                }catch(Exception ignored){}
             }
             if (budgetEntities != null) {
                 bud.set(budgetEntities);

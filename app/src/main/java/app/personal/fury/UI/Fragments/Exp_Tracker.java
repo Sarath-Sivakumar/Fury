@@ -82,8 +82,8 @@ public class Exp_Tracker extends Fragment {
     }
 
     private void initViewModel() {
-        adapter = new expAdapter();
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+        adapter = new expAdapter();
         getExp();
 
     }
@@ -434,6 +434,7 @@ public class Exp_Tracker extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        initViewModel();
         getBalance();
         getExp();
     }
@@ -441,7 +442,6 @@ public class Exp_Tracker extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getBalance();
         getExp();
         accBal = getBalance();
         inHandBal = getInHandBalance();

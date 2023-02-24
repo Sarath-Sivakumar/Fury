@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,14 +44,13 @@ public class BudgetFragment extends Fragment {
     private FloatingActionButton addBudget;
     private TextView BudgetAmt, Balance, Expense , Dailylimitallowed ,CurrentDailylimit;
     private mainViewModel vm;
-    private List<expEntity> allExpense = new ArrayList<>();
     private int totalSalary = 0;
     private RecyclerView topExp;
     private budgetAdapter adapter;
     private infoGraphicsAdapter igAdapter;
     private ViewPager ig_vp;
     private TabLayout ig_tl;
-    private int[] FragmentList = new int[]{R.drawable.info_1, R.drawable.info_2, R.drawable.info_3};
+    private final int[] FragmentList = new int[]{R.drawable.info_1, R.drawable.info_2, R.drawable.info_3};
 
     private AdView ad;
 
@@ -64,9 +62,13 @@ public class BudgetFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        init();
+        MobileAds.initialize(requireContext());
+    }
+
+    private void init(){
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         adapter = new budgetAdapter();
-        MobileAds.initialize(requireContext());
     }
 
     @Override
@@ -154,11 +156,12 @@ public class BudgetFragment extends Fragment {
                 String s2 = Constants.RUPEE + (budgetEntities.getAmount() / Commons.getDays(Calendar.MONTH)) + " /day";
                 Dailylimitallowed.setText(s2);
             } catch (Exception e) {
-                Log.e("Budget", "Error: " + e.getMessage());
-                String s = Constants.RUPEE + "0";
-                BudgetAmt.setText(s);
-                String s1 = Constants.RUPEE + "0";
-                Balance.setText(s1);
+                try{
+                    String s = Constants.RUPEE + "0";
+                    BudgetAmt.setText(s);
+                    String s1 = Constants.RUPEE + "0";
+                    Balance.setText(s1);
+                }catch(Exception ignored){}
 //                Commons.SnackBar(getView(), "Create a budget..");
             }
         });
@@ -179,6 +182,7 @@ public class BudgetFragment extends Fragment {
             budgetEntity bud = new budgetEntity();
             bud.setAmount(Commons.getValueByPercent(totalSalary, 80));
             bud.setBal(Commons.getValueByPercent(totalSalary, 80));
+            vm.DeleteBudget();
             vm.InsertBudget(bud);
             popupWindow.dismiss();
         });
@@ -214,6 +218,7 @@ public class BudgetFragment extends Fragment {
                 budgetEntity budget = new budgetEntity();
                 budget.setAmount(Integer.parseInt(Amt.getText().toString()));
                 budget.setBal(Integer.parseInt(Amt.getText().toString()));
+                vm.DeleteBudget();
                 vm.InsertBudget(budget);
                 popupWindow.dismiss();
             }
@@ -231,5 +236,11 @@ public class BudgetFragment extends Fragment {
         popupWindow.setBackgroundDrawable(null);
         popupWindow.setElevation(6);
         popupWindow.showAsDropDown(addBudget);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        init();
     }
 }

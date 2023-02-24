@@ -66,7 +66,8 @@ public class Ear_Tracker extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+        adapter = new salaryAdapter();
         //Comes before onCreateView
         //initialise methods that don't require activity or context
     }
@@ -79,8 +80,6 @@ public class Ear_Tracker extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-        adapter = new salaryAdapter();
         View v = inflater.inflate(R.layout.fragment_earnings__tracker, container, false);
         initAd();
         findView(v);
@@ -166,7 +165,6 @@ public class Ear_Tracker extends Fragment {
                     rdGrp2.check(R.id.inHand);
                     break;
                 default:
-                    rdGrp2.check(R.id.account);
                     break;
             }
             switch (salary.getIncType()) {
@@ -179,11 +177,17 @@ public class Ear_Tracker extends Fragment {
                 case Constants.oneTime:
                     rdGrp1.check(R.id.oneTime);
                     break;
+                default:
+                    break;
             }
         }
 
         yes.setOnClickListener(v1 -> {
-            onClickYesPopup(isEdit, salary, salSource, salAmt, date, rdGrp1, rdGrp2);
+            if (isEdit){
+                onClickYesPopup(true, salary, salSource, salAmt, salDate.getText().toString(), rdGrp1, rdGrp2);
+            }else{
+                onClickYesPopup(false, salary, salSource, salAmt, date, rdGrp1, rdGrp2);
+            }
             popupWindow.dismiss();
         });
 
@@ -235,8 +239,7 @@ public class Ear_Tracker extends Fragment {
                         sal = null;
                         break;
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception ignored) {
             }
             if (sal != null) {
                 if (!isEdit) {
@@ -247,6 +250,8 @@ public class Ear_Tracker extends Fragment {
                         if (bal != null) {
                             oldBal = oldBal + bal.getBalance();
                             bal.setBalance(oldBal);
+                        }else{
+                            bal.setBalance(0);
                         }
                         vm.DeleteBalance();
                         vm.InsertBalance(bal);
@@ -256,6 +261,8 @@ public class Ear_Tracker extends Fragment {
                         if (bal != null) {
                             oldBal = oldBal + bal.getBalance();
                             bal.setBalance(oldBal);
+                        }else{
+                            bal.setBalance(0);
                         }
                         vm.DeleteInHandBalance();
                         vm.InsertInHandBalance(bal);
@@ -308,7 +315,11 @@ public class Ear_Tracker extends Fragment {
     private balanceEntity getBal() {
         AtomicReference<balanceEntity> bal = new AtomicReference<>(new balanceEntity());
         vm.getBalance().observe(requireActivity(), balanceEntity -> {
-            bal.set(balanceEntity);
+            if (balanceEntity!=null){
+                bal.set(balanceEntity);
+            }else{
+                bal.set(new balanceEntity(0));
+            }
         });
         return bal.get();
     }
@@ -316,7 +327,11 @@ public class Ear_Tracker extends Fragment {
     private inHandBalEntity getInHandBal() {
         AtomicReference<inHandBalEntity> bal = new AtomicReference<>(new inHandBalEntity());
         vm.getInHandBalance().observe(requireActivity(), inHandBalEntity -> {
-            bal.set(inHandBalEntity);
+            if (inHandBalEntity!=null){
+                bal.set(inHandBalEntity);
+            }else {
+                bal.set(new inHandBalEntity(0));
+            }
         });
         return bal.get();
     }
@@ -355,6 +370,8 @@ public class Ear_Tracker extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }else{
+                finalTotalSalary.set(0);
             }
         });
         return finalTotalSalary.get();
