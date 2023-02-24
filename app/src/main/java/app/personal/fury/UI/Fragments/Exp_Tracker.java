@@ -26,6 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.w3c.dom.Text;
+
 import java.util.concurrent.atomic.AtomicReference;
 
 import app.personal.MVVM.Entity.balanceEntity;
@@ -82,10 +84,7 @@ public class Exp_Tracker extends Fragment {
     }
 
     private void initViewModel() {
-        adapter = new expAdapter();
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-        getExp();
-
     }
 
     private void getExp() {
@@ -239,6 +238,14 @@ public class Exp_Tracker extends Fragment {
             Spinner sp = view.findViewById(R.id.expOptions);
             TextView expTitle = view.findViewById(R.id.expTitle);
             TextView expMode = view.findViewById(R.id.radioTitle2);
+            TextView cashAmt = view.findViewById(R.id.cashAmt);
+            TextView accAmt = view.findViewById(R.id.accAmt);
+
+            String s1 = Constants.RUPEE+inHandBal;
+            cashAmt.setText(s1);
+            String s2 = Constants.RUPEE+accBal;
+            accAmt.setText(s2);
+
             String s = "Debit mode";
             expMode.setText(s);
             RadioGroup rdGrp = view.findViewById(R.id.RadioGroup2);
@@ -373,6 +380,7 @@ public class Exp_Tracker extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_exp__tracker, container, false);
+        adapter = new expAdapter();
         init(v);
         getBalance();
         getExp();
@@ -434,14 +442,14 @@ public class Exp_Tracker extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        initViewModel();
         getBalance();
-        getExp();
+//        getExp();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getBalance();
         getExp();
         accBal = getBalance();
         inHandBal = getInHandBalance();

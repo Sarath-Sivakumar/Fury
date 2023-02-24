@@ -1,12 +1,18 @@
 package app.personal.fury.UI;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -18,10 +24,22 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
+import app.personal.MVVM.Entity.balanceEntity;
+import app.personal.MVVM.Entity.debtEntity;
+import app.personal.MVVM.Entity.inHandBalEntity;
+import app.personal.MVVM.Entity.salaryEntity;
 import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
+import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.MVVM.Viewmodel.userInitViewModel;
+import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.Utls.ViewPager.viewPager;
 import app.personal.fury.R;
@@ -41,12 +59,14 @@ public class MainActivity extends AppCompatActivity {
 
     private static viewPager vp;
     private userInitViewModel uvm;
+    private mainViewModel vm;
     private LoggedInUserViewModel luvm;
     private TabLayout tl;
     private DrawerLayout dl;
     private Toolbar tb;
     private ImageView userDp;
     private TextView userName;
+    private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,16 +76,131 @@ public class MainActivity extends AppCompatActivity {
             init();
             setNav();
             setUserViewModel();
-            if (savedInstanceState == null) {
-                vp.setCurrentItem(2, true);
-            }
-        }catch (Exception ignored){}
+            vm.getSalary().observe(this, salaryEntityList -> {
+                if (salaryEntityList!=null){
+                    processSalary(salaryEntityList);
+                }
+            });
+        }catch (Exception e){
+            Log.e("Main", "onCreateError: "+e.getMessage());
+        }
+        if (savedInstanceState == null) {
+            vp.setCurrentItem(2, true);
+        }
     }
 
+    private void processSalary(@NonNull List<salaryEntity> salList) {
+        Log.e("Local Repository", "processSalary: size: " + salList.size());
+        for (int i = 0; i <= salList.size() - 1; i++) {
+            Log.e("Local Repository", "processSalary: i: " + i);
+            salaryEntity sal = salList.get(i);
+
+            if (!sal.getCreationDate().equals(Commons.getDate())) {
+                if (sal.getIncType() == Constants.monthly) {
+                    monthlyCalculations(sal);
+                } else if (sal.getIncType() == Constants.daily) {
+                    dailyCalculations(sal);
+                } else if (sal.getIncType() == Constants.oneTime) {
+                    Log.e("Local Repository", "processSalary: onTime");
+                } else {
+                    Log.e("Local Repository", "processSalary: " + sal.getIncType() + " well well! what might this be?!");
+                }
+            }
+
+        }
+    }
+    private void dailyCalculations(salaryEntity sal) {
+        try {
+            String creationDate = sal.getCreationDate();
+            Date dateBefore = sdf.parse(creationDate);
+            Date dateAfter = sdf.parse(Commons.getDate());
+            if (dateBefore != null && dateAfter != null) {
+                long timeDiff = Math.abs(dateAfter.getTime() - dateBefore.getTime());
+                long daysDiff = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
+                Log.e("Local Repository", "processSalary: daysDiff: " + daysDiff);
+                for (int i = 0; i <= daysDiff; i++) {
+                    Log.e("Local Repository", "inside processSalary: daysDiff: " + i);
+                    Log.e("Local Repository", "inside processSalary: sal mode: " + sal.getSalMode());
+                    Log.e("Local Repository", "inside processSalary: salary: " + sal.getSalary());
+                    if (!sal.getCreationDate().equals(Commons.getDate())) {
+                        if (sal.getSalMode() == Constants.SAL_MODE_CASH) {
+                            int inHandBal = getInHandBal();
+                            Log.e("Local Repository", "inside processSalary: inHand before: " + inHandBal);
+                            vm.DeleteInHandBalance();
+                            vm.InsertInHandBalance(new inHandBalEntity(inHandBal + sal.getSalary()));
+                            Log.e("Local Repository", "inside processSalary: inHand after: " + getInHandBal());
+                            sal.setCreationDate(Commons.getDate());
+                            vm.UpdateSalary(sal);
+                        } else if (sal.getSalMode() == Constants.SAL_MODE_ACC) {
+                            int bal = getBal();
+                            Log.e("Local Repository", "inside processSalary: acc before: " + bal);
+                            vm.DeleteBalance();
+                            vm.InsertBalance(new balanceEntity(bal + sal.getSalary()));
+                            Log.e("Local Repository", "inside processSalary: acc after: " + getBal());
+                            sal.setCreationDate(Commons.getDate());
+                            vm.UpdateSalary(sal);
+                        } else {
+                            Log.e("Local Repository", "Huh?!");
+                        }
+                    }
+                }
+            } else {
+                Log.e("Local Repository", "Dates are null good job!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("Local Repository", "Error: " + e.getMessage());
+        }
+    }
+
+    private void monthlyCalculations(salaryEntity sal) {
+        String creationDate = sal.getCreationDate();
+        String currentDate = Commons.getDate();
+        String[] splitCreationDate = creationDate.split("/");
+        String[] splitCurrentDate = currentDate.split("/");
+
+        if (splitCurrentDate[2] == splitCreationDate[2]) {
+            //Will work for current year.
+            if (splitCurrentDate[0] == splitCreationDate[0] &&
+                    Integer.parseInt(splitCurrentDate[1]) > Integer.parseInt(splitCreationDate[1])) {
+                int mode = sal.getSalMode();
+                if (mode == Constants.SAL_MODE_CASH) {
+                    int inHandBal = getInHandBal();
+                    vm.DeleteInHandBalance();
+                    vm.InsertInHandBalance(new inHandBalEntity(inHandBal + sal.getSalary()));
+                } else {
+                    int bal = getBal();
+                    vm.DeleteBalance();
+                    vm.InsertBalance(new balanceEntity(bal + sal.getSalary()));
+                }
+                sal.setCreationDate(Commons.getDate());
+                vm.UpdateSalary(sal);
+            }
+        } else {
+            //Next Year.
+            int mode = sal.getSalMode();
+            if (mode == Constants.SAL_MODE_CASH) {
+                int inHandBal = getInHandBal();
+                vm.DeleteInHandBalance();
+                vm.InsertInHandBalance(new inHandBalEntity(inHandBal + sal.getSalary()));
+            } else {
+                int bal = 0;
+                try {
+                    bal = getBal();
+                } catch (Exception ignored) {
+                }
+                vm.DeleteBalance();
+                vm.InsertBalance(new balanceEntity(bal + sal.getSalary()));
+            }
+            sal.setCreationDate(Commons.getDate());
+            vm.UpdateSalary(sal);
+        }
+    }
     private void init() {
         //init AD here..
         uvm = new ViewModelProvider(this).get(userInitViewModel.class);
         luvm = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
+        vm = new ViewModelProvider(this).get(mainViewModel.class);
         findView();
         initViewPager();
     }
@@ -103,6 +238,30 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private int getInHandBal(){
+        AtomicInteger bal = new AtomicInteger();
+        vm.getInHandBalance().observe(this, inHandBalEntity -> {
+            if (inHandBalEntity != null) {
+                bal.set(inHandBalEntity.getBalance());
+            }else{
+                bal.set(0);
+            }
+        });
+        return bal.get();
+    }
+
+    private int getBal(){
+        AtomicInteger bal = new AtomicInteger();
+        vm.getBalance().observe(this, balanceEntity -> {
+            if (balanceEntity!=null){
+                bal.set(balanceEntity.getBalance());
+            }else {
+                bal.set(0);
+            }
+        });
+        return bal.get();
     }
 
     private void setNav(){
@@ -155,9 +314,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    private void profileinfo() {
-//    }
-
     private void findView() {
         vp = findViewById(R.id.viewPager);
         tl = findViewById(R.id.tabLayout);
@@ -192,6 +348,7 @@ public class MainActivity extends AppCompatActivity {
                 switch(tab.getPosition()){
                     case 0:
                         tb.setTitle(Constants.Exp);
+//                        tb.setTitleTextColor();
                         break;
                     case 1:
                         tb.setTitle(Constants.Budget);

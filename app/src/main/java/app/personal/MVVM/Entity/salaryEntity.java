@@ -15,7 +15,7 @@ public class salaryEntity {
     private String incName;
     private int salary;
     private int incType;  //Daily = 1, Monthly = 0, Hourly = -1
-//    Update this after every repetition.
+//  Update this after every repetition.
     @ColumnInfo(defaultValue = "Not Set")
     private String creationDate;
     @ColumnInfo(defaultValue = "1")

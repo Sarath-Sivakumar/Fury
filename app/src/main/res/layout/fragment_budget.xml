@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="12dp"
-    android:paddingStart="12dp"
-    android:paddingEnd="12dp"
+
     tools:context=".UI.Fragments.BudgetFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -17,6 +15,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -39,32 +40,14 @@
                     android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".6"
-                    android:gravity="end"
+                    android:gravity="center"
                     android:paddingTop="6dp"
                     android:fontFamily="@font/raleway_bold"
                     android:textColor="?attr/colorSecondary"
                     android:text="@string/my_budget"
                     android:textSize="18sp" />
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".02"/>
-
-                    <ImageButton
-                        style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="0dp"
-                        android:layout_weight=".1"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/common_icon_edit"
-                        app:tint="?attr/colorOnPrimary" />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".28"/>
 
                 </LinearLayout>
 
@@ -302,7 +285,7 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="12dp"
         android:contentDescription="@null"
-        android:src="@drawable/common_icon_add"
+        android:src="@drawable/common_icon_edit"
         app:backgroundTint="@color/theme_green"
         tools:ignore="SpeakableTextPresentCheck" />
 </FrameLayout>
