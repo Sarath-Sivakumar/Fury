@@ -3,8 +3,6 @@ package app.personal.fury.UI.Fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -28,8 +27,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -51,13 +48,13 @@ public class Ear_Tracker extends Fragment {
     private mainViewModel vm;
     private salaryAdapter adapter;
     private TextView salAmt, inHandAmt, accountAmt, inHandCount, accountCount;
-    private RecyclerView.ViewHolder ViewHolder;
     private ViewPager ig_vp;
     private TabLayout ig_tl;
     private infoGraphicsAdapter igAdapter;
-    private final int[] FragmentList = new int[]{R.drawable.info_h1, R.drawable.info_h2, R.drawable.info_h3, R.drawable.info_h4,
+    private final int[] FragmentList =
+            new int[]{R.drawable.info_h1, R.drawable.info_h2,
+            R.drawable.info_h3, R.drawable.info_h4,
             R.drawable.info_h5, R.drawable.info_h6};
-    ;
     private int cashAmt, cashCount, accAmt, accCount;
 
     public Ear_Tracker() {
@@ -133,6 +130,8 @@ public class Ear_Tracker extends Fragment {
 //        Init Views------------------------------------------------------
         popupTitle = v.findViewById(R.id.title);
         popupTitle.setText("Add Earnings");
+        LinearLayout bal = v.findViewById(R.id.cashDetails);
+        bal.setVisibility(View.GONE);
         expName = v.findViewById(R.id.expNameTitle);
         expName.setVisibility(View.GONE);
         salDate = v.findViewById(R.id.salDate);
@@ -289,12 +288,11 @@ public class Ear_Tracker extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                ViewHolder = viewHolder;
                 adapter.notifyDataSetChanged();
                 vm.DeleteSalary(adapter.getSalaryEntity(viewHolder.getPosition()));
 //                int type = adapter.getSalaryEntity(viewHolder.getPosition()).getIncType();
 //                int salary = adapter.getSalaryEntity(viewHolder.getPosition()).getSalary();
-//Popup to remove from balance or no needed...
+//                Popup to remove from balance or no needed...
 //                if (type==Constants.SAL_MODE_ACC){
 //                    balanceEntity bal = getBal();
 //                    int curBal = bal.getBalance();

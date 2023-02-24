@@ -135,6 +135,8 @@
     <string name="total">Total</string>
     <string name="count">Count</string>
     <string name="earnings_category">Earnings Category</string>
+    <string name="cashTitle">Cash:</string>
+    <string name="accountTitle">Bank:</string>
 
 
 </resources>

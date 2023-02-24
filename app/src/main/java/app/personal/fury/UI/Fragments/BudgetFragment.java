@@ -63,12 +63,12 @@ public class BudgetFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init();
+        adapter = new budgetAdapter();
         MobileAds.initialize(requireContext());
     }
 
     private void init(){
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-        adapter = new budgetAdapter();
     }
 
     @Override
