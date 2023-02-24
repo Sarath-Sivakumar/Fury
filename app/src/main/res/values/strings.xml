@@ -44,7 +44,7 @@
 
     <string name="fury_desc">Money management made easy</string>
     <string name="log_in">Log In</string>
-    <string name="current_balance">Current Balance</string>
+    <string name="current_balance">Budget Balance</string>
     <string name="total_expense">Total Expense</string>
     <string name="my_budget">My Budget</string>
     <string name="Budget_rule">“Do not save what is left after spending \ninstead spend what is left after saving." - Warren Buffett

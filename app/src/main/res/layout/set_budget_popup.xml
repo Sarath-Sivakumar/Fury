@@ -82,6 +82,18 @@
                         android:text="No thanks, I will do it myself"
                         android:textAllCaps="false" />
 
+                    <Button
+                        android:id="@+id/cancel_btn"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/raleway_bold"
+                        android:layout_marginTop="10dp"
+                        android:textColor="?attr/colorPrimary"
+                        android:background="@android:color/transparent"
+                        android:text="Cancel"
+                        android:textAllCaps="false" />
+
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

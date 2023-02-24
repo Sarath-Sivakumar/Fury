@@ -5,6 +5,7 @@ import static java.lang.Thread.sleep;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -164,8 +165,6 @@ public class Dues_Debt extends Fragment {
             popupWindow.setContentView(view);
 
             ImageView check = view.findViewById(R.id.check);
-            Button done = view .findViewById(R.id.done);
-            done.setOnClickListener(v -> popupWindow.dismiss());
 
             ViewPropertyAnimatorCompat viewAnimator;
             viewAnimator = ViewCompat.animate(check)
@@ -173,26 +172,15 @@ public class Dues_Debt extends Fragment {
                     .setStartDelay(500)
                     .setDuration(500);
             viewAnimator.setInterpolator(new DecelerateInterpolator()).start();
+            new CountDownTimer(1500, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {}
 
-
-//            int oldSec = Integer.parseInt(Commons.getSeconds());
-//
-//            Thread t = new Thread(() -> {
-//                do {
-//                    if (oldSec != Integer.parseInt(Commons.getSeconds())) {
-//                        break;
-//                    }
-//                } while (oldSec == Integer.parseInt(Commons.getSeconds()));
-//            });
-//            t.start();
-//            do {
-//                Log.e("1st while", "callPopupWindow");
-//                if (t.getState() == Thread.State.TERMINATED) {
-//                    done.setVisibility(View.VISIBLE);
-//                    Log.e("2nd while", "callPopupWindow");
-//                }
-//            }while (t.getState() != Thread.State.TERMINATED);
-
+                @Override
+                public void onFinish() {
+                    popupWindow.dismiss();
+                }
+            }.start();
 
         }//use else if delete popup exists in future..
         popupWindow.setFocusable(true);
