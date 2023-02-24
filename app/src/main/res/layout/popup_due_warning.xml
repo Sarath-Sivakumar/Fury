@@ -31,6 +31,7 @@
             android:textSize="24sp"/>
 
         <TextView
+            android:id="@+id/nameAndDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -39,10 +40,11 @@
             android:textSize="15sp"/>
 
         <TextView
+            android:id="@+id/amt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="12dp"
+            android:padding="18dp"
             android:text="(DUE_AMT)"
             android:textSize="21sp"/>
 

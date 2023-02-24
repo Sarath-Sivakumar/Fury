@@ -1,10 +1,15 @@
 package app.personal.fury.UI;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,6 +33,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import app.personal.MVVM.Entity.balanceEntity;
+import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Entity.inHandBalEntity;
 import app.personal.MVVM.Entity.salaryEntity;
 import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
@@ -70,15 +76,17 @@ public class MainActivity extends AppCompatActivity {
             init();
             setNav();
             setUserViewModel();
-            if (savedInstanceState == null) {
-                vp.setCurrentItem(2, true);
-            }
             vm.getSalary().observe(this, salaryEntityList -> {
                 if (salaryEntityList!=null){
                     processSalary(salaryEntityList);
                 }
             });
-        }catch (Exception ignored){}
+        }catch (Exception e){
+            Log.e("Main", "onCreateError: "+e.getMessage());
+        }
+        if (savedInstanceState == null) {
+            vp.setCurrentItem(2, true);
+        }
     }
 
     private void processSalary(@NonNull List<salaryEntity> salList) {
@@ -101,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
     private void dailyCalculations(salaryEntity sal) {
         try {
             String creationDate = sal.getCreationDate();
@@ -189,8 +196,6 @@ public class MainActivity extends AppCompatActivity {
             vm.UpdateSalary(sal);
         }
     }
-
-
     private void init() {
         //init AD here..
         uvm = new ViewModelProvider(this).get(userInitViewModel.class);
@@ -343,6 +348,7 @@ public class MainActivity extends AppCompatActivity {
                 switch(tab.getPosition()){
                     case 0:
                         tb.setTitle(Constants.Exp);
+//                        tb.setTitleTextColor();
                         break;
                     case 1:
                         tb.setTitle(Constants.Budget);

@@ -34,6 +34,7 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.concurrent.atomic.AtomicReference;
 
 import app.personal.MVVM.Entity.budgetEntity;
+import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
@@ -113,6 +114,44 @@ public class fragment_main extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+    }
+
+    private void callWarningPopup(debtEntity debt){
+        PopupWindow popupWindow = new PopupWindow(getContext());
+        LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
+        View v = inflater.inflate(R.layout.popup_due_warning, null);
+        popupWindow.setContentView(v);
+
+        TextView mainBody, nameAndDate, amt;
+        Button yes, no;
+
+        mainBody = v.findViewById(R.id.warning);
+        nameAndDate = v.findViewById(R.id.nameAndDate);
+        amt = v.findViewById(R.id.amt);
+        yes = v.findViewById(R.id.yes_btn);
+        no = v.findViewById(R.id.no_btn);
+
+        String s1 = "Your due of "+debt.getSource() +" is nearing its pay date..";
+        mainBody.setText(s1);
+        String s2 = debt.getSource() +" | "+ debt.getDate();
+        nameAndDate.setText(s2);
+        String s3 = Constants.RUPEE + debt.getAmount();
+        amt.setText(s3);
+
+        yes.setOnClickListener(v1 -> {
+            debt.setStatus(Constants.DEBT_PAID);
+            vm.UpdateDebt(debt);
+        });
+        no.setOnClickListener(v1 -> popupWindow.dismiss());
+
+        popupWindow.setFocusable(true);
+        popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+        popupWindow.setBackgroundDrawable(null);
+        popupWindow.setElevation(6);
+        popupWindow.showAsDropDown(mainProgressText);
     }
 
     @Override
@@ -132,6 +171,9 @@ public class fragment_main extends Fragment {
         findView(v);
         getExp(filter);
         initViewModel();
+        if (savedInstanceState==null){
+//            Check for upcoming dues here
+        }
         return v;
     }
 
