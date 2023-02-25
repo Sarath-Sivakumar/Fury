@@ -22,7 +22,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import app.personal.MVVM.Entity.budgetEntity;
 import app.personal.MVVM.Entity.expEntity;
+import app.personal.MVVM.Viewmodel.mainViewModel;
 
 public class Commons {
 
@@ -174,6 +176,10 @@ public class Commons {
         }
     }
 
+    public static int getValueByPercent(int totalSalary, int Percent){
+        return (int)(totalSalary*Percent)/100;
+    }
+
     public static int getDays(int month){
         if (month==1){
             return 31;
@@ -254,5 +260,13 @@ public class Commons {
                 timedSliderInit(ig_vp, FragmentList, Seconds);
             }
         }.start();
+    }
+
+    public static void setDefaultBudget(mainViewModel vm, int totalSalary, int totalExp){
+        budgetEntity bud = new budgetEntity();
+        bud.setAmount(Commons.getValueByPercent(totalSalary, 80));
+        bud.setBal(Commons.getValueByPercent(totalSalary, 80)-totalExp);
+        vm.DeleteBudget();
+        vm.InsertBudget(bud);
     }
 }

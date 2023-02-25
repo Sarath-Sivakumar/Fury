@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,11 +28,9 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.w3c.dom.Text;
 
 import app.personal.MVVM.Entity.budgetEntity;
-import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
@@ -45,14 +43,12 @@ public class BudgetFragment extends Fragment {
     private FloatingActionButton addBudget;
     private TextView BudgetAmt, Balance, Expense , Dailylimitallowed ,CurrentDailylimit;
     private mainViewModel vm;
-    private List<expEntity> allExpense = new ArrayList<>();
-    private int totalSalary = 0;
-    private RecyclerView topExp;
+    private int totalSalary = 0, totalExp = 0;
     private budgetAdapter adapter;
     private infoGraphicsAdapter igAdapter;
     private ViewPager ig_vp;
     private TabLayout ig_tl;
-    private int[] FragmentList = new int[]{R.drawable.info_1, R.drawable.info_2, R.drawable.info_3};
+    private final int[] FragmentList = new int[]{R.drawable.info_1, R.drawable.info_2, R.drawable.info_3};
 
     private AdView ad;
 
@@ -64,9 +60,13 @@ public class BudgetFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+        init();
         adapter = new budgetAdapter();
         MobileAds.initialize(requireContext());
+    }
+
+    private void init(){
+        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class BudgetFragment extends Fragment {
         BudgetAmt = v.findViewById(R.id.bgtAmt);
         Balance = v.findViewById(R.id.B_Balance);
         Expense = v.findViewById(R.id.T_exp);
-        topExp = v.findViewById(R.id.top_exp);
+        RecyclerView topExp = v.findViewById(R.id.top_exp);
         topExp.setLayoutManager(new LinearLayoutManager(requireContext()));
         topExp.setHasFixedSize(true);
         topExp.setAdapter(adapter);
@@ -124,19 +124,19 @@ public class BudgetFragment extends Fragment {
                 }
                 try {
                     CurrentDailylimit.setText(Commons.getAvg(expEntities, true));
+                    String s1 = Constants.RUPEE + total;
+                    Expense.setText(s1);
                 }catch (Exception ignored){}
                 adapter.notifyDataSetChanged();
             }else{
                 try {
                     String s = "No data to process.";
                     CurrentDailylimit.setText(s);
+                    String s1 = Constants.RUPEE + total;
+                    Expense.setText(s1);
                 }catch (Exception ignored){}
             }
-//            else{
-//                No Expenses..
-//            }
-            String s = Constants.RUPEE + total;
-            Expense.setText(s);
+            totalExp = total;
         });
 
         vm.getSalary().observe(getViewLifecycleOwner(), salaryEntities -> {
@@ -157,11 +157,12 @@ public class BudgetFragment extends Fragment {
                 String s2 = Constants.RUPEE + (budgetEntities.getAmount() / Commons.getDays(Calendar.MONTH)) + "/Day";
                 Dailylimitallowed.setText(s2);
             } catch (Exception e) {
-                Log.e("Budget", "Error: " + e.getMessage());
-                String s = Constants.RUPEE + "0";
-                BudgetAmt.setText(s);
-                String s1 = Constants.RUPEE + "0";
-                Balance.setText(s1);
+                try{
+                    String s = Constants.RUPEE + "0";
+                    BudgetAmt.setText(s);
+                    String s1 = Constants.RUPEE + "0";
+                    Balance.setText(s1);
+                }catch(Exception ignored){}
 //                Commons.SnackBar(getView(), "Create a budget..");
             }
         });
@@ -177,9 +178,56 @@ public class BudgetFragment extends Fragment {
 
         Button yes = view.findViewById(R.id.continue_btn);
         Button no = view.findViewById(R.id.No_btn);
+        Button cancel = view.findViewById(R.id.cancel_btn);
+        cancel.setOnClickListener(v -> popupWindow.dismiss());
 
         yes.setOnClickListener(v -> {
-            popupWindow.dismiss();
+            new CountDownTimer(2000, 1000) {
+                final PopupWindow fakeScrn = new PopupWindow(getContext());
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    popupWindow.dismiss();
+                    LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View view = inflater.inflate(R.layout.popup_budget_fake_loading, null);
+                    TextView t = view.findViewById(R.id.loadingText);
+                    String s = "Analyzing Your Earnings..";
+                    t.setText(s);
+                    fakeScrn.setContentView(view);
+                    fakeScrn.setFocusable(true);
+                    fakeScrn.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+                    fakeScrn.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+                    fakeScrn.setBackgroundDrawable(null);
+                    fakeScrn.setElevation(6);
+                    fakeScrn.showAsDropDown(addBudget);
+                }
+
+                @Override
+                public void onFinish() {
+                    fakeScrn.dismiss();
+                    new CountDownTimer(2000, 1000) {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            View view = inflater.inflate(R.layout.popup_budget_fake_loading, null);
+                            TextView t = view.findViewById(R.id.loadingText);
+                            String s = "Crafting a ideal budget..";
+                            t.setText(s);
+                            fakeScrn.setContentView(view);
+                            fakeScrn.setFocusable(true);
+                            fakeScrn.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+                            fakeScrn.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+                            fakeScrn.setBackgroundDrawable(null);
+                            fakeScrn.setElevation(6);
+                            fakeScrn.showAsDropDown(addBudget);
+                        }
+                        @Override
+                        public void onFinish() {
+                            Commons.setDefaultBudget(vm, totalSalary, totalExp);
+                            fakeScrn.dismiss();
+                        }
+                    }.start();
+                }
+            }.start();
         });
 
         no.setOnClickListener(v -> {
@@ -213,6 +261,7 @@ public class BudgetFragment extends Fragment {
                 budgetEntity budget = new budgetEntity();
                 budget.setAmount(Integer.parseInt(Amt.getText().toString()));
                 budget.setBal(Integer.parseInt(Amt.getText().toString()));
+                vm.DeleteBudget();
                 vm.InsertBudget(budget);
                 popupWindow.dismiss();
             }
@@ -230,5 +279,11 @@ public class BudgetFragment extends Fragment {
         popupWindow.setBackgroundDrawable(null);
         popupWindow.setElevation(6);
         popupWindow.showAsDropDown(addBudget);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        init();
     }
 }
