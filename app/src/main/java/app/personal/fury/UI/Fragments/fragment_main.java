@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -270,7 +269,6 @@ public class fragment_main extends Fragment {
 //                @ColorInt int colorGreen = typedValue.data;
                 dAvg.setTextColor(typedValue.data);
             }
-
 //            Call after setting budget
 //            dAvg.setText(Commons.getDailyAvg(7000));
         });
@@ -325,10 +323,9 @@ public class fragment_main extends Fragment {
             prg = 0 + "%";
         }
         mainProgressText.setText(prg);
-        String p = Constants.RUPEE + (int) expense;
+        String p = Constants.RUPEE + expense;
         expView.setText(p);
     }
-
     @Override
     public void onResume() {
         super.onResume();

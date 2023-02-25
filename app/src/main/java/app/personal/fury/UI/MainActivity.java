@@ -1,15 +1,11 @@
 package app.personal.fury.UI;
 
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,7 +29,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import app.personal.MVVM.Entity.balanceEntity;
-import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Entity.inHandBalEntity;
 import app.personal.MVVM.Entity.salaryEntity;
 import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
@@ -117,30 +112,22 @@ public class MainActivity extends AppCompatActivity {
             if (dateBefore != null && dateAfter != null) {
                 long timeDiff = Math.abs(dateAfter.getTime() - dateBefore.getTime());
                 long daysDiff = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
-                Log.e("Local Repository", "processSalary: daysDiff: " + daysDiff);
                 for (int i = 0; i <= daysDiff; i++) {
-                    Log.e("Local Repository", "inside processSalary: daysDiff: " + i);
-                    Log.e("Local Repository", "inside processSalary: sal mode: " + sal.getSalMode());
-                    Log.e("Local Repository", "inside processSalary: salary: " + sal.getSalary());
                     if (!sal.getCreationDate().equals(Commons.getDate())) {
                         if (sal.getSalMode() == Constants.SAL_MODE_CASH) {
                             int inHandBal = getInHandBal();
-                            Log.e("Local Repository", "inside processSalary: inHand before: " + inHandBal);
                             vm.DeleteInHandBalance();
                             vm.InsertInHandBalance(new inHandBalEntity(inHandBal + sal.getSalary()));
-                            Log.e("Local Repository", "inside processSalary: inHand after: " + getInHandBal());
                             sal.setCreationDate(Commons.getDate());
                             vm.UpdateSalary(sal);
                         } else if (sal.getSalMode() == Constants.SAL_MODE_ACC) {
                             int bal = getBal();
-                            Log.e("Local Repository", "inside processSalary: acc before: " + bal);
                             vm.DeleteBalance();
                             vm.InsertBalance(new balanceEntity(bal + sal.getSalary()));
-                            Log.e("Local Repository", "inside processSalary: acc after: " + getBal());
                             sal.setCreationDate(Commons.getDate());
                             vm.UpdateSalary(sal);
                         } else {
-                            Log.e("Local Repository", "Huh?!");
+                            Log.e("Local Repository", "Huh?! Please stop! uwwu!");
                         }
                     }
                 }
@@ -217,12 +204,8 @@ public class MainActivity extends AppCompatActivity {
             if (userEntity!=null){
                 String uname = userEntity.getName();
                 String[] arr= uname.split(" ");
-                String fname=arr[0];
-//                Put this in a try block
-//                String lname=arr[1];
-//                Log.d("First name",fname);
-//                Log.d("last name",lname);
-                String s = "Hello "+fname;
+                String fName=arr[0];
+                String s = "Hello "+fName;
                 userName.setText(s);
                 if (userEntity.getImgUrl().equals(Constants.DEFAULT_DP)){
                     userDp.setImageResource(R.drawable.nav_icon_account);
@@ -332,7 +315,6 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new Ear_Tracker());
         adapter.addFragment(new Dues_Debt());
 
-
         vp.setAdapter(adapter);
         vp.setPagingEnabled(false);
         tl.setupWithViewPager(vp, true);
@@ -348,7 +330,6 @@ public class MainActivity extends AppCompatActivity {
                 switch(tab.getPosition()){
                     case 0:
                         tb.setTitle(Constants.Exp);
-//                        tb.setTitleTextColor();
                         break;
                     case 1:
                         tb.setTitle(Constants.Budget);
@@ -362,7 +343,11 @@ public class MainActivity extends AppCompatActivity {
                     case 4:
                         tb.setTitle(Constants.Dues);
                         break;
+                    default:
+                        tb.setTitle("Noiccee!");
+                        break;
                 }
+                tb.setTitleTextColor(Color.WHITE);
             }
 
             @Override
@@ -385,6 +370,12 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
     public static void redirectTo(int i){
-        vp.setCurrentItem(i);
+        int item = vp.getCurrentItem();
+        try{
+            vp.setCurrentItem(i);
+        }catch (Exception e){
+            vp.setCurrentItem(item);
+            Log.e("App","Stop it daddy! uwwu!");
+        }
     }
 }
