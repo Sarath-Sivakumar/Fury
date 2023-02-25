@@ -2,8 +2,10 @@ package app.personal.fury.UI;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -363,6 +365,10 @@ public class MainActivity extends AppCompatActivity {
                         tb.setTitle(Constants.Dues);
                         break;
                 }
+                TypedValue typedValue = new TypedValue();
+                Resources.Theme theme = getTheme();
+                theme.resolveAttribute(androidx.appcompat.R.attr.colorAccent, typedValue, true);
+                tb.setTitleTextColor(typedValue.data);
             }
 
             @Override
