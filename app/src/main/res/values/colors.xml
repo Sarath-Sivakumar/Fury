@@ -11,10 +11,16 @@
     <color name="theme_green_dark">#319577</color>
     <color name="theme_gold">#FFD700</color>
 
+<!--   Progress Indicator inside circle-->
+    <color name="progress_inicator">#EBE1E1</color>
+
 <!--    Darkshades-->
-    <color name="d1">#343434</color>
-    <color name="d2">#492645</color>
-    <color name="d3">#132238</color>
+    <color name="d1">#434242</color>
+    <color name="d2">#132238</color>
+
+<!--    Lightshades-->
+    <color name="l1">#82C3EC</color>
+    <color name="l2">#ADDDD0</color>
 
 
     <!--    Action & Status Bars-->
@@ -23,16 +29,25 @@
 
 
 <!--    font colors(light shade)-->
-    <color name="h1_light">#f2f4f7</color>
-    <color name="h2_light">#fef8dd</color>
+    <color name="h1_light">#e8fcf6</color>
+    <color name="h2_light">#dddddd</color>
+    <color name="h3_light">#f1fff1</color>
 
 
 <!--    font colors(dark shade)-->
     <color name="h1_dark">#020205</color>
-    <color name="h2_dark">#3e3e3e</color>
+    <color name="h2_dark">#3e3245</color>
+<!--    <color name="h3_dark">#f7f7cf</color>-->
 
 
-<!--    App theme-->
+    <!--    link color(light&dark mode)-->
+    <color name="d3">#301551</color>
+    <color name="l3">#bcffa8</color>
+
+
+
+
+    <!--    App theme-->
     <color name="app_theme_primary">#4DF0BF</color>
     <color name="app_theme_secondary">#1E3749</color>
 

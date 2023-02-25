@@ -32,7 +32,7 @@
     </LinearLayout>
 
 <!--  Uncomment  -->
-    <include layout="@layout/activity_account"
+    <include layout="@layout/nav_activity_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

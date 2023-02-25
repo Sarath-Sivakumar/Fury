@@ -29,7 +29,7 @@ public class budgetAdapter extends RecyclerView.Adapter<budgetAdapter.topCatHold
     public topCatHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.top_catlist_item, parent, false);
+                .inflate(R.layout.recycler_item_topcategory, parent, false);
         return new topCatHolder(itemView);
     }
 

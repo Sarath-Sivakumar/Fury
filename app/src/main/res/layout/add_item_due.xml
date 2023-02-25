@@ -97,7 +97,6 @@
                         android:layout_marginTop="5dp"
                         android:text="Cancel"
                         android:background="@drawable/button_signup"
-                        android:textColor="?attr/colorPrimary"
                         android:textAllCaps="false" />
 
                 </LinearLayout>

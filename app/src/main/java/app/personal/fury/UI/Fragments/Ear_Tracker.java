@@ -3,8 +3,6 @@ package app.personal.fury.UI.Fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +26,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -81,7 +77,7 @@ public class Ear_Tracker extends Fragment {
         // Inflate the layout for this fragment
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         adapter = new salaryAdapter();
-        View v = inflater.inflate(R.layout.fragment_earnings__tracker, container, false);
+        View v = inflater.inflate(R.layout.main_fragment_earningstracker, container, false);
         initAd();
         findView(v);
         return v;
@@ -120,7 +116,7 @@ public class Ear_Tracker extends Fragment {
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
-        View v = inflater.inflate(R.layout.add_exp_item, null);
+        View v = inflater.inflate(R.layout.add_item_exp, null);
         popupWindow.setContentView(v);
 
 //        Total elements--------------------------------------------------

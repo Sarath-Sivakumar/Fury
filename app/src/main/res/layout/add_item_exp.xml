@@ -63,7 +63,7 @@
                         android:layout_height="match_parent"
                         android:fontFamily="@font/raleway_semibold"
                         android:gravity="start|center"
-                        android:hint="Expense Name"
+                        android:hint="@string/expense_name"
                         android:padding="12dp"
                         android:textSize="18sp" />
                 </FrameLayout>
@@ -208,7 +208,6 @@
                         android:layout_marginTop="5dp"
                         android:text="Cancel"
                         android:background="@drawable/button_signup"
-                        android:textColor="?attr/colorPrimary"
                         android:textAllCaps="false" />
                 </LinearLayout>
             </LinearLayout>

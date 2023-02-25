@@ -25,7 +25,7 @@ public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.salHolder>
     public salHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.sal_list_item, parent, false);
+                .inflate(R.layout.recycler_item_salary, parent, false);
         return new salHolder(itemView);
     }
 

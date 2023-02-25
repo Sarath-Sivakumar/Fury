@@ -13,21 +13,21 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:paddingTop="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginLeft="12dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:orientation="vertical"
+            android:paddingTop="12dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/expense_overview"
-                android:textSize="18sp"
                 android:layout_marginStart="6dp"
-                android:textColor="?attr/colorSecondaryVariant"
                 android:fontFamily="@font/raleway_bold"
-                android:paddingBottom="12dp" />
+                android:paddingBottom="12dp"
+                android:text="@string/expense_overview"
+                android:textColor="?attr/colorSecondaryVariant"
+                android:textSize="18sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -49,7 +49,7 @@
                         android:layout_width="125dp"
                         android:layout_height="125dp"
                         android:layout_margin="12dp"
-                        app:cardBackgroundColor="?attr/colorPrimaryVariant"
+                        app:cardBackgroundColor="@color/progress_inicator"
                         app:cardCornerRadius="150dp">
 
                         <FrameLayout
@@ -72,9 +72,9 @@
                                 android:id="@+id/mainText"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:fontFamily="@font/work_sans_semibold"
-                                android:textColor="?attr/colorSecondary"
                                 android:gravity="center"
+                                android:fontFamily="@font/secular_one"
+                                android:textColor="?attr/colorSecondaryVariant"
                                 android:textSize="28sp" />
                         </FrameLayout>
                     </androidx.cardview.widget.CardView>
@@ -108,7 +108,6 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
-                                    android:textColor="?attr/colorSecondaryContainer"
                                     android:fontFamily="@font/work_sans_semibold"
                                     android:textSize="21sp" />
                             </LinearLayout>
@@ -132,9 +131,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_marginTop="4dp"
-                                    android:gravity="start|center"
-                                    android:textColor="?attr/colorSecondaryContainer"
                                     android:fontFamily="@font/work_sans_semibold"
+                                    android:gravity="start|center"
                                     android:textSize="21sp" />
 
                             </LinearLayout>
@@ -171,10 +169,9 @@
                                         android:id="@+id/daily_avg"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:fontFamily="@font/work_sans_semibold"
                                         android:layout_gravity="center"
                                         android:layout_marginEnd="3dp"
-                                        android:textColor="?attr/colorSecondaryContainer"
+                                        android:fontFamily="@font/work_sans_semibold"
                                         android:textSize="20sp" />
 
                                     <ImageButton
@@ -183,10 +180,10 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
                                         android:background="@android:color/transparent"
-                                        android:src="@drawable/common_icon_infopaid"
-                                        android:visibility="gone"
                                         android:padding="6dp"
-                                        android:scaleType="centerCrop"/>
+                                        android:scaleType="centerCrop"
+                                        android:src="@drawable/common_icon_infopaid"
+                                        android:visibility="gone" />
                                 </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
@@ -198,12 +195,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:layout_marginTop="12dp"
                 android:layout_marginStart="6dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/raleway_bold"
                 android:paddingTop="12dp"
                 android:paddingBottom="6dp"
-                android:fontFamily="@font/raleway_bold"
-                android:textColor="?attr/colorSecondaryVariant"
                 android:text="@string/top_categories"
                 android:textSize="18sp" />
 
@@ -230,10 +226,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center"
-                    android:text="View All"
-                    android:textColor="?attr/colorPrimary"
                     android:fontFamily="@font/raleway_semibold"
-                    android:textAllCaps="false" />
+                    android:text="View All"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorPrimary" />
             </LinearLayout>
 
             <LinearLayout
@@ -251,13 +247,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@android:color/transparent"
                     android:divider="@null"
-                    android:padding="3dp"
                     android:isScrollContainer="true"
                     android:orientation="horizontal"
+                    android:padding="3dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/category_item" />
+                    tools:listitem="@layout/recycler_item_category" />
 
                 <View
                     android:layout_width="0.3dp"
@@ -278,6 +273,26 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="12dp"
                     android:background="@android:color/darker_gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_weight=".8"
+                    android:fontFamily="@font/raleway_bold"
+                    android:text="@string/learn_with_fury"
+                    android:textColor="?attr/colorOnSecondary"
+                    android:textSize="14sp" />
+
+
             </LinearLayout>
 
             <FrameLayout
@@ -311,11 +326,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center"
-                    android:layout_weight="1"
-                    android:text="@string/dues_overview"
                     android:layout_marginStart="6dp"
-                    android:textColor="?attr/colorSecondaryVariant"
+                    android:layout_weight="1"
                     android:fontFamily="@font/raleway_bold"
+                    android:text="@string/dues_overview"
+                    android:textColor="?attr/colorSecondaryVariant"
                     android:textSize="18sp" />
 
                 <Button
@@ -324,10 +339,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center"
-                    android:text="View All"
-                    android:textColor="?attr/colorPrimary"
                     android:fontFamily="@font/raleway_semibold"
-                    android:textAllCaps="false" />
+                    android:text="View All"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorPrimary" />
 
             </LinearLayout>
 
@@ -371,13 +386,14 @@
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:reverseLayout="true"
-                    tools:listitem="@layout/main_due_item" />
+                    tools:listitem="@layout/recycler_item_maindue" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.4dp"
                     android:layout_gravity="center"
                     android:background="@android:color/darker_gray" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -387,7 +403,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Ad" />
-<!--                        android:textColor="@color/theme_gold"-->
+                    <!--                        android:textColor="@color/theme_gold"-->
 
 
                     <View
@@ -395,15 +411,15 @@
                         android:layout_height="0.4dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="2dp"
-                        android:background="@android:color/darker_gray"/>
+                        android:background="@android:color/darker_gray" />
                 </LinearLayout>
 
                 <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/adView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="50dp"
                     android:minWidth="320dp"
+                    android:minHeight="50dp"
                     ads:adSize="BANNER"
                     ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
                 <!--Test ID ca-app-pub-3940256099942544/6300978111-->

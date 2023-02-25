@@ -31,9 +31,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
-            android:fontFamily="@font/work_sans_semibold"
+            android:fontFamily="@font/secular_one"
             android:gravity="center|end"
-            android:textColor="?attr/colorSecondaryContainer"
             android:singleLine="true"
             android:textSize="22sp" />
     </LinearLayout>

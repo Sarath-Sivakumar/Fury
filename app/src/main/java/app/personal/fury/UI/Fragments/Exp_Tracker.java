@@ -186,7 +186,7 @@ public class Exp_Tracker extends Fragment {
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
         if (layout == Constants.itemDelete) {
-            View view = inflater.inflate(R.layout.delete_exp_item, null);
+            View view = inflater.inflate(R.layout.popup_action_expdelete, null);
             popupWindow.setContentView(view);
             Button del = view.findViewById(R.id.del_yes);
             Button cancel = view.findViewById(R.id.del_no);
@@ -230,7 +230,7 @@ public class Exp_Tracker extends Fragment {
             });
 
         } else if (layout == Constants.itemAdd) {
-            View view = inflater.inflate(R.layout.add_exp_item, null);
+            View view = inflater.inflate(R.layout.add_item_exp, null);
             popupWindow.setContentView(view);
             Button cancel = view.findViewById(R.id.add_no);
             Button add = view.findViewById(R.id.add_yes);
@@ -370,7 +370,7 @@ public class Exp_Tracker extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_exp__tracker, container, false);
+        View v = inflater.inflate(R.layout.main_fragment_expensetracker, container, false);
         init(v);
         getBalance();
         getExp();
@@ -402,7 +402,7 @@ public class Exp_Tracker extends Fragment {
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
-        View view = inflater.inflate(R.layout.exp_detail_layout, null);
+        View view = inflater.inflate(R.layout.popup_details_expense, null);
         popupWindow.setContentView(view);
 
         ImageButton close = view.findViewById(R.id.close);

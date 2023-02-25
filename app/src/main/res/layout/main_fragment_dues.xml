@@ -72,7 +72,6 @@
                         android:layout_weight="0.3"
                         android:gravity="start"
                         android:padding="6dp"
-                        android:textColor="?attr/colorSecondaryContainer"
                         android:fontFamily="@font/work_sans_semibold"
                         android:textSize="26sp" />
 
@@ -85,7 +84,6 @@
                         android:layout_weight="0.3"
                         android:gravity="end"
                         android:padding="6dp"
-                        android:textColor="?attr/colorSecondaryContainer"
                         android:fontFamily="@font/work_sans_semibold"
                         android:textSize="26sp" />
                 </LinearLayout>
@@ -138,7 +136,7 @@
                 android:id="@+id/dueList"
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
-                tools:listitem="@layout/due_item1" />
+                tools:listitem="@layout/recycler_item_due" />
 
             </LinearLayout>
         </LinearLayout>

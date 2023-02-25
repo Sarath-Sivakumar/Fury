@@ -38,7 +38,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
     public catHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.category_item, parent, false);
+                .inflate(R.layout.recycler_item_category, parent, false);
         return new catHolder(itemView);
     }
 

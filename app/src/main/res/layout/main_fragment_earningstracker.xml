@@ -50,7 +50,6 @@
                     android:fontFamily="@font/work_sans_semibold"
                     android:gravity="center"
                     android:singleLine="true"
-                    android:textColor="?attr/colorSecondaryContainer"
                     android:textSize="26sp" />
 
             </LinearLayout>
@@ -278,7 +277,7 @@
                         android:id="@+id/salList"
                         android:layout_width="match_parent"
                         android:layout_height="350dp"
-                        tools:listitem="@layout/sal_list_item" />
+                        tools:listitem="@layout/recycler_item_salary" />
                 </LinearLayout>
 
                 <View
@@ -298,7 +297,7 @@
                         android:layout_marginBottom="12dp"
                         android:layout_weight=".8"
                         android:fontFamily="@font/raleway_bold"
-                        android:text="Fury learning corner"
+                        android:text="@string/learn_with_fury"
                         android:textColor="?attr/colorOnSecondary"
                         android:textSize="14sp" />
 

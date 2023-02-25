@@ -34,7 +34,7 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     public expHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.due_item1, parent, false);
+                .inflate(R.layout.recycler_item_due, parent, false);
         return new expHolder(itemView);
     }
 

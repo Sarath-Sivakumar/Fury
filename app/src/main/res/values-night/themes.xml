@@ -1,25 +1,47 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Fury" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.Fury" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color(Widgets Color) -->
-        <item name="colorPrimary">@color/theme_green</item>
+        <item name="colorPrimary">@color/app_theme_secondary</item>
         <item name="colorPrimaryVariant">@color/app_theme_secondary</item>
         <item name="colorOnPrimary">@color/full_white</item>
-        <item name="colorPrimaryContainer">@color/d1</item>
-        <item name="colorAccent">@color/h1_dark</item>
 
         <!-- Secondary brand color(Texts Colors)-->
         <item name="colorSecondary">@color/h1_light</item>
         <item name="colorSecondaryVariant">@color/h1_dark</item>
         <item name="colorOnSecondary">@color/h2_dark</item>
-        <item name="colorSecondaryContainer">@color/h2_light</item>
 
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/Status_bar</item>
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
         <item name="android:windowLightStatusBar">false</item>
 
         <!-- Customize your theme here. -->
         <item name="android:fontFamily">@font/raleway_semibold</item>
-
     </style>
+
+    <style name="textstyle1">
+    <item name="android:textColor">@color/h1_light</item>
+    <item name="fontFamily">@font/raleway_bold</item>
+    </style>
+
+    <style name="textstyle2">
+        <item name="android:textColor">@color/h3_light</item>
+        <item name="fontFamily">@font/raleway_semibold</item>
+    </style>
+
+    <style name="maintxttitle">
+        <item name="android:textColor">@color/h1_light</item>
+        <item name="fontFamily">@font/raleway_bold</item>
+    </style>
+
+    <style name="maintxtamount">
+        <item name="android:textColor">@color/h2_light</item>
+        <item name="fontFamily">@font/work_sans_semibold</item>
+    </style>
+
+    <style name="linkcolor">
+        <item name="android:textColor">@color/l3</item>
+        <item name="fontFamily">@font/raleway</item>
+    </style>
+
 </resources>

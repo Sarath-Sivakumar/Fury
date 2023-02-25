@@ -26,7 +26,7 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
     public expHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.exp_list_item, parent, false);
+                .inflate(R.layout.recycler_item_exp, parent, false);
         return new expHolder(itemView);
     }
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="@color/black">
+<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="?attr/colorSecondary">
     <item>
         <shape
             android:layout_height="match_parent"
             android:shape="rectangle">
-            <solid android:color="@color/theme_green" />
+            <solid android:color="@color/app_theme_secondary" />
             <stroke android:color="@color/white" android:width="1dp" />
             <corners android:radius="30dp"/>
         </shape>

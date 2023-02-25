@@ -79,7 +79,6 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="welcome_nback">Welcome\nBack</string>
-    <string name="create_naccount">Create\nAccount</string>
     <string name="name">Name</string>
     <string name="create_password">Create Password</string>
     <string name="confirm_password">Confirm Password</string>
@@ -135,6 +134,8 @@
     <string name="total">Total</string>
     <string name="count">Count</string>
     <string name="earnings_category">Earnings Category</string>
+    <string name="learn_with_fury">Learn with Fury</string>
+    <string name="expense_name">Expense Name</string>
 
 
 </resources>

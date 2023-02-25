@@ -76,7 +76,6 @@
                             android:id="@+id/cat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="?attr/colorSecondaryContainer"
                             android:textSize="18sp" />
                     </LinearLayout>
 
@@ -97,7 +96,6 @@
                             android:id="@+id/amt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="?attr/colorSecondaryContainer"
                             android:fontFamily="@font/work_sans_medium"
                             android:textSize="18sp" />
 
@@ -139,7 +137,6 @@
                         android:id="@+id/time"
                         android:fontFamily="@font/work_sans_medium"
                         android:layout_width="wrap_content"
-                        android:textColor="?attr/colorSecondaryContainer"
                         android:layout_height="wrap_content" />
                     </LinearLayout>
 
@@ -159,7 +156,6 @@
                         android:id="@+id/date"
                         android:fontFamily="@font/work_sans_medium"
                         android:layout_width="wrap_content"
-                        android:textColor="?attr/colorSecondaryContainer"
                         android:layout_height="wrap_content" />
 
                     </LinearLayout>
@@ -179,7 +175,6 @@
                         android:id="@+id/day"
                         android:fontFamily="@font/work_sans_medium"
                         android:layout_width="wrap_content"
-                        android:textColor="?attr/colorSecondaryContainer"
                         android:layout_height="wrap_content" />
                     </LinearLayout>
 

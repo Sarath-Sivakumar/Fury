@@ -32,7 +32,7 @@ public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
     public duesAdapter.dueHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.main_due_item, parent, false);
+                .inflate(R.layout.recycler_item_maindue, parent, false);
         return new dueHolder(itemView);
     }
 

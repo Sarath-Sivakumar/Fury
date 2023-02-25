@@ -56,7 +56,7 @@ public class fragment_main extends Fragment {
     private LinearLayout noDues;
     private int filter = 0;
     private ImageButton avgInfo;
-    private final int[] FragmentList = new int[]{R.drawable.info_appbanner};
+    private final int[] FragmentList = new int[]{R.drawable.infos1,R.drawable.infos2,R.drawable.infos3,R.drawable.infos4,R.drawable.infos5,R.drawable.infos6};
 
     public fragment_main() {
     }
@@ -82,6 +82,7 @@ public class fragment_main extends Fragment {
         infoGraphicsAdapter igAdapter = new infoGraphicsAdapter(requireContext(), FragmentList);
         ig_vp.setAdapter(igAdapter);
         ig_tl.setupWithViewPager(ig_vp, true);
+        Commons.timedSliderInit(ig_vp, FragmentList, 5);
 
         budgetView.setOnClickListener(v1 -> {
             if (budgetView.getText().toString().equals("Set a budget.")) {
@@ -128,7 +129,7 @@ public class fragment_main extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_main, container, false);
+        View v = inflater.inflate(R.layout.main_fragment_home, container, false);
         findView(v);
         getExp(filter);
         initViewModel();
@@ -237,7 +238,7 @@ public class fragment_main extends Fragment {
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
-        View view = inflater.inflate(R.layout.d_avg_popup, null);
+        View view = inflater.inflate(R.layout.popup_text_dailyavg, null);
         popupWindow.setContentView(view);
         popupWindow.setFocusable(true);
         //setting height in dp units-------------

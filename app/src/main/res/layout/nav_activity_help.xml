@@ -25,13 +25,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center|start"
-            android:text="@string/about_us"
+            android:text="@string/help_support"
             android:textColor="@color/actionbar_title"
             android:textSize="18sp" />
 
     </LinearLayout>
 
-    <include layout="@layout/about_options"
+    <include layout="@layout/nav_options_help"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

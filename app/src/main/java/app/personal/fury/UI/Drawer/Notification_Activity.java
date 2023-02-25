@@ -1,6 +1,5 @@
 package app.personal.fury.UI.Drawer;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -18,7 +17,7 @@ public class Notification_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notification);
+        setContentView(R.layout.nav_activity_notification);
         init();
     }
 

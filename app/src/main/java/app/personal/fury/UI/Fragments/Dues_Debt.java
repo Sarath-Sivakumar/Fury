@@ -64,7 +64,7 @@ public class Dues_Debt extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_dues__debt, container, false);
+        View v = inflater.inflate(R.layout.main_fragment_dues, container, false);
         find(v);
         initViewModel();
         return v;
@@ -89,7 +89,7 @@ public class Dues_Debt extends Fragment {
 
         assert inflater != null;
         if (Layout == Constants.itemAdd) {
-            View view = inflater.inflate(R.layout.add_due_item, null);
+            View view = inflater.inflate(R.layout.add_item_due, null);
             popupWindow.setContentView(view);
 
             Button add, cancel;
@@ -160,7 +160,7 @@ public class Dues_Debt extends Fragment {
 
         } else if (Layout == Constants.itemPaid) {
             Log.e("onSwipe", "called");
-            View view = inflater.inflate(R.layout.due_paid_popup, null);
+            View view = inflater.inflate(R.layout.popup_action_duepaid, null);
             popupWindow.setContentView(view);
 
             ImageView check = view.findViewById(R.id.check);

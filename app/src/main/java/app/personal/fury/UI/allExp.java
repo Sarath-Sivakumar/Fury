@@ -81,7 +81,7 @@ public class allExp extends AppCompatActivity {
         PopupWindow popupWindow = new PopupWindow(this);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
-        View view = inflater.inflate(R.layout.delete_exp_item, null);
+        View view = inflater.inflate(R.layout.popup_action_expdelete, null);
         popupWindow.setContentView(view);
         Button del = view.findViewById(R.id.del_yes);
         Button cancel = view.findViewById(R.id.del_no);
@@ -160,7 +160,7 @@ public class allExp extends AppCompatActivity {
         PopupWindow popupWindow = new PopupWindow(this);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
-        View view = inflater.inflate(R.layout.exp_detail_layout, null);
+        View view = inflater.inflate(R.layout.popup_details_expense, null);
         popupWindow.setContentView(view);
 
         ImageButton close = view.findViewById(R.id.close);

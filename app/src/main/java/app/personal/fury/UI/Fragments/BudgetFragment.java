@@ -73,7 +73,7 @@ public class BudgetFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_budget, container, false);
+        View v = inflater.inflate(R.layout.main_fragment_budget, container, false);
         findView(v);
         return v;
     }
@@ -172,7 +172,7 @@ public class BudgetFragment extends Fragment {
     private void callAddBudgetPopup() {
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.set_budget_popup, null);
+        View view = inflater.inflate(R.layout.budget_popup_create, null);
         popupWindow.setContentView(view);
 
         Button yes = view.findViewById(R.id.continue_btn);
@@ -198,7 +198,7 @@ public class BudgetFragment extends Fragment {
     private void callManualPopup() {
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.manual_budget_popup, null);
+        View view = inflater.inflate(R.layout.budget_popup_manual, null);
         popupWindow.setContentView(view);
 
         Button yes = view.findViewById(R.id.yes_btn);

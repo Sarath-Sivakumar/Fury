@@ -1,6 +1,7 @@
 package app.personal.fury.UI;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.common_icon_menu);
 
         NavigationView navView = findViewById(R.id.navView);
-        navView.inflateHeaderView(R.layout.nav_header);
+        navView.inflateHeaderView(R.layout.nav_main_header);
 
         View v = navView.getHeaderView(0);
 

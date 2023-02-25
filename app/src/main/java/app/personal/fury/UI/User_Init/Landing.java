@@ -15,7 +15,7 @@ public class Landing extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_landing);
+        setContentView(R.layout.init_activity_landing);
         init();
         getAllPermissions();
     }
