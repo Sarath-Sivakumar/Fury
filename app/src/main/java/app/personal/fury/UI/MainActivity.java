@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private static viewPager vp;
     private userInitViewModel uvm;
     private mainViewModel vm;
-    private LoggedInUserViewModel luvm;
+    private LoggedInUserViewModel userVM;
     private TabLayout tl;
     private DrawerLayout dl;
     private Toolbar tb;
@@ -85,9 +85,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void processSalary(@NonNull List<salaryEntity> salList) {
-        Log.e("Local Repository", "processSalary: size: " + salList.size());
         for (int i = 0; i <= salList.size() - 1; i++) {
-            Log.e("Local Repository", "processSalary: i: " + i);
             salaryEntity sal = salList.get(i);
 
             if (!sal.getCreationDate().equals(Commons.getDate())) {
@@ -96,9 +94,9 @@ public class MainActivity extends AppCompatActivity {
                 } else if (sal.getIncType() == Constants.daily) {
                     dailyCalculations(sal);
                 } else if (sal.getIncType() == Constants.oneTime) {
-                    Log.e("Local Repository", "processSalary: onTime");
+                    Log.e("Local Repository", "processSalary: oneTime");
                 } else {
-                    Log.e("Local Repository", "processSalary: " + sal.getIncType() + " well well! what might this be?!");
+                    Log.e("App", "processSalary: " + sal.getIncType() + " well well! what might this be?!");
                 }
             }
 
@@ -127,12 +125,12 @@ public class MainActivity extends AppCompatActivity {
                             sal.setCreationDate(Commons.getDate());
                             vm.UpdateSalary(sal);
                         } else {
-                            Log.e("Local Repository", "Huh?! Please stop! uwwu!");
+                            Log.e("App", "Huh?! Please stop! uwwu!");
                         }
                     }
                 }
             } else {
-                Log.e("Local Repository", "Dates are null good job!");
+                Log.e("App", "Dates are null good job!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -146,9 +144,9 @@ public class MainActivity extends AppCompatActivity {
         String[] splitCreationDate = creationDate.split("/");
         String[] splitCurrentDate = currentDate.split("/");
 
-        if (splitCurrentDate[2] == splitCreationDate[2]) {
+        if (Objects.equals(splitCurrentDate[2], splitCreationDate[2])) {
             //Will work for current year.
-            if (splitCurrentDate[0] == splitCreationDate[0] &&
+            if (Objects.equals(splitCurrentDate[0], splitCreationDate[0]) &&
                     Integer.parseInt(splitCurrentDate[1]) > Integer.parseInt(splitCreationDate[1])) {
                 int mode = sal.getSalMode();
                 if (mode == Constants.SAL_MODE_CASH) {
@@ -186,21 +184,21 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
         //init AD here..
         uvm = new ViewModelProvider(this).get(userInitViewModel.class);
-        luvm = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
+        userVM = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
         vm = new ViewModelProvider(this).get(mainViewModel.class);
         findView();
         initViewPager();
     }
 
     private void setUserViewModel(){
-        luvm.getIsLoggedOut().observe(this, Boolean->{
+        userVM.getIsLoggedOut().observe(this, Boolean->{
             if (Boolean){
                 startActivity(new Intent(this, Landing.class));
                 finish();
             }
         });
 
-        luvm.getUserData().observe(this, userEntity -> {
+        userVM.getUserData().observe(this, userEntity -> {
             if (userEntity!=null){
                 String uname = userEntity.getName();
                 String[] arr= uname.split(" ");
@@ -246,7 +244,6 @@ public class MainActivity extends AppCompatActivity {
         });
         return bal.get();
     }
-
     private void setNav(){
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
@@ -270,28 +267,23 @@ public class MainActivity extends AppCompatActivity {
         userName = (TextView) v.findViewById(R.id.profileName);
 
         navView.inflateMenu(R.menu.nav_menu);
+
         navView.setNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.notification:
-                    startActivity(new Intent(MainActivity.this, Notification_Activity.class));
-                    break;
-                case R.id.help:
-                    startActivity(new Intent(MainActivity.this, help_Activity.class));
-                    break;
-                case R.id.settings:
-                    startActivity(new Intent(MainActivity.this, Settings_Activity.class));
-                    break;
-                case R.id.about:
-                    startActivity(new Intent(MainActivity.this, About_Activity.class));
-                    break;
-                case R.id.logout:
-                    luvm.LogOut();
-                    finishAffinity();
-                    break;
-                default:
-                    Log.e("NavView", "Default");
-                    break;
+            if (item.getItemId()==R.id.notification){
+                startActivity(new Intent(MainActivity.this, Notification_Activity.class));
+            }else if (item.getItemId()==R.id.help){
+                startActivity(new Intent(MainActivity.this, help_Activity.class));
+            } else if (item.getItemId()==R.id.settings) {
+                startActivity(new Intent(MainActivity.this, Settings_Activity.class));
+            } else if (item.getItemId()==R.id.about) {
+                startActivity(new Intent(MainActivity.this, About_Activity.class));
+            } else if (item.getItemId()==R.id.logout) {
+                userVM.LogOut();
+                finishAffinity();
+            }else{
+                Log.e("App", "Daddy stop! Please aaaah!");
             }
+
             dl.closeDrawer(GravityCompat.START);
             return true;
         });
@@ -359,7 +351,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    @Override
+//    @Override //To be implemented later..//Todo
 //    public void onBackPressed() {
 //        super.onBackPressed();
 //        if (vp.getCurrentItem()!=0){
