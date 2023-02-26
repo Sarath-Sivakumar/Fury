@@ -23,6 +23,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import app.personal.MVVM.Entity.budgetEntity;
+import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 
@@ -268,5 +269,10 @@ public class Commons {
         bud.setBal(Commons.getValueByPercent(totalSalary, 80)-totalExp);
         vm.DeleteBudget();
         vm.InsertBudget(bud);
+    }
+
+    public static ArrayList<debtEntity> debtSorterProMax(ArrayList<debtEntity> debtList){
+        ListSortUtil sorter = new ListSortUtil(debtList);
+        return sorter.getSortedList();
     }
 }
