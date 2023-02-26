@@ -30,7 +30,6 @@
             android:layout_marginTop="70sp"
             android:fontFamily="@font/raleway_bold"
             android:text="Create\nAccount"
-            android:textColor="?attr/colorSecondary"
             android:textSize="22sp" />
     </LinearLayout>
 

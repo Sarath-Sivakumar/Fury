@@ -5,12 +5,13 @@
         <item name="colorPrimary">@color/theme_green</item>
         <item name="colorPrimaryVariant">@color/app_theme_secondary</item>
         <item name="colorOnPrimary">@color/full_white</item>
-            <item name="colorAccent">@color/h2_dark</item>
+        <item name="colorAccent">@color/h2_dark</item>
 
         <!-- Secondary brand color(Texts Colors)-->
-        <item name="colorSecondary">@color/h1_light</item>
-        <item name="colorSecondaryVariant">@color/h1_dark</item>
-        <item name="colorOnSecondary">@color/h2_dark</item>
+        <item name="colorSecondary">@color/theme_red</item>
+        <item name="colorSecondaryVariant">@color/l4</item>
+        <item name="colorOnSecondary">@color/full_white</item>
+
 
          <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimary</item>
@@ -31,6 +32,16 @@
         <item name="fontFamily">@font/raleway_semibold</item>
     </style>
 
+    <style name="textstylenumeric">
+        <item name="android:textColor">@color/h1_dark</item>
+        <item name="fontFamily">@font/work_sans_semibold</item>
+    </style>
+
+    <style name="textstylenumeric2">
+        <item name="android:textColor">@color/h1_dark</item>
+        <item name="fontFamily">@font/work_sans_medium</item>
+    </style>
+
     <style name="maintxttitle">
         <item name="android:textColor">@color/h1_light</item>
         <item name="fontFamily">@font/raleway_bold</item>
@@ -45,4 +56,20 @@
         <item name="android:textColor">@color/d3</item>
         <item name="fontFamily">@font/raleway</item>
     </style>
+
+    <style name="boxtext">
+        <item name="android:textColor">@color/theme_green</item>
+        <item name="fontFamily">@font/raleway_semibold</item>
+    </style>
+
+    <style name="overviewtxttitle">
+        <item name="android:textColor">@color/theme_green</item>
+        <item name="fontFamily">@font/raleway_semibold</item>
+    </style>
+
+    <style name="overviewtxtamt">
+        <item name="android:textColor">@color/l2</item>
+        <item name="fontFamily">@font/work_sans_semibold</item>
+    </style>
+
 </resources>

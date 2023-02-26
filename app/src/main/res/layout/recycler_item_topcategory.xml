@@ -1,8 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background_recyclersitems"
-    android:backgroundTint="?attr/colorSecondary"
+    android:backgroundTint="@color/l1"
     android:layout_margin="6dp"
     android:orientation="horizontal">
 
@@ -43,7 +44,7 @@
         android:gravity="center|end"
         android:padding="12dp"
         android:textSize="22sp"
-        android:textColor="@color/theme_green_dark"
+        android:textColor="@color/d4"
         android:fontFamily="@font/work_sans_semibold" />
 
 </LinearLayout>

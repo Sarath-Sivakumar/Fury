@@ -34,23 +34,39 @@
                 android:paddingRight="12dp">
 
                 <TextView
+                    style="@style/maintxttitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/raleway_bold"
                     android:gravity="center_horizontal"
                     android:paddingTop="9dp"
                     android:text="@string/total_earnings"
-                    android:textColor="?attr/colorSecondary"
                     android:textSize="18sp" />
 
                 <TextView
+                    style="@style/maintxtamount"
                     android:id="@+id/salAmt"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:fontFamily="@font/work_sans_semibold"
                     android:gravity="center"
                     android:singleLine="true"
                     android:textSize="26sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/textstyle2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Fury Monitor/Earnings"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
@@ -92,6 +108,7 @@
                                     android:layout_weight="1"
                                     android:padding="6dp"
                                     android:textSize="15sp"
+                                    android:fontFamily="@font/raleway_bold"
                                     android:text="@string/amount" />
 
                                 <View
@@ -103,6 +120,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="6dp"
+                                    android:fontFamily="@font/raleway_bold"
                                     android:textSize="15sp"
                                     android:text="@string/sources" />
                             </LinearLayout>
@@ -138,10 +156,6 @@
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight=".1" />
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="0dp"
@@ -169,6 +183,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:padding="6dp"
+                                    android:fontFamily="@font/raleway_bold"
                                     android:textSize="15sp"
                                     android:text="Amount" />
 
@@ -182,6 +197,7 @@
                                     android:layout_height="wrap_content"
                                     android:padding="6dp"
                                     android:textSize="15sp"
+                                    android:fontFamily="@font/raleway_bold"
                                     android:text="@string/sources" />
                             </LinearLayout>
 
@@ -219,9 +235,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
-                    android:backgroundTint="?attr/colorSecondary"
                     android:layout_marginStart="6dp"
                     android:layout_marginEnd="6dp"
+                    android:backgroundTint="@color/d1"
                     android:layout_marginBottom="6dp"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="6dp">
@@ -236,6 +252,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:textColor="@color/theme_green"
                             android:fontFamily="@font/raleway_bold"
                             android:text="@string/cash_earnings"
                             android:textSize="16sp" />
@@ -245,6 +262,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="end"
+                            android:textColor="@color/theme_green"
                             android:fontFamily="@font/raleway_bold"
                             android:text="@string/account_earnings"
                             android:textSize="16sp" />
@@ -260,15 +278,14 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/textstyle2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="12dp"
-                    android:fontFamily="@font/raleway_bold"
                     android:text="@string/earnings_category"
-                    android:textColor="?attr/colorSecondaryVariant"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -278,8 +295,8 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/salList"
                         android:layout_width="match_parent"
-                        android:layout_height="350dp"
-                        tools:listitem="@layout/recycler_item_salary" />
+                        android:layout_height="300dp"
+                        tools:listitem="@layout/recycler_item_earnings" />
                 </LinearLayout>
 
                 <View
@@ -292,15 +309,14 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        style="@style/textstyle2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="6dp"
                         android:layout_marginBottom="12dp"
                         android:layout_weight=".8"
-                        android:fontFamily="@font/raleway_bold"
                         android:text="@string/learn_with_fury"
-                        android:textColor="?attr/colorOnSecondary"
                         android:textSize="14sp" />
 
 
@@ -310,7 +326,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:background="@drawable/background_borderonly"
-                    android:backgroundTint="?attr/colorSecondary"
                     android:orientation="vertical">
 
                     <androidx.viewpager.widget.ViewPager

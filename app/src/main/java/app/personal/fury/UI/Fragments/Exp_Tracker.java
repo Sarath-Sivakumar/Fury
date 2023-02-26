@@ -101,7 +101,8 @@ public class Exp_Tracker extends Fragment {
                     if (!e.isEmpty()) {
                         dLimit.setText(Commons.getAvg(e, true));
                     }else{
-                        String s = "No data to process.";
+                        String s = "No data to process";
+                        dLimit.setTextSize(14);
                         dLimit.setText(s);
                     }
                     for (int i = 0; i < e.size(); i++) {

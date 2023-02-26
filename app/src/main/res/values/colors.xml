@@ -12,16 +12,21 @@
     <color name="theme_gold">#FFD700</color>
 
 <!--   Progress Indicator inside circle-->
-    <color name="progress_inicator">#EBE1E1</color>
+    <color name="progress_inicator">#dde9eb</color>
+    <color name="progress_track">#abd4c1</color>
+
 
 <!--    Darkshades-->
     <color name="d1">#434242</color>
     <color name="d2">#132238</color>
+    <color name="d4">#464d5c</color>
 
 <!--    Lightshades-->
     <color name="l1">#82C3EC</color>
-    <color name="l2">#ADDDD0</color>
+    <color name="l2">#abd4c1</color>
 
+<!--    pop_up_light-->
+    <color name="l4">#dbf1f2</color>
 
     <!--    Action & Status Bars-->
     <color name="Status_bar">#1E3749</color>
@@ -43,9 +48,6 @@
     <!--    link color(light&dark mode)-->
     <color name="d3">#301551</color>
     <color name="l3">#bcffa8</color>
-
-
-
 
     <!--    App theme-->
     <color name="app_theme_primary">#4DF0BF</color>

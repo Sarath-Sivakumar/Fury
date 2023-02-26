@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_popupshade"
-    android:padding="33dp">
+    android:padding="40dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,13 +13,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="51dp">
+            android:layout_marginTop="60dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_popup"
-                android:backgroundTint="?attr/colorOnPrimary"
                 android:orientation="vertical"
                 android:padding="24dp">
 
@@ -29,11 +28,11 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        style="@style/textstyle1"
                         android:id="@+id/title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
-                        android:fontFamily="@font/raleway_bold"
                         android:padding="12dp"
                         android:text="New expense"
                         android:textSize="24sp" />
@@ -52,18 +51,18 @@
                         android:fontFamily="@font/raleway_bold"
                         android:padding="12dp"
                         android:text="@string/cashTitle"
-                        android:textSize="15sp" />
+                        android:textSize="16sp" />
                     <TextView
                         android:id="@+id/cashAmt"
+                        android:fontFamily="@font/work_sans_semibold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/raleway_bold"
                         android:paddingEnd="12dp"
                         android:paddingTop="12dp"
                         android:paddingBottom="12dp"
                         android:paddingStart="0dp"
                         android:text="0"
-                        android:textSize="15sp" />
+                        android:textSize="16sp" />
 
                     <View
                         android:layout_width="0dp"
@@ -76,18 +75,18 @@
                         android:fontFamily="@font/raleway_bold"
                         android:padding="12dp"
                         android:text="@string/accountTitle"
-                        android:textSize="15sp" />
+                        android:textSize="16sp" />
                     <TextView
                         android:id="@+id/accAmt"
+                        android:fontFamily="@font/work_sans_semibold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/raleway_bold"
                         android:paddingEnd="12dp"
                         android:paddingTop="12dp"
                         android:paddingBottom="12dp"
                         android:paddingStart="0dp"
                         android:text="0"
-                        android:textSize="15sp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -98,6 +97,7 @@
 
                     <Spinner
                         android:id="@+id/expOptions"
+                        android:backgroundTint="@color/app_theme_secondary"
                         style="@android:style/Widget.Material.Spinner.Underlined"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -109,10 +109,10 @@
                         android:visibility="gone" />
 
                     <TextView
+                        android:textColor="@color/h1_light"
                         android:id="@+id/expTitle"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:fontFamily="@font/raleway_semibold"
                         android:gravity="start|center"
                         android:hint="@string/expense_name"
                         android:padding="12dp"
@@ -121,9 +121,9 @@
 
                 <EditText
                     android:id="@+id/salSrc"
+                    android:textColor="@color/h1_light"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
                     android:hint="@string/salary_source"
                     android:inputType="text"
                     android:padding="12dp"
@@ -133,9 +133,8 @@
                     android:id="@+id/expAmt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:fontFamily="@font/work_sans_medium"
                     android:hint="@string/amount"
+                    android:fontFamily="@font/work_sans_semibold"
                     android:inputType="number"
                     android:padding="12dp"
                     android:singleLine="true" />
@@ -144,7 +143,6 @@
                     android:id="@+id/salDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
                     android:hint="Salary Date"
                     android:inputType="date"
                     android:fontFamily="@font/work_sans_medium"
@@ -155,7 +153,9 @@
                     android:id="@+id/radioTitle2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="12dp"
+                    android:paddingStart="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
                     android:text="@string/credit_mode" />
 
                 <RadioGroup
@@ -163,7 +163,7 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="12dp">
+                    android:paddingStart="6dp">
 
                     <RadioButton
                         android:id="@+id/inHand"
@@ -188,15 +188,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="12dp"
+                    android:paddingStart="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
                     android:text="@string/select_pay_period" />
 
 
                     <RadioGroup
+                        style="@style/textstyle2"
                         android:id="@+id/RadioGroup"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="12dp">
+                        android:paddingStart="6dp">
 
                             <RadioButton
                                 android:id="@+id/hourly"
@@ -238,28 +242,32 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/add_yes"
                         style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/button_login"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_margin="4dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_borderonly"
                         android:fontFamily="@font/raleway_bold"
                         android:text="Add"
                         android:textAllCaps="false" />
 
                     <Button
-                        android:id="@+id/add_no"
                         style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:id="@+id/add_no"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_margin="4dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_borderonly"
                         android:fontFamily="@font/raleway_bold"
-                        android:layout_marginTop="5dp"
                         android:text="Cancel"
-                        android:background="@drawable/button_signup"
                         android:textAllCaps="false" />
+
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

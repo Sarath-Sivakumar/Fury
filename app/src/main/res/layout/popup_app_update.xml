@@ -31,7 +31,6 @@
                 android:padding="12dp"
                 android:gravity="center"
                 android:text="@string/update_your_app"
-                android:textColor="?attr/colorSecondaryVariant"
                 android:fontFamily="@font/raleway_bold"
                 android:textSize="24sp" />
 
@@ -44,7 +43,6 @@
             android:text="@string/to_enjoy_our_latest_features_nplease_update_the_app"
             android:textSize="16dp"
             android:gravity="center"
-            android:textColor="?attr/colorSecondaryVariant"
             android:layout_marginBottom="15dp"
             android:padding="12dp" />
 

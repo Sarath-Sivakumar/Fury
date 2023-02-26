@@ -19,7 +19,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_popup"
-                android:backgroundTint="?attr/colorOnPrimary"
                 android:orientation="vertical"
                 android:padding="24dp">
 
@@ -88,9 +87,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/raleway_bold"
+                        android:background="@drawable/background_borderonly"
                         android:layout_marginTop="10dp"
-                        android:textColor="?attr/colorPrimary"
-                        android:background="@android:color/transparent"
                         android:text="Cancel"
                         android:textAllCaps="false" />
 

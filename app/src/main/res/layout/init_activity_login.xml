@@ -31,7 +31,6 @@
             android:layout_marginTop="70sp"
             android:fontFamily="@font/raleway_bold"
             android:text="@string/welcome_nback"
-            android:textColor="?attr/colorSecondary"
             android:textSize="22sp" />
     </LinearLayout>
 

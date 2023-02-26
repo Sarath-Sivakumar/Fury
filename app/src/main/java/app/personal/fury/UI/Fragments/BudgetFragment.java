@@ -130,8 +130,9 @@ public class BudgetFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }else{
                 try {
-                    String s = "No data to process.";
+                    String s = "No data to process";
                     CurrentDailylimit.setText(s);
+                    CurrentDailylimit.setTextSize(14);
                     String s1 = Constants.RUPEE + total;
                     Expense.setText(s1);
                 }catch (Exception ignored){}

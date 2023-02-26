@@ -44,6 +44,7 @@
                 </LinearLayout>
 
                 <TextView
+                    style="@style/textstyle2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="12dp"
@@ -57,16 +58,17 @@
 
                     <Button
                         android:id="@+id/del_yes"
-                        style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:text="@string/ok"
+                        android:layout_weight=".5"
                         android:textAllCaps="false" />
 
                     <Button
                         android:id="@+id/del_no"
                         style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
                         android:layout_height="match_parent"
                         android:text="@string/cancel"
                         android:textAllCaps="false" />

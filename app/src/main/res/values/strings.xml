@@ -133,11 +133,11 @@
     <string name="account_expenses">Account Expenses</string>
     <string name="total">Total</string>
     <string name="count">Count</string>
-    <string name="earnings_category">Earnings Category</string>
+    <string name="earnings_category">Earnings History</string>
     <string name="learn_with_fury">Learn with Fury</string>
     <string name="expense_name">Expense Name</string>
-    <string name="cashTitle">Cash:</string>
-    <string name="accountTitle">Bank:</string>
+    <string name="cashTitle">Cash</string>
+    <string name="accountTitle">Bank</string>
 
 
 </resources>

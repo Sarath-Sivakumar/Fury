@@ -32,7 +32,6 @@
                     android:gravity="center"
                     android:text="Rent"
                     android:layout_marginTop="10dp"
-                    android:textColor="?attr/colorSecondaryVariant"
                     android:fontFamily="@font/raleway_bold"
                     android:textSize="18sp" />
 

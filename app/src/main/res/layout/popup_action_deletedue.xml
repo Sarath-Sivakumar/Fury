@@ -48,7 +48,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="12dp"
-                    android:textColor="?attr/colorSecondaryContainer"
                     android:text="@string/this_will_set_your_payment_status_to_paid" />
 
                 <LinearLayout
@@ -60,15 +59,21 @@
                     <Button
                         android:id="@+id/due_yes"
                         style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_margin="4dp"
                         android:layout_height="match_parent"
+                        android:background="@drawable/background_borderonly"
                         android:text="Yes"
                         android:textAllCaps="false" />
 
                     <Button
                         android:id="@+id/due_no"
+                        android:background="@drawable/background_borderonly"
                         style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_margin="4dp"
                         android:layout_height="match_parent"
                         android:text="No"
                         android:textAllCaps="false" />

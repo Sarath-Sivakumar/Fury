@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         android:text="@string/dailyavgnotsetpop"
         android:gravity="center"
-        android:textColor="?attr/colorSecondaryVariant"
         android:textSize="10sp"/>
 
 <!-- Your daily average should start showing within (TIME_PERIOD) day(s). -->

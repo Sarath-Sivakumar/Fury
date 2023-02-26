@@ -40,37 +40,53 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        style="@style/maintxttitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:paddingTop="6dp"
-                        android:fontFamily="@font/raleway_bold"
-                        android:textColor="?attr/colorSecondary"
                         android:text="@string/my_budget"
                         android:textSize="18sp" />
 
                 </LinearLayout>
 
                 <TextView
+                    style="@style/maintxtamount"
                     android:id="@+id/bgtAmt"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginBottom="5dp"
                     android:fontFamily="@font/work_sans_semibold"
                     android:gravity="center"
                     android:singleLine="true"
                     android:textSize="26sp" />
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <TextView
+                    style="@style/textstyle2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Fury Monitor/Budget"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="6dp"
                 android:layout_marginEnd="6dp"
+                android:backgroundTint="@color/d2"
                 android:background="@drawable/background_borderonly"
                 android:orientation="vertical" >
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -88,20 +104,21 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="14dp"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="6dp"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/raleway_bold"
                             android:text="@string/current_balance"
-                            android:textSize="12sp" />
+                            android:textColor="@color/l1"
+                            android:textSize="14sp" />
 
                         <TextView
+                            style="@style/maintxtamount"
                             android:id="@+id/B_Balance"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginStart="14dp"
                             android:layout_marginEnd="22dp"
                             android:layout_marginBottom="10dp"
-                            android:fontFamily="@font/work_sans_semibold"
                             android:textSize="18sp" />
 
                     </LinearLayout>
@@ -117,15 +134,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="top"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="6dp"
                             android:layout_marginEnd="12dp"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/raleway_bold"
                             android:gravity="end"
+                            android:textColor="@color/l1"
                             android:text="@string/total_expense"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
 
                         <TextView
+                            style="@style/maintxtamount"
                             android:id="@+id/T_exp"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -133,7 +152,6 @@
                             android:gravity="end"
                             android:layout_marginEnd="12dp"
                             android:layout_marginBottom="10dp"
-                            android:fontFamily="@font/work_sans_semibold"
                             android:textSize="18sp" />
 
                     </LinearLayout>
@@ -142,7 +160,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:baselineAligned="false"
                     android:orientation="horizontal">
 
@@ -159,10 +176,12 @@
                             android:layout_marginTop="12dp"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/raleway_bold"
+                            android:textColor="@color/l1"
                             android:text="Ideal daily Limit"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
 
                         <TextView
+                            style="@style/maintxtamount"
                             android:id="@+id/ID_avg"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -170,7 +189,6 @@
                             android:layout_marginEnd="22dp"
                             android:text="₹0"
                             android:layout_marginBottom="10dp"
-                            android:fontFamily="@font/work_sans_semibold"
                             android:textSize="18sp" />
 
                     </LinearLayout>
@@ -191,10 +209,12 @@
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/raleway_bold"
                             android:gravity="end"
-                            android:text="Current daily Limit"
-                            android:textSize="12sp" />
+                            android:textColor="@color/l1"
+                            android:text="Current Average"
+                            android:textSize="14sp" />
 
                         <TextView
+                            style="@style/maintxtamount"
                             android:id="@+id/C_avg"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -203,32 +223,56 @@
                             android:layout_marginEnd="12dp"
                             android:layout_marginBottom="10dp"
                             android:text="₹0"
-                            android:fontFamily="@font/work_sans_semibold"
                             android:textSize="18sp" />
 
                     </LinearLayout>
                 </LinearLayout>
-
             </LinearLayout>
 
-            <TextView
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
-                android:fontFamily="@font/raleway_semibold"
-                android:gravity="center"
-                android:text="@string/top_categories"
-                android:textSize="18sp" />
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/textstyle2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:gravity="center"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Top expense categories"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/top_exp"
                 android:layout_width="match_parent"
                 android:layout_height="248dp"
-                android:layout_margin="6dp"
                 android:background="@drawable/background_borderonly"
                 tools:listitem="@layout/recycler_item_topcategory" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ad" />
+                <!--                        android:textColor="@color/theme_gold"-->
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.4dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="2dp"
+                    android:background="@android:color/darker_gray" />
+            </LinearLayout>
 
             <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/adView2"
@@ -236,18 +280,9 @@
                 android:layout_height="wrap_content"
                 android:minHeight="50dp"
                 android:minWidth="320dp"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
                 android:layout_marginTop="12dp"
                 ads:adSize="BANNER"
                 ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
-            <!--            Test ID ca-app-pub-3940256099942544/6300978111-->
-
-            <!--            <ImageView-->
-            <!--                android:layout_margin="6sp"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="350dp"-->
-            <!--                android:src="@drawable/info_1"/>-->
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -285,6 +320,5 @@
         android:layout_margin="12dp"
         android:contentDescription="@null"
         android:src="@drawable/common_icon_edit"
-        app:backgroundTint="@color/theme_green"
         tools:ignore="SpeakableTextPresentCheck" />
 </FrameLayout>

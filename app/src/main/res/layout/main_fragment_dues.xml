@@ -33,18 +33,18 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        style="@style/maintxttitle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginStart="12dp"
-                        android:layout_weight="0.3"
+                        android:layout_weight="0.7"
                         android:gravity="start"
                         android:padding="6dp"
                         android:text="Total Amount"
-                        android:textColor="?attr/colorSecondary"
-                        android:fontFamily="@font/raleway_bold"
                         android:textSize="16sp" />
 
                     <TextView
+                        style="@style/maintxttitle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="12dp"
@@ -52,8 +52,6 @@
                         android:gravity="end"
                         android:padding="6dp"
                         android:text="Due Count"
-                        android:textColor="?attr/colorSecondary"
-                        android:fontFamily="@font/raleway_bold"
                         android:textSize="16sp" />
 
 
@@ -65,18 +63,19 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        style="@style/maintxtamount"
                         android:id="@+id/dueTotalText"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginStart="12dp"
-                        android:layout_weight="0.3"
+                        android:layout_weight="0.7"
                         android:gravity="start"
                         android:padding="6dp"
-                        android:fontFamily="@font/work_sans_semibold"
                         android:textSize="26sp" />
 
 
                     <TextView
+                        style="@style/maintxtamount"
                         android:id="@+id/dueTotalNo"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -84,7 +83,6 @@
                         android:layout_weight="0.3"
                         android:gravity="end"
                         android:padding="6dp"
-                        android:fontFamily="@font/work_sans_semibold"
                         android:textSize="26sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -116,15 +114,22 @@
 
             </LinearLayout>
 
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/raleway_semibold"
-                android:text="Upcoming Dues"
-                android:textSize="18sp" />
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/textstyle2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:gravity="start"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Upcoming Dues"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

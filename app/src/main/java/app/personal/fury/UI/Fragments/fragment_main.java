@@ -3,6 +3,7 @@ package app.personal.fury.UI.Fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -262,15 +263,15 @@ public class fragment_main extends Fragment {
                 e.printStackTrace();
             }
 
-            if (dAvg.getText().equals(Constants.dAvgNoData)) {
-                avgInfo.setVisibility(View.VISIBLE);
-                avgInfo.setOnClickListener(v -> dAvgPopup());
-                TypedValue typedValue = new TypedValue();
-                Resources.Theme theme = requireActivity().getTheme();
-                theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true);
-//                @ColorInt int colorGreen = typedValue.data;
-                dAvg.setTextColor(typedValue.data);
-            }
+//            if (dAvg.getText().equals(Constants.dAvgNoData)) {
+//                avgInfo.setVisibility(View.VISIBLE);
+//                avgInfo.setOnClickListener(v -> dAvgPopup());
+//                TypedValue typedValue = new TypedValue();
+//                Resources.Theme theme = requireActivity().getTheme();
+//                theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true);
+////                @ColorInt int colorGreen = typedValue.data;
+//                dAvg.setTextColor(typedValue.data);
+//            }
 
 //            Call after setting budget
 //            dAvg.setText(Commons.getDailyAvg(7000));
