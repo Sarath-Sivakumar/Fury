@@ -35,7 +35,6 @@ import app.personal.Utls.Constants;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.budgetList.budgetAdapter;
 import app.personal.fury.ViewPagerAdapter.infoGraphicsAdapter;
-
 public class BudgetFragment extends Fragment {
 
     private FloatingActionButton addBudget;

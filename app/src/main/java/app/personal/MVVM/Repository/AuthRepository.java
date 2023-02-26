@@ -57,6 +57,10 @@ public class AuthRepository{
                 });
     }
 
+    private void putDp(){
+
+    }
+
     public void insertUserData(userEntity userData){
         userLiveData.postValue(firebaseAuth.getCurrentUser());
         HashMap<String, Object> map = new HashMap<>();

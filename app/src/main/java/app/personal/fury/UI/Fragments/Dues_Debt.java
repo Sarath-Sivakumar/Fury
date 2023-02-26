@@ -1,7 +1,5 @@
 package app.personal.fury.UI.Fragments;
 
-import static java.lang.Thread.sleep;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
@@ -42,7 +40,6 @@ import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.dueList.dueAdapter;
-import app.personal.fury.UI.MainActivity;
 
 public class Dues_Debt extends Fragment {
 
