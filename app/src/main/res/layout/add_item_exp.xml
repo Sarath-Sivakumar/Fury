@@ -13,12 +13,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/background_popup"
             android:layout_marginTop="60dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_popup"
+
                 android:orientation="vertical"
                 android:padding="24dp">
 

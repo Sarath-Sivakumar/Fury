@@ -64,7 +64,7 @@ public class fragment_main extends Fragment {
     private ImageButton avgInfo;
     private final ArrayList<debtEntity> debtList = new ArrayList<>();
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-    private final int[] FragmentList = new int[]{R.drawable.info_appbanner};
+    private final int[] FragmentList = new int[]{R.drawable.infos1,R.drawable.infos2,R.drawable.infos3,R.drawable.infos4,R.drawable.infos5,R.drawable.infos6};
     private boolean isView = true;
 
     public fragment_main() {

@@ -74,28 +74,32 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/due_add"
                         style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Add"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_margin="4dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_borderonly"
                         android:fontFamily="@font/raleway_bold"
-                        android:background="@drawable/button_login"
+                        android:text="Add"
                         android:textAllCaps="false" />
 
                     <Button
-                        android:id="@+id/due_c"
                         style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:id="@+id/due_c"
+                        android:layout_width="0dp"
+                        android:layout_weight=".5"
+                        android:layout_margin="4dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_borderonly"
                         android:fontFamily="@font/raleway_bold"
-                        android:layout_marginTop="5dp"
                         android:text="Cancel"
-                        android:background="@drawable/button_signup"
                         android:textAllCaps="false" />
 
                 </LinearLayout>

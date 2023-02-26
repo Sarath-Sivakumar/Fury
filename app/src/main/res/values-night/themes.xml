@@ -69,4 +69,5 @@
         <item name="android:textColor">@color/theme_green</item>
         <item name="fontFamily">@font/raleway_semibold</item>
     </style>
+
 </resources>
