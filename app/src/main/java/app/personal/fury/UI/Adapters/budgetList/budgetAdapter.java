@@ -22,7 +22,8 @@ public class budgetAdapter extends RecyclerView.Adapter<budgetAdapter.topCatHold
     private final List<expEntity> food = new ArrayList<>(), travel = new ArrayList<>(),
             rent = new ArrayList<>(), gas = new ArrayList<>(), groceries = new ArrayList<>(),
             electricity = new ArrayList<>(), recharge = new ArrayList<>(), fees = new ArrayList<>(),
-            subscriptions = new ArrayList<>(), health = new ArrayList<>(), bills = new ArrayList<>();
+            subscriptions = new ArrayList<>(), health = new ArrayList<>(), bills = new ArrayList<>(),
+            others = new ArrayList<>();
 
     @NonNull
     @Override
@@ -40,39 +41,42 @@ public class budgetAdapter extends RecyclerView.Adapter<budgetAdapter.topCatHold
         holder.amt.setText(DisplayAmt);
         holder.name.setText(currentExp.getExpenseName());
 
-        switch (currentExp.getExpenseName()) {
-            case "Food":
+        switch(currentExp.getExpenseName()){
+            case Constants.Food:
                 holder.ico.setImageResource(R.drawable.cat_icon_food);
                 break;
-            case "Travel":
+            case Constants.Travel:
                 holder.ico.setImageResource(R.drawable.cat_icon_travel);
                 break;
-            case "Rent":
+            case Constants.Rent:
                 holder.ico.setImageResource(R.drawable.cat_icon_rent);
                 break;
-            case "Gas":
+            case Constants.Gas:
                 holder.ico.setImageResource(R.drawable.cat_icon_gas);
                 break;
-            case "Groceries":
+            case Constants.Groceries:
                 holder.ico.setImageResource(R.drawable.cat_icon_grocery);
                 break;
-            case "Electricity":
+            case Constants.Electricity:
                 holder.ico.setImageResource(R.drawable.cat_icon_electricity);
                 break;
-            case "Recharge":
+            case Constants.Recharge:
                 holder.ico.setImageResource(R.drawable.cat_icon_recharge);
                 break;
-            case "Fees":
+            case Constants.Fees:
                 holder.ico.setImageResource(R.drawable.cat_icon_fees);
                 break;
-            case "Subscriptions":
+            case Constants.Subscriptions:
                 holder.ico.setImageResource(R.drawable.cat_icon_subscription);
                 break;
-            case "Health Care":
+            case Constants.Health_Care:
                 holder.ico.setImageResource(R.drawable.cat_icon_health);
                 break;
-            case "Bills":
+            case Constants.Bills:
                 holder.ico.setImageResource(R.drawable.cat_icon_bill);
+                break;
+            case Constants.OTHERS:
+                holder.ico.setImageResource(R.drawable.nav_icon_settings);
                 break;
             default:
                 break;
@@ -98,44 +102,48 @@ public class budgetAdapter extends RecyclerView.Adapter<budgetAdapter.topCatHold
         subscriptions.clear();
         health.clear();
         bills.clear();
+        others.clear();
         notifyDataSetChanged();
     }
 
     public void setExp(List<expEntity> allExp) {
         for (int i = 0; i < allExp.size(); i++) {
             switch (allExp.get(i).getExpenseName()){
-                case "Food":
+                case Constants.Food:
                     food.add(allExp.get(i));
                     break;
-                case "Travel":
+                case Constants.Travel:
                     travel.add(allExp.get(i));
                     break;
-                case "Rent":
+                case Constants.Rent:
                     rent.add(allExp.get(i));
                     break;
-                case "Gas":
+                case Constants.Gas:
                     gas.add(allExp.get(i));
                     break;
-                case "Groceries":
+                case Constants.Groceries:
                     groceries.add(allExp.get(i));
                     break;
-                case "Electricity":
+                case Constants.Electricity:
                     electricity.add(allExp.get(i));
                     break;
-                case "Recharge":
+                case Constants.Recharge:
                     recharge.add(allExp.get(i));
                     break;
-                case "Fees":
+                case Constants.Fees:
                     fees.add(allExp.get(i));
                     break;
-                case "Subscriptions":
+                case Constants.Subscriptions:
                     subscriptions.add(allExp.get(i));
                     break;
-                case "Health Care":
+                case Constants.Health_Care:
                     health.add(allExp.get(i));
                     break;
-                case "Bills":
+                case Constants.Bills:
                     bills.add(allExp.get(i));
+                    break;
+                case Constants.OTHERS:
+                    others.add(allExp.get(i));
                     break;
                 default:
                     break;
@@ -184,6 +192,10 @@ public class budgetAdapter extends RecyclerView.Adapter<budgetAdapter.topCatHold
         if (!bills.isEmpty()) {
             expEntity Bills = compressor(bills);
             allCategory.add(Bills);
+        }
+        if (!others.isEmpty()) {
+            expEntity other = compressor(others);
+            allCategory.add(other);
         }
 
         List<expEntity> expEntityList = allCategory;

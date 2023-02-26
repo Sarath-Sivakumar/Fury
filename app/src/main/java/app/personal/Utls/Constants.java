@@ -35,6 +35,7 @@ public class Constants {
             Health_Care = "Health Care",
             Groceries = "Groceries",
             Bills = "Bills",
+            OTHERS = "Others",
 //    Firebase------------------------------------
             DEFAULT_DP = "Default_DP",
             Users = "USERS",
@@ -54,9 +55,13 @@ public class Constants {
             daily = 1,
             hourly = -1,
 //    ---------------------------------------------------
-            TOP_CAT_DISPLAY_LIMIT = 11,
+            TOP_CAT_DISPLAY_LIMIT = 12,
             SAL_MODE_CASH = 0,
-            SAL_MODE_ACC = 1;
+            SAL_MODE_ACC = 1,
     //Firebase-------------------------------------------------------
+//    ---------------------------------------------------------------
+//    DueWarning-----------------------------------------
+            SHOW_WARNING_BY_IN_APP = 4,
+            SHOW_WARNING_BY_PUSH_NOTIFICATIONS = 7;
     public static final String DB_INSTANCE = "https://fury-d3622-default-rtdb.asia-southeast1.firebasedatabase.app";
 }

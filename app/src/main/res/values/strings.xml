@@ -13,7 +13,7 @@
     <string name="budget">Budget</string>
     <string name="expense_overview">Expense Overview</string>
     <string name="back">Back</string>
-    <string name="version">V1.0.0</string>
+    <string name="version">THIS IS A TEST BUILD V 74.1.0</string>
     <string name="login_frm_signup">Already have account? <u>login</u></string>
 
     <string name="navigation_drawer_open">Open</string>
@@ -39,6 +39,7 @@
         <item>Subscriptions</item>
         <item>Health Care</item>
         <item>Bills</item>
+        <item>Others</item>
 
     </string-array>
 

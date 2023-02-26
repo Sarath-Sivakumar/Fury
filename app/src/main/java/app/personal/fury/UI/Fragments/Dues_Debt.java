@@ -1,7 +1,5 @@
 package app.personal.fury.UI.Fragments;
 
-import static java.lang.Thread.sleep;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;

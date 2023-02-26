@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@drawable/background_popupshade"
     android:layout_height="match_parent"
+    android:background="@drawable/background_popupshade"
     android:gravity="center"
+    android:orientation="vertical"
     android:padding="30dp">
-
+<!--Button for date extension future update-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             android:gravity="center"
             android:padding="12dp"
             android:text="Your due of (DUE_NAME) is nearing its pay date.."
-            android:textSize="24sp"/>
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/nameAndDate"
@@ -37,7 +37,7 @@
             android:gravity="center"
             android:padding="12dp"
             android:text="(DUE_NAME) | (DUE_DATE)"
-            android:textSize="15sp"/>
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/amt"
@@ -46,7 +46,7 @@
             android:gravity="center"
             android:padding="18dp"
             android:text="(DUE_AMT)"
-            android:textSize="21sp"/>
+            android:textSize="21sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -54,16 +54,16 @@
             android:gravity="center"
             android:padding="12dp"
             android:text="Have you completed that payment?"
-            android:textSize="24sp"/>
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/yes_btn"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:background="@drawable/background_borderonly"
             android:fontFamily="@font/raleway_bold"
-            android:layout_marginTop="3dp"
             android:text="Yes"
             android:textAllCaps="false" />
 
@@ -72,10 +72,10 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColor="?attr/colorPrimary"
             android:fontFamily="@font/raleway_bold"
             android:text="No"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:textColor="?attr/colorPrimary" />
 
     </LinearLayout>
 </LinearLayout>
