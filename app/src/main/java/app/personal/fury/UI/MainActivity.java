@@ -1,16 +1,11 @@
 package app.personal.fury.UI;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,7 +29,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import app.personal.MVVM.Entity.balanceEntity;
-import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Entity.inHandBalEntity;
 import app.personal.MVVM.Entity.salaryEntity;
 import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
@@ -61,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private static viewPager vp;
     private userInitViewModel uvm;
     private mainViewModel vm;
-    private LoggedInUserViewModel luvm;
+    private LoggedInUserViewModel userVM;
     private TabLayout tl;
     private DrawerLayout dl;
     private Toolbar tb;
@@ -91,9 +85,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void processSalary(@NonNull List<salaryEntity> salList) {
-        Log.e("Local Repository", "processSalary: size: " + salList.size());
         for (int i = 0; i <= salList.size() - 1; i++) {
-            Log.e("Local Repository", "processSalary: i: " + i);
             salaryEntity sal = salList.get(i);
 
             if (!sal.getCreationDate().equals(Commons.getDate())) {
@@ -102,9 +94,9 @@ public class MainActivity extends AppCompatActivity {
                 } else if (sal.getIncType() == Constants.daily) {
                     dailyCalculations(sal);
                 } else if (sal.getIncType() == Constants.oneTime) {
-                    Log.e("Local Repository", "processSalary: onTime");
+                    Log.e("Local Repository", "processSalary: oneTime");
                 } else {
-                    Log.e("Local Repository", "processSalary: " + sal.getIncType() + " well well! what might this be?!");
+                    Log.e("App", "processSalary: " + sal.getIncType() + " well well! what might this be?!");
                 }
             }
 
@@ -118,35 +110,27 @@ public class MainActivity extends AppCompatActivity {
             if (dateBefore != null && dateAfter != null) {
                 long timeDiff = Math.abs(dateAfter.getTime() - dateBefore.getTime());
                 long daysDiff = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
-                Log.e("Local Repository", "processSalary: daysDiff: " + daysDiff);
                 for (int i = 0; i <= daysDiff; i++) {
-                    Log.e("Local Repository", "inside processSalary: daysDiff: " + i);
-                    Log.e("Local Repository", "inside processSalary: sal mode: " + sal.getSalMode());
-                    Log.e("Local Repository", "inside processSalary: salary: " + sal.getSalary());
                     if (!sal.getCreationDate().equals(Commons.getDate())) {
                         if (sal.getSalMode() == Constants.SAL_MODE_CASH) {
                             int inHandBal = getInHandBal();
-                            Log.e("Local Repository", "inside processSalary: inHand before: " + inHandBal);
                             vm.DeleteInHandBalance();
                             vm.InsertInHandBalance(new inHandBalEntity(inHandBal + sal.getSalary()));
-                            Log.e("Local Repository", "inside processSalary: inHand after: " + getInHandBal());
                             sal.setCreationDate(Commons.getDate());
                             vm.UpdateSalary(sal);
                         } else if (sal.getSalMode() == Constants.SAL_MODE_ACC) {
                             int bal = getBal();
-                            Log.e("Local Repository", "inside processSalary: acc before: " + bal);
                             vm.DeleteBalance();
                             vm.InsertBalance(new balanceEntity(bal + sal.getSalary()));
-                            Log.e("Local Repository", "inside processSalary: acc after: " + getBal());
                             sal.setCreationDate(Commons.getDate());
                             vm.UpdateSalary(sal);
                         } else {
-                            Log.e("Local Repository", "Huh?!");
+                            Log.e("App", "Huh?! Please stop! uwwu!");
                         }
                     }
                 }
             } else {
-                Log.e("Local Repository", "Dates are null good job!");
+                Log.e("App", "Dates are null good job!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -160,9 +144,9 @@ public class MainActivity extends AppCompatActivity {
         String[] splitCreationDate = creationDate.split("/");
         String[] splitCurrentDate = currentDate.split("/");
 
-        if (splitCurrentDate[2] == splitCreationDate[2]) {
+        if (Objects.equals(splitCurrentDate[2], splitCreationDate[2])) {
             //Will work for current year.
-            if (splitCurrentDate[0] == splitCreationDate[0] &&
+            if (Objects.equals(splitCurrentDate[0], splitCreationDate[0]) &&
                     Integer.parseInt(splitCurrentDate[1]) > Integer.parseInt(splitCreationDate[1])) {
                 int mode = sal.getSalMode();
                 if (mode == Constants.SAL_MODE_CASH) {
@@ -200,30 +184,26 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
         //init AD here..
         uvm = new ViewModelProvider(this).get(userInitViewModel.class);
-        luvm = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
+        userVM = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
         vm = new ViewModelProvider(this).get(mainViewModel.class);
         findView();
         initViewPager();
     }
 
     private void setUserViewModel(){
-        luvm.getIsLoggedOut().observe(this, Boolean->{
+        userVM.getIsLoggedOut().observe(this, Boolean->{
             if (Boolean){
                 startActivity(new Intent(this, Landing.class));
                 finish();
             }
         });
 
-        luvm.getUserData().observe(this, userEntity -> {
+        userVM.getUserData().observe(this, userEntity -> {
             if (userEntity!=null){
                 String uname = userEntity.getName();
                 String[] arr= uname.split(" ");
-                String fname=arr[0];
-//                Put this in a try block
-//                String lname=arr[1];
-//                Log.d("First name",fname);
-//                Log.d("last name",lname);
-                String s = "Hello "+fname;
+                String fName=arr[0];
+                String s = "Hello "+fName;
                 userName.setText(s);
                 if (userEntity.getImgUrl().equals(Constants.DEFAULT_DP)){
                     userDp.setImageResource(R.drawable.nav_icon_account);
@@ -264,7 +244,6 @@ public class MainActivity extends AppCompatActivity {
         });
         return bal.get();
     }
-
     private void setNav(){
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
@@ -288,28 +267,23 @@ public class MainActivity extends AppCompatActivity {
         userName = (TextView) v.findViewById(R.id.profileName);
 
         navView.inflateMenu(R.menu.nav_menu);
+
         navView.setNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()) {
-                case R.id.notification:
-                    startActivity(new Intent(MainActivity.this, Notification_Activity.class));
-                    break;
-                case R.id.help:
-                    startActivity(new Intent(MainActivity.this, help_Activity.class));
-                    break;
-                case R.id.settings:
-                    startActivity(new Intent(MainActivity.this, Settings_Activity.class));
-                    break;
-                case R.id.about:
-                    startActivity(new Intent(MainActivity.this, About_Activity.class));
-                    break;
-                case R.id.logout:
-                    luvm.LogOut();
-                    finishAffinity();
-                    break;
-                default:
-                    Log.e("NavView", "Default");
-                    break;
+            if (item.getItemId()==R.id.notification){
+                startActivity(new Intent(MainActivity.this, Notification_Activity.class));
+            }else if (item.getItemId()==R.id.help){
+                startActivity(new Intent(MainActivity.this, help_Activity.class));
+            } else if (item.getItemId()==R.id.settings) {
+                startActivity(new Intent(MainActivity.this, Settings_Activity.class));
+            } else if (item.getItemId()==R.id.about) {
+                startActivity(new Intent(MainActivity.this, About_Activity.class));
+            } else if (item.getItemId()==R.id.logout) {
+                userVM.LogOut();
+                finishAffinity();
+            }else{
+                Log.e("App", "Daddy stop! Please aaaah!");
             }
+
             dl.closeDrawer(GravityCompat.START);
             return true;
         });
@@ -333,7 +307,6 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new Ear_Tracker());
         adapter.addFragment(new Dues_Debt());
 
-
         vp.setAdapter(adapter);
         vp.setPagingEnabled(false);
         tl.setupWithViewPager(vp, true);
@@ -349,7 +322,6 @@ public class MainActivity extends AppCompatActivity {
                 switch(tab.getPosition()){
                     case 0:
                         tb.setTitle(Constants.Exp);
-//                        tb.setTitleTextColor();
                         break;
                     case 1:
                         tb.setTitle(Constants.Budget);
@@ -363,19 +335,22 @@ public class MainActivity extends AppCompatActivity {
                     case 4:
                         tb.setTitle(Constants.Dues);
                         break;
+                    default:
+                        tb.setTitle("Noiccee!");
+                        break;
                 }
+                tb.setTitleTextColor(Color.WHITE);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {}
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
     }
 
-//    @Override
+//    @Override //To be implemented later..//Todo
 //    public void onBackPressed() {
 //        super.onBackPressed();
 //        if (vp.getCurrentItem()!=0){
@@ -386,6 +361,12 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
     public static void redirectTo(int i){
-        vp.setCurrentItem(i);
+        int item = vp.getCurrentItem();
+        try{
+            vp.setCurrentItem(i);
+        }catch (Exception e){
+            vp.setCurrentItem(item);
+            Log.e("App","Stop it daddy! uwwu!");
+        }
     }
 }

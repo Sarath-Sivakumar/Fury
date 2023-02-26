@@ -292,6 +292,18 @@ public class Ear_Tracker extends Fragment {
         popupWindow.setBackgroundDrawable(null);
         popupWindow.setElevation(6);
         popupWindow.showAsDropDown(addSal);
+//        PopupWindow popupWindow = new PopupWindow(getContext());
+//        LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        assert inflater != null;
+//        View v = inflater.inflate(R.layout.add_exp_item, null);
+//        popupWindow.setContentView(v);
+//
+//        popupWindow.setFocusable(true);
+//        popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+//        popupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+//        popupWindow.setBackgroundDrawable(null);
+//        popupWindow.setElevation(6);
+//        popupWindow.showAsDropDown(addSal);
     }
 
     private void touchHelper() {

@@ -28,8 +28,6 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
-import org.w3c.dom.Text;
-
 import app.personal.MVVM.Entity.budgetEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
@@ -37,17 +35,13 @@ import app.personal.Utls.Constants;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.budgetList.budgetAdapter;
 import app.personal.fury.ViewPagerAdapter.infoGraphicsAdapter;
-
 public class BudgetFragment extends Fragment {
 
     private FloatingActionButton addBudget;
-    private TextView BudgetAmt, Balance, Expense , Dailylimitallowed ,CurrentDailylimit;
+    private TextView BudgetAmt, Balance, Expense , DailyLimitAllowed, CurrentDailyLimit;
     private mainViewModel vm;
     private int totalSalary = 0, totalExp = 0;
     private budgetAdapter adapter;
-    private infoGraphicsAdapter igAdapter;
-    private ViewPager ig_vp;
-    private TabLayout ig_tl;
     private final int[] FragmentList = new int[]{R.drawable.info_1, R.drawable.info_2, R.drawable.info_3};
 
     private AdView ad;
@@ -98,12 +92,12 @@ public class BudgetFragment extends Fragment {
         topExp.setLayoutManager(new LinearLayoutManager(requireContext()));
         topExp.setHasFixedSize(true);
         topExp.setAdapter(adapter);
-        Dailylimitallowed = v.findViewById(R.id.ID_avg);
-        CurrentDailylimit = v.findViewById(R.id.C_avg);
-        ig_vp = v.findViewById(R.id.infoGraphics_vp2);
-        ig_tl = v.findViewById(R.id.infoGraphics_tab2);
+        DailyLimitAllowed = v.findViewById(R.id.ID_avg);
+        CurrentDailyLimit = v.findViewById(R.id.C_avg);
+        ViewPager ig_vp = v.findViewById(R.id.infoGraphics_vp2);
+        TabLayout ig_tl = v.findViewById(R.id.infoGraphics_tab2);
 
-        igAdapter = new infoGraphicsAdapter(requireContext(), FragmentList);
+        infoGraphicsAdapter igAdapter = new infoGraphicsAdapter(requireContext(), FragmentList);
         ig_vp.setAdapter(igAdapter);
         ig_tl.setupWithViewPager(ig_vp, true);
         Commons.timedSliderInit(ig_vp, FragmentList, 5);
@@ -116,14 +110,14 @@ public class BudgetFragment extends Fragment {
     private void initItems() {
         vm.getExp().observe(getViewLifecycleOwner(), expEntities -> {
             int total = 0;
+            adapter.clear();
             if (expEntities != null && !expEntities.isEmpty()) {
-                adapter.clear();
                 adapter.setExp(expEntities);
                 for (int i = 0; i < expEntities.size(); i++) {
                     total = total + expEntities.get(i).getExpenseAmt();
                 }
                 try {
-                    CurrentDailylimit.setText(Commons.getAvg(expEntities, true));
+                    CurrentDailyLimit.setText(Commons.getAvg(expEntities, true));
                     String s1 = Constants.RUPEE + total;
                     Expense.setText(s1);
                 }catch (Exception ignored){}
@@ -131,8 +125,8 @@ public class BudgetFragment extends Fragment {
             }else{
                 try {
                     String s = "No data to process";
-                    CurrentDailylimit.setText(s);
-                    CurrentDailylimit.setTextSize(14);
+                    CurrentDailyLimit.setText(s);
+                    CurrentDailyLimit.setTextSize(14);
                     String s1 = Constants.RUPEE + total;
                     Expense.setText(s1);
                 }catch (Exception ignored){}
@@ -155,8 +149,8 @@ public class BudgetFragment extends Fragment {
                 BudgetAmt.setText(s);
                 String s1 = Constants.RUPEE + budgetEntities.getBal();
                 Balance.setText(s1);
-                String s2 = Constants.RUPEE + (budgetEntities.getAmount() / Commons.getDays(Calendar.MONTH)) + "/Day";
-                Dailylimitallowed.setText(s2);
+                String s2 = Constants.RUPEE + (budgetEntities.getAmount() / Commons.getDays(Calendar.MONTH)) + " /day";
+                DailyLimitAllowed.setText(s2);
             } catch (Exception e) {
                 try{
                     String s = Constants.RUPEE + "0";
@@ -169,8 +163,6 @@ public class BudgetFragment extends Fragment {
         });
 
     }
-
-
     private void callAddBudgetPopup() {
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);

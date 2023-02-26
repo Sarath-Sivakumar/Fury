@@ -26,8 +26,8 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     private int totalSum = 0;
     private boolean filter;
     private Context context;
-    @ColorInt
-    private int colorGreen;
+//    @ColorInt
+//    private int colorGreen;
 
     @NonNull
     @Override
@@ -82,10 +82,10 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
                 }
             }
         } else {
-            TypedValue typedValue = new TypedValue();
-            Resources.Theme theme = context.getTheme();
-            theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true);
-            colorGreen = typedValue.data;
+//            TypedValue typedValue = new TypedValue();
+//            Resources.Theme theme = context.getTheme();
+//            theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true);
+//            colorGreen = typedValue.data;
 
             for (int i = 0; i < size; i++) {
                 this.debt.add(debt.get(i));

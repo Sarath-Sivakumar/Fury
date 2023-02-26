@@ -3,7 +3,6 @@ package app.personal.fury.UI.Fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
@@ -32,6 +31,11 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.tabs.TabLayout;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 import app.personal.MVVM.Entity.budgetEntity;
@@ -58,7 +62,10 @@ public class fragment_main extends Fragment {
     private LinearLayout noDues;
     private int filter = 0;
     private ImageButton avgInfo;
-    private final int[] FragmentList = new int[]{R.drawable.infos1,R.drawable.infos2,R.drawable.infos3,R.drawable.infos4,R.drawable.infos5,R.drawable.infos6};
+    private final ArrayList<debtEntity> debtList = new ArrayList<>();
+    private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+    private final int[] FragmentList = new int[]{R.drawable.info_appbanner};
+    private boolean isView = true;
 
     public fragment_main() {
     }
@@ -84,7 +91,6 @@ public class fragment_main extends Fragment {
         infoGraphicsAdapter igAdapter = new infoGraphicsAdapter(requireContext(), FragmentList);
         ig_vp.setAdapter(igAdapter);
         ig_tl.setupWithViewPager(ig_vp, true);
-        Commons.timedSliderInit(ig_vp, FragmentList, 5);
 
         budgetView.setOnClickListener(v1 -> {
             if (budgetView.getText().toString().equals("Set a budget.")) {
@@ -119,7 +125,7 @@ public class fragment_main extends Fragment {
 
     }
 
-    private void callWarningPopup(debtEntity debt){
+    private void callWarningPopup(debtEntity debt) {
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
@@ -135,9 +141,9 @@ public class fragment_main extends Fragment {
         yes = v.findViewById(R.id.yes_btn);
         no = v.findViewById(R.id.no_btn);
 
-        String s1 = "Your due of "+debt.getSource() +" is nearing its pay date..";
+        String s1 = "Your due of " + debt.getSource() + " is nearing its pay date..";
         mainBody.setText(s1);
-        String s2 = debt.getSource() +" | "+ debt.getDate();
+        String s2 = debt.getSource() + " | " + debt.getDate();
         nameAndDate.setText(s2);
         String s3 = Constants.RUPEE + debt.getAmount();
         amt.setText(s3);
@@ -145,8 +151,11 @@ public class fragment_main extends Fragment {
         yes.setOnClickListener(v1 -> {
             debt.setStatus(Constants.DEBT_PAID);
             vm.UpdateDebt(debt);
+            popupWindow.dismiss();
         });
-        no.setOnClickListener(v1 -> popupWindow.dismiss());
+        no.setOnClickListener(v1 -> {
+            popupWindow.dismiss();
+        });
 
         popupWindow.setFocusable(true);
         popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
@@ -163,6 +172,9 @@ public class fragment_main extends Fragment {
         cAdapter = new categoryAdapter();
         dAdapter = new duesAdapter();
         MobileAds.initialize(requireContext());
+        if (savedInstanceState == null&&isView) {
+            debtWaring();
+        }
     }
 
     @Override
@@ -173,9 +185,6 @@ public class fragment_main extends Fragment {
         findView(v);
         getExp(filter);
         initViewModel();
-        if (savedInstanceState==null){
-//            Check for upcoming dues here
-        }
         return v;
     }
 
@@ -204,7 +213,7 @@ public class fragment_main extends Fragment {
                 String s = Constants.RUPEE + budgetEntities.getAmount();
                 budgetView.setText(s);
             } catch (Exception e) {
-                try{
+                try {
                     String s = "Set a budget.";
                     budgetView.setText(s);
                     budgetView.setTextSize(13);
@@ -213,7 +222,8 @@ public class fragment_main extends Fragment {
                     Resources.Theme theme = requireActivity().getTheme();
                     theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true);
                     budgetView.setTextColor(typedValue.data);
-                }catch(Exception ignored){}
+                } catch (Exception ignored) {
+                }
             }
             if (budgetEntities != null) {
                 bud.set(budgetEntities);
@@ -253,9 +263,9 @@ public class fragment_main extends Fragment {
             }
             try {
                 setMain(progress);
-                if (expEntities != null && !expEntities.isEmpty()){
+                if (expEntities != null && !expEntities.isEmpty()) {
                     dAvg.setText(Commons.getAvg(expEntities, true));
-                }else {
+                } else {
                     String s = "No data to process.";
                     dAvg.setText(s);
                 }
@@ -269,12 +279,43 @@ public class fragment_main extends Fragment {
 //                TypedValue typedValue = new TypedValue();
 //                Resources.Theme theme = requireActivity().getTheme();
 //                theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true);
-////                @ColorInt int colorGreen = typedValue.data;
 //                dAvg.setTextColor(typedValue.data);
 //            }
+        });
+    }
 
-//            Call after setting budget
-//            dAvg.setText(Commons.getDailyAvg(7000));
+    private void debtWaring() {
+        vm.getDebt().observe(requireActivity(), debtEntities -> {
+            debtList.clear();
+//          FinalDate
+            if (debtEntities != null && !debtEntities.isEmpty()) {
+                for (int i = 0; i < debtEntities.size(); i++) {
+                    if (debtEntities.get(i).getStatus().equals(Constants.DEBT_NOT_PAID)) {
+                        try {
+                            Date dateBefore = sdf.parse(Commons.getDate());
+                            Date dateAfter = sdf.parse(debtEntities.get(i).getFinalDate());
+                            assert dateAfter != null;
+                            assert dateBefore != null;
+                            long timeDiff = Math.abs(dateAfter.getTime() - dateBefore.getTime());
+                            long daysDiff = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
+//                      Warning filter..
+                            if (daysDiff <= Constants.SHOW_WARNING_BY_IN_APP) {
+                                debtList.add(debtEntities.get(i));
+                            }
+                        } catch (Exception ignored) {
+                            Log.e("App", "Daddy!! Noo stop!");
+                        }
+                    }
+                }
+                if (!debtList.isEmpty() && debtList.size() > 1) {
+                    ArrayList<debtEntity> newDebtList = Commons.debtSorterProMax(debtList);
+                    debtList.clear();
+                    callWarningPopup(newDebtList.get(newDebtList.size()-1));
+                    newDebtList.clear();
+                } else if (debtList.size() == 1) {
+                    callWarningPopup(debtList.get(0));
+                }
+            }
         });
     }
 
@@ -327,7 +368,7 @@ public class fragment_main extends Fragment {
             prg = 0 + "%";
         }
         mainProgressText.setText(prg);
-        String p = Constants.RUPEE + (int) expense;
+        String p = Constants.RUPEE + expense;
         expView.setText(p);
     }
 
@@ -339,13 +380,19 @@ public class fragment_main extends Fragment {
         expense = 0;
         cAdapter.clear();
         dAdapter.clear();
-        initViewModel();
+        isView = true;
         try {
             initViewModel();
             setMain(progress);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isView = false;
     }
 
     @Override

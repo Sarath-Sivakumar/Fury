@@ -26,12 +26,12 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
     private final List<expEntity> food = new ArrayList<>(), travel = new ArrayList<>(),
             rent = new ArrayList<>(), gas = new ArrayList<>(), groceries = new ArrayList<>(), electricity = new ArrayList<>(),
             recharge = new ArrayList<>(), fees = new ArrayList<>(), subscriptions = new ArrayList<>(),
-            health = new ArrayList<>(), bills = new ArrayList<>();
+            health = new ArrayList<>(), bills = new ArrayList<>(), others = new ArrayList<>();
     private float salary;
     private int filter;
     private final int foodIndex = 0, travelIndex = 1, rentIndex = 2,
             gasIndex = 3, groceryIndex = 4 ,electricityIndex = 5, rechargeIndex = 6,
-            feesIndex = 7, subsIndex = 8, healthIndex = 9, billsIndex = 10;
+            feesIndex = 7, subsIndex = 8, healthIndex = 9, billsIndex = 10, othersIndex = 11;
 
     @NonNull
     @Override
@@ -55,6 +55,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         subscriptions.clear();
         health.clear();
         bills.clear();
+        others.clear();
     }
 
     @Override
@@ -103,6 +104,10 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                 break;
             case Constants.Bills:
                 holder.expIcon.setImageResource(R.drawable.cat_icon_bill);
+                break;
+            case Constants.OTHERS:
+//                Change this in expAdapter and budgetAdapter..
+                holder.expIcon.setImageResource(R.drawable.nav_icon_settings);
                 break;
             default:
                 break;
@@ -207,6 +212,10 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                 bills.add(exp);
                 merge(bills, Constants.Bills);
                 break;
+            case Constants.OTHERS:
+                others.add(exp);
+                merge(others, Constants.OTHERS);
+                break;
             default:
                 break;
         }
@@ -224,6 +233,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         sumExp.add(subsIndex, defaultExp(Constants.Subscriptions));
         sumExp.add(healthIndex, defaultExp(Constants.Health_Care));
         sumExp.add(billsIndex, defaultExp(Constants.Bills));
+        sumExp.add(othersIndex, defaultExp(Constants.OTHERS));
     }
 
     private expEntity defaultExp(String Name) {
@@ -356,6 +366,16 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                 try {
                     sumExp.remove(billsIndex);
                     sumExp.add(billsIndex, exp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    setDefaultList();
+                }
+
+                break;
+            case Constants.OTHERS:
+                try {
+                    sumExp.remove(othersIndex);
+                    sumExp.add(othersIndex, exp);
                 } catch (Exception e) {
                     e.printStackTrace();
                     setDefaultList();
