@@ -2,10 +2,8 @@ package app.personal.fury.UI.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,6 +89,7 @@ public class fragment_main extends Fragment {
         infoGraphicsAdapter igAdapter = new infoGraphicsAdapter(requireContext(), FragmentList);
         ig_vp.setAdapter(igAdapter);
         ig_tl.setupWithViewPager(ig_vp, true);
+        Commons.timedSliderInit(ig_vp, FragmentList, 5);
 
         budgetView.setOnClickListener(v1 -> {
             if (budgetView.getText().toString().equals("Set a budget.")) {
@@ -218,10 +217,6 @@ public class fragment_main extends Fragment {
                     budgetView.setText(s);
                     budgetView.setTextSize(13);
                     budgetView.setElegantTextHeight(true);
-                    TypedValue typedValue = new TypedValue();
-                    Resources.Theme theme = requireActivity().getTheme();
-                    theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true);
-                    budgetView.setTextColor(typedValue.data);
                 } catch (Exception ignored) {
                 }
             }

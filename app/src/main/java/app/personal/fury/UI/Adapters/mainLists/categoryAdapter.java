@@ -24,9 +24,10 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
     private final List<expEntity> sumExp = new ArrayList<>();
     private final List<expEntity> orgExp = new ArrayList<>();
     private final List<expEntity> food = new ArrayList<>(), travel = new ArrayList<>(),
-            rent = new ArrayList<>(), gas = new ArrayList<>(), groceries = new ArrayList<>(), electricity = new ArrayList<>(),
-            recharge = new ArrayList<>(), fees = new ArrayList<>(), subscriptions = new ArrayList<>(),
-            health = new ArrayList<>(), bills = new ArrayList<>(), others = new ArrayList<>();
+            rent = new ArrayList<>(), gas = new ArrayList<>(), groceries = new ArrayList<>(),
+            electricity = new ArrayList<>(), recharge = new ArrayList<>(), fees = new ArrayList<>(),
+            subscriptions = new ArrayList<>(), health = new ArrayList<>(), bills = new ArrayList<>(),
+            others = new ArrayList<>();
     private float salary;
     private int filter;
     private final int foodIndex = 0, travelIndex = 1, rentIndex = 2,
