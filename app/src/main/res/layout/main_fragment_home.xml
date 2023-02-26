@@ -320,6 +320,40 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ad" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.4dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="2dp"
+                    android:background="@android:color/darker_gray" />
+            </LinearLayout>
+
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minWidth="320dp"
+                android:minHeight="50dp"
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+            <!--Test ID ca-app-pub-3940256099942544/6300978111-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.4dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="9dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center"
@@ -389,36 +423,6 @@
                     android:layout_height="0.4dp"
                     android:layout_gravity="center"
                     android:background="@android:color/darker_gray" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Ad" />
-                    <!--                        android:textColor="@color/theme_gold"-->
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.4dp"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="2dp"
-                        android:background="@android:color/darker_gray" />
-                </LinearLayout>
-
-                <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/adView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minWidth="320dp"
-                    android:minHeight="50dp"
-                    ads:adSize="BANNER"
-                    ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
-                <!--Test ID ca-app-pub-3940256099942544/6300978111-->
 
             </LinearLayout>
         </LinearLayout>
