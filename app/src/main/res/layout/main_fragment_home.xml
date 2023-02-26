@@ -34,7 +34,6 @@
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="9dp"
                 android:background="@drawable/background_overviewcard"
-                android:backgroundTint="@color/d1"
                 android:elevation="6dp"
                 android:padding="3dp">
 
