@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/background_recyclersitems"
-    android:elevation="6dp">
+    android:elevation="6dp"
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="match_parent"
-        android:padding="12dp"
+        style="@style/overviewtxttitle"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:gravity="start"
+        android:maxLines="4"
+        android:ellipsize="end"
+        android:padding="12dp"
         android:text="@string/dailyavgnotsetpop"
-        android:gravity="center"
-        android:textSize="10sp"/>
+        android:textSize="12sp" />
 
-<!-- Your daily average should start showing within (TIME_PERIOD) day(s). -->
+    <!-- Your daily average should start showing within (TIME_PERIOD) day(s). -->
 </LinearLayout>

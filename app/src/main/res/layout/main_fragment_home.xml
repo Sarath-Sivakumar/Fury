@@ -171,18 +171,6 @@
                                         android:layout_marginEnd="3dp"
                                         android:textSize="20sp"
                                         tools:ignore="TooDeepLayout" />
-
-                                    <ImageButton
-                                        android:id="@+id/info"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:background="@android:color/transparent"
-                                        android:padding="6dp"
-                                        android:scaleType="centerCrop"
-                                        android:src="@drawable/common_icon_infopaid"
-                                        android:visibility="gone"
-                                        android:contentDescription="@null" />
                                 </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
