@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/init_bg"
+    android:orientation="vertical"
     tools:context=".UI.User_Init.signUp.signUp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="0.5">
+        android:layout_weight="0.5"
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/cBack"
@@ -38,74 +38,74 @@
         android:layout_height="0dp"
         android:layout_weight=".5">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
-        
-        <EditText
-            android:id="@+id/u_name"
-            android:layout_width="300dp"
-            android:layout_height="?actionBarSize"
-            android:hint="@string/name"
-            android:drawableRight="@drawable/common_icon_person"
-            android:singleLine="true"
-            android:fontFamily="@font/raleway_semibold"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/u_mail"
-            android:layout_width="300dp"
-            android:layout_height="?actionBarSize"
-            android:hint="@string/email"
-            android:drawableRight="@drawable/common_icon_mail"
-            android:singleLine="true"
-            android:fontFamily="@font/raleway_semibold"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/u_pass1"
-            android:layout_width="300dp"
-            android:layout_height="?actionBarSize"
-            android:hint="@string/create_password"
-            android:drawableRight="@drawable/common_icon_password"
-            android:singleLine="true"
-            android:longClickable="false"
-            android:inputType="textPassword"
-            android:fontFamily="@font/raleway_semibold"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/u_pass2"
-            android:layout_width="300dp"
-            android:layout_height="?actionBarSize"
-            android:hint="@string/confirm_password"
-            android:singleLine="true"
-            android:inputType="textPassword"
-            android:longClickable="false"
-            android:drawableRight="@drawable/common_icon_eyeclose"
-            android:fontFamily="@font/raleway_semibold"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/s_btn"
-            android:layout_width="300dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_login"
-            android:layout_marginTop="20dp"
-            android:text="@string/sign_up"
-            android:fontFamily="@font/raleway_semibold"
-            android:textSize="16dp" />
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <TextView
-            style="@style/linkcolor"
-            android:id="@+id/to_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login_frm_signup"
-            android:layout_marginTop="20dp" />
-        
-    </LinearLayout>
+            <EditText
+                android:id="@+id/u_name"
+                android:layout_width="300dp"
+                android:layout_height="?actionBarSize"
+                android:drawableEnd="@drawable/common_icon_person"
+                android:fontFamily="@font/raleway_semibold"
+                android:hint="@string/name"
+                android:singleLine="true"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/u_mail"
+                android:layout_width="300dp"
+                android:layout_height="?actionBarSize"
+                android:drawableEnd="@drawable/common_icon_mail"
+                android:fontFamily="@font/raleway_semibold"
+                android:hint="@string/email"
+                android:singleLine="true"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/u_pass1"
+                android:layout_width="300dp"
+                android:layout_height="?actionBarSize"
+                android:drawableEnd="@drawable/common_icon_password"
+                android:fontFamily="@font/raleway_semibold"
+                android:hint="@string/create_password"
+                android:inputType="textPassword"
+                android:longClickable="false"
+                android:singleLine="true"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/u_pass2"
+                android:layout_width="300dp"
+                android:layout_height="?actionBarSize"
+                android:drawableEnd="@drawable/common_icon_eyeclose"
+                android:fontFamily="@font/raleway_semibold"
+                android:hint="@string/confirm_password"
+                android:inputType="textPassword"
+                android:longClickable="false"
+                android:singleLine="true"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/s_btn"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_login"
+                android:fontFamily="@font/raleway_semibold"
+                android:text="@string/sign_up"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/to_login"
+                style="@style/linkcolor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/login_frm_signup" />
+
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>
