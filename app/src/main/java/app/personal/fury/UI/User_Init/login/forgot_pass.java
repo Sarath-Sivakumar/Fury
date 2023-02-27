@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +28,8 @@ public class forgot_pass extends AppCompatActivity {
 
         email_add = findViewById(R.id.email);
         resetpass = findViewById(R.id.passchange);
+        ImageButton back = findViewById(R.id.back);
+        back.setOnClickListener(view -> finish());
 
         auth = FirebaseAuth.getInstance();
 
