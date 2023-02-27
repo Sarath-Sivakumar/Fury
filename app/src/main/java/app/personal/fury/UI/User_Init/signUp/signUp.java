@@ -105,8 +105,12 @@ public class signUp extends AppCompatActivity {
                                 userData.setImgUrl(Constants.DEFAULT_DP);
                                 uvm.Signup(mail, p1, userData);
                                 uvm.getUserId().observe(this, firebaseUser -> {
-                                    if (firebaseUser.getEmail().equals(mail)){
-                                        finishAffinity();
+                                    if (firebaseUser.getEmail()!=null){
+                                        if (firebaseUser.getEmail().equals(mail)) {
+                                            finishAffinity();
+                                        }
+                                    }else{
+
                                     }
                                 });
                             } else {
