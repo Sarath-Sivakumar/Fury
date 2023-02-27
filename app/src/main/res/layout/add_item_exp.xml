@@ -12,8 +12,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_popup"
-            android:layout_marginTop="60dp">
+            android:layout_marginTop="60dp"
+            android:background="@drawable/background_popup">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -27,9 +27,9 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/textstyle1"
                         android:id="@+id/title"
-                        android:layout_width="match_parent"
+                        style="@style/textstyle1"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
                         android:padding="12dp"
@@ -51,22 +51,23 @@
                         android:padding="12dp"
                         android:text="@string/cashTitle"
                         android:textSize="16sp" />
+
                     <TextView
                         android:id="@+id/cashAmt"
-                        android:fontFamily="@font/work_sans_semibold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingEnd="12dp"
-                        android:paddingTop="12dp"
-                        android:paddingBottom="12dp"
+                        android:fontFamily="@font/work_sans_semibold"
                         android:paddingStart="0dp"
+                        android:paddingTop="12dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="12dp"
                         android:text="0"
                         android:textSize="16sp" />
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -75,15 +76,16 @@
                         android:padding="12dp"
                         android:text="@string/accountTitle"
                         android:textSize="16sp" />
+
                     <TextView
                         android:id="@+id/accAmt"
-                        android:fontFamily="@font/work_sans_semibold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingEnd="12dp"
-                        android:paddingTop="12dp"
-                        android:paddingBottom="12dp"
+                        android:fontFamily="@font/work_sans_semibold"
                         android:paddingStart="0dp"
+                        android:paddingTop="12dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="12dp"
                         android:text="0"
                         android:textSize="16sp" />
 
@@ -96,11 +98,11 @@
 
                     <Spinner
                         android:id="@+id/expOptions"
-                        android:backgroundTint="@color/app_theme_secondary"
                         style="@android:style/Widget.Material.Spinner.Underlined"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|end"
+                        android:backgroundTint="@color/app_theme_secondary"
                         android:dropDownWidth="match_parent"
                         android:entries="@array/ExpenseItems"
                         android:padding="12dp"
@@ -108,7 +110,6 @@
                         android:visibility="gone" />
 
                     <TextView
-                        android:textColor="@color/h1_light"
                         android:id="@+id/expTitle"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -120,7 +121,6 @@
 
                 <EditText
                     android:id="@+id/salSrc"
-                    android:textColor="@color/h1_light"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/salary_source"
@@ -132,8 +132,8 @@
                     android:id="@+id/expAmt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/amount"
                     android:fontFamily="@font/work_sans_semibold"
+                    android:hint="@string/amount"
                     android:inputType="number"
                     android:padding="12dp"
                     android:singleLine="true" />
@@ -142,9 +142,9 @@
                     android:id="@+id/salDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/work_sans_medium"
                     android:hint="Salary Date"
                     android:inputType="date"
-                    android:fontFamily="@font/work_sans_medium"
                     android:padding="12dp"
                     android:singleLine="true" />
 
@@ -154,15 +154,17 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="12dp"
                     android:paddingTop="6dp"
+                    android:paddingEnd="0dp"
                     android:paddingBottom="6dp"
                     android:text="@string/credit_mode" />
 
                 <RadioGroup
                     android:id="@+id/RadioGroup2"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="6dp">
+                    android:orientation="horizontal"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="0dp">
 
                     <RadioButton
                         android:id="@+id/inHand"
@@ -190,50 +192,52 @@
                     android:paddingStart="12dp"
                     android:paddingTop="6dp"
                     android:paddingBottom="6dp"
+                    android:paddingEnd="0dp"
                     android:text="@string/select_pay_period" />
 
 
-                    <RadioGroup
-                        style="@style/textstyle2"
-                        android:id="@+id/RadioGroup"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
+                <RadioGroup
+                    android:id="@+id/RadioGroup"
+                    style="@style/textstyle2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="0dp">
+
+                    <RadioButton
+                        android:id="@+id/hourly"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="6dp">
+                        android:layout_weight="1"
+                        android:text="@string/hourly"
+                        android:textSize="13sp"
+                        android:visibility="gone" />
 
-                            <RadioButton
-                                android:id="@+id/hourly"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/hourly"
-                                android:visibility="gone"
-                                android:textSize="13sp" />
+                    <RadioButton
+                        android:id="@+id/daily"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/daily"
+                        android:textSize="13sp" />
 
-                            <RadioButton
-                                android:id="@+id/daily"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/daily"
-                                android:textSize="13sp" />
+                    <RadioButton
+                        android:id="@+id/monthly"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/monthly"
+                        android:textSize="13sp" />
 
-                            <RadioButton
-                                android:id="@+id/monthly"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/monthly"
-                                android:textSize="13sp" />
-
-                            <RadioButton
-                                android:id="@+id/oneTime"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/onetime"
-                                android:textSize="13sp" />
-                    </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/oneTime"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/onetime"
+                        android:textSize="13sp" />
+                </RadioGroup>
 
 
                 <LinearLayout
@@ -247,21 +251,21 @@
                         android:id="@+id/add_yes"
                         style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="0dp"
-                        android:layout_weight=".5"
-                        android:layout_margin="4dp"
                         android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_weight=".5"
                         android:background="@drawable/background_borderonly"
                         android:fontFamily="@font/raleway_bold"
                         android:text="Add"
                         android:textAllCaps="false" />
 
                     <Button
-                        style="@style/Widget.AppCompat.Button.Borderless"
                         android:id="@+id/add_no"
+                        style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="0dp"
-                        android:layout_weight=".5"
-                        android:layout_margin="4dp"
                         android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_weight=".5"
                         android:background="@drawable/background_borderonly"
                         android:fontFamily="@font/raleway_bold"
                         android:text="Cancel"

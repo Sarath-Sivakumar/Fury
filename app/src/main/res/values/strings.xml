@@ -115,9 +115,9 @@
     <string name="total_income">Total Income</string>
     <string name="your_income">Your Income</string>
     <string name="edit_your_budget">Edit your Budget</string>
-    <string name="dailyavgnotsetpop">Daily average needs to collect some data which are processed after 7 days of usage</string>
+    <string name="dailyavgnotsetpop">Daily average needs to collect data which is processed within 7 days of usage.</string>
     <string name="cont">Continue</string>
-    <string name="dlt_text">This will delete the particular expense and updates the balance</string>
+    <string name="dlt_text">This will delete the particular expense and update the balance</string>
     <string name="dlt_qus">Do you want to delete this expense?</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
