@@ -152,9 +152,7 @@ public class fragment_main extends Fragment {
             vm.UpdateDebt(debt);
             popupWindow.dismiss();
         });
-        no.setOnClickListener(v1 -> {
-            popupWindow.dismiss();
-        });
+        no.setOnClickListener(v1 ->popupWindow.dismiss());
 
         popupWindow.setFocusable(true);
         popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
