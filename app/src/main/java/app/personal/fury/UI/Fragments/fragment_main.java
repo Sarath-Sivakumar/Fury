@@ -141,7 +141,7 @@ public class fragment_main extends Fragment {
         yes = v.findViewById(R.id.yes_btn);
         no = v.findViewById(R.id.no_btn);
 
-        String s1 = "Your due of " + debt.getSource() + " is nearing its pay date";
+        String s1 = "Attention!\n Your due " + debt.getSource() + " of \n"+ Constants.RUPEE + debt.getAmount() +" is nearing its deadline.";
         mainBody.setText(s1);
         String s2 = debt.getSource();
         name.setText(s2);
