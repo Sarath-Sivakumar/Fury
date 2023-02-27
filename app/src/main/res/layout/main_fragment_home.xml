@@ -34,8 +34,7 @@
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="9dp"
                 android:background="@drawable/background_overviewcard"
-                android:elevation="6dp"
-                android:padding="3dp">
+                android:elevation="6dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -170,7 +169,8 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
                                         android:layout_marginEnd="3dp"
-                                        android:textSize="20sp" />
+                                        android:textSize="20sp"
+                                        tools:ignore="TooDeepLayout" />
 
                                     <ImageButton
                                         android:id="@+id/info"
@@ -181,7 +181,8 @@
                                         android:padding="6dp"
                                         android:scaleType="centerCrop"
                                         android:src="@drawable/common_icon_infopaid"
-                                        android:visibility="gone" />
+                                        android:visibility="gone"
+                                        android:contentDescription="@null" />
                                 </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
