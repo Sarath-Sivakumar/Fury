@@ -131,19 +131,22 @@ public class fragment_main extends Fragment {
         View v = inflater.inflate(R.layout.popup_due_warning, null);
         popupWindow.setContentView(v);
 
-        TextView mainBody, nameAndDate, amt;
+        TextView mainBody, name, date , amt;
         Button yes, no;
 
         mainBody = v.findViewById(R.id.warning);
-        nameAndDate = v.findViewById(R.id.nameAndDate);
+        name = v.findViewById(R.id.NameDue);
+        date = v.findViewById(R.id.DateDue);
         amt = v.findViewById(R.id.amt);
         yes = v.findViewById(R.id.yes_btn);
         no = v.findViewById(R.id.no_btn);
 
-        String s1 = "Your due of " + debt.getSource() + " is nearing its pay date..";
+        String s1 = "Your due of " + debt.getSource() + " is nearing its pay date";
         mainBody.setText(s1);
-        String s2 = debt.getSource() + " | " + debt.getDate();
-        nameAndDate.setText(s2);
+        String s2 = debt.getSource() + " | ";
+        name.setText(s2);
+        String s4 = debt.getDate();
+        date.setText(s4);
         String s3 = Constants.RUPEE + debt.getAmount();
         amt.setText(s3);
 
