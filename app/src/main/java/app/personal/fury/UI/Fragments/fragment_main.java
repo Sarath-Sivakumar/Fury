@@ -143,7 +143,7 @@ public class fragment_main extends Fragment {
 
         String s1 = "Your due of " + debt.getSource() + " is nearing its pay date";
         mainBody.setText(s1);
-        String s2 = debt.getSource() + " | ";
+        String s2 = debt.getSource();
         name.setText(s2);
         String s4 = debt.getDate();
         date.setText(s4);

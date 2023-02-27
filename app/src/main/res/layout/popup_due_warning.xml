@@ -6,7 +6,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="30dp">
-<!--Button for date extension future update-->
+    <!--Button for date extension future update-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,9 +17,9 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:contentDescription="@null"
             android:scaleType="fitCenter"
-            android:src="@drawable/round_warning_24"
-            android:contentDescription="@null" />
+            android:src="@drawable/round_warning_24" />
 
         <TextView
             android:id="@+id/warning"
@@ -38,28 +38,36 @@
             <TextView
                 android:id="@+id/NameDue"
                 android:layout_width="0dp"
-                android:layout_weight=".5"
                 android:layout_height="wrap_content"
-                android:gravity="end"
+                android:layout_weight=".5"
+                android:gravity="center"
+                android:paddingStart="12dp"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
-                android:paddingStart="12dp"
-                android:text="(DUE_NAME) |"
+                android:paddingEnd="0dp"
+                android:text="(DUE_NAME)"
                 android:textSize="15sp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="|"
+                android:padding="12dp"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/DateDue"
                 android:layout_width="0dp"
-                android:layout_weight=".5"
                 android:layout_height="wrap_content"
-                android:gravity="start"
+                android:layout_weight=".5"
                 android:fontFamily="@font/work_sans_medium"
+                android:gravity="center"
+                android:paddingStart="0dp"
                 android:paddingTop="12dp"
+                android:paddingEnd="12dp"
                 android:paddingBottom="12dp"
-                android:paddingEnd="12dp"                android:text="(DUE_DATE)"
+                android:text="(DUE_DATE)"
                 android:textSize="15sp" />
-
 
 
         </LinearLayout>
@@ -68,8 +76,8 @@
             android:id="@+id/amt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:fontFamily="@font/work_sans_semibold"
+            android:gravity="center"
             android:padding="18dp"
             android:text="(DUE_AMT)"
             android:textSize="21sp" />
