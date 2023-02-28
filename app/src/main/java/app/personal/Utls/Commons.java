@@ -10,10 +10,13 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
@@ -42,7 +45,7 @@ public class Commons {
         View snackView = inflater.inflate(R.layout.snack_bar, null);
         snackbar.getView().setBackgroundColor(Color.TRANSPARENT);
         Snackbar.SnackbarLayout snackBarLayout = (Snackbar.SnackbarLayout) snackbar.getView();
-        snackBarLayout.setPadding(0,0,0,100);
+        snackBarLayout.setPadding(0,0,0,180);
         TextView msg = snackView.findViewById(R.id.text);
         msg.setText(Text);
         snackBarLayout.addView(snackView, 0);
@@ -287,5 +290,90 @@ public class Commons {
     public static ArrayList<debtEntity> debtSorterProMax(ArrayList<debtEntity> debtList){
         ListSortUtil sorter = new ListSortUtil(debtList);
         return sorter.getSortedList();
+    }
+
+    public static void fakeLoadingScreen(Context c, int totalSalary, int totalExp, mainViewModel vm, FloatingActionButton anchor){
+        new CountDownTimer(2000, 1000) {
+            final PopupWindow fakeScrn = new PopupWindow(c);
+            @Override
+            public void onTick(long millisUntilFinished) {
+                LayoutInflater inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view = inflater.inflate(R.layout.popup_budget_fake_loading, null);
+                TextView t = view.findViewById(R.id.loadingText);
+                String s = "Analyzing Your Earnings..";
+                t.setText(s);
+                fakeScrn.setContentView(view);
+                fakeScrn.setFocusable(true);
+                fakeScrn.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+                fakeScrn.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+                fakeScrn.setBackgroundDrawable(null);
+                fakeScrn.setElevation(6);
+                fakeScrn.showAsDropDown(anchor);
+            }
+
+            @Override
+            public void onFinish() {
+                fakeScrn.dismiss();
+                new CountDownTimer(2000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        LayoutInflater inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        View view = inflater.inflate(R.layout.popup_budget_fake_loading, null);
+                        TextView t = view.findViewById(R.id.loadingText);
+                        String s = "Crafting a ideal budget..";
+                        t.setText(s);
+                        fakeScrn.setContentView(view);
+                        fakeScrn.setFocusable(true);
+                        fakeScrn.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+                        fakeScrn.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+                        fakeScrn.setBackgroundDrawable(null);
+                        fakeScrn.setElevation(6);
+                        fakeScrn.showAsDropDown(anchor);
+                    }
+                    @Override
+                    public void onFinish() {
+                        Commons.setDefaultBudget(vm, totalSalary, totalExp);
+                        fakeScrn.dismiss();
+                    }
+                }.start();
+            }
+        }.start();
+    }
+    private static boolean done;
+    private static void setDone(boolean d){
+        done = d;
+    }
+
+    private static boolean getDone(){
+        return done;
+    }
+    public static boolean fakeScreenUpdateSrc(Context c, View anchor){
+        final PopupWindow fakeScrn = new PopupWindow(c);
+
+        new CountDownTimer(2000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                LayoutInflater inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View view = inflater.inflate(R.layout.popup_budget_fake_loading, null);
+                TextView t = view.findViewById(R.id.loadingText);
+                String s = "Updating Data..";
+                t.setText(s);
+                fakeScrn.setContentView(view);
+                fakeScrn.setFocusable(true);
+                fakeScrn.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+                fakeScrn.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+                fakeScrn.setBackgroundDrawable(null);
+                fakeScrn.setElevation(6);
+                fakeScrn.showAsDropDown(anchor);
+            }
+
+            @Override
+            public void onFinish() {
+                fakeScrn.dismiss();
+                setDone(true);
+            }
+        };
+        return getDone();
     }
 }
