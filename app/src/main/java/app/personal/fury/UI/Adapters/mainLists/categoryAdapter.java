@@ -108,7 +108,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                 break;
             case Constants.OTHERS:
 //                Change this in expAdapter and budgetAdapter..
-                holder.expIcon.setImageResource(R.drawable.nav_icon_settings);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_otherexp);
                 break;
             default:
                 break;

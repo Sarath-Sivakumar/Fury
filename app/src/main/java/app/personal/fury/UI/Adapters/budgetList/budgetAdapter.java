@@ -76,7 +76,7 @@ public class budgetAdapter extends RecyclerView.Adapter<budgetAdapter.topCatHold
                 holder.ico.setImageResource(R.drawable.cat_icon_bill);
                 break;
             case Constants.OTHERS:
-                holder.ico.setImageResource(R.drawable.nav_icon_settings);
+                holder.ico.setImageResource(R.drawable.cat_icon_otherexp);
                 break;
             default:
                 break;

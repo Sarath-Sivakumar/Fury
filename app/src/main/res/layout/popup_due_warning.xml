@@ -71,20 +71,6 @@
                     android:text="(DUE_DATE)"
                     android:textSize="15sp" />
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/amt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/work_sans_semibold"
-                android:gravity="center"
-                android:paddingStart="0dp"
-                android:paddingEnd="12dp"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:text="(DUE_AMT)"
-                android:textSize="24sp" />
-
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"
