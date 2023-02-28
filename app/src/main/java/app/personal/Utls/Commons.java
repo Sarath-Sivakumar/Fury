@@ -3,10 +3,17 @@ package app.personal.Utls;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.CountDownTimer;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +26,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,8 +44,8 @@ import app.personal.fury.R;
 
 public class Commons {
 
-//    Change this later for better accuracy!
-    private static final Pattern EMAIL_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",Pattern.CASE_INSENSITIVE);
+    //    Change this later for better accuracy!
+    private static final Pattern EMAIL_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     public static void SnackBar(View v, String Text) {
         final Snackbar snackbar = Snackbar.make(v, "", Snackbar.LENGTH_SHORT);
@@ -45,7 +53,7 @@ public class Commons {
         View snackView = inflater.inflate(R.layout.snack_bar, null);
         snackbar.getView().setBackgroundColor(Color.TRANSPARENT);
         Snackbar.SnackbarLayout snackBarLayout = (Snackbar.SnackbarLayout) snackbar.getView();
-        snackBarLayout.setPadding(0,0,0,180);
+        snackBarLayout.setPadding(0, 0, 0, 180);
         TextView msg = snackView.findViewById(R.id.text);
         msg.setText(Text);
         snackBarLayout.addView(snackView, 0);
@@ -72,7 +80,7 @@ public class Commons {
         return sdf.format(new Date());
     }
 
-    public static String getSeconds(){
+    public static String getSeconds() {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("ss");
         return sdf.format(new Date());
     }
@@ -81,19 +89,19 @@ public class Commons {
         return (int) ((exp / sal) * 100);
     }
 
-    public static int getDay(){
+    public static int getDay() {
         Date d = new Date();
         return d.getDay();
     }
 
-    public static String getDisplayDay(int day){
-        if (day==1){
+    public static String getDisplayDay(int day) {
+        if (day == 1) {
             return "Monday";
-        }else if (day==2){
+        } else if (day == 2) {
             return "Tuesday";
-        }else if(day==3){
+        } else if (day == 3) {
             return "Wednesday";
-        }else if(day==4){
+        } else if (day == 4) {
             return "Thursday";
         } else if (day == 5) {
             return "Friday";
@@ -108,7 +116,7 @@ public class Commons {
         ArrayList<Integer> byDayTotal = new ArrayList<>(), daily = new ArrayList<>();
         int mainListSize = listData.size();
         String lastDate = "";
-        int lastDay= -1;
+        int lastDay = -1;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         for (int i = mainListSize - 1; i >= 0; i--) {
             expEntity exp = listData.get(i);
@@ -120,7 +128,7 @@ public class Commons {
                             dailyTotal = dailyTotal + daily.get(j);
                         }
                         byDayTotal.add(dailyTotal);
-                        Log.e("DailyTotal", "Value: " + dailyTotal + " Date: " + lastDate + " Day: "+ getDisplayDay(lastDay));
+                        Log.e("DailyTotal", "Value: " + dailyTotal + " Date: " + lastDate + " Day: " + getDisplayDay(lastDay));
 
                         Date dateBefore = sdf.parse(lastDate);
                         Date dateAfter = sdf.parse(exp.getDate());
@@ -149,7 +157,7 @@ public class Commons {
                             dailyTotal1 = dailyTotal1 + daily.get(j);
                         }
                         byDayTotal.add(dailyTotal1);
-                        Log.e("DailyTotal", "Value: " + dailyTotal1 + " Date: " + lastDate + " Day: "+ getDisplayDay(lastDay));
+                        Log.e("DailyTotal", "Value: " + dailyTotal1 + " Date: " + lastDate + " Day: " + getDisplayDay(lastDay));
                     }
                 } else {
                     daily.add(exp.getExpenseAmt());
@@ -174,7 +182,7 @@ public class Commons {
                 total = total + totalExp.get(i);
             }
             return String.valueOf(total / totalExp.size());
-        }else {
+        } else {
             return String.valueOf(total);
         }
     }
@@ -193,60 +201,61 @@ public class Commons {
         }
     }
 
-    public static int getValueByPercent(int totalSalary, int Percent){
-        return (int)(totalSalary*Percent)/100;
+    public static int getValueByPercent(int totalSalary, int Percent) {
+        return (int) (totalSalary * Percent) / 100;
     }
 
-    public static int getDays(int month){
-        if (month==1){
+    public static int getDays(int month) {
+        if (month == 1) {
             return 31;
-        }else if(month==2){
+        } else if (month == 2) {
             return 28;
-        }else if(month==3){
+        } else if (month == 3) {
             return 31;
-        }else if(month==4){
+        } else if (month == 4) {
             return 30;
-        }else if(month==5){
+        } else if (month == 5) {
             return 31;
-        }else if(month==6){
+        } else if (month == 6) {
             return 30;
-        }else if(month==7){
+        } else if (month == 7) {
             return 31;
-        }else if(month==8){
+        } else if (month == 8) {
             return 31;
-        }else if(month==9){
+        } else if (month == 9) {
             return 30;
-        }else if(month==10){
+        } else if (month == 10) {
             return 31;
-        }else if(month==11){
+        } else if (month == 11) {
             return 30;
-        }else if(month==12){
+        } else if (month == 12) {
             return 31;
-        }else{
+        } else {
             return 0;
         }
     }
 
-    public static String getDailyAvg(float budget){
-        return String.valueOf((int)(budget/getDays(Integer.parseInt(getMonth()))));
+    public static String getDailyAvg(float budget) {
+        return String.valueOf((int) (budget / getDays(Integer.parseInt(getMonth()))));
     }
 
-    public static boolean isEmail(String Email){
+    public static boolean isEmail(String Email) {
         Matcher matcher = EMAIL_REGEX.matcher(Email);
         return matcher.find();
     }
 
-    public boolean isConnectedToInternet(Context c){
+    public boolean isConnectedToInternet(Context c) {
         return checkNet(c);
     }
 
-    public static boolean isValidPass(String Password){
-        if (Password.length()>=6){
+    public static boolean isValidPass(String Password) {
+        if (Password.length() >= 6) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
+
     private boolean checkNet(Context c) {
         //To check internet connectivity.
         ConnectivityManager connectivityManager
@@ -255,8 +264,8 @@ public class Commons {
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
-    public static void timedSliderInit(ViewPager ig_vp , int[] FragmentList, int Seconds) {
-        new CountDownTimer(Seconds* 1000L, 1000) {
+    public static void timedSliderInit(ViewPager ig_vp, int[] FragmentList, int Seconds) {
+        new CountDownTimer(Seconds * 1000L, 1000) {
             int i = 0;
 
             @Override
@@ -267,34 +276,36 @@ public class Commons {
             @Override
             public void onFinish() {
                 i = ig_vp.getCurrentItem();
-                try{
+                try {
                     if (i == FragmentList.length - 1) {
                         ig_vp.setCurrentItem(0);
                     } else {
                         ig_vp.setCurrentItem(i + 1);
                     }
-                }catch (Exception ignored){}
+                } catch (Exception ignored) {
+                }
                 timedSliderInit(ig_vp, FragmentList, Seconds);
             }
         }.start();
     }
 
-    public static void setDefaultBudget(mainViewModel vm, int totalSalary, int totalExp){
+    public static void setDefaultBudget(mainViewModel vm, int totalSalary, int totalExp) {
         budgetEntity bud = new budgetEntity();
         bud.setAmount(Commons.getValueByPercent(totalSalary, 80));
-        bud.setBal(Commons.getValueByPercent(totalSalary, 80)-totalExp);
+        bud.setBal(Commons.getValueByPercent(totalSalary, 80) - totalExp);
         vm.DeleteBudget();
         vm.InsertBudget(bud);
     }
 
-    public static ArrayList<debtEntity> debtSorterProMax(ArrayList<debtEntity> debtList){
+    public static ArrayList<debtEntity> debtSorterProMax(ArrayList<debtEntity> debtList) {
         ListSortUtil sorter = new ListSortUtil(debtList);
         return sorter.getSortedList();
     }
 
-    public static void fakeLoadingScreen(Context c, int totalSalary, int totalExp, mainViewModel vm, FloatingActionButton anchor){
+    public static void fakeLoadingScreen(Context c, int totalSalary, int totalExp, mainViewModel vm, FloatingActionButton anchor) {
         new CountDownTimer(2000, 1000) {
             final PopupWindow fakeScrn = new PopupWindow(c);
+
             @Override
             public void onTick(long millisUntilFinished) {
                 LayoutInflater inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -330,6 +341,7 @@ public class Commons {
                         fakeScrn.setElevation(6);
                         fakeScrn.showAsDropDown(anchor);
                     }
+
                     @Override
                     public void onFinish() {
                         Commons.setDefaultBudget(vm, totalSalary, totalExp);
@@ -339,15 +351,18 @@ public class Commons {
             }
         }.start();
     }
+
     private static boolean done;
-    private static void setDone(boolean d){
+
+    private static void setDone(boolean d) {
         done = d;
     }
 
-    private static boolean getDone(){
+    private static boolean getDone() {
         return done;
     }
-    public static boolean fakeScreenUpdateSrc(Context c, View anchor){
+
+    public static boolean fakeScreenUpdateSrc(Context c, View anchor) {
         final PopupWindow fakeScrn = new PopupWindow(c);
 
         new CountDownTimer(2000, 1000) {
@@ -375,5 +390,48 @@ public class Commons {
             }
         };
         return getDone();
+    }
+
+//    public static Bitmap getImage(Intent i, Context c){
+//        //Get incoming intent
+//        Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        c.startActivityForResult(i, RESULT_LOAD_IMAGE);
+//        if(Intent.ACTION_SEND.equals(action) && type != null){
+//            return convertUriToImage(i, c);
+//        }else {
+//            return ImageExceptionHandler(c);
+//        }
+//    }
+    public static Bitmap convertUriToImage(Intent data, Context c) {
+        Uri imageSelected = data.getParcelableExtra(Intent.EXTRA_STREAM);
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(c.getContentResolver(), imageSelected);
+            return bitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ImageExceptionHandler(c);
+        }
+    }
+    private static Bitmap ImageExceptionHandler(Context c){
+        Bitmap bitmap = null;
+
+        Drawable drawable = c.getDrawable(R.drawable.nav_icon_account);
+        if (drawable instanceof BitmapDrawable) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+            if (bitmapDrawable.getBitmap() != null) {
+                return bitmapDrawable.getBitmap();
+            }
+        }
+
+        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
+        } else {
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        }
+
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
 }
