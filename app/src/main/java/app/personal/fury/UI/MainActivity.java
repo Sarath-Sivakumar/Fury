@@ -1,8 +1,11 @@
 package app.personal.fury.UI;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
@@ -42,6 +46,7 @@ import app.personal.MVVM.Viewmodel.userInitViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.Utls.ViewPager.viewPager;
+
 import app.personal.fury.R;
 import app.personal.fury.UI.Drawer.About_Activity;
 import app.personal.fury.UI.Drawer.Notification_Activity;
@@ -193,6 +198,8 @@ public class MainActivity extends AppCompatActivity {
         vm = new ViewModelProvider(this).get(mainViewModel.class);
         findView();
         initViewPager();
+        isStoragePermissionGranted();
+
     }
 
     private void setUserViewModel(){
@@ -395,6 +402,23 @@ public class MainActivity extends AppCompatActivity {
         }catch (Exception e){
             vp.setCurrentItem(item);
             Log.e("App","Stop it daddy! uwwu!");
+        }
+    }
+    public void isStoragePermissionGranted() {
+        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+            Log.v("permission","Permission is granted");
+        } else {
+            Log.v("permission","Permission is revoked");
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            Log.v("permission","Permission: "+permissions[0]+ "was "+grantResults[0]);
+            //resume tasks needing this permission
         }
     }
 }

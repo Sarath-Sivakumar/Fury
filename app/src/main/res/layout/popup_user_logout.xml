@@ -22,13 +22,13 @@
             android:scaleType="fitCenter"
             android:src="@drawable/colored_icon_logout" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:fontFamily="@font/source_sans_pro_semibold"
-            android:text="Fury"
-            android:textSize="24sp" />
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:fontFamily="@font/source_sans_pro_semibold"-->
+<!--            android:text="Attention!"-->
+<!--            android:textSize="24sp" />-->
 
         <TextView
             android:layout_width="match_parent"
