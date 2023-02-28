@@ -22,9 +22,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
+                android:layout_marginStart="12dp"
                 android:fontFamily="@font/raleway_bold"
-                android:paddingBottom="12dp"
+                android:paddingBottom="6dp"
+                android:visibility="gone"
                 android:text="@string/expense_overview"
                 android:textSize="18sp" />
 
@@ -64,16 +65,16 @@
                                 app:indicatorColor="@color/progress_track"
                                 app:indicatorSize="125dp"
                                 app:trackColor="@color/full_white"
-                                app:trackThickness="13dp" />
+                                app:trackThickness="15dp" />
 
                             <TextView
                                 android:id="@+id/mainText"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center"
-                                android:textColor="@color/h1_dark"
-                                android:fontFamily="@font/secular_one"
-                                android:textSize="28sp" />
+                                android:textColor="@color/progress_text"
+                                android:fontFamily="@font/source_sans_pro_bold"
+                                android:textSize="30sp" />
                         </FrameLayout>
                     </androidx.cardview.widget.CardView>
 

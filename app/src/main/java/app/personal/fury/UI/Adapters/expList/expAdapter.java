@@ -75,7 +75,7 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
                 holder.expIcon.setImageResource(R.drawable.cat_icon_bill);
                 break;
             case Constants.OTHERS:
-                holder.expIcon.setImageResource(R.drawable.nav_icon_settings);
+                holder.expIcon.setImageResource(R.drawable.cat_icon_otherexp);
                 break;
             default:
                 break;
