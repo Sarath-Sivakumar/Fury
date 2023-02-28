@@ -17,14 +17,13 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:padding="12dp"
             android:contentDescription="@null"
+            android:padding="12dp"
             android:scaleType="fitCenter"
             android:src="@drawable/colored_icon_warning" />
 
-
         <TextView
-            android:id="@+id/edlt"
+            android:id="@+id/edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro_semibold"
@@ -32,6 +31,13 @@
             android:padding="10dp"
             android:text="This expense will be deleted!"
             android:textSize="19sp" />
+
+        <CheckBox
+            android:id="@+id/check"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Do not ask again."/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,21 +50,21 @@
                 android:id="@+id/yes_btn"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_margin="4dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight=".5"
                 android:background="@drawable/background_borderonly"
                 android:fontFamily="@font/raleway_bold"
                 android:text="Ok"
                 android:textAllCaps="false" />
 
             <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
                 android:id="@+id/no_btn"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_margin="4dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight=".5"
                 android:background="@drawable/background_borderonly"
                 android:fontFamily="@font/raleway_bold"
                 android:text="Cancel"

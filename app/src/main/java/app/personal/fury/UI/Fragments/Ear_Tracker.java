@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -279,12 +280,61 @@ public class Ear_Tracker extends Fragment {
         }
     }
 
-    private void callOnDeletePopup(salaryEntity salaryEntity){
+    private void callOnDeletePopup(salaryEntity salaryEntity, @Nullable String isUpdate) {
+//        "1" = Update Balance
+//        "0" = Update Budget
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
-        View v = inflater.inflate(R.layout.add_item_exp, null);
+        View v = inflater.inflate(R.layout.popup_action_expdelete, null);
         popupWindow.setContentView(v);
+
+        Button yes = v.findViewById(R.id.yes_btn);
+        Button no = v.findViewById(R.id.no_btn);
+        no.setOnClickListener(v1 -> popupWindow.dismiss());
+        TextView body = v.findViewById(R.id.edit);
+//        CheckBox checkBox = v.findViewById(R.id.check);
+
+        if (salaryEntity != null && isUpdate == null) {
+            String s = "This Source will be deleted.";
+            body.setText(s);
+
+            yes.setOnClickListener(v1 -> {
+                vm.DeleteSalary(salaryEntity);
+                popupWindow.dismiss();
+                callOnDeletePopup(salaryEntity, "1");
+            });
+        } else if (salaryEntity != null){
+            if (isUpdate.equals("1")) {
+                String s = "Do you want to update balance according to current deletion?";
+                body.setText(s);
+                yes.setOnClickListener(v1 -> {
+                    int type = salaryEntity.getIncType();
+                    int salary = salaryEntity.getSalary();
+                    if (type == Constants.SAL_MODE_ACC) {
+                        balanceEntity bal = getBal();
+                        int curBal = bal.getBalance();
+                        vm.DeleteBalance();
+                        vm.InsertBalance(new balanceEntity(curBal - salary));
+                    } else {
+                        inHandBalEntity bal = getInHandBal();
+                        int curBal = bal.getBalance();
+                        vm.DeleteInHandBalance();
+                        vm.InsertInHandBalance(new inHandBalEntity(curBal - salary));
+                    }
+                    popupWindow.dismiss();
+                    callOnDeletePopup(salaryEntity, "0");
+
+                });
+            } else if (isUpdate.equals("0")) {
+                String s = "Do you want to update budget according to current deletion?";
+                body.setText(s);
+                yes.setOnClickListener(v1 -> {
+                    Commons.setDefaultBudget(vm, totalSalary, totalExp);
+                    popupWindow.dismiss();
+                });
+            }
+        }
 
         popupWindow.setFocusable(true);
         popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
@@ -292,18 +342,6 @@ public class Ear_Tracker extends Fragment {
         popupWindow.setBackgroundDrawable(null);
         popupWindow.setElevation(6);
         popupWindow.showAsDropDown(addSal);
-//        PopupWindow popupWindow = new PopupWindow(getContext());
-//        LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        assert inflater != null;
-//        View v = inflater.inflate(R.layout.add_exp_item, null);
-//        popupWindow.setContentView(v);
-//
-//        popupWindow.setFocusable(true);
-//        popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
-//        popupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
-//        popupWindow.setBackgroundDrawable(null);
-//        popupWindow.setElevation(6);
-//        popupWindow.showAsDropDown(addSal);
     }
 
     private void touchHelper() {
@@ -319,25 +357,7 @@ public class Ear_Tracker extends Fragment {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 adapter.notifyDataSetChanged();
-                callOnDeletePopup(adapter.getSalaryEntity(viewHolder.getPosition()));
-                vm.DeleteSalary(adapter.getSalaryEntity(viewHolder.getPosition()));
-//                int type = adapter.getSalaryEntity(viewHolder.getPosition()).getIncType();
-//                int salary = adapter.getSalaryEntity(viewHolder.getPosition()).getSalary();
-//                Popup to remove from balance or no needed...
-//                if (type==Constants.SAL_MODE_ACC){
-//                    balanceEntity bal = getBal();
-//                    int curBal = bal.getBalance();
-//                    vm.DeleteBalance();
-//                    vm.InsertBalance(new balanceEntity(curBal-salary));
-//                }else{
-//                    inHandBalEntity bal = getInHandBal();
-//                    int curBal = bal.getBalance();
-//                    vm.DeleteInHandBalance();
-//                    vm.InsertInHandBalance(new inHandBalEntity(curBal-salary));
-//                }
-//                Popup to update budget or not needed...
-//                if yes
-//                Commons.setDefaultBudget(vm, totalSalary, totalExp);
+                callOnDeletePopup(adapter.getSalaryEntity(viewHolder.getPosition()), null);
             }
         }).attachToRecyclerView(salSplitList);
 
@@ -410,10 +430,10 @@ public class Ear_Tracker extends Fragment {
         return finalTotalSalary.get();
     }
 
-    private void getExp(){
+    private void getExp() {
         vm.getExp().observe(requireActivity(), expEntities -> {
             int total = 0;
-            if (expEntities!=null){
+            if (expEntities != null) {
                 for (int i = 0; i < expEntities.size(); i++) {
                     total = total + expEntities.get(i).getExpenseAmt();
                 }

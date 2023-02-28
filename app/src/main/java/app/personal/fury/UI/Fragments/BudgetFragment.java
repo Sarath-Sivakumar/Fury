@@ -175,52 +175,8 @@ public class BudgetFragment extends Fragment {
         cancel.setOnClickListener(v -> popupWindow.dismiss());
 
         yes.setOnClickListener(v -> {
-            new CountDownTimer(2000, 1000) {
-                final PopupWindow fakeScrn = new PopupWindow(getContext());
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    popupWindow.dismiss();
-                    LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    View view = inflater.inflate(R.layout.popup_budget_fake_loading, null);
-                    TextView t = view.findViewById(R.id.loadingText);
-                    String s = "Analyzing Your Earnings..";
-                    t.setText(s);
-                    fakeScrn.setContentView(view);
-                    fakeScrn.setFocusable(true);
-                    fakeScrn.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
-                    fakeScrn.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
-                    fakeScrn.setBackgroundDrawable(null);
-                    fakeScrn.setElevation(6);
-                    fakeScrn.showAsDropDown(addBudget);
-                }
-
-                @Override
-                public void onFinish() {
-                    fakeScrn.dismiss();
-                    new CountDownTimer(2000, 1000) {
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-                            LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                            View view = inflater.inflate(R.layout.popup_budget_fake_loading, null);
-                            TextView t = view.findViewById(R.id.loadingText);
-                            String s = "Crafting a ideal budget..";
-                            t.setText(s);
-                            fakeScrn.setContentView(view);
-                            fakeScrn.setFocusable(true);
-                            fakeScrn.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
-                            fakeScrn.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
-                            fakeScrn.setBackgroundDrawable(null);
-                            fakeScrn.setElevation(6);
-                            fakeScrn.showAsDropDown(addBudget);
-                        }
-                        @Override
-                        public void onFinish() {
-                            Commons.setDefaultBudget(vm, totalSalary, totalExp);
-                            fakeScrn.dismiss();
-                        }
-                    }.start();
-                }
-            }.start();
+            popupWindow.dismiss();
+            Commons.fakeLoadingScreen(requireContext(), totalSalary, totalExp, vm, addBudget);
         });
 
         no.setOnClickListener(v -> {
