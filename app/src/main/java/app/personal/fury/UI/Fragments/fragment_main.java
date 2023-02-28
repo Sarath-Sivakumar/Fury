@@ -323,7 +323,6 @@ public class fragment_main extends Fragment {
         popupWindow.setElevation(6);
         popupWindow.setOverlapAnchor(true);
         popupWindow.showAsDropDown(dAvg);
-
     }
 
     private void getDebt() {

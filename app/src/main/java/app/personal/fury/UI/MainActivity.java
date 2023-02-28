@@ -1,11 +1,16 @@
 package app.personal.fury.UI;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -278,8 +283,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (item.getItemId()==R.id.about) {
                 startActivity(new Intent(MainActivity.this, About_Activity.class));
             } else if (item.getItemId()==R.id.logout) {
-                userVM.LogOut();
-                finishAffinity();
+                logout(navView);
             }else{
                 Log.e("App", "Daddy stop! Please aaaah!");
             }
@@ -348,6 +352,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
         });
+    }
+
+    private void logout(View navView){
+        PopupWindow popupWindow = new PopupWindow(this);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
+        View view = inflater.inflate(R.layout.popup_user_logout, null);
+        popupWindow.setContentView(view);
+        popupWindow.setFocusable(true);
+
+        Button yes = view.findViewById(R.id.yes_btn);
+        Button no = view.findViewById(R.id.no_btn);
+        no.setOnClickListener(v -> popupWindow.dismiss());
+        yes.setOnClickListener(v -> {
+            userVM.LogOut();
+            finishAffinity();
+        });
+
+        popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+        popupWindow.setBackgroundDrawable(null);
+        popupWindow.setElevation(6);
+        popupWindow.setOverlapAnchor(true);
+        popupWindow.showAsDropDown(navView);
     }
 
 //    @Override //To be implemented later..//Todo

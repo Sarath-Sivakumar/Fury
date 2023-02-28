@@ -27,8 +27,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:fontFamily="@font/source_sans_pro_semibold"
-            android:text="Come back soon!"
-            android:textSize="22sp" />
+            android:text="Fury"
+            android:textSize="24sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -36,8 +36,8 @@
             android:gravity="center"
             android:padding="10dp"
             android:fontFamily="@font/source_sans_pro_semibold"
-            android:text="Are you sure you want to exit?"
-            android:textSize="19sp" />
+            android:text="Are you sure you want to logout?"
+            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,7 +47,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/lyes_btn"
+                android:id="@+id/yes_btn"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
                 android:layout_weight=".5"
@@ -60,7 +60,7 @@
 
             <Button
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:id="@+id/lno_btn"
+                android:id="@+id/no_btn"
                 android:layout_width="0dp"
                 android:layout_weight=".5"
                 android:layout_margin="4dp"
