@@ -80,7 +80,7 @@
                 android:gravity="center"
                 android:paddingStart="0dp"
                 android:paddingEnd="12dp"
-                android:paddingBottom="12dp"
+                android:paddingBottom="6dp"
                 android:paddingTop="6dp"
                 android:text="(DUE_AMT)"
                 android:textSize="24sp" />
