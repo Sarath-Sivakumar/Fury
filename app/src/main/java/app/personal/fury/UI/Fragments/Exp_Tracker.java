@@ -190,8 +190,8 @@ public class Exp_Tracker extends Fragment {
         if (layout == Constants.itemDelete) {
             View view = inflater.inflate(R.layout.popup_action_expdelete, null);
             popupWindow.setContentView(view);
-            Button del = view.findViewById(R.id.del_yes);
-            Button cancel = view.findViewById(R.id.del_no);
+            Button del = view.findViewById(R.id.yes_btn);
+            Button cancel = view.findViewById(R.id.no_btn);
 
             del.setOnClickListener(v -> {
                 expEntity entity = adapter.getExpAt(ViewHolder.getAdapterPosition());
