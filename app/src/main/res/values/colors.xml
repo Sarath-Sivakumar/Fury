@@ -12,8 +12,9 @@
     <color name="theme_gold">#FFD700</color>
 
 <!--   Progress Indicator inside circle-->
-    <color name="progress_inicator">#dde9eb</color>
-    <color name="progress_track">#9ccc65</color>
+    <color name="progress_inicator">#000000</color>
+    <color name="progress_track">@color/theme_green </color>
+    <color name="progress_text">@color/full_white</color>
 
 
 <!--    Darkshades-->

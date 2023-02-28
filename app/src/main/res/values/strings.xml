@@ -11,7 +11,7 @@
     <string name="daily_average">Daily Average</string>
     <string name="expense">Expense</string>
     <string name="budget">Budget</string>
-    <string name="expense_overview">Expense Overview</string>
+    <string name="expense_overview">Overview</string>
     <string name="back">Back</string>
     <string name="version">THIS IS A TEST BUILD V 74.1.0</string>
     <string name="login_frm_signup">Already have account? <u>login</u></string>
@@ -128,10 +128,10 @@
     <string name="report_a_problem">Report a problem</string>
     <string name="total_earnings">Total Earnings</string>
     <string name="sources">Source</string>
-    <string name="account_earnings">Account Earnings</string>
+    <string name="account_earnings">Bank Earnings</string>
     <string name="cash_earnings">Cash Earnings</string>
     <string name="cash_expenses">Cash Expenses</string>
-    <string name="account_expenses">Account Expenses</string>
+    <string name="account_expenses">Bank Expenses</string>
     <string name="total">Total</string>
     <string name="count">Count</string>
     <string name="earnings_category">Earnings History</string>

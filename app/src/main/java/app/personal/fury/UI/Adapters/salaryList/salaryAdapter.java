@@ -36,7 +36,7 @@ public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.salHolder>
         holder.incAmt.setText("+" +Constants.RUPEE+ entity.getSalary());
         holder.incName.setText(entity.getIncName());
         if (entity.getSalMode()==Constants.SAL_MODE_ACC){
-            holder.salMod.setText("Account");
+            holder.salMod.setText("Bank");
         }else{
             holder.salMod.setText("Cash");
 

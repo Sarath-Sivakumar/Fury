@@ -10,9 +10,11 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.MotionEvent;
 
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import app.personal.MVVM.Entity.userEntity;
@@ -28,6 +30,7 @@ public class signUp extends AppCompatActivity {
     private EditText Name, email, pass1, pass2;
     private Button signUp;
     private userInitViewModel uvm;
+    private ProgressBar progress;
 
     private Boolean passvisible=false;
 
@@ -62,6 +65,8 @@ public class signUp extends AppCompatActivity {
         email = findViewById(R.id.u_mail);
         pass1 = findViewById(R.id.u_pass1);
         pass2 = findViewById(R.id.u_pass2);
+        progress = findViewById(R.id.progress);
+
 
         pass2.setOnTouchListener((v, event) -> {
             final int Right=2;
@@ -100,6 +105,7 @@ public class signUp extends AppCompatActivity {
                     if (p1.trim().equals(p2.trim())) {
                         if (Commons.isEmail(mail)) {
                             if (Commons.isValidPass(p1.trim())) {
+                                progress.setVisibility(View.VISIBLE);
                                 userEntity userData = new userEntity();
                                 userData.setName(name);
                                 userData.setImgUrl(Constants.DEFAULT_DP);

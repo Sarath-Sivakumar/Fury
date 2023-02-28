@@ -131,13 +131,12 @@ public class fragment_main extends Fragment {
         View v = inflater.inflate(R.layout.popup_due_warning, null);
         popupWindow.setContentView(v);
 
-        TextView mainBody, name, date , amt;
+        TextView mainBody, name, date;
         Button yes, no;
 
         mainBody = v.findViewById(R.id.warning);
         name = v.findViewById(R.id.NameDue);
         date = v.findViewById(R.id.DateDue);
-        amt = v.findViewById(R.id.amt);
         yes = v.findViewById(R.id.yes_btn);
         no = v.findViewById(R.id.no_btn);
 
@@ -145,11 +144,8 @@ public class fragment_main extends Fragment {
         mainBody.setText(s1);
         String s2 = debt.getSource();
         name.setText(s2);
-        String s4 = debt.getDate();
+        String s4 = debt.getFinalDate();
         date.setText(s4);
-        String s3 = Constants.RUPEE + debt.getAmount();
-        amt.setText(s3);
-
         yes.setOnClickListener(v1 -> {
             debt.setStatus(Constants.DEBT_PAID);
             vm.UpdateDebt(debt);

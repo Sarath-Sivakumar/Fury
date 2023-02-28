@@ -9,9 +9,11 @@ import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.Objects;
@@ -26,6 +28,7 @@ public class Login extends AppCompatActivity {
     private userInitViewModel uvm;
     private EditText Email, Password;
     private Button Login;
+    private ProgressBar progress;
     private Boolean passvisible=false;
 
     @Override
@@ -53,6 +56,7 @@ public class Login extends AppCompatActivity {
         Email = findViewById(R.id.l_mail);
         Password = findViewById(R.id.l_pass);
         Login = findViewById(R.id.l_btn);
+        progress = findViewById(R.id.progress);
         TextView f_pass = findViewById(R.id.f_pass);
         f_pass.setOnClickListener(view -> forgotPassword());
         Password.setOnTouchListener((v, event) -> {
@@ -88,11 +92,12 @@ public class Login extends AppCompatActivity {
                     uvm.Login(email, password);
                     uvm.getUserId().observe(this, firebaseUser -> {
                         if (Objects.equals(firebaseUser.getEmail(), email)){
+                            progress.setVisibility(View.VISIBLE);
                             finishAffinity();
                         }
                     });
                 } else {
-                    Commons.SnackBar(Login, "Invalid Credentials.");
+                    Commons.SnackBar(Login, "Invalid Credentials!");
                 }
             }
             else {
