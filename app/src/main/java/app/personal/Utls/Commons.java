@@ -3,11 +3,14 @@ package app.personal.Utls;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.viewpager.widget.ViewPager;
 
@@ -26,6 +29,7 @@ import app.personal.MVVM.Entity.budgetEntity;
 import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
+import app.personal.fury.R;
 
 public class Commons {
 
@@ -33,7 +37,16 @@ public class Commons {
     private static final Pattern EMAIL_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",Pattern.CASE_INSENSITIVE);
 
     public static void SnackBar(View v, String Text) {
-        Snackbar.make(v, Text, Snackbar.LENGTH_SHORT).show();
+        final Snackbar snackbar = Snackbar.make(v, "", Snackbar.LENGTH_SHORT);
+        LayoutInflater inflater = (LayoutInflater) v.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View snackView = inflater.inflate(R.layout.snack_bar, null);
+        snackbar.getView().setBackgroundColor(Color.TRANSPARENT);
+        Snackbar.SnackbarLayout snackBarLayout = (Snackbar.SnackbarLayout) snackbar.getView();
+        snackBarLayout.setPadding(0,0,0,100);
+        TextView msg = snackView.findViewById(R.id.text);
+        msg.setText(Text);
+        snackBarLayout.addView(snackView, 0);
+        snackbar.show();
     }
 
     public static String getDate() {
