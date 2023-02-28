@@ -2,8 +2,10 @@ package app.personal.fury.UI.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +61,6 @@ public class fragment_main extends Fragment {
     private RecyclerView dueList;
     private LinearLayout noDues;
     private int filter = 0;
-    private ImageButton avgInfo;
     private final ArrayList<debtEntity> debtList = new ArrayList<>();
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
     private final int[] FragmentList = new int[]{R.drawable.infos1,R.drawable.infos2,R.drawable.infos3,R.drawable.infos4,R.drawable.infos5,R.drawable.infos6};
@@ -78,7 +79,6 @@ public class fragment_main extends Fragment {
         mainProgressText = v.findViewById(R.id.mainText);
         expView = v.findViewById(R.id.expText);
         dAvg = v.findViewById(R.id.daily_avg);
-        avgInfo = v.findViewById(R.id.info);
         budgetView = v.findViewById(R.id.budgetText);
         mainProgressBar.setMax(Constants.LIMITER_MAX);
         ad = v.findViewById(R.id.adView);
@@ -265,14 +265,9 @@ public class fragment_main extends Fragment {
                 e.printStackTrace();
             }
 
-//            if (dAvg.getText().equals(Constants.dAvgNoData)) {
-//                avgInfo.setVisibility(View.VISIBLE);
-//                avgInfo.setOnClickListener(v -> dAvgPopup());
-//                TypedValue typedValue = new TypedValue();
-//                Resources.Theme theme = requireActivity().getTheme();
-//                theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true);
-//                dAvg.setTextColor(typedValue.data);
-//            }
+            if (dAvg.getText().equals(Constants.dAvgNoData)) {
+                dAvg.setOnClickListener(v -> dAvgPopup());
+            }
         });
     }
 
@@ -318,16 +313,16 @@ public class fragment_main extends Fragment {
         View view = inflater.inflate(R.layout.popup_text_dailyavg, null);
         popupWindow.setContentView(view);
         popupWindow.setFocusable(true);
-        //setting height in dp units-------------
+        //setting width in dp units-------------
         final float scale = requireContext().getResources().getDisplayMetrics().density;
-        int pixels = (int) (150 * scale + 0.5f);
+        int pixels = (int) (200 * scale + 0.5f);
         //---------------------------------------
         popupWindow.setWidth(pixels);
         popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
         popupWindow.setBackgroundDrawable(null);
         popupWindow.setElevation(6);
         popupWindow.setOverlapAnchor(true);
-        popupWindow.showAsDropDown(avgInfo);
+        popupWindow.showAsDropDown(dAvg);
 
     }
 
