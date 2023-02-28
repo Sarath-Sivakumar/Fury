@@ -1,11 +1,16 @@
 package app.personal.MVVM.Repository;
 
 import android.app.Application;
+import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -13,14 +18,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.UUID;
 
 import app.personal.MVVM.Entity.userEntity;
 import app.personal.Utls.Constants;
 
-public class AuthRepository{
+public class AuthRepository {
 
     private final Application application;
     private final FirebaseAuth firebaseAuth;
@@ -44,6 +53,7 @@ public class AuthRepository{
             isLoggedOutLiveData.postValue(true);
         }
     }
+
     public void login(String Email, String Password) {
         firebaseAuth.signInWithEmailAndPassword(Email, Password).addOnCompleteListener(application.getMainExecutor(),
                 task -> {
@@ -52,33 +62,76 @@ public class AuthRepository{
                         fetchUserData();
                     } else {
                         isLoggedOutLiveData.postValue(true);
-                        Log.e("AuthRepository", "login: "+task.getException().getMessage());
+                        Log.e("AuthRepository", "login: " + task.getException().getMessage());
                     }
                 });
     }
 
-    private void putDp(){
+    FirebaseStorage storage;
+    StorageReference storageReference;
+
+    public void InsertProfilePic(userEntity entity, Uri filePath) {
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+        StorageReference ref = storageReference.child(firebaseAuth.getCurrentUser()
+                + "images/" + UUID.randomUUID().toString());
+        ref.putFile(filePath)
+                .addOnSuccessListener(
+                        taskSnapshot -> {
+                            if (taskSnapshot.getError() == null) {
+                                Log.e("Firebase", "Image uploaded!");
+                                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        UpdateDBDP(uri.toString(), entity.getName());
+                                    }
+                                });
+
+                            }else{
+                                Log.e("Firebase", "Image error: "+taskSnapshot.getError().getMessage());
+                            }
+                        });
 
     }
 
-    public void insertUserData(userEntity userData){
+    public void UpdateUserData(userEntity userEntity){
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("name", userEntity.getName());
+        map.put("imgUrl", userEntity.getName());
+        String user = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+        db.getReference(Constants.Users).child(user)
+                .setValue(map);
+    }
+
+    private void UpdateDBDP(String uri, @NonNull String userName) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("name", userName);
+        Log.e("Firebase", "User name: " + userName);
+        map.put("imgUrl", uri);
+        String user = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+        db.getReference(Constants.Users).child(user)
+                .setValue(map);
+    }
+
+
+    public void insertUserData(userEntity userData) {
         userLiveData.postValue(firebaseAuth.getCurrentUser());
         HashMap<String, Object> map = new HashMap<>();
         map.put("name", userData.getName());
         map.put("imgUrl", userData.getImgUrl());
         String user = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-        Log.e("Firebase", "signup: User: "+user);
+        Log.e("Firebase", "signup: User: " + user);
         db.getReference(Constants.Users).child(user)
                 .setValue(map, (error, ref) -> {
-                    if (error==null){
+                    if (error == null) {
                         isLoggedOutLiveData.postValue(false);
-                    }else{
-                        Log.e("Firebase", "signup: Data add error: "+error.getMessage());
+                    } else {
+                        Log.e("Firebase", "signup: Data add error: " + error.getMessage());
                     }
                 });
     }
 
-    public void fetchUserData(){
+    public void fetchUserData() {
         userDataRef.child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -103,7 +156,7 @@ public class AuthRepository{
                         insertUserData(userData);
                     } else {
                         isLoggedOutLiveData.postValue(true);
-                        Log.e("AuthRepository", "SignUp: "+task.getException().getMessage());
+                        Log.e("AuthRepository", "SignUp: " + task.getException().getMessage());
                     }
                 });
     }
@@ -113,18 +166,20 @@ public class AuthRepository{
         isLoggedOutLiveData.postValue(true);
     }
 
-    public MutableLiveData<FirebaseUser> getUserId(){
+    public MutableLiveData<FirebaseUser> getUserId() {
         return userLiveData;
     }
-    public MutableLiveData<userEntity> getUserData(){
-        try{
+
+    public MutableLiveData<userEntity> getUserData() {
+        try {
             fetchUserData();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return userData;
     }
-    public MutableLiveData<Boolean> getIsLoggedOutLiveData(){
+
+    public MutableLiveData<Boolean> getIsLoggedOutLiveData() {
         return isLoggedOutLiveData;
     }
 }
