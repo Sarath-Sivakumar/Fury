@@ -25,13 +25,11 @@ import app.personal.fury.R;
 public class Settings_Activity extends AppCompatActivity {
 
     private LoggedInUserViewModel userVM;
-    private ImageButton back, uploadPic;
+    private ImageButton uploadPic;
     private ImageView profilePic;
     private TextView profileName;
     private EditText profileNameEdit;
 
-    // Uri indicates, where the image will be picked from
-    private Uri filePath;
     private userEntity userData = new userEntity();
     // request code
     private final int PICK_IMAGE_REQUEST = 22;
@@ -64,7 +62,7 @@ public class Settings_Activity extends AppCompatActivity {
     }
 
     private void findView() {
-        back = findViewById(R.id.nBack);
+        ImageButton back = findViewById(R.id.nBack);
         back.setOnClickListener(v -> finish());
         uploadPic = findViewById(R.id.uploadPic);
         profilePic = findViewById(R.id.profilePic);
@@ -73,13 +71,12 @@ public class Settings_Activity extends AppCompatActivity {
         profileName.setOnClickListener(v -> {
             profileNameEdit.setVisibility(View.VISIBLE);
             profileNameEdit.setText(profileName.getText().toString());
+            profileName.setVisibility(View.GONE);
         });
     }
 
     private void OnClick() {
-        uploadPic.setOnClickListener(v -> {
-            SelectImage();
-        });
+        uploadPic.setOnClickListener(v ->SelectImage());
     }
 
     private void SelectImage() {
@@ -114,7 +111,8 @@ public class Settings_Activity extends AppCompatActivity {
                 && data.getData() != null) {
 
             // Get the Uri of data
-            filePath = data.getData();
+            // Uri indicates, where the image will be picked from
+            Uri filePath = data.getData();
             userVM.InsertProfilePic(filePath, userData);
             try {
 
