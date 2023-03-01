@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +28,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import app.personal.MVVM.Entity.userEntity;
+import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 
 public class AuthRepository {
@@ -75,29 +77,59 @@ public class AuthRepository {
         storageReference = storage.getReference();
         StorageReference ref = storageReference.child(firebaseAuth.getCurrentUser()
                 + "images/" + UUID.randomUUID().toString());
-        ref.putFile(filePath)
-                .addOnSuccessListener(
-                        taskSnapshot -> {
-                            if (taskSnapshot.getError() == null) {
-                                Log.e("Firebase", "Image uploaded!");
-                                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        UpdateDBDP(uri.toString(), entity.getName());
-                                    }
-                                });
+        if (!entity.getImgUrl().equals(Constants.DEFAULT_DP)) {
+            StorageReference photoRef = storage.getReferenceFromUrl(entity.getImgUrl());
+            photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    // File deleted successfully
+                    Log.d("DP Delete", "onSuccess: deleted file");
+                    ref.putFile(filePath).addOnSuccessListener(taskSnapshot -> {
+                        if (taskSnapshot.getError() == null) {
+                            Log.e("Firebase", "Image uploaded!");
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    UpdateDBDP(uri.toString(), entity.getName());
+                                }
+                            });
 
-                            }else{
-                                Log.e("Firebase", "Image error: "+taskSnapshot.getError().getMessage());
-                            }
-                        });
+                        } else {
+                            Log.e("Firebase", "Image error: " + taskSnapshot.getError().getMessage());
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Uh-oh, an error occurred!
+                    Log.d("DP Delete", "onFailure: did not delete file");
+                }
+            });
+        } else {
+
+            ref.putFile(filePath).addOnSuccessListener(taskSnapshot -> {
+                if (taskSnapshot.getError() == null) {
+                    Log.e("Firebase", "Image uploaded!");
+                    ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            UpdateDBDP(uri.toString(), entity.getName());
+                        }
+                    });
+
+                } else {
+                    Log.e("Firebase", "Image error: " + taskSnapshot.getError().getMessage());
+                }
+            });
+        }
 
     }
 
-    public void UpdateUserData(userEntity userEntity){
+    public void UpdateUserData(userEntity userEntity) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("name", userEntity.getName());
-        map.put("imgUrl", userEntity.getName());
+        map.put("imgUrl", userEntity.getImgUrl());
         String user = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
         db.getReference(Constants.Users).child(user)
                 .setValue(map);
@@ -106,7 +138,6 @@ public class AuthRepository {
     private void UpdateDBDP(String uri, @NonNull String userName) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("name", userName);
-        Log.e("Firebase", "User name: " + userName);
         map.put("imgUrl", uri);
         String user = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
         db.getReference(Constants.Users).child(user)

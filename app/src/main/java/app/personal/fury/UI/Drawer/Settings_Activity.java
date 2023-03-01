@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -25,6 +26,8 @@ import java.io.IOException;
 
 import app.personal.MVVM.Entity.userEntity;
 import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
+import app.personal.Utls.Commons;
+import app.personal.Utls.Constants;
 import app.personal.fury.R;
 
 public class Settings_Activity extends AppCompatActivity {
@@ -34,8 +37,7 @@ public class Settings_Activity extends AppCompatActivity {
     private ImageView profilePic;
     private TextView profileName;
     private EditText profileNameEdit;
-
-    private Button save,discard;
+    private Button save, discard;
 
     // Uri indicates, where the image will be picked from
     private Uri filePath;
@@ -62,10 +64,14 @@ public class Settings_Activity extends AppCompatActivity {
             if (userEntity != null) {
                 userData = userEntity;
                 profileName.setText(userData.getName());
-                Glide.with(this)
-                        .load(userData.getImgUrl())
-                        .circleCrop()
-                        .into(profilePic);
+                if (!userEntity.getImgUrl().equals(Constants.DEFAULT_DP)){
+                    Glide.with(this)
+                            .load(userData.getImgUrl())
+                            .circleCrop()
+                            .into(profilePic);
+                }else{
+                    profilePic.setImageResource(R.drawable.nav_icon_account);
+                }
             }
         });
     }
@@ -95,14 +101,29 @@ public class Settings_Activity extends AppCompatActivity {
 
         save.setOnClickListener(v -> {
             String uname = profileNameEdit.getText().toString();
+            if (!uname.trim().isEmpty()) {
+                if (!uname.equals(profileName.getText().toString())){
+                    userEntity entity = userData;
+                    entity.setName(uname);
+                    userVM.UpdateUserData(entity);
+                    profileNameEdit.setVisibility(View.GONE);
+                    profileName.setVisibility(View.VISIBLE);
+                }else{
+                    Commons.SnackBar(save, "That's the same name -_-");
+                }
+            } else {
+                Commons.SnackBar(save, "Hello NoName human, field cannot be empty. Try again!");
+            }
         });
         discard.setOnClickListener(v -> {
             profileNameEdit.setVisibility(View.GONE);
+            profileName.setVisibility(View.VISIBLE);
             save.setVisibility(View.GONE);
             discard.setVisibility(View.GONE);
         });
     }
-    private void callPopupWindow(ImageButton uploadPic){
+
+    private void callPopupWindow(ImageButton uploadPic) {
         PopupWindow popupWindow = new PopupWindow(this);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
@@ -117,6 +138,7 @@ public class Settings_Activity extends AppCompatActivity {
         });
         Files.setOnClickListener(v -> {
             SelectImage();
+            popupWindow.dismiss();
         });
 
         popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
