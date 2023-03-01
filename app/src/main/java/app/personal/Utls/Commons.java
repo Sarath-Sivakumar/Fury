@@ -391,47 +391,4 @@ public class Commons {
         };
         return getDone();
     }
-
-//    public static Bitmap getImage(Intent i, Context c){
-//        //Get incoming intent
-//        Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//        c.startActivityForResult(i, RESULT_LOAD_IMAGE);
-//        if(Intent.ACTION_SEND.equals(action) && type != null){
-//            return convertUriToImage(i, c);
-//        }else {
-//            return ImageExceptionHandler(c);
-//        }
-//    }
-    public static Bitmap convertUriToImage(Intent data, Context c) {
-        Uri imageSelected = data.getParcelableExtra(Intent.EXTRA_STREAM);
-        try {
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(c.getContentResolver(), imageSelected);
-            return bitmap;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ImageExceptionHandler(c);
-        }
-    }
-    private static Bitmap ImageExceptionHandler(Context c){
-        Bitmap bitmap = null;
-
-        Drawable drawable = c.getDrawable(R.drawable.nav_icon_account);
-        if (drawable instanceof BitmapDrawable) {
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-            if (bitmapDrawable.getBitmap() != null) {
-                return bitmapDrawable.getBitmap();
-            }
-        }
-
-        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
-        } else {
-            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        }
-
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-        return bitmap;
-    }
 }

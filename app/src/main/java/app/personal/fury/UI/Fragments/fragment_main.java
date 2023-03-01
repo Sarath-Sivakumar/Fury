@@ -2,17 +2,14 @@ package app.personal.fury.UI.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
@@ -55,7 +52,7 @@ public class fragment_main extends Fragment {
     private mainViewModel vm;
     private duesAdapter dAdapter;
     private categoryAdapter cAdapter;
-    private int salary = 0, expense = 0;
+    private int salary = 0, expense = 0, budgetTotalAmount = 0;
     private int progress = 0;
     private AdView ad;
     private RecyclerView dueList;
@@ -63,7 +60,7 @@ public class fragment_main extends Fragment {
     private int filter = 0;
     private final ArrayList<debtEntity> debtList = new ArrayList<>();
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-    private final int[] FragmentList = new int[]{R.drawable.infos1,R.drawable.infos2,R.drawable.infos3,R.drawable.infos4,R.drawable.infos5,R.drawable.infos6};
+    private final int[] FragmentList = new int[]{R.drawable.infos1, R.drawable.infos2, R.drawable.infos3, R.drawable.infos4, R.drawable.infos5, R.drawable.infos6};
     private boolean isView = true;
 
     public fragment_main() {
@@ -140,7 +137,7 @@ public class fragment_main extends Fragment {
         yes = v.findViewById(R.id.yes_btn);
         no = v.findViewById(R.id.no_btn);
 
-        String s1 = "Attention!\n Your due " + debt.getSource() + " of \n"+ Constants.RUPEE + debt.getAmount() +" is nearing its deadline.";
+        String s1 = "Attention!\n Your due " + debt.getSource() + " of \n" + Constants.RUPEE + debt.getAmount() + " is nearing its deadline.";
         mainBody.setText(s1);
         String s2 = debt.getSource();
         name.setText(s2);
@@ -151,7 +148,7 @@ public class fragment_main extends Fragment {
             vm.UpdateDebt(debt);
             popupWindow.dismiss();
         });
-        no.setOnClickListener(v1 ->popupWindow.dismiss());
+        no.setOnClickListener(v1 -> popupWindow.dismiss());
 
         popupWindow.setFocusable(true);
         popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
@@ -168,7 +165,7 @@ public class fragment_main extends Fragment {
         cAdapter = new categoryAdapter();
         dAdapter = new duesAdapter();
         MobileAds.initialize(requireContext());
-        if (savedInstanceState == null&&isView) {
+        if (savedInstanceState == null && isView) {
             debtWaring();
         }
     }
@@ -192,23 +189,27 @@ public class fragment_main extends Fragment {
 
     private void initViewModel() {
         getExp(filter);
-        budgetEntity entity = getBud();
-        if (entity.getAmount() > 0 && expense > 0) {
-            entity.setBal(entity.getAmount() - expense);
-            vm.DeleteBudget();
-            vm.InsertBudget(entity);
-        }
         getSal();
         getDebt();
+        getBud();
     }
 
-    private budgetEntity getBud() {
-        AtomicReference<budgetEntity> bud = new AtomicReference<>(new budgetEntity());
+    private void getBud() {
         vm.getBudget().observe(requireActivity(), budgetEntities -> {
             try {
                 String s = Constants.RUPEE + budgetEntities.getAmount();
                 budgetView.setText(s);
+                budgetTotalAmount = budgetEntities.getAmount();
+                try{
+                    progress = Commons.setProgress(expense, budgetTotalAmount);
+                    setMain(progress);
+                }catch (Exception e){
+//                    No budget set yet...
+                    progress = Commons.setProgress(expense, salary);
+                    setMain(progress);
+                }
             } catch (Exception e) {
+                budgetTotalAmount = 0;
                 try {
                     String s = "Set a budget.";
                     budgetView.setText(s);
@@ -217,11 +218,7 @@ public class fragment_main extends Fragment {
                 } catch (Exception ignored) {
                 }
             }
-            if (budgetEntities != null) {
-                bud.set(budgetEntities);
-            }
         });
-        return bud.get();
     }
 
     private void getSal() {
@@ -230,13 +227,7 @@ public class fragment_main extends Fragment {
             if (!salaryEntity.isEmpty()) {
                 for (int i = 0; i < salaryEntity.size(); i++) {
                     salary = salary + salaryEntity.get(i).getSalary();
-                    progress = Commons.setProgress(expense, salary);
                 }
-            }
-            try {
-                setMain(progress);
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         });
     }
@@ -248,13 +239,11 @@ public class fragment_main extends Fragment {
             for (int i = 0; i < expEntities.size(); i++) {
                 expense = expense + expEntities.get(i).getExpenseAmt();
             }
-            progress = Commons.setProgress(expense, salary);
             cAdapter.setExpes(expEntities, salary, filter);
             if (Commons.getAvg(expEntities, true).equals(Constants.dAvgNoData)) {
                 dAvg.setTextSize(12);
             }
             try {
-                setMain(progress);
                 if (expEntities != null && !expEntities.isEmpty()) {
                     dAvg.setText(Commons.getAvg(expEntities, true));
                 } else {
@@ -297,7 +286,7 @@ public class fragment_main extends Fragment {
                 if (!debtList.isEmpty() && debtList.size() > 1) {
                     ArrayList<debtEntity> newDebtList = Commons.debtSorterProMax(debtList);
                     debtList.clear();
-                    callWarningPopup(newDebtList.get(newDebtList.size()-1));
+                    callWarningPopup(newDebtList.get(newDebtList.size() - 1));
                     newDebtList.clear();
                 } else if (debtList.size() == 1) {
                     callWarningPopup(debtList.get(0));

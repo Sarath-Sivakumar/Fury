@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -31,7 +30,7 @@ import app.personal.fury.R;
 public class Settings_Activity extends AppCompatActivity {
 
     private LoggedInUserViewModel userVM;
-    private ImageButton back, uploadPic;
+    private ImageButton uploadPic;
     private ImageView profilePic;
     private TextView profileName;
     private EditText profileNameEdit;
@@ -72,7 +71,7 @@ public class Settings_Activity extends AppCompatActivity {
     }
 
     private void findView() {
-        back = findViewById(R.id.nBack);
+        ImageButton back = findViewById(R.id.nBack);
         back.setOnClickListener(v -> finish());
         uploadPic = findViewById(R.id.uploadPic);
         profilePic = findViewById(R.id.profilePic);
@@ -85,6 +84,7 @@ public class Settings_Activity extends AppCompatActivity {
             save.setVisibility(View.VISIBLE);
             discard.setVisibility(View.VISIBLE);
             profileNameEdit.setText(profileName.getText().toString());
+            profileName.setVisibility(View.GONE);
         });
     }
 
@@ -159,7 +159,8 @@ public class Settings_Activity extends AppCompatActivity {
                 && data.getData() != null) {
 
             // Get the Uri of data
-            filePath = data.getData();
+            // Uri indicates, where the image will be picked from
+            Uri filePath = data.getData();
             userVM.InsertProfilePic(filePath, userData);
             try {
 

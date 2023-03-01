@@ -309,7 +309,7 @@ public class Ear_Tracker extends Fragment {
                 String s = "Do you want to update balance according to current deletion?";
                 body.setText(s);
                 yes.setOnClickListener(v1 -> {
-                    int type = salaryEntity.getIncType();
+                    int type = salaryEntity.getSalMode();
                     int salary = salaryEntity.getSalary();
                     if (type == Constants.SAL_MODE_ACC) {
                         balanceEntity bal = getBal();
@@ -356,8 +356,8 @@ public class Ear_Tracker extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                adapter.notifyDataSetChanged();
                 callOnDeletePopup(adapter.getSalaryEntity(viewHolder.getPosition()), null);
+                adapter.notifyDataSetChanged();
             }
         }).attachToRecyclerView(salSplitList);
 
