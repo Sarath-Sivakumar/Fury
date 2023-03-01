@@ -21,7 +21,7 @@ public class About_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.nav_activity_about);
+//        setContentView(R.layout.nav_activity_about);
         init();
     }
     private void init() {
