@@ -26,8 +26,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -77,6 +80,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //push notification
+        FirebaseMessaging.getInstance().subscribeToTopic("expense")
+                .addOnCompleteListener(task -> {
+                    String msg = "Subscribed";
+                    if (!task.isSuccessful()) {
+                        msg = "Subscribe failed";
+                    }
+                });
+
         try{
             init();
             setNav();
@@ -92,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             vp.setCurrentItem(2, true);
         }
+
     }
 
     private void processSalary(@NonNull List<salaryEntity> salList) {
