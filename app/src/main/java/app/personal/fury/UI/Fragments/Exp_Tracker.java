@@ -46,7 +46,7 @@ public class Exp_Tracker extends Fragment {
     private expAdapter adapter;
     private TextView balanceView, expView, inHandExp, accountExp, inHandCount, accountCount, dLimit;
     private RecyclerView.ViewHolder ViewHolder;
-    private int finalTotalSalary = 0, accBal = 0, inHandBal = 0, cashAmt, cashCount, accAmt, accCount;
+    private int accBal = 0, inHandBal = 0, cashAmt, cashCount, accAmt, accCount;
 
     public Exp_Tracker() {
     }

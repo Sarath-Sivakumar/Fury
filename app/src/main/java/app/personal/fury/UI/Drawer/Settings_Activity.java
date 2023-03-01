@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -38,9 +37,6 @@ public class Settings_Activity extends AppCompatActivity {
     private TextView profileName;
     private EditText profileNameEdit;
     private Button save, discard;
-
-    // Uri indicates, where the image will be picked from
-    private Uri filePath;
     private userEntity userData = new userEntity();
     // request code
     private final int PICK_IMAGE_REQUEST = 22;
@@ -95,9 +91,7 @@ public class Settings_Activity extends AppCompatActivity {
     }
 
     private void OnClick() {
-        uploadPic.setOnClickListener(v -> {
-            callPopupWindow(uploadPic);
-        });
+        uploadPic.setOnClickListener(v -> callPopupWindow(uploadPic));
 
         save.setOnClickListener(v -> {
             String uname = profileNameEdit.getText().toString();
@@ -154,22 +148,13 @@ public class Settings_Activity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(
-                Intent.createChooser(
-                        intent,
-                        "Select Image from here..."),
-                PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Select Image from here..."), PICK_IMAGE_REQUEST);
     }
 
     // Override onActivityResult method
     @Override
-    protected void onActivityResult(int requestCode,
-                                    int resultCode,
-                                    Intent data) {
-
-        super.onActivityResult(requestCode,
-                resultCode,
-                data);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
         // checking request code and result code
         // if request code is PICK_IMAGE_REQUEST and
@@ -185,14 +170,9 @@ public class Settings_Activity extends AppCompatActivity {
             Uri filePath = data.getData();
             userVM.InsertProfilePic(filePath, userData);
             try {
-
                 // Setting image on image view using Bitmap
-                Bitmap bitmap = MediaStore
-                        .Images
-                        .Media
-                        .getBitmap(
-                                getContentResolver(),
-                                filePath);
+                Bitmap bitmap = MediaStore.Images.Media
+                        .getBitmap(getContentResolver(), filePath);
                 profilePic.setImageBitmap(bitmap);
             } catch (IOException e) {
                 // Log the exception

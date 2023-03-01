@@ -143,8 +143,6 @@ public class AuthRepository {
         db.getReference(Constants.Users).child(user)
                 .setValue(map);
     }
-
-
     public void insertUserData(userEntity userData) {
         userLiveData.postValue(firebaseAuth.getCurrentUser());
         HashMap<String, Object> map = new HashMap<>();
