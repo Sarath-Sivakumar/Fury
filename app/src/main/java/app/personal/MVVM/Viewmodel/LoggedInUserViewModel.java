@@ -1,6 +1,7 @@
 package app.personal.MVVM.Viewmodel;
 
 import android.app.Application;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -33,6 +34,13 @@ public class LoggedInUserViewModel extends AndroidViewModel {
 
     public MutableLiveData<FirebaseUser> getUserId(){
         return userId;
+    }
+
+    public void InsertProfilePic(Uri filePath, userEntity entity){
+        authRepo.InsertProfilePic(entity, filePath);
+    }
+    public void UpdateUserData(userEntity userEntity){
+        authRepo.UpdateUserData(userEntity);
     }
     public MutableLiveData<userEntity> getUserData(){
         return userData;
