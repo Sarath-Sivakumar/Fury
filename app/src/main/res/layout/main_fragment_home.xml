@@ -316,7 +316,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.4dp"
+                    android:layout_height="0.1dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="2dp"
                     android:background="@android:color/darker_gray" />
@@ -333,7 +333,7 @@
             <!--Test ID ca-app-pub-3940256099942544/6300978111-->
 <!--            <View-->
 <!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="0.4dp"-->
+<!--                android:layout_height="0.1dp"-->
 <!--                android:layout_gravity="center"-->
 <!--                android:layout_marginTop="9dp"-->
 <!--                android:background="@android:color/darker_gray" />-->
@@ -341,6 +341,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 android:orientation="horizontal">
 
                 <TextView

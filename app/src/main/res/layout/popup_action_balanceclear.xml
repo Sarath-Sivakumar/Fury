@@ -17,7 +17,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:padding="12dp"
+            android:padding="6dp"
             android:contentDescription="@null"
             android:scaleType="fitCenter"
             android:src="@drawable/colored_icon_warning" />
