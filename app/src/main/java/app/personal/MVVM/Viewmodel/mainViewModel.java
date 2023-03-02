@@ -1,11 +1,15 @@
 package app.personal.MVVM.Viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import app.personal.MVVM.Entity.balanceEntity;
@@ -15,6 +19,7 @@ import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Entity.inHandBalEntity;
 import app.personal.MVVM.Entity.salaryEntity;
 import app.personal.MVVM.Repository.localRepository;
+import app.personal.Utls.Constants;
 
 public class mainViewModel extends AndroidViewModel {
 
@@ -37,6 +42,21 @@ public class mainViewModel extends AndroidViewModel {
         getBudget = repo.getBudget();
     }
 
+    public void initFirebaseMessagingService(String  Topic) {
+        //push notification
+        serviceInit(Topic);
+    }
+
+    private void serviceInit(String topic){
+        FirebaseMessaging.getInstance().subscribeToTopic(topic)
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.e("Firebase Service", "Subscribe failed to " + topic);
+                    } else {
+                        Log.e("Firebase Service", "Subscribed to " + topic);
+                    }
+                });
+    }
 
     public void InsertExp(expEntity entity) {
         repo.InsertExp(entity);
