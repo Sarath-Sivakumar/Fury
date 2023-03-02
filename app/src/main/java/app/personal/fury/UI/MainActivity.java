@@ -33,6 +33,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -80,20 +81,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //push notification
-        FirebaseMessaging.getInstance().subscribeToTopic("expense")
-                .addOnCompleteListener(task -> {
-                    String msg = "Subscribed";
-                    if (!task.isSuccessful()) {
-                        msg = "Subscribe failed";
-                    }
-                });
-
+        init();
+        setNav();
+        setUserViewModel();
         try{
-            init();
-            setNav();
-            setUserViewModel();
             vm.getSalary().observe(this, salaryEntityList -> {
                 if (salaryEntityList!=null){
                     processSalary(salaryEntityList);
@@ -210,10 +201,13 @@ public class MainActivity extends AppCompatActivity {
         uvm = new ViewModelProvider(this).get(userInitViewModel.class);
         userVM = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
         vm = new ViewModelProvider(this).get(mainViewModel.class);
+
+        //Firebase Topics to be implemented here..
+        vm.initFirebaseMessagingService(Constants.ExpFirebaseService);
+
         findView();
         initViewPager();
         isStoragePermissionGranted();
-
     }
 
     private void setUserViewModel(){

@@ -1,7 +1,6 @@
-package app.personal.fury.UI;
+package app.personal.MVVM.Application;
 
 import android.Manifest;
-import android.app.Service;
 import android.content.pm.PackageManager;
 
 import androidx.annotation.NonNull;
@@ -9,28 +8,33 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import java.util.Objects;
 
 import app.personal.fury.R;
 
-public class MyFirebaseMessagingService extends FirebaseMessagingService {
+public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage message) {
         super.onMessageReceived(message);
-        getFireBaseMessage(message.getNotification().getTitle(), message.getNotification().getBody());
+        getFireBaseMessage(message.getNotification().getTitle(),
+                message.getNotification().getBody());
     }
 
     public void getFireBaseMessage(String title, String msg) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "Furychannel")
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext())
+                .setChannelId("Furychannel")
                 .setSmallIcon(R.drawable.common_icon_notification)
                 .setContentTitle(title)
+//                .setLargeIcon()
                 .setContentText(msg)
                 .setAutoCancel(true);
 
-        NotificationManagerCompat manager = NotificationManagerCompat.from(this);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+        NotificationManagerCompat manager = NotificationManagerCompat.from(getApplicationContext());
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
