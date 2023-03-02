@@ -44,7 +44,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:'
     implementation 'com.google.firebase:firebase-database:'
 
-//    push notifications
+    //Push Notifications
     implementation 'com.google.firebase:firebase-messaging:23.1.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
