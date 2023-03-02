@@ -173,7 +173,18 @@ public class fragment_main extends Fragment {
         View v = inflater.inflate(R.layout.main_fragment_home, container, false);
         findView(v);
         getExp(filter);
+        progress = 0;
+        salary = 0;
+        expense = 0;
+        cAdapter.clear();
+        dAdapter.clear();
         initViewModel();
+        try {
+
+            setMain(progress);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return v;
     }
 
