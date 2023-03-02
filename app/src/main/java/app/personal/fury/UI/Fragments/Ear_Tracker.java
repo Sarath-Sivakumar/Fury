@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -110,7 +109,6 @@ public class Ear_Tracker extends Fragment {
         ig_vp.setAdapter(igAdapter);
         ig_tl.setupWithViewPager(ig_vp, true);
         Commons.timedSliderInit(ig_vp, FragmentList, 5);
-
         touchHelper();
     }
 

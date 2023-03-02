@@ -33,9 +33,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicReference;
 
-import app.personal.MVVM.Entity.budgetEntity;
 import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
@@ -115,10 +113,8 @@ public class fragment_main extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
-
     }
 
     private void callWarningPopup(debtEntity debt) {
@@ -185,6 +181,14 @@ public class fragment_main extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViewModel();
+        try{
+            progress = Commons.setProgress(expense, budgetTotalAmount);
+            setMain(progress);
+        }catch (Exception e){
+//          No budget set yet...
+            progress = Commons.setProgress(expense, salary);
+            setMain(progress);
+        }
     }
 
     private void initViewModel() {
@@ -215,8 +219,7 @@ public class fragment_main extends Fragment {
                     budgetView.setText(s);
                     budgetView.setTextSize(13);
                     budgetView.setElegantTextHeight(true);
-                } catch (Exception ignored) {
-                }
+                } catch (Exception ignored) {}
             }
         });
     }

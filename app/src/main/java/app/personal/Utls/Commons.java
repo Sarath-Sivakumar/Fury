@@ -1,19 +1,11 @@
 package app.personal.Utls;
 
-
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.CountDownTimer;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +18,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,7 +35,6 @@ import app.personal.fury.R;
 
 public class Commons {
 
-    //    Change this later for better accuracy!
     private static final Pattern EMAIL_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     public static void SnackBar(View v, String Text) {
@@ -235,8 +225,9 @@ public class Commons {
         }
     }
 
-    public static String getDailyAvg(float budget) {
-        return String.valueOf((int) (budget / getDays(Integer.parseInt(getMonth()))));
+    public static String getDailyAvg(float budget, int days) {
+//        getDays(Integer.parseInt(getMonth()))
+        return String.valueOf((int) (budget / days));
     }
 
     public static boolean isEmail(String Email) {
@@ -350,45 +341,5 @@ public class Commons {
                 }.start();
             }
         }.start();
-    }
-
-    private static boolean done;
-
-    private static void setDone(boolean d) {
-        done = d;
-    }
-
-    private static boolean getDone() {
-        return done;
-    }
-
-    public static boolean fakeScreenUpdateSrc(Context c, View anchor) {
-        final PopupWindow fakeScrn = new PopupWindow(c);
-
-        new CountDownTimer(2000, 1000) {
-
-            @Override
-            public void onTick(long millisUntilFinished) {
-                LayoutInflater inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                View view = inflater.inflate(R.layout.popup_budget_fake_loading, null);
-                TextView t = view.findViewById(R.id.loadingText);
-                String s = "Updating Data..";
-                t.setText(s);
-                fakeScrn.setContentView(view);
-                fakeScrn.setFocusable(true);
-                fakeScrn.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
-                fakeScrn.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
-                fakeScrn.setBackgroundDrawable(null);
-                fakeScrn.setElevation(6);
-                fakeScrn.showAsDropDown(anchor);
-            }
-
-            @Override
-            public void onFinish() {
-                fakeScrn.dismiss();
-                setDone(true);
-            }
-        };
-        return getDone();
     }
 }
