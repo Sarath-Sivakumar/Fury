@@ -28,7 +28,6 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                 .setChannelId("Furychannel")
                 .setSmallIcon(R.drawable.common_icon_notification)
                 .setContentTitle(title)
-//                .setLargeIcon()
                 .setContentText(msg)
                 .setAutoCancel(true);
 
