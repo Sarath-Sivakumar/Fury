@@ -1,85 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:elevation="0dp"
     android:orientation="vertical">
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height=".1dp"
-                android:layout_marginStart="12dp"
-                android:background="?attr/colorPrimaryVariant" />
-
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_us"
+                android:layout_margin="12dp"
+                android:textSize="18sp" />
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:background="@drawable/button_settings"
                 android:id="@+id/p_policies"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="12dp"
+                android:layout_margin="6dp"
+                android:gravity="start|center"
                 android:text="@string/privacy_policy"
                 android:textSize="14sp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height=".1dp"
-                android:layout_marginStart="12dp"
-                android:background="?attr/colorSecondary" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height=".1dp"
-                android:layout_marginStart="12dp"
-                android:background="?attr/colorPrimaryVariant" />
-
-            <TextView
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:id="@+id/t_c"
+                android:background="@drawable/button_settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="12dp"
+                android:layout_margin="6dp"
+                android:gravity="start|center"
                 android:text="@string/terms_conditions"
                 android:textSize="14sp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height=".1dp"
-                android:layout_marginStart="12dp"
-                android:background="?attr/colorPrimaryVariant" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height=".1dp"
-                android:layout_marginStart="12dp"
-                android:background="?attr/colorSecondary" />
-
-            <TextView
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:id="@+id/app_info"
+                android:background="@drawable/button_settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="12dp"
+                android:layout_margin="6dp"
+                android:gravity="start|center"
                 android:text="@string/about_fury"
                 android:textSize="14sp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height=".1dp"
-                android:layout_marginStart="12dp"
-                android:background="?attr/colorSecondary" />
-
-            <WebView
-                android:id="@+id/myWebView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone"/>
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
 </FrameLayout>
