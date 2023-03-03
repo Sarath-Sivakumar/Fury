@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -100,6 +101,8 @@ public class Settings_Activity extends AppCompatActivity {
                     userEntity entity = userData;
                     entity.setName(uname);
                     userVM.UpdateUserData(entity);
+                    save.setVisibility(View.GONE);
+                    discard.setVisibility(View.GONE);
                     profileNameEdit.setVisibility(View.GONE);
                     profileName.setVisibility(View.VISIBLE);
                 }else{
@@ -127,6 +130,10 @@ public class Settings_Activity extends AppCompatActivity {
 
         ImageButton Camera = view.findViewById(R.id.camera);
         ImageButton Files = view.findViewById(R.id.gallery);
+        View background1 = view.findViewById(R.id.bgView1);
+        View background2 = view.findViewById(R.id.bgView2);
+        background1.setOnClickListener(v -> popupWindow.dismiss());
+        background2.setOnClickListener(v -> popupWindow.dismiss());
         Camera.setOnClickListener(v -> {
 //                todo
         });

@@ -3,68 +3,73 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_popupshade"
+    android:orientation="vertical"
     android:padding="33dp">
 
-    <ScrollView
+    <View
+        android:id="@+id/bgView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp">
+            android:background="@drawable/background_popup"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_popup"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:orientation="horizontal">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/raleway_bold"
-                        android:padding="3dp"
-                        android:gravity="center"
-                        android:text="Set Profile picture"
-                        android:textSize="20sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
+                    android:fontFamily="@font/raleway_bold"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:padding="3dp"
+                    android:text="Set Profile picture"
+                    android:textSize="20sp" />
 
-                    <ImageButton
-                        android:id="@+id/camera"
-                        style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/colored_icon_camera"
-                        android:textAllCaps="false"
-                        android:visibility="gone"
-                        android:contentDescription="TODO" />
+            </LinearLayout>
 
-                    <ImageButton
-                        style="@style/Widget.AppCompat.Button.Borderless"
-                        android:id="@+id/gallery"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/colored_icon_files"
-                        android:textAllCaps="false"
-                        android:contentDescription="TODO" />
-                </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/camera"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="TODO"
+                    android:src="@drawable/colored_icon_camera"
+                    android:textAllCaps="false"
+                    android:visibility="gone" />
+
+                <ImageButton
+                    android:id="@+id/gallery"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="TODO"
+                    android:src="@drawable/colored_icon_files"
+                    android:textAllCaps="false" />
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
+    <View
+        android:id="@+id/bgView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 </LinearLayout>
