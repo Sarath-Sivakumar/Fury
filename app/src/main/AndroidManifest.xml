@@ -34,16 +34,10 @@
             android:name=".UI.User_Init.login.forgot_pass"
             android:exported="false" />
         <activity
-            android:name=".UI.Drawer.help_Activity"
-            android:exported="false" />
-        <activity
             android:name=".UI.Drawer.Notification_Activity"
             android:exported="false" />
         <activity
             android:name=".UI.Drawer.Settings_Activity"
-            android:exported="false" />
-        <activity
-            android:name=".UI.Drawer.About_Activity"
             android:exported="false" />
         <activity
             android:name=".UI.User_Init.Landing"

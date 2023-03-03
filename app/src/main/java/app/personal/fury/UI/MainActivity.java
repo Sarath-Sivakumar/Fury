@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,14 +25,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -52,10 +47,8 @@ import app.personal.Utls.Constants;
 import app.personal.Utls.ViewPager.viewPager;
 
 import app.personal.fury.R;
-import app.personal.fury.UI.Drawer.About_Activity;
 import app.personal.fury.UI.Drawer.Notification_Activity;
 import app.personal.fury.UI.Drawer.Settings_Activity;
-import app.personal.fury.UI.Drawer.help_Activity;
 import app.personal.fury.UI.Fragments.BudgetFragment;
 import app.personal.fury.UI.Fragments.Dues_Debt;
 import app.personal.fury.UI.Fragments.Ear_Tracker;
@@ -291,12 +284,8 @@ public class MainActivity extends AppCompatActivity {
         navView.setNavigationItemSelectedListener(item -> {
             if (item.getItemId()==R.id.notification){
                 startActivity(new Intent(MainActivity.this, Notification_Activity.class));
-            }else if (item.getItemId()==R.id.help){
-                startActivity(new Intent(MainActivity.this, help_Activity.class));
             } else if (item.getItemId()==R.id.settings) {
                 startActivity(new Intent(MainActivity.this, Settings_Activity.class));
-            } else if (item.getItemId()==R.id.about) {
-                startActivity(new Intent(MainActivity.this, About_Activity.class));
             } else if (item.getItemId()==R.id.logout) {
                 logout(navView);
             }else{

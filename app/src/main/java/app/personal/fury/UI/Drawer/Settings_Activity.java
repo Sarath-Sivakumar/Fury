@@ -37,6 +37,7 @@ public class Settings_Activity extends AppCompatActivity {
     private TextView profileName;
     private EditText profileNameEdit;
     private Button save, discard;
+    private Button contact, faq, feedback, privacy , terms , about;
     private userEntity userData = new userEntity();
     // request code
     private final int PICK_IMAGE_REQUEST = 22;
@@ -75,6 +76,13 @@ public class Settings_Activity extends AppCompatActivity {
     private void findView() {
         ImageButton back = findViewById(R.id.nBack);
         back.setOnClickListener(v -> finish());
+        contact = findViewById(R.id.Contact_us);
+        faq = findViewById(R.id.faq);
+        feedback = findViewById(R.id.feedback);
+        privacy = findViewById(R.id.p_policies);
+        terms = findViewById(R.id.t_c);
+        about = findViewById(R.id.app_info);
+
         uploadPic = findViewById(R.id.uploadPic);
         profilePic = findViewById(R.id.profilePic);
         profileName = findViewById(R.id.profileName);

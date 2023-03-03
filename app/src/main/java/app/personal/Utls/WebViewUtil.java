@@ -1,15 +1,8 @@
 package app.personal.Utls;
 
-import android.content.Context;
-import android.util.AttributeSet;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import app.personal.fury.UI.Drawer.About_Activity;
 
 public class WebViewUtil{
 
