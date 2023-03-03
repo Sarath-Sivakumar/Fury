@@ -13,7 +13,7 @@ public class Constants {
             dbName = "Fury_Database",
             userTable = "User_Table";
     //DO NOT CHANGE----------------------------------------------------
-    public static final int DB_LATEST_VERSION = 9;
+    public static final int DB_LATEST_VERSION = 10;
     //-------------------------------------------------------------
     public static final String Dues = "Dues And Debt",
             Exp = "Expense Tracker",
@@ -59,6 +59,8 @@ public class Constants {
     TOP_CAT_DISPLAY_LIMIT = 12,
             SAL_MODE_CASH = 0,
             SAL_MODE_ACC = 1,
+            BUDGET_MONTHLY = 1,
+            BUDGET_WEEKLY = 0,
     //Firebase-------------------------------------------------------
 //    ---------------------------------------------------------------
 //    DueWarning-----------------------------------------

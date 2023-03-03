@@ -15,12 +15,21 @@ public class budgetEntity {
     private int Amount;
     @ColumnInfo(defaultValue = "0")
     private int bal;
+    @ColumnInfo(defaultValue = "0")
+    private int refreshPeriod;
 
     @Ignore
-    public budgetEntity(int id, int Amount, int bal) {
+    public budgetEntity(int id, int Amount, int bal, int refreshPeriod) {
         this.id = id;
         this.Amount = Amount;
         this.bal = bal;
+        this.refreshPeriod = refreshPeriod;
+    }
+
+    public budgetEntity(int amount, int bal, int refreshPeriod) {
+        Amount = amount;
+        this.bal = bal;
+        this.refreshPeriod = refreshPeriod;
     }
 
     public budgetEntity(){}
@@ -37,6 +46,10 @@ public class budgetEntity {
         return Amount;
     }
 
+    public int getRefreshPeriod() {
+        return refreshPeriod;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -47,5 +60,9 @@ public class budgetEntity {
 
     public void setAmount(int amount) {
         this.Amount = amount;
+    }
+
+    public void setRefreshPeriod(int refreshPeriod) {
+        this.refreshPeriod = refreshPeriod;
     }
 }

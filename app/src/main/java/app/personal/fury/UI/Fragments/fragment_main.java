@@ -160,6 +160,12 @@ public class fragment_main extends Fragment {
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         cAdapter = new categoryAdapter();
         dAdapter = new duesAdapter();
+        progress = 0;
+        salary = 0;
+        expense = 0;
+        cAdapter.clear();
+        dAdapter.clear();
+        initViewModel();
         MobileAds.initialize(requireContext());
         if (savedInstanceState == null && isView) {
             debtWaring();
@@ -173,12 +179,6 @@ public class fragment_main extends Fragment {
         View v = inflater.inflate(R.layout.main_fragment_home, container, false);
         findView(v);
         getExp(filter);
-        progress = 0;
-        salary = 0;
-        expense = 0;
-        cAdapter.clear();
-        dAdapter.clear();
-        initViewModel();
         try {
 
             setMain(progress);
