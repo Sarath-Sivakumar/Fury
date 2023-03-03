@@ -18,7 +18,6 @@ import app.personal.MVVM.Entity.inHandBalEntity;
 import app.personal.MVVM.Entity.salaryEntity;
 import app.personal.MVVM.Entity.userEntity;
 import app.personal.Utls.Constants;
-
 @Database(entities = {
         balanceEntity.class,
         debtEntity.class,
@@ -45,7 +44,7 @@ public abstract class localDB extends RoomDatabase {
                     .fallbackToDestructiveMigration()
                     .addMigrations(MIGRATION_1_2,MIGRATION_2_3,MIGRATION_3_4,
                             MIGRATION_4_5,MIGRATION_6_7,MIGRATION_7_8,
-                            MIGRATION_8_9)
+                            MIGRATION_8_9, MIGRATION_9_10)
                     .build();
         }
         return instance;
@@ -97,6 +96,13 @@ public abstract class localDB extends RoomDatabase {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE 'Exp_Table' ADD COLUMN 'expMode' INTEGER NOT NULL DEFAULT 1");
+        }
+    };
+
+    static final Migration MIGRATION_9_10 = new Migration(9, 10) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE 'Budget_Table' ADD COLUMN 'refreshPeriod' INTEGER NOT NULL DEFAULT 0");
         }
     };
 }

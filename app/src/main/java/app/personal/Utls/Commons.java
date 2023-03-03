@@ -280,10 +280,11 @@ public class Commons {
         }.start();
     }
 
-    public static void setDefaultBudget(mainViewModel vm, int totalSalary, int totalExp) {
+    public static void setDefaultBudget(mainViewModel vm, int totalSalary, int totalExp, int budType) {
         budgetEntity bud = new budgetEntity();
         bud.setAmount(Commons.getValueByPercent(totalSalary, 80));
         bud.setBal(Commons.getValueByPercent(totalSalary, 80) - totalExp);
+        bud.setRefreshPeriod(budType);
         vm.DeleteBudget();
         vm.InsertBudget(bud);
     }
@@ -293,7 +294,7 @@ public class Commons {
         return sorter.getSortedList();
     }
 
-    public static void fakeLoadingScreen(Context c, int totalSalary, int totalExp, mainViewModel vm, FloatingActionButton anchor) {
+    public static void fakeLoadingScreen(Context c, int totalSalary, int totalExp, int budType, mainViewModel vm, FloatingActionButton anchor) {
         new CountDownTimer(2000, 1000) {
             final PopupWindow fakeScrn = new PopupWindow(c);
 
@@ -335,7 +336,7 @@ public class Commons {
 
                     @Override
                     public void onFinish() {
-                        Commons.setDefaultBudget(vm, totalSalary, totalExp);
+                        Commons.setDefaultBudget(vm, totalSalary, totalExp, budType);
                         fakeScrn.dismiss();
                     }
                 }.start();
