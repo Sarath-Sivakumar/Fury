@@ -38,7 +38,7 @@ public class Settings_Activity extends AppCompatActivity {
     private TextView profileName;
     private EditText profileNameEdit;
     private Button save, discard;
-    private Button contact, faq, feedback, privacy , terms , about;
+    private Button contact, faq, feedback, privacy, terms, about;
     private userEntity userData = new userEntity();
     // request code
     private final int PICK_IMAGE_REQUEST = 22;
@@ -62,12 +62,12 @@ public class Settings_Activity extends AppCompatActivity {
             if (userEntity != null) {
                 userData = userEntity;
                 profileName.setText(userData.getName());
-                if (!userEntity.getImgUrl().equals(Constants.DEFAULT_DP)){
+                if (!userEntity.getImgUrl().equals(Constants.DEFAULT_DP)) {
                     Glide.with(this)
                             .load(userData.getImgUrl())
                             .circleCrop()
                             .into(profilePic);
-                }else{
+                } else {
                     profilePic.setImageResource(R.drawable.nav_icon_account);
                 }
             }
@@ -102,10 +102,52 @@ public class Settings_Activity extends AppCompatActivity {
     private void OnClick() {
         uploadPic.setOnClickListener(v -> callPopupWindow(uploadPic));
 
+        contact.setOnClickListener(v -> {
+            Intent i = new Intent(this, WebViewActivity.class);
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "Contact Us");
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL, "URL here");
+            startActivity(i);
+        });
+
+        faq.setOnClickListener(v -> {
+            Intent i = new Intent(this, WebViewActivity.class);
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "FAQ");
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "URL here");
+            startActivity(i);
+        });
+
+        feedback.setOnClickListener(v -> {
+            Intent i = new Intent(this, WebViewActivity.class);
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "Feedback");
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "URL here");
+            startActivity(i);
+        });
+
+        privacy.setOnClickListener(v -> {
+            Intent i = new Intent(this, WebViewActivity.class);
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "Privacy Policy");
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "URL here");
+            startActivity(i);
+        });
+
+        terms.setOnClickListener(v -> {
+            Intent i = new Intent(this, WebViewActivity.class);
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "Terms and Conditions");
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "URL here");
+            startActivity(i);
+        });
+
+        about.setOnClickListener(v -> {
+            Intent i = new Intent(this, WebViewActivity.class);
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "About us");
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "URL here");
+            startActivity(i);
+        });
+
         save.setOnClickListener(v -> {
             String uname = profileNameEdit.getText().toString();
             if (!uname.trim().isEmpty()) {
-                if (!uname.equals(profileName.getText().toString())){
+                if (!uname.equals(profileName.getText().toString())) {
                     userEntity entity = userData;
                     entity.setName(uname);
                     userVM.UpdateUserData(entity);
@@ -113,7 +155,7 @@ public class Settings_Activity extends AppCompatActivity {
                     discard.setVisibility(View.GONE);
                     profileNameEdit.setVisibility(View.GONE);
                     profileName.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     Commons.SnackBar(save, "That's the same name -_-");
                 }
             } else {
@@ -166,7 +208,6 @@ public class Settings_Activity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select Image from here..."), PICK_IMAGE_REQUEST);
     }
 
-    // Override onActivityResult method
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

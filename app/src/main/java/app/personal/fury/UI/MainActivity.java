@@ -216,7 +216,8 @@ public class MainActivity extends AppCompatActivity {
                 String uname = userEntity.getName();
                 String[] arr= uname.split(" ");
                 String fName=arr[0];
-                String s = "Hello "+fName;
+                int code = 0x1F49C;
+                String s = "Hello "+fName+" "+new String(Character.toChars(code));
                 userName.setText(s);
                 if (userEntity.getImgUrl().equals(Constants.DEFAULT_DP)){
                     userDp.setImageResource(R.drawable.nav_icon_account);

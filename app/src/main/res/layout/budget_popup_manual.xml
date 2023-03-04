@@ -116,7 +116,7 @@
                         android:text="Budget Type"/>
 
                     <RadioGroup
-                        android:id="@+id/budtype"
+                        android:id="@+id/budType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -139,12 +139,6 @@
                             android:textSize="13sp" />
 
                     </RadioGroup>
-
-<!--                    <View-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="0.2dp"-->
-<!--                        android:background="@android:color/darker_gray"-->
-<!--                        android:layout_marginBottom="12dp"/>-->
 
                     <TextView
                         android:layout_width="match_parent"

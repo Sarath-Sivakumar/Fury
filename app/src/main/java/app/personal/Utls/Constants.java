@@ -36,6 +36,8 @@ public class Constants {
             Groceries = "Groceries",
             Bills = "Bills",
             OTHERS = "Others",
+            WEB_VIEW_ACTIVITY_TITLE = "WebViewActivityTitle",
+            WEB_VIEW_ACTIVITY_URL = "WebViewActivityUrl",
     //    Firebase------------------------------------
     DEFAULT_DP = "Default_DP",
             Users = "USERS",
