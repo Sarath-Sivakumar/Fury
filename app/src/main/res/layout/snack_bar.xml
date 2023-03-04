@@ -14,9 +14,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:gravity="center|start"
-            android:background="?attr/colorPrimary"
+            android:background="?attr/colorSecondary"
             android:paddingStart="12dp"
-            android:fontFamily="@font/work_sans_semibold"
+            android:fontFamily="@font/raleway_medium"
             android:paddingEnd="0dp"
             android:textColor="@color/full_white"
             android:textSize="15sp" />

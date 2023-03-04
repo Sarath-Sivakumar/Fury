@@ -29,12 +29,13 @@
                 android:text="@string/expense_overview"
                 android:textSize="18sp" />
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="9dp"
-                android:background="@drawable/background_overviewcard"
+                android:backgroundTint="@color/app_theme_secondary"
+                app:cardCornerRadius="20dp"
                 android:elevation="6dp">
 
                 <LinearLayout
@@ -122,7 +123,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/raleway_bold"
-                                    android:text="@string/budget"
+                                    android:text="Budget (w/m)"
                                     android:textSize="14sp" />
 
                                 <TextView
@@ -139,7 +140,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
@@ -147,7 +148,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="16dp"
-                                android:layout_weight="0.33"
+                                android:layout_weight="0.8"
                                 android:orientation="vertical">
 
                                 <TextView
@@ -177,7 +178,7 @@
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:layout_width="match_parent"
@@ -214,7 +215,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center"
-                    android:fontFamily="@font/raleway_semibold"
+                    android:fontFamily="@font/source_sans_pro_semibold"
                     android:text="View All"
                     android:textAllCaps="false"
                     android:textColor="@color/theme_green" />
@@ -331,12 +332,12 @@
                 ads:adSize="BANNER"
                 ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
             <!--Test ID ca-app-pub-3940256099942544/6300978111-->
-<!--            <View-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="0.1dp"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:layout_marginTop="9dp"-->
-<!--                android:background="@android:color/darker_gray" />-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:background="@android:color/darker_gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -360,7 +361,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center"
-                    android:fontFamily="@font/raleway_semibold"
+                    android:fontFamily="@font/source_sans_pro_semibold"
                     android:text="View All"
                     android:textAllCaps="false"
                     android:textColor="@color/theme_green" />
@@ -374,11 +375,11 @@
                 android:layout_marginBottom="12dp"
                 android:orientation="vertical">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.4dp"
-                    android:layout_gravity="center"
-                    android:background="@android:color/darker_gray" />
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="0.4dp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:background="@android:color/darker_gray" />-->
 
                 <LinearLayout
                     android:id="@+id/noDues"
@@ -399,7 +400,7 @@
                     android:id="@+id/dueList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
+                    android:layout_gravity="center"
                     android:background="@android:color/transparent"
                     android:divider="@null"
                     android:isScrollContainer="true"
@@ -411,7 +412,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.4dp"
+                    android:layout_height="0.1dp"
                     android:layout_gravity="center"
                     android:background="@android:color/darker_gray" />
 

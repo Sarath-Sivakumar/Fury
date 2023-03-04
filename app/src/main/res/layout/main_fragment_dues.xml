@@ -122,7 +122,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dueList"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
+                android:layout_height="355dp"
                 tools:listitem="@layout/recycler_item_due" />
 
             </LinearLayout>

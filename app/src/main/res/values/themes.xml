@@ -68,7 +68,7 @@
     </style>
 
     <style name="overviewtxtamt">
-        <item name="android:textColor">@color/l2</item>
+        <item name="android:textColor">@color/l4</item>
         <item name="fontFamily">@font/work_sans_semibold</item>
     </style>
 
