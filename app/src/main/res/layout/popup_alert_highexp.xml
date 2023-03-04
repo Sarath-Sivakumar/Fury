@@ -4,12 +4,21 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_popupshade"
     android:gravity="center"
-    android:orientation="vertical"
-    android:padding="30dp">
+    android:orientation="vertical">
     <!--Button for date extension future update-->
+    <View
+        android:id="@+id/bgView1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="0dp"
+        android:paddingBottom="30dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/background_popup"
         android:orientation="vertical"
         android:padding="20dp">
@@ -17,23 +26,23 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:padding="6dp"
             android:contentDescription="@null"
+            android:padding="6dp"
             android:scaleType="fitCenter"
             android:src="@drawable/colored_icon_warning" />
 
         <TextView
-            android:id="@+id/expwarning"
+            android:id="@+id/expWarning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro_bold"
             android:gravity="center"
             android:padding="10dp"
-            android:text="Your expense rate is too high"
+            android:text=", your current expense rate is too high!"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/expdavg"
+            android:id="@+id/expDAvg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro_bold"
@@ -43,14 +52,21 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/war2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro_bold"
             android:gravity="center"
             android:padding="10dp"
-            android:text="If this continues, then your montly budget will be inefficient"
+            android:text="Your budget may become inefficient"
             android:textSize="18sp" />
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/bgView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="0dp"
+        android:paddingBottom="30dp" />
 </LinearLayout>

@@ -2,7 +2,10 @@ package app.personal.fury.UI.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +35,7 @@ import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.budgetEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Entity.inHandBalEntity;
+import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
@@ -46,10 +50,11 @@ public class Exp_Tracker extends Fragment {
     private expAdapter adapter;
     private TextView balanceView, expView, inHandExp, accountExp, inHandCount, accountCount, dLimit;
     private RecyclerView.ViewHolder ViewHolder;
-    private int accBal = 0, inHandBal = 0, cashAmt, cashCount, accAmt, accCount;
+    private int accBal = 0, inHandBal = 0, cashAmt, cashCount, accAmt, accCount, cDAvg, s2;
+    private String userName = "";
+    private boolean isViewed;
 
-    public Exp_Tracker() {
-    }
+    public Exp_Tracker() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +62,7 @@ public class Exp_Tracker extends Fragment {
         initViewModel();
         accBal = getBalance();
         inHandBal = getInHandBalance();
+        isViewed = false;
     }
 
     private void init(View v) {
@@ -68,20 +74,22 @@ public class Exp_Tracker extends Fragment {
         accountExp = v.findViewById(R.id.account_amt);
         accountCount = v.findViewById(R.id.account_count);
         dLimit = v.findViewById(R.id.dLimit);
-//        TextView dateView = v.findViewById(R.id.exp_trac_date);
-//        String s = Commons.getDisplayDay(Commons.getDay())+" | "+Commons.getDate();
-//        dateView.setText(s);
         expView = v.findViewById(R.id.todayExp);
         touchHelper();
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         fltBtn.setOnClickListener(v1 -> callPopupWindow(Constants.itemAdd));
-        String s1 = Constants.RUPEE + (getBalance()+getInHandBalance());
+        String s1 = Constants.RUPEE + (getBalance() + getInHandBalance());
         balanceView.setText(s1);
     }
 
     private void initViewModel() {
+        LoggedInUserViewModel userVm = new ViewModelProvider(requireActivity()).get(LoggedInUserViewModel.class);
+        userVm.getUserData().observe(requireActivity(), userEntity -> {
+            String[] c = userEntity.getName().split(" ");
+            userName = String.valueOf(c[0]);
+        });
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
     }
 
@@ -98,16 +106,17 @@ public class Exp_Tracker extends Fragment {
                 if (e != null) {
                     if (!e.isEmpty()) {
                         dLimit.setText(Commons.getAvg(e, true));
-                    }else{
+                        cDAvg = Integer.parseInt(Commons.getAvg(e, false));
+                    } else {
                         String s = "No data to process";
                         dLimit.setTextSize(14);
                         dLimit.setText(s);
                     }
                     for (int i = 0; i < e.size(); i++) {
-                        if (e.get(i).getExpMode()==Constants.SAL_MODE_ACC){
+                        if (e.get(i).getExpMode() == Constants.SAL_MODE_ACC) {
                             accCount = accCount + 1;
                             accAmt = accAmt + e.get(i).getExpenseAmt();
-                        }else{
+                        } else {
                             cashCount = cashCount + 1;
                             cashAmt = cashAmt + e.get(i).getExpenseAmt();
                         }
@@ -118,11 +127,12 @@ public class Exp_Tracker extends Fragment {
                         accountExp.setText(s2);
                         inHandCount.setText(String.valueOf(cashCount));
                         accountCount.setText(String.valueOf(accCount));
-                    }catch(Exception e1){
+                    } catch (Exception e1) {
                         e1.printStackTrace();
                     }
                 }
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         });
     }
 
@@ -143,9 +153,17 @@ public class Exp_Tracker extends Fragment {
                 entity.set(e1);
             }
         });
+        if (entity.get().getRefreshPeriod() == Constants.BUDGET_MONTHLY) {
+            s2 = entity.get().getAmount() / Commons.getDays(Calendar.MONTH);
+        } else {
+            s2 = entity.get().getAmount() / 7;
+        }
+        if (cDAvg > s2 && !isViewed) {
+            showWarningPopup();
+            isViewed = true;
+        }
         return entity.get();
     }
-
 
     private int getBalance() {
         AtomicReference<balanceEntity> Balance = new AtomicReference<>(new balanceEntity());
@@ -154,10 +172,11 @@ public class Exp_Tracker extends Fragment {
                 Balance.set(entity);
                 accBal = entity.getBalance();
             }
-            try{
+            try {
                 String s = Constants.RUPEE + (accBal + inHandBal);
                 balanceView.setText(s);
-            }catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         });
         return Balance.get().getBalance();
     }
@@ -169,12 +188,59 @@ public class Exp_Tracker extends Fragment {
                 Balance.set(entity);
                 inHandBal = entity.getBalance();
             }
-            try{
+            try {
                 String s = Constants.RUPEE + (accBal + inHandBal);
                 balanceView.setText(s);
-            }catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         });
         return Balance.get().getBalance();
+    }
+
+    private void showWarningPopup() {
+        Log.e("Popup_debug", "s2: " + s2 + "cDAvg: " + cDAvg);
+        PopupWindow popupWindow = new PopupWindow(getContext());
+        LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
+        View view = inflater.inflate(R.layout.popup_alert_highexp, null);
+        popupWindow.setContentView(view);
+
+        View bg1, bg2;
+        TextView warningTitle1, dAvg;
+        bg1 = view.findViewById(R.id.bgView1);
+        bg2 = view.findViewById(R.id.bgView2);
+        bg1.setOnClickListener(v -> popupWindow.dismiss());
+        bg2.setOnClickListener(v -> popupWindow.dismiss());
+        warningTitle1 = view.findViewById(R.id.expWarning);
+        if (userName != null) {
+            if (!userName.trim().equals("")) {
+                String title1 = userName + warningTitle1.getText().toString();
+                warningTitle1.setText(title1);
+            }
+        } else {
+            popupWindow.dismiss();
+            new CountDownTimer(2000, 1000) {
+
+                @Override
+                public void onTick(long millisUntilFinished) {
+                }
+
+                @Override
+                public void onFinish() {
+                    showWarningPopup();
+                }
+            };
+        }
+        dAvg = view.findViewById(R.id.expDAvg);
+        String s = cDAvg + " /Day";
+        dAvg.setText(s);
+
+        popupWindow.setFocusable(true);
+        popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+        popupWindow.setBackgroundDrawable(null);
+        popupWindow.setElevation(6);
+        popupWindow.showAsDropDown(recyclerView);
     }
 
     @SuppressLint({"UseCompatLoadingForDrawables"})
@@ -195,13 +261,13 @@ public class Exp_Tracker extends Fragment {
                 expEntity entity = adapter.getExpAt(ViewHolder.getAdapterPosition());
                 int amt = entity.getExpenseAmt();
 
-                if (entity.getExpMode()==Constants.SAL_MODE_ACC){
+                if (entity.getExpMode() == Constants.SAL_MODE_ACC) {
                     int oldBal = accBal;
                     vm.DeleteBalance();
                     balanceEntity entity1 = new balanceEntity();
                     entity1.setBalance(oldBal + amt);
                     vm.InsertBalance(entity1);
-                }else{
+                } else {
                     int oldBal = inHandBal;
                     vm.DeleteInHandBalance();
                     inHandBalEntity entity1 = new inHandBalEntity();
@@ -218,7 +284,7 @@ public class Exp_Tracker extends Fragment {
                 vm.DeleteExp(entity);
                 adapter.clear();
                 expView.setText(adapter.getTotalExpStr());
-                String s = Constants.RUPEE + (accBal+inHandBal);
+                String s = Constants.RUPEE + (accBal + inHandBal);
                 balanceView.setText(s);
                 adapter.notifyDataSetChanged();
                 popupWindow.dismiss();
@@ -240,9 +306,9 @@ public class Exp_Tracker extends Fragment {
             TextView cashAmt = view.findViewById(R.id.cashAmt);
             TextView accAmt = view.findViewById(R.id.accAmt);
 
-            String s1 = Constants.RUPEE+inHandBal;
+            String s1 = Constants.RUPEE + inHandBal;
             cashAmt.setText(s1);
-            String s2 = Constants.RUPEE+accBal;
+            String s2 = Constants.RUPEE + accBal;
             accAmt.setText(s2);
 
             String s = "Debit mode";
@@ -322,32 +388,30 @@ public class Exp_Tracker extends Fragment {
                     }
                     break;
 
-                    case R.id.account:
-                        if (getBalance() >= entity.getExpenseAmt()) {
-                            entity.setExpMode(Constants.SAL_MODE_ACC);
-                            vm.InsertExp(entity);
-                            updateVals(entity, expAmt);
-                        }
-                        else if (fromCash==0){
-                                Commons.SnackBar(getView(), "Not enough money to spend as cash.\nTry bank account instead.");
-                                fromAcc = 1;
-                            }
-                        else{
-                                Commons.SnackBar(getView(), "Not enough money to spend.");
-                            }
-                        break;
-                    default:
-                        Commons.SnackBar(getView(), "Select a Debit method.");
-                        break;
-                }
-                adapter.notifyDataSetChanged();
-        }else{
+                case R.id.account:
+                    if (getBalance() >= entity.getExpenseAmt()) {
+                        entity.setExpMode(Constants.SAL_MODE_ACC);
+                        vm.InsertExp(entity);
+                        updateVals(entity, expAmt);
+                    } else if (fromCash == 0) {
+                        Commons.SnackBar(getView(), "Not enough money to spend as cash.\nTry bank account instead.");
+                        fromAcc = 1;
+                    } else {
+                        Commons.SnackBar(getView(), "Not enough money to spend.");
+                    }
+                    break;
+                default:
+                    Commons.SnackBar(getView(), "Select a Debit method.");
+                    break;
+            }
+            adapter.notifyDataSetChanged();
+        } else {
             Commons.SnackBar(getView(), "Please fill all field(s)");
         }
     }
 
-    private void updateVals(expEntity entity, EditText expAmt){
-        if (entity.getExpMode()==Constants.SAL_MODE_ACC){
+    private void updateVals(expEntity entity, EditText expAmt) {
+        if (entity.getExpMode() == Constants.SAL_MODE_ACC) {
             //Balance
             int oldBal = accBal;
             vm.DeleteBalance();
@@ -355,7 +419,7 @@ public class Exp_Tracker extends Fragment {
             int v = Integer.parseInt(expAmt.getText().toString());
             bal.setBalance(oldBal - v);
             vm.InsertBalance(bal);
-        }else{
+        } else {
             int oldBal = inHandBal;
             vm.DeleteInHandBalance();
             inHandBalEntity bal = new inHandBalEntity();
@@ -370,7 +434,7 @@ public class Exp_Tracker extends Fragment {
         vm.InsertBudget(bud);
 
         expView.setText(adapter.getTotalExpStr());
-        String s = Constants.RUPEE + (accBal+inHandBal);
+        String s = Constants.RUPEE + (accBal + inHandBal);
         balanceView.setText(s);
     }
 
@@ -439,6 +503,12 @@ public class Exp_Tracker extends Fragment {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        initViewModel();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         initViewModel();
@@ -459,5 +529,6 @@ public class Exp_Tracker extends Fragment {
         super.onStart();
         getBalance();
         getExp();
+        getBudget();
     }
 }
