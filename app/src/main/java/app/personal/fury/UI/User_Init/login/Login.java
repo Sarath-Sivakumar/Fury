@@ -85,8 +85,8 @@ public class Login extends AppCompatActivity {
         });
 
         Login.setOnClickListener(view -> {
-            String email = Email.getText().toString();
-            String password = Password.getText().toString();
+            String email = Email.getText().toString().trim();
+            String password = Password.getText().toString().trim();
             if (new Commons().isConnectedToInternet(this)) {
                 if (Commons.isValidPass(password) && Commons.isEmail(email)) {
                     uvm.Login(email, password);
