@@ -117,12 +117,12 @@
     <string name="cont">Continue</string>
     <string name="dlt_text">This will delete the particular expense and update the balance</string>
     <string name="dlt_qus">Do you want to delete this expense?</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="have_you_done_the_payment">Have you done the payment?</string>
     <string name="this_will_set_your_payment_status_to_paid">This will set your payment status to paid</string>
     <string name="contact_us">Contact us</string>
-    <string name="faq">Frequently asked questions?</string>
+    <string name="faq">FAQ</string>
     <string name="report_a_problem">Report a problem</string>
     <string name="total_earnings">Total Earnings</string>
     <string name="sources">Source</string>
