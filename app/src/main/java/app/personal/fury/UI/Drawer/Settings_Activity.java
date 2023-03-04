@@ -126,21 +126,21 @@ public class Settings_Activity extends AppCompatActivity {
         privacy.setOnClickListener(v -> {
             Intent i = new Intent(this, WebViewActivity.class);
             i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "Privacy Policy");
-            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "URL here");
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "file:///android_asset/privacy_policy.html");
             startActivity(i);
         });
 
         terms.setOnClickListener(v -> {
             Intent i = new Intent(this, WebViewActivity.class);
             i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "Terms and Conditions");
-            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "URL here");
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "file:///android_asset/t_c.html");
             startActivity(i);
         });
 
         about.setOnClickListener(v -> {
             Intent i = new Intent(this, WebViewActivity.class);
             i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "About us");
-            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "URL here");
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "file:///android_asset/about_app.html");
             startActivity(i);
         });
 
