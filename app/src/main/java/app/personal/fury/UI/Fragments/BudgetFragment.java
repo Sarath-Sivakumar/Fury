@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -43,9 +43,8 @@ public class BudgetFragment extends Fragment {
     private int totalSalary = 0, totalExp = 0;
     private budgetAdapter adapter;
     private final int[] FragmentList = new int[]{R.drawable.info_1, R.drawable.info_2, R.drawable.info_3};
-
     private AdView ad;
-
+private int prevType = 3;
 
     public BudgetFragment() {
         // Required empty public constructor
@@ -145,12 +144,19 @@ public class BudgetFragment extends Fragment {
 
         vm.getBudget().observe(getViewLifecycleOwner(), budgetEntities -> {
             try {
+                prevType = budgetEntities.getRefreshPeriod();
                 String s = Constants.RUPEE + budgetEntities.getAmount();
                 BudgetAmt.setText(s);
                 String s1 = Constants.RUPEE + budgetEntities.getBal();
                 Balance.setText(s1);
-                String s2 = Constants.RUPEE + (budgetEntities.getAmount() / Commons.getDays(Calendar.MONTH)) + " /day";
+                String s2;
+                if (prevType==Constants.BUDGET_MONTHLY){
+                    s2 = Constants.RUPEE + (budgetEntities.getAmount() / Commons.getDays(Calendar.MONTH)) + " /day";
+                }else{
+                    s2 = Constants.RUPEE + (budgetEntities.getAmount() / 7) + " /day";
+                }
                 DailyLimitAllowed.setText(s2);
+
             } catch (Exception e) {
                 try{
                     String s = Constants.RUPEE + "0";
@@ -172,11 +178,24 @@ public class BudgetFragment extends Fragment {
         Button yes = view.findViewById(R.id.continue_btn);
         Button no = view.findViewById(R.id.No_btn);
         Button cancel = view.findViewById(R.id.cancel_btn);
+        RadioGroup budTypeGrp = view.findViewById(R.id.budType);
         cancel.setOnClickListener(v -> popupWindow.dismiss());
+
+        if (prevType==Constants.BUDGET_MONTHLY){
+            budTypeGrp.check(R.id.monthly);
+        }else {
+            budTypeGrp.check(R.id.weekly);
+        }
 
         yes.setOnClickListener(v -> {
             popupWindow.dismiss();
-            Commons.fakeLoadingScreen(requireContext(), totalSalary, totalExp, vm, addBudget);
+            if (budTypeGrp.getCheckedRadioButtonId()==R.id.weekly){
+                Commons.fakeLoadingScreen(requireContext(), totalSalary, totalExp,
+                        Constants.BUDGET_WEEKLY, vm, addBudget);
+            }else{
+                Commons.fakeLoadingScreen(requireContext(), totalSalary, totalExp,
+                        Constants.BUDGET_MONTHLY, vm, addBudget);
+            }
         });
 
         no.setOnClickListener(v -> {

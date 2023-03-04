@@ -324,11 +324,11 @@ public class Ear_Tracker extends Fragment {
                     callOnDeletePopup(salaryEntity, "0");
 
                 });
-            } else if (isUpdate.equals("0")) {
+            } else if (isUpdate.equals("0")&&getBudType()!=3) {
                 String s = "Do you want to update budget according to current deletion?";
                 body.setText(s);
                 yes.setOnClickListener(v1 -> {
-                    Commons.setDefaultBudget(vm, totalSalary, totalExp);
+                    Commons.setDefaultBudget(vm, totalSalary, totalExp, getBudType());
                     popupWindow.dismiss();
                 });
             }
@@ -438,5 +438,15 @@ public class Ear_Tracker extends Fragment {
             }
             totalExp = total;
         });
+    }
+
+    private int getBudType(){
+        AtomicInteger type = new AtomicInteger(3);
+        vm.getBudget().observe(requireActivity(), budgetEntity -> {
+            try{
+                type.set(budgetEntity.getRefreshPeriod());
+            }catch (Exception ignored){}
+        });
+        return type.get();
     }
 }
