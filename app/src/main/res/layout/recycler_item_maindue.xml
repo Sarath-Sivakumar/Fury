@@ -47,7 +47,7 @@
                 android:layout_gravity="bottom"
                 android:gravity="center"
                 android:fontFamily="@font/work_sans_semibold"
-                android:textColor="?attr/colorSecondary"
+                android:textColor="?attr/colorOnSecondary"
                 android:text="100000"
                 android:singleLine="true"
                 android:textSize="20sp" />

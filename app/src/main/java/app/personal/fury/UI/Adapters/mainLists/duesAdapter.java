@@ -51,7 +51,10 @@ public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
                 holder.day.setText(String.valueOf((int) daysDiff));
                 String s = Constants.RUPEE+entity.getAmount();
                 holder.dueAmt.setText(s);
-                holder.dueName.setText(entity.getSource());
+                String dueName = entity.getSource();
+                String[] arr = dueName.split(" ");
+                String duename=arr[0];
+                holder.dueName.setText(duename);
                 if (daysDiff<5){
                     holder.day.setTextColor(Color.RED);
                 }else{
