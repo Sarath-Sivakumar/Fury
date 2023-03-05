@@ -5,12 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import app.personal.Utls.Constants;
-import app.personal.Utls.WebViewUtil;
 import app.personal.fury.R;
 
 public class WebViewActivity extends AppCompatActivity {
@@ -37,10 +38,19 @@ public class WebViewActivity extends AppCompatActivity {
         TextView title = findViewById(R.id.title);
         title.setText(Title);
         webView = findViewById(R.id.webView);
-        Log.e("WebView", "Load");
     }
     private void setWebView(){
-        WebViewUtil util = new WebViewUtil(webView);
-        util.Load(Url);
+        webView.setWebViewClient(new Callback());
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setBuiltInZoomControls(false);
+        webSettings.setJavaScriptEnabled(true);
+        webView.requestFocus();
+        webView.loadUrl(Url);
+    }
+    private static class Callback extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            return false;
+        }
     }
 }

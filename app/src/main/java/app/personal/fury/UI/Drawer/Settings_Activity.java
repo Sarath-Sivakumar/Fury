@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -126,21 +125,21 @@ public class Settings_Activity extends AppCompatActivity {
         privacy.setOnClickListener(v -> {
             Intent i = new Intent(this, WebViewActivity.class);
             i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "Privacy Policy");
-            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "file:///android_asset/privacy_policy.html");
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "file:///android_asset/web_resources/privacy_policy.html");
             startActivity(i);
         });
 
         terms.setOnClickListener(v -> {
             Intent i = new Intent(this, WebViewActivity.class);
             i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "Terms and Conditions");
-            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "file:///android_asset/t_c.html");
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "file:///android_asset/web_resources/t_c.html");
             startActivity(i);
         });
 
         about.setOnClickListener(v -> {
             Intent i = new Intent(this, WebViewActivity.class);
             i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "About us");
-            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "file:///android_asset/about_app.html");
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "file:///android_asset/web_resources/about_app.html");
             startActivity(i);
         });
 

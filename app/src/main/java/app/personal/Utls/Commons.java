@@ -76,7 +76,11 @@ public class Commons {
     }
 
     public static int setProgress(float exp, float sal) {
-        return (int) ((exp / sal) * 100);
+        if (exp>sal){
+            return 100;
+        }else{
+            return (int) ((exp / sal) * 100);
+        }
     }
 
     public static int getDay() {

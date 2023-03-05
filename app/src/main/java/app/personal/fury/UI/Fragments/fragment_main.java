@@ -264,13 +264,10 @@ public class fragment_main extends Fragment {
                     String s = "No data to process.";
                     dAvg.setText(s);
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            if (dAvg.getText().equals(Constants.dAvgNoData)) {
-                dAvg.setOnClickListener(v -> dAvgPopup());
-            }
+                if (dAvg.getText().equals(Constants.dAvgNoData)) {
+                    dAvg.setOnClickListener(v -> dAvgPopup());
+                }
+            } catch (Exception ignored){}
         });
     }
 
@@ -330,21 +327,23 @@ public class fragment_main extends Fragment {
 
     private void getDebt() {
         vm.getDebt().observe(requireActivity(), debtEntities -> {
-            if (debtEntities != null) {
-                dAdapter.setDues(debtEntities);
-                if (dAdapter.getItemCount() <= 0) {
-                    dueList.setVisibility(View.GONE);
-                    noDues.setVisibility(View.VISIBLE);
-                } else if (dAdapter.getItemCount() <= 0 && debtEntities.isEmpty()) {
-                    dueList.setVisibility(View.GONE);
-                    noDues.setVisibility(View.VISIBLE);
+            try {
+                if (debtEntities != null) {
+                    dAdapter.setDues(debtEntities);
+                    if (dAdapter.getItemCount() <= 0) {
+                        dueList.setVisibility(View.GONE);
+                        noDues.setVisibility(View.VISIBLE);
+                    } else if (dAdapter.getItemCount() <= 0 && debtEntities.isEmpty()) {
+                        dueList.setVisibility(View.GONE);
+                        noDues.setVisibility(View.VISIBLE);
 //                    noDues;
-                } else {
-                    dueList.setVisibility(View.VISIBLE);
-                    noDues.setVisibility(View.GONE);
+                    } else {
+                        dueList.setVisibility(View.VISIBLE);
+                        noDues.setVisibility(View.GONE);
+                    }
+                    dAdapter.notifyDataSetChanged();
                 }
-                dAdapter.notifyDataSetChanged();
-            }
+            }catch (Exception ignored){}
         });
     }
 
