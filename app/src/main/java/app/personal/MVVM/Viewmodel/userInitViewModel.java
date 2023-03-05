@@ -22,6 +22,9 @@ public class userInitViewModel extends AndroidViewModel {
         userId = authRepo.getUserId();
     }
 
+    public void checkForUser(){
+        authRepo.checkForUser();
+    }
     public void Login(String Email, String Password){
         authRepo.login(Email, Password);
     }
