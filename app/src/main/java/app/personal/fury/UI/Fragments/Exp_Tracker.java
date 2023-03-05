@@ -2,10 +2,12 @@ package app.personal.fury.UI.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -29,6 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 import app.personal.MVVM.Entity.balanceEntity;
@@ -41,6 +45,8 @@ import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.expList.expAdapter;
+import app.personal.fury.UI.MainActivity;
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class Exp_Tracker extends Fragment {
 
@@ -466,6 +472,16 @@ public class Exp_Tracker extends Fragment {
                 callPopupWindow(Constants.itemDelete);
             }
 
+            @Override
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                        .addBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.theme_red))
+                        .addActionIcon(R.drawable.common_icon_trash)
+                        .addCornerRadius(TypedValue.COMPLEX_UNIT_SP, 15)
+                        .create()
+                        .decorate();
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            }
         }).attachToRecyclerView(recyclerView);
 
         adapter.setOnItemClickListener(this::expDetailPopup);

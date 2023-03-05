@@ -2,9 +2,11 @@ package app.personal.fury.UI.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewPropertyAnimatorCompat;
 import androidx.fragment.app.Fragment;
@@ -40,6 +43,7 @@ import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.dueList.dueAdapter;
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class Dues_Debt extends Fragment {
 
@@ -196,7 +200,7 @@ public class Dues_Debt extends Fragment {
                 adapter.setDebt(entity, true);
                 finalTotalDue = 0;
                 finalTotalDue = adapter.getTotalDebt();
-                noDues.setText(String.valueOf(adapter.getItemCount()));
+                noDues.setText("0"+adapter.getItemCount());
             }
             String s = Constants.RUPEE + finalTotalDue;
             totalDueDisplay.setText(s);
@@ -237,6 +241,18 @@ public class Dues_Debt extends Fragment {
                         adapter.notifyDataSetChanged();
                     }
                 }
+            }
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                        .addSwipeLeftBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.theme_green))
+                        .addSwipeLeftActionIcon(R.drawable.common_icon_mark)
+                        .addSwipeLeftCornerRadius(TypedValue.COMPLEX_UNIT_SP, 15)
+                        .addSwipeRightBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.theme_red))
+                        .addSwipeRightActionIcon(R.drawable.common_icon_trash)
+                        .addSwipeRightCornerRadius(TypedValue.COMPLEX_UNIT_SP, 15)
+                        .create()
+                        .decorate();
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             }
         }).attachToRecyclerView(dueList);
 

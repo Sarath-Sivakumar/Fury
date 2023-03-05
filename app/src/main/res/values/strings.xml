@@ -137,6 +137,7 @@
     <string name="expense_name">Expense Name</string>
     <string name="cashTitle">Cash</string>
     <string name="accountTitle">Bank</string>
+    <string name="fury_monitor_dues_debt">Fury Monitor/Dues</string>
 
 
 </resources>
