@@ -165,13 +165,13 @@ public class Exp_Tracker extends Fragment {
             } else {
                 s2 = entity.get().getAmount() / 7;
             }
+            if (cDAvg > s2 && !isViewed) {
+                showWarningPopup();
+                isViewed = true;
+            }
         }
         catch (Exception e){
-            s2=0;
-        }
-        if (cDAvg > s2 && !isViewed) {
-            showWarningPopup();
-            isViewed = true;
+            Log.e("Popup_debug", "Error: "+e.getMessage());
         }
         return entity.get();
     }
@@ -209,7 +209,7 @@ public class Exp_Tracker extends Fragment {
     }
 
     private void showWarningPopup() {
-        Log.e("Popup_debug", "s2: " + s2 + "cDAvg: " + cDAvg);
+        Log.e("Popup_debug", "Popup init");
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
@@ -541,6 +541,7 @@ public class Exp_Tracker extends Fragment {
         initViewModel();
         getBalance();
 //        getExp();
+        getBudget();
     }
 
     @Override
@@ -556,6 +557,5 @@ public class Exp_Tracker extends Fragment {
         super.onStart();
         getBalance();
         getExp();
-        getBudget();
     }
 }
