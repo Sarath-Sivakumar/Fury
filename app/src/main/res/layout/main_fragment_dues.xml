@@ -144,10 +144,12 @@
 
                     <TextView
                         style="@style/maintxtamount"
+                        android:id="@+id/repeatDues"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="14dp"
                         android:gravity="end"
+                        android:text="017"
                         android:layout_marginEnd="12dp"
                         android:layout_marginBottom="10dp"
                         android:textSize="18sp" />
@@ -183,8 +185,47 @@
                 android:layout_width="match_parent"
                 android:layout_height="355dp"
                 tools:listitem="@layout/recycler_item_due" />
-
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="Ad" />
+            <!--                        android:textColor="@color/theme_gold"-->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="6dp"
+                android:background="?attr/colorPrimary" />
+            </LinearLayout>
+
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="50dp"
+            android:minWidth="320dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginTop="6dp"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:background="?attr/colorPrimary" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

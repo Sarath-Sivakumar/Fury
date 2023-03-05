@@ -159,10 +159,15 @@ public class Exp_Tracker extends Fragment {
                 entity.set(e1);
             }
         });
-        if (entity.get().getRefreshPeriod() == Constants.BUDGET_MONTHLY) {
-            s2 = entity.get().getAmount() / Commons.getDays(Calendar.MONTH);
-        } else {
-            s2 = entity.get().getAmount() / 7;
+        try {
+            if (entity.get().getRefreshPeriod() == Constants.BUDGET_MONTHLY) {
+                s2 = entity.get().getAmount() / Commons.getDays(Calendar.MONTH);
+            } else {
+                s2 = entity.get().getAmount() / 7;
+            }
+        }
+        catch (Exception e){
+            s2=0;
         }
         if (cDAvg > s2 && !isViewed) {
             showWarningPopup();
@@ -477,7 +482,13 @@ public class Exp_Tracker extends Fragment {
                 new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                         .addBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.theme_red))
                         .addActionIcon(R.drawable.common_icon_trash)
+                        .addSwipeLeftLabel("Delete")
+                        .setSwipeLeftLabelColor(ContextCompat.getColor(requireActivity(), R.color.full_white))
+                        .setSwipeLeftLabelTextSize(TypedValue.COMPLEX_UNIT_SP, 12)
                         .addCornerRadius(TypedValue.COMPLEX_UNIT_SP, 15)
+                        .addSwipeRightLabel("Delete")
+                        .setSwipeRightLabelColor(ContextCompat.getColor(requireActivity(), R.color.full_white))
+                        .setSwipeRightLabelTextSize(TypedValue.COMPLEX_UNIT_SP, 12)
                         .create()
                         .decorate();
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);

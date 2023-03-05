@@ -368,6 +368,13 @@ public class Ear_Tracker extends Fragment {
                         .addBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.theme_red))
                         .addActionIcon(R.drawable.common_icon_trash)
                         .addCornerRadius(TypedValue.COMPLEX_UNIT_SP, 15)
+                        .addSwipeLeftLabel("Delete")
+                        .setSwipeLeftLabelColor(ContextCompat.getColor(requireActivity(), R.color.full_white))
+                        .setSwipeLeftLabelTextSize(TypedValue.COMPLEX_UNIT_SP, 12)
+                        .addCornerRadius(TypedValue.COMPLEX_UNIT_SP, 15)
+                        .addSwipeRightLabel("Delete")
+                        .setSwipeRightLabelColor(ContextCompat.getColor(requireActivity(), R.color.full_white))
+                        .setSwipeRightLabelTextSize(TypedValue.COMPLEX_UNIT_SP, 12)
                         .create()
                         .decorate();
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);

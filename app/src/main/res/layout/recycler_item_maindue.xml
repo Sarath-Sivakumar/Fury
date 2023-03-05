@@ -32,6 +32,7 @@
                     android:gravity="center"
                     android:text="Rent"
                     android:layout_marginTop="8dp"
+                    android:singleLine="true"
                     android:fontFamily="@font/raleway_bold"
                     android:textSize="18sp" />
 
@@ -48,6 +49,7 @@
                 android:fontFamily="@font/work_sans_semibold"
                 android:textColor="?attr/colorSecondary"
                 android:text="100000"
+                android:singleLine="true"
                 android:textSize="20sp" />
 
         </LinearLayout>

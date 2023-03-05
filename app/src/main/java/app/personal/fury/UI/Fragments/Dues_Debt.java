@@ -1,5 +1,6 @@
 package app.personal.fury.UI.Fragments;
 
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -29,6 +30,9 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -53,6 +57,7 @@ public class Dues_Debt extends Fragment {
     private dueAdapter adapter;
     private TextView noDues;
     private int finalTotalDue = 0;
+    private AdView ad;
     private FloatingActionButton fltBtn;
 
     public Dues_Debt() {}
@@ -62,6 +67,7 @@ public class Dues_Debt extends Fragment {
         super.onCreate(savedInstanceState);
         adapter = new dueAdapter();
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+        MobileAds.initialize(getContext());
     }
 
     @Override
@@ -72,10 +78,15 @@ public class Dues_Debt extends Fragment {
         initViewModel();
         return v;
     }
+    private void requestAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        ad.loadAd(adRequest);
+    }
 
     private void find(View v){
         dueList = v.findViewById(R.id.dueList);
         fltBtn = v.findViewById(R.id.addDue);
+        ad = v.findViewById(R.id.adView3);
         fltBtn.setOnClickListener(v1 -> callPopupWindow(Constants.itemAdd));
         totalDueDisplay = v.findViewById(R.id.dueTotalText);
         noDues = v.findViewById(R.id.dueTotalNo);
@@ -83,6 +94,7 @@ public class Dues_Debt extends Fragment {
         dueList.setLayoutManager(new LinearLayoutManager(requireContext()));
         dueList.setHasFixedSize(true);
         dueList.setAdapter(adapter);
+        requestAd();
     }
 
     @SuppressLint({"UseCompatLoadingForDrawables"})
@@ -246,9 +258,15 @@ public class Dues_Debt extends Fragment {
                 new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                         .addSwipeLeftBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.theme_green))
                         .addSwipeLeftActionIcon(R.drawable.common_icon_mark)
+                        .addSwipeLeftLabel("Mark as paid")
+                        .setSwipeLeftLabelColor(ContextCompat.getColor(requireActivity(), R.color.full_white))
+                        .setSwipeLeftLabelTextSize(TypedValue.COMPLEX_UNIT_SP, 12)
                         .addSwipeLeftCornerRadius(TypedValue.COMPLEX_UNIT_SP, 15)
                         .addSwipeRightBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.theme_red))
                         .addSwipeRightActionIcon(R.drawable.common_icon_trash)
+                        .addSwipeRightLabel("Delete")
+                        .setSwipeRightLabelColor(ContextCompat.getColor(requireActivity(), R.color.full_white))
+                        .setSwipeRightLabelTextSize(TypedValue.COMPLEX_UNIT_SP, 12)
                         .addSwipeRightCornerRadius(TypedValue.COMPLEX_UNIT_SP, 15)
                         .create()
                         .decorate();
