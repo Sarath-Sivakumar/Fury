@@ -272,9 +272,15 @@ public class Ear_Tracker extends Fragment {
                         vm.DeleteInHandBalance();
                         vm.InsertInHandBalance(bal);
                     }
+                    if (getBudType()!=3){
+                        Commons.setDefaultBudget(vm,totalSalary, totalExp, getBudType());
+                    }
                 } else {
                     sal.setId(salary.getId());
                     vm.UpdateSalary(sal);
+                    if (getBudType()!=3){
+                        Commons.setDefaultBudget(vm,totalSalary, totalExp, getBudType());
+                    }
                 }
             }
         } else {
