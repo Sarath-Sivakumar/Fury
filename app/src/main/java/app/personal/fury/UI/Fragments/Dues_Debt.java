@@ -200,7 +200,7 @@ public class Dues_Debt extends Fragment {
                 adapter.setDebt(entity, true);
                 finalTotalDue = 0;
                 finalTotalDue = adapter.getTotalDebt();
-                noDues.setText(String.valueOf(adapter.getItemCount()));
+                noDues.setText("0"+adapter.getItemCount());
             }
             String s = Constants.RUPEE + finalTotalDue;
             totalDueDisplay.setText(s);
