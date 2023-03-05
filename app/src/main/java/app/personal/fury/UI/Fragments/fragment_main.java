@@ -113,7 +113,8 @@ public class fragment_main extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
     }
 
@@ -192,10 +193,10 @@ public class fragment_main extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViewModel();
-        try{
+        try {
             progress = Commons.setProgress(expense, budgetTotalAmount);
             setMain(progress);
-        }catch (Exception e){
+        } catch (Exception e) {
 //          No budget set yet...
             progress = Commons.setProgress(expense, salary);
             setMain(progress);
@@ -215,10 +216,10 @@ public class fragment_main extends Fragment {
                 String s = Constants.RUPEE + budgetEntities.getAmount();
                 budgetView.setText(s);
                 budgetTotalAmount = budgetEntities.getAmount();
-                try{
+                try {
                     progress = Commons.setProgress(expense, budgetTotalAmount);
                     setMain(progress);
-                }catch (Exception e){
+                } catch (Exception e) {
 //                    No budget set yet...
                     progress = Commons.setProgress(expense, salary);
                     setMain(progress);
@@ -230,7 +231,8 @@ public class fragment_main extends Fragment {
                     budgetView.setText(s);
                     budgetView.setTextSize(13);
                     budgetView.setElegantTextHeight(true);
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) {
+                }
             }
         });
     }
@@ -254,10 +256,11 @@ public class fragment_main extends Fragment {
                 expense = expense + expEntities.get(i).getExpenseAmt();
             }
             cAdapter.setExpes(expEntities, salary, filter);
-            if (Commons.getAvg(expEntities, true).equals(Constants.dAvgNoData)) {
-                dAvg.setTextSize(12);
-            }
+
             try {
+                if (Commons.getAvg(expEntities, true).equals(Constants.dAvgNoData)) {
+                    dAvg.setTextSize(12);
+                }
                 if (expEntities != null && !expEntities.isEmpty()) {
                     dAvg.setText(Commons.getAvg(expEntities, true));
                 } else {
@@ -267,7 +270,8 @@ public class fragment_main extends Fragment {
                 if (dAvg.getText().equals(Constants.dAvgNoData)) {
                     dAvg.setOnClickListener(v -> dAvgPopup());
                 }
-            } catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         });
     }
 
@@ -343,7 +347,8 @@ public class fragment_main extends Fragment {
                     }
                     dAdapter.notifyDataSetChanged();
                 }
-            }catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         });
     }
 
