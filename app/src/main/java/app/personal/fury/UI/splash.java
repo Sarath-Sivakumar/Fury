@@ -27,7 +27,18 @@ public class splash extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        uvm = new ViewModelProvider(this).get(userInitViewModel.class);
+//        uvm = new ViewModelProvider(this).get(userInitViewModel.class);
+//        uvm.getUserId().observe(this, firebaseUser -> {
+//            if (firebaseUser == null) {
+//                startActivity(new Intent(this, Landing.class));
+//                Log.e("Splash", "User Init..");
+//                finish();
+//            } else {
+//                startActivity(new Intent(this, MainActivity.class));
+//                Log.e("Splash", firebaseUser.getUid());
+//                finish();
+//            }
+//        });
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
         setContentView(R.layout.init_splash);
@@ -54,19 +65,7 @@ public class splash extends AppCompatActivity {
             viewAnimator.setInterpolator(new DecelerateInterpolator()).start();
             animationStarted = true;
         }
-//        startActivity(new Intent(this, MainActivity.class));
-//        finish();
-
-        uvm.getUserId().observe(this, firebaseUser -> {
-            if (firebaseUser != null) {
-                startActivity(new Intent(this, MainActivity.class));
-                Log.e("Splash", firebaseUser.getUid());
-                finish();
-            } else {
-                startActivity(new Intent(splash.this, Landing.class));
-                Log.e("Splash", "User Init..");
-                finish();
-            }
-        });
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }
