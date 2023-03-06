@@ -32,7 +32,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 import app.personal.MVVM.Entity.balanceEntity;
@@ -45,7 +44,6 @@ import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.expList.expAdapter;
-import app.personal.fury.UI.MainActivity;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class Exp_Tracker extends Fragment {
@@ -160,14 +158,16 @@ public class Exp_Tracker extends Fragment {
             }
         });
         try {
-            if (entity.get().getRefreshPeriod() == Constants.BUDGET_MONTHLY) {
-                s2 = entity.get().getAmount() / Commons.getDays(Calendar.MONTH);
-            } else {
-                s2 = entity.get().getAmount() / 7;
-            }
-            if (cDAvg > s2 && !isViewed) {
-                showWarningPopup();
-                isViewed = true;
+            if (entity.get().getBal()>0 && !isViewed){
+                if (entity.get().getRefreshPeriod() == Constants.BUDGET_MONTHLY) {
+                    s2 = entity.get().getAmount() / Commons.getDays(Calendar.MONTH);
+                } else {
+                    s2 = entity.get().getAmount() / 7;
+                }
+                if (cDAvg > s2) {
+                    showWarningPopup();
+                    isViewed = true;
+                }
             }
         }
         catch (Exception e){
