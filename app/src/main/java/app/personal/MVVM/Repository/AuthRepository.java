@@ -160,6 +160,9 @@ public class AuthRepository {
                 });
     }
 
+    public void checkForUser(){
+        userLiveData.postValue(firebaseAuth.getCurrentUser());
+    }
     public void fetchUserData() {
         userDataRef.child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
                 .addValueEventListener(new ValueEventListener() {
