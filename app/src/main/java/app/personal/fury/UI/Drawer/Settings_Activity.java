@@ -1,5 +1,6 @@
 package app.personal.fury.UI.Drawer;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -18,8 +19,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
 
@@ -102,10 +105,10 @@ public class Settings_Activity extends AppCompatActivity {
         uploadPic.setOnClickListener(v -> callPopupWindow(uploadPic));
 
         contact.setOnClickListener(v -> {
-            Intent i = new Intent(this, WebViewActivity.class);
-            i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "Contact Us");
-            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL, "URL here");
-            startActivity(i);
+//            Intent i = new Intent(this, WebViewActivity.class);
+//            i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "Contact Us");
+//            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL, "URL here");
+//            startActivity(i);
         });
 
         faq.setOnClickListener(v -> {
@@ -116,10 +119,15 @@ public class Settings_Activity extends AppCompatActivity {
         });
 
         feedback.setOnClickListener(v -> {
-            Intent i = new Intent(this, WebViewActivity.class);
-            i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "Feedback");
-            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "URL here");
-            startActivity(i);
+
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            String UriText = "mailto:" +      Uri.encode("shoptourhome@gmail.com") +"?subject="+
+                    Uri.encode("Write to us: ") + Uri.encode("");
+            Uri uri = Uri.parse(UriText);
+            intent.setData(uri);
+            startActivity(Intent.createChooser(intent,"send email"));
+//            Toast.makeText(this, "Thanks for the,feedback!", Toast.LENGTH_SHORT).show();
+
         });
 
         privacy.setOnClickListener(v -> {
