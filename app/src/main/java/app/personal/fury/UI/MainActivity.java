@@ -1,10 +1,12 @@
 package app.personal.fury.UI;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -337,6 +339,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, Settings_Activity.class));
             } else if (item.getItemId()==R.id.logout) {
                 logout(navView);
+            } else if (item.getItemId()==R.id.rateus) {
+                rate();
             }else{
                 Log.e("App", "Daddy stop! Please aaaah!");
             }
@@ -346,6 +350,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void rate(){
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
+        }
+        catch (ActivityNotFoundException e){
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id" + getPackageName())));
+        }
+
+    }
     private void findView() {
         vp = findViewById(R.id.viewPager);
         tl = findViewById(R.id.tabLayout);

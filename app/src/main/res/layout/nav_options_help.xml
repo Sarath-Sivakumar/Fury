@@ -21,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/contact_us"
+        android:drawableLeft="@drawable/common_icon_contactus"
         android:gravity="start|center"
         android:textSize="14sp"
         android:layout_margin="6dp"/>
@@ -32,6 +33,7 @@
         android:gravity="start|center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/common_icon_faq"
         android:text="@string/faq"
         android:textSize="14sp"
         android:layout_margin="6dp"/>
@@ -42,6 +44,7 @@
         android:id="@+id/feedback"
         android:gravity="start|center"
         android:layout_width="match_parent"
+        android:drawableLeft="@drawable/common_icon_bug"
         android:layout_height="wrap_content"
         android:text="@string/report_a_problem"
         android:textSize="14sp"

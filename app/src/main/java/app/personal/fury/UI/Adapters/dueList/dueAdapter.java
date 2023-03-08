@@ -34,7 +34,7 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     public expHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.recycler_item_due, parent, false);
+                .inflate(R.layout.recycler_item_upcoming, parent, false);
         return new expHolder(itemView);
     }
 
@@ -44,13 +44,16 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
         debtEntity entity = debt.get(position);
         String amt = Constants.RUPEE + entity.getAmount();
         holder.dAmt.setText(amt);
-        holder.dName.setText(entity.getSource());
+        String uname = entity.getSource();
+        String[] arr= uname.split(" ");
+        String dname=arr[0];
+        holder.dName.setText(dname);
         if (entity.getStatus().equals(Constants.DEBT_PAID)){
             holder.dFinalDate.setText(entity.getDate());
         }else {
             holder.dFinalDate.setText(entity.getFinalDate());
         }
-        holder.dStatus.setText(entity.getStatus());
+//        holder.dStatus.setText(entity.getStatus());
         //To get first letter in source name--------------------------------------
         String ico = String.valueOf(entity.getSource().charAt(0)).toUpperCase();
         holder.icoText.setText(ico);

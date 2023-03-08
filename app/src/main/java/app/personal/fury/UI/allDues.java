@@ -104,7 +104,6 @@ public class allDues extends AppCompatActivity {
                         entity.setDate(Commons.getDate());
                         vm.DeleteDebt(adapter.getDebtAt(viewHolder.getAdapterPosition()));
                         vm.InsertDebt(entity);
-
                         Commons.SnackBar(recyclerView, "Debt marked as paid.");
                     } else {
                         Commons.SnackBar(recyclerView, "Debt marked as paid on " + entity.getDate() + ".");

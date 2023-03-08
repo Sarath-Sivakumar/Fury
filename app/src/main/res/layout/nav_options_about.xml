@@ -22,6 +22,7 @@
                 android:background="@drawable/button_settings"
                 android:id="@+id/p_policies"
                 android:layout_width="match_parent"
+                android:drawableLeft="@drawable/common_icon_privacy"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
                 android:gravity="start|center"
@@ -36,6 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
+                android:drawableLeft="@drawable/common_icon_file"
                 android:gravity="start|center"
                 android:text="@string/terms_conditions"
                 android:textSize="14sp" />
@@ -49,6 +51,7 @@
                 android:layout_margin="6dp"
                 android:gravity="start|center"
                 android:text="@string/about_fury"
+                android:drawableLeft="@drawable/common_icon_about"
                 android:textSize="14sp" />
 
         </LinearLayout>
