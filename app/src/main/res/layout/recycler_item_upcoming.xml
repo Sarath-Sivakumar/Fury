@@ -14,7 +14,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:layout_weight=".65"
+        android:layout_weight=".60"
         android:background="@drawable/background_borderonly"
         android:backgroundTint="@color/l1"
         android:orientation="vertical">

@@ -184,11 +184,11 @@
                 android:background="@drawable/background_borderonly"
                 android:layout_margin="3dp">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/dueList"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                tools:listitem="@layout/recycler_item_upcoming" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/dueList"
+                    android:layout_width="match_parent"
+                    android:layout_height="270dp"
+                    tools:listitem="@layout/recycler_item_upcoming" />
             </LinearLayout>
 
             <LinearLayout

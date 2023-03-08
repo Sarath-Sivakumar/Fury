@@ -94,7 +94,7 @@
             android:text="Repeat On" />
 
         <TextView
-            android:id="@+id/finalDate"
+            android:id="@+id/repDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
