@@ -75,19 +75,14 @@
             android:text="02"
             android:fontFamily="@font/work_sans_semibold"
             android:textColor="@color/theme_red"
-            android:textSize="26sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"/>
-
+            android:textSize="24sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/days_left"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/h2_dark"
             android:fontFamily="@font/raleway_bold"
             android:textSize="10sp" />
 

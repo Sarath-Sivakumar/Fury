@@ -374,6 +374,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="0dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -381,7 +383,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="14dp"
-                    android:gravity="center"
+                    android:gravity="start"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
                     android:text="Today's expenses"
