@@ -11,10 +11,15 @@
             android:icon="@drawable/nav_icon_settings"
             android:title="Settings" />
 
-<!--        <item-->
-<!--            android:id="@+id/rateus"-->
-<!--            android:icon="@drawable/nav_icon_settings"-->
-<!--            android:title="Settings" />-->
+        <item
+            android:id="@+id/rateus"
+            android:icon="@drawable/nav_icon_rating"
+            android:title="Rate us" />
+
+        <item
+            android:id="@+id/donate"
+            android:icon="@drawable/nav_icon_donate"
+            android:title="contribute us" />
 
         <item
             android:id="@+id/logout"

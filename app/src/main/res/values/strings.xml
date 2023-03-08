@@ -138,6 +138,7 @@
     <string name="cashTitle">Cash</string>
     <string name="accountTitle">Bank</string>
     <string name="fury_monitor_dues_debt">Fury Monitor/Dues</string>
+    <string name="checkbox_text">Repeat on this day</string>
 
 
 </resources>
