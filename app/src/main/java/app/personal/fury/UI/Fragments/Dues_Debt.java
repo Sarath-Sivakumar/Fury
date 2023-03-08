@@ -275,13 +275,6 @@ public class Dues_Debt extends Fragment {
         }).attachToRecyclerView(dueList);
 
         adapter.setOnItemClickListener(Due -> {
-//            Intent intent = new Intent(requireActivity(), allExp.class);
-//            intent.putExtra(Constants.DUE_SRC, Due.getSource());
-//            intent.putExtra(Constants.DUE_AMT, Due.getAmount());
-//            intent.putExtra(Constants.DUE_FINAL_DATE, Due.getFinalDate());
-//            intent.putExtra(Constants.DUE_STATUS, Due.getStatus());
-//            intent.putExtra(Constants.DUE_PAID_DATE, Due.getDate());
-//            startActivity(intent);
         });
     }
 }

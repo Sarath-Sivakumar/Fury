@@ -10,6 +10,7 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import app.personal.MVVM.Dao.localDao;
+import app.personal.MVVM.Entity.LaunchChecker;
 import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.budgetEntity;
 import app.personal.MVVM.Entity.debtEntity;
@@ -25,7 +26,8 @@ import app.personal.Utls.Constants;
         salaryEntity.class,
         budgetEntity.class,
         inHandBalEntity.class,
-        userEntity.class},
+        userEntity.class,
+        LaunchChecker.class},
         version = Constants.DB_LATEST_VERSION,
         autoMigrations = {
                 @AutoMigration(from = 1, to = 2),
@@ -44,7 +46,7 @@ public abstract class localDB extends RoomDatabase {
                     .fallbackToDestructiveMigration()
                     .addMigrations(MIGRATION_1_2,MIGRATION_2_3,MIGRATION_3_4,
                             MIGRATION_4_5,MIGRATION_6_7,MIGRATION_7_8,
-                            MIGRATION_8_9, MIGRATION_9_10)
+                            MIGRATION_8_9, MIGRATION_9_10, MIGRATION_10_11)
                     .build();
         }
         return instance;
@@ -103,6 +105,13 @@ public abstract class localDB extends RoomDatabase {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE 'Budget_Table' ADD COLUMN 'refreshPeriod' INTEGER NOT NULL DEFAULT 0");
+        }
+    };
+
+    static final Migration MIGRATION_10_11 = new Migration(10, 11) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS 'Launch_Checker' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL , 'timesLaunched' INTEGER NOT NULL DEFAULT 0)");
         }
     };
 }

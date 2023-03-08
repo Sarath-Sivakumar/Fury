@@ -38,6 +38,7 @@ import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
+import app.personal.Utls.TutorialUtil;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.mainLists.categoryAdapter;
 import app.personal.fury.UI.Adapters.mainLists.duesAdapter;
@@ -170,6 +171,7 @@ public class fragment_main extends Fragment {
         MobileAds.initialize(requireContext());
         if (savedInstanceState == null && isView) {
             debtWaring();
+//            Tutorial();
         }
     }
 
@@ -237,6 +239,17 @@ public class fragment_main extends Fragment {
         });
     }
 
+    private void Tutorial(){
+        TutorialUtil util = new TutorialUtil(requireActivity(),requireContext(),
+                requireActivity(),requireActivity());
+        ArrayList<View> Targets = new ArrayList<>();
+        ArrayList<String> PrimaryTexts = new ArrayList<>();
+        ArrayList<String> SecondaryTexts = new ArrayList<>();
+        Targets.add(mainProgressBar);
+        PrimaryTexts.add("Welcome To your Fury home");
+        SecondaryTexts.add("This is where most of your activity in Fury gets summarized");
+//        util.mainFragTutorial(Targets, PrimaryTexts, SecondaryTexts);
+    }
     private void getSal() {
         vm.getSalary().observe(requireActivity(), salaryEntity -> {
             salary = 0;

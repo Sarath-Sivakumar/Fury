@@ -32,18 +32,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.budgetEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Entity.inHandBalEntity;
+import app.personal.MVVM.Viewmodel.AppUtilViewModel;
 import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
+import app.personal.Utls.TutorialUtil;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.expList.expAdapter;
+import app.personal.fury.UI.MainActivity;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class Exp_Tracker extends Fragment {
@@ -56,7 +60,8 @@ public class Exp_Tracker extends Fragment {
     private RecyclerView.ViewHolder ViewHolder;
     private int accBal = 0, inHandBal = 0, cashAmt, cashCount, accAmt, accCount, cDAvg, s2;
     private String userName = "";
-    private boolean isViewed;
+    private TutorialUtil util;
+    private AppUtilViewModel appVM;
 
     public Exp_Tracker() {}
 
@@ -66,7 +71,10 @@ public class Exp_Tracker extends Fragment {
         initViewModel();
         accBal = getBalance();
         inHandBal = getInHandBalance();
-        isViewed = false;
+        if (savedInstanceState==null){
+            appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
+            util = new TutorialUtil(requireActivity(), requireContext(), requireActivity(), requireActivity());
+        }
     }
 
     private void init(View v) {
@@ -158,15 +166,11 @@ public class Exp_Tracker extends Fragment {
             }
         });
         try {
-            if (entity.get().getBal()>0 && !isViewed){
+            if (entity.get().getBal()>0){
                 if (entity.get().getRefreshPeriod() == Constants.BUDGET_MONTHLY) {
                     s2 = entity.get().getAmount() / Commons.getDays(Calendar.MONTH);
                 } else {
                     s2 = entity.get().getAmount() / 7;
-                }
-                if (cDAvg > s2) {
-                    showWarningPopup();
-                    isViewed = true;
                 }
             }
         }
@@ -174,6 +178,26 @@ public class Exp_Tracker extends Fragment {
             Log.e("Popup_debug", "Error: "+e.getMessage());
         }
         return entity.get();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            if (cDAvg > s2) {
+                showWarningPopup();
+            }
+            ExpTutorial();
+        }
+    }
+
+    private void ExpTutorial(){
+        ArrayList<View> Targets = new ArrayList<>();
+        ArrayList<String> PrimaryTexts = new ArrayList<>(), SecondaryTexts = new ArrayList<>();
+        Targets.add(fltBtn);
+        PrimaryTexts.add("Expense Tracker");
+        SecondaryTexts.add("This is the area where new expenses are added, Tap here to add one.");
+        util.TutorialPhase6(Targets, PrimaryTexts, SecondaryTexts);
     }
 
     private int getBalance() {
@@ -416,9 +440,22 @@ public class Exp_Tracker extends Fragment {
                     break;
             }
             adapter.notifyDataSetChanged();
+            addChecker();
         } else {
             Commons.SnackBar(getView(), "Please fill all field(s)");
         }
+    }
+
+    private void addChecker(){
+        appVM.getCheckerData().observe(requireActivity(), launchChecker -> {
+            try{
+                if (launchChecker.getTimesLaunched()==0){
+                    MainActivity.redirectTo(4);
+                    Commons.SnackBar(getView(),"Let's explore Dues and Debt..");
+                }
+            }catch (Exception ignored){}
+        });
+
     }
 
     private void updateVals(expEntity entity, EditText expAmt) {

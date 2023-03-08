@@ -9,6 +9,7 @@ import androidx.room.Update;
 
 import java.util.List;
 
+import app.personal.MVVM.Entity.LaunchChecker;
 import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.budgetEntity;
 import app.personal.MVVM.Entity.debtEntity;
@@ -101,14 +102,22 @@ public interface localDao {
 
     //User-------
     @Insert
-    void InsertUser(budgetEntity budgetEntity);
+    void InsertUserData(userEntity entity);
 
     @Update
-    void UpdateUser(budgetEntity budgetEntity);
+    void UpdateUserData(userEntity entity);
 
     @Delete
-    void DeleteUser(budgetEntity budgetEntity);
+    void DeleteUserData(userEntity entity);
 
     @Query("SELECT * FROM User_Table")
     LiveData<userEntity> getUserData();
+    //LaunchChecker
+    @Insert
+    void InsertLaunchChecker(LaunchChecker launchChecker);
+    @Update
+    void UpdateLaunchChecker(LaunchChecker launchChecker);
+    @Query("SELECT * FROM Launch_Checker")
+    LiveData<LaunchChecker> getChecker();
+
 }
