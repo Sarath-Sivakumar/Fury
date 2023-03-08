@@ -168,9 +168,11 @@
                     style="@style/textstyle2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:gravity="start"
                     android:fontFamily="@font/source_sans_pro_semibold"
                     android:layout_marginTop="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="0dp"
                     android:layout_marginBottom="6dp"
                     android:text="Upcoming Dues"
                     android:textSize="16sp" />
@@ -185,8 +187,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dueList"
                 android:layout_width="match_parent"
-                android:layout_height="310dp"
-                tools:listitem="@layout/recycler_item_due" />
+                android:layout_height="250dp"
+                tools:listitem="@layout/recycler_item_upcoming" />
             </LinearLayout>
 
             <LinearLayout
@@ -228,6 +230,38 @@
             android:layout_marginStart="6dp"
             android:layout_marginEnd="6dp"
             android:background="?attr/colorPrimary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/textstyle2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:fontFamily="@font/source_sans_pro_semibold"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="6dp"
+                    android:text="Repeating Dues"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_borderonly"
+                android:layout_margin="3dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/RepeatdueList"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    tools:listitem="@layout/recycler_item_repeatingdue" />
+            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
