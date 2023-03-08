@@ -67,6 +67,7 @@ public class Ear_Tracker extends Fragment {
                     R.drawable.info_h5, R.drawable.info_h6};
     private int cashAmt, cashCount, accAmt, accCount, totalExp, totalSalary;
     private TutorialUtil util;
+    private AppUtilViewModel appVm;
 
     public Ear_Tracker() {
     }
@@ -74,8 +75,11 @@ public class Ear_Tracker extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-        adapter = new salaryAdapter();
+        if (savedInstanceState == null) {
+            vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+            appVm = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
+            adapter = new salaryAdapter();
+        }
         //Comes before onCreateView
         //initialise methods that don't require activity or context
     }
@@ -226,11 +230,11 @@ public class Ear_Tracker extends Fragment {
         AppUtilViewModel appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
         appVM.getCheckerData().observe(requireActivity(), launchChecker -> {
             try {
-                if (launchChecker.getTimesLaunched()==0){
-                    Commons.SnackBar(popupTitle,"To complete fill all the fields and tap on 'Add'");
+                if (launchChecker.getTimesLaunched() == 0) {
+                    Commons.SnackBar(popupTitle, "To complete fill all the fields and tap on 'Add'");
                     Targets.add(yes);
                 }
-            }catch (Exception ignored){
+            } catch (Exception ignored) {
                 appVM.InsertLaunchChecker(new LaunchChecker(0));
             }
         });
@@ -314,17 +318,25 @@ public class Ear_Tracker extends Fragment {
                         Commons.setDefaultBudget(vm, totalSalary, totalExp, getBudType());
                     }
                 }
+                appChecker();
+            }
+        } else {
+            Commons.SnackBar(getView(), "Field(s) may be empty");
+        }
+    }
+
+    private void appChecker() {
+        appVm.getCheckerData().observe(requireActivity(), launchChecker -> {
+            if (launchChecker.getTimesLaunched()==0){
                 util.setPhaseStatus(1);
-                util.isPhaseStatus().observe(requireActivity(),aBoolean -> {
-                    if (aBoolean==1){
+                util.isPhaseStatus().observe(requireActivity(), aBoolean -> {
+                    if (aBoolean == 1) {
                         MainActivity.initTutorialPhase3();
                         util.isPhaseStatus().removeObservers(requireActivity());
                     }
                 });
             }
-        } else {
-            Commons.SnackBar(getView(), "Field(s) may be empty");
-        }
+        });
     }
 
     private void callOnDeletePopup(salaryEntity salaryEntity, @Nullable String isUpdate) {

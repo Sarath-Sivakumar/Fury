@@ -39,6 +39,7 @@ import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.budgetEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Entity.inHandBalEntity;
+import app.personal.MVVM.Viewmodel.AppUtilViewModel;
 import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
@@ -46,6 +47,7 @@ import app.personal.Utls.Constants;
 import app.personal.Utls.TutorialUtil;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.expList.expAdapter;
+import app.personal.fury.UI.MainActivity;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class Exp_Tracker extends Fragment {
@@ -59,6 +61,7 @@ public class Exp_Tracker extends Fragment {
     private int accBal = 0, inHandBal = 0, cashAmt, cashCount, accAmt, accCount, cDAvg, s2;
     private String userName = "";
     private TutorialUtil util;
+    private AppUtilViewModel appVM;
 
     public Exp_Tracker() {}
 
@@ -69,6 +72,7 @@ public class Exp_Tracker extends Fragment {
         accBal = getBalance();
         inHandBal = getInHandBalance();
         if (savedInstanceState==null){
+            appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
             util = new TutorialUtil(requireActivity(), requireContext(), requireActivity(), requireActivity());
         }
     }
@@ -436,9 +440,22 @@ public class Exp_Tracker extends Fragment {
                     break;
             }
             adapter.notifyDataSetChanged();
+            addChecker();
         } else {
             Commons.SnackBar(getView(), "Please fill all field(s)");
         }
+    }
+
+    private void addChecker(){
+        appVM.getCheckerData().observe(requireActivity(), launchChecker -> {
+            try{
+                if (launchChecker.getTimesLaunched()==0){
+                    MainActivity.redirectTo(4);
+                    Commons.SnackBar(getView(),"Let's explore Dues and Debt..");
+                }
+            }catch (Exception ignored){}
+        });
+
     }
 
     private void updateVals(expEntity entity, EditText expAmt) {
