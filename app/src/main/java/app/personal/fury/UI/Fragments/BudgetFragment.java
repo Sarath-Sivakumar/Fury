@@ -28,12 +28,18 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
+
+import app.personal.MVVM.Entity.LaunchChecker;
 import app.personal.MVVM.Entity.budgetEntity;
+import app.personal.MVVM.Viewmodel.AppUtilViewModel;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
+import app.personal.Utls.TutorialUtil;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.budgetList.budgetAdapter;
+import app.personal.fury.UI.MainActivity;
 import app.personal.fury.ViewPagerAdapter.infoGraphicsAdapter;
 
 public class BudgetFragment extends Fragment {
@@ -43,9 +49,11 @@ public class BudgetFragment extends Fragment {
     private mainViewModel vm;
     private int totalSalary = 0, totalExp = 0;
     private budgetAdapter adapter;
+    private boolean isView = false;
     private final int[] FragmentList = new int[]{R.drawable.info_1, R.drawable.info_2, R.drawable.info_3};
     private AdView ad;
     private int prevType = 3;
+    private TutorialUtil util;
 
     public BudgetFragment() {
         // Required empty public constructor
@@ -56,6 +64,7 @@ public class BudgetFragment extends Fragment {
         super.onCreate(savedInstanceState);
         init();
         adapter = new budgetAdapter();
+        util = new TutorialUtil(requireActivity(),requireContext(), requireActivity(),requireActivity());
         MobileAds.initialize(requireContext());
     }
 
@@ -76,6 +85,7 @@ public class BudgetFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initItems();
+        isView = true;
     }
 
     private void requestAd() {
@@ -197,9 +207,13 @@ public class BudgetFragment extends Fragment {
             if (budTypeGrp.getCheckedRadioButtonId() == R.id.weekly) {
                 Commons.fakeLoadingScreen(requireContext(), totalSalary, totalExp,
                         Constants.BUDGET_WEEKLY, vm, addBudget);
+                onBudgetSetTutorial(getView(),"Great we've set a budget..");
+                loadNextPhase();
             } else {
                 Commons.fakeLoadingScreen(requireContext(), totalSalary, totalExp,
                         Constants.BUDGET_MONTHLY, vm, addBudget);
+                onBudgetSetTutorial(getView(), "Great we've set a budget..");
+                loadNextPhase();
             }
         });
 
@@ -214,6 +228,18 @@ public class BudgetFragment extends Fragment {
         popupWindow.setBackgroundDrawable(null);
         popupWindow.setElevation(6);
         popupWindow.showAsDropDown(addBudget);
+
+        onBudgetSetTutorial(yes, "Select a budget refresh type and tap continue or set budget manually..");
+    }
+
+    private void loadNextPhase(){
+        util.setPhaseStatus(2);
+        util.isPhaseStatus().observe(requireActivity(), integer -> {
+            if (integer == 2) {
+                MainActivity.initTutorialPhase5();
+                util.isPhaseStatus().removeObservers(requireActivity());
+            }
+        });
     }
 
     private void callManualPopup() {
@@ -251,6 +277,8 @@ public class BudgetFragment extends Fragment {
                     vm.DeleteBudget();
                     vm.InsertBudget(budget);
                     popupWindow.dismiss();
+                    onBudgetSetTutorial(yes, "Great we've set a budget..");
+                    loadNextPhase();
                 }
             } else if (!Amt.getText().toString().trim().isEmpty() && (Integer.parseInt(Amt.getText().toString().trim()) > Integer.parseInt(String.valueOf(totalSalary)))) {
                 Commons.SnackBar(getView(), "Budget Amount should be less than total earnings.");
@@ -265,6 +293,40 @@ public class BudgetFragment extends Fragment {
         popupWindow.setBackgroundDrawable(null);
         popupWindow.setElevation(6);
         popupWindow.showAsDropDown(addBudget);
+    }
+
+    private void onBudgetSetTutorial(View v, String s){
+        AppUtilViewModel appAM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
+        appAM.getCheckerData().observe(requireActivity(), launchChecker -> {
+            try {
+                if (launchChecker.getTimesLaunched()==0){
+                    Commons.SnackBar(v, s);
+                }
+            }catch (Exception ignored){
+                appAM.InsertLaunchChecker(new LaunchChecker(0));
+            }
+        });
+    }
+
+    private void InitTutorialPhase4(){
+        ArrayList<View> Targets = new ArrayList<>();
+        ArrayList<String> PrimaryTexts = new ArrayList<>();
+        ArrayList<String> SecondaryTexts = new ArrayList<>();
+        //Budget
+        Targets.add(addBudget);
+        PrimaryTexts.add("This is where you set your budget");
+        SecondaryTexts.add("Tap here to create budget, your can set it automatically or manually.");
+//        ----
+
+        util.TutorialPhase4(Targets, PrimaryTexts, SecondaryTexts);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && isView){
+            InitTutorialPhase4();
+        }
     }
 
     @Override

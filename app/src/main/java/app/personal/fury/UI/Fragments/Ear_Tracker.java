@@ -30,17 +30,22 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
+import app.personal.MVVM.Entity.LaunchChecker;
 import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.inHandBalEntity;
 import app.personal.MVVM.Entity.salaryEntity;
+import app.personal.MVVM.Viewmodel.AppUtilViewModel;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
+import app.personal.Utls.TutorialUtil;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.salaryList.salaryAdapter;
+import app.personal.fury.UI.MainActivity;
 import app.personal.fury.ViewPagerAdapter.infoGraphicsAdapter;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
@@ -51,12 +56,18 @@ public class Ear_Tracker extends Fragment {
     private FloatingActionButton addSal;
     private mainViewModel vm;
     private salaryAdapter adapter;
-    private TextView salAmt, inHandAmt, accountAmt, inHandCount, accountCount;
+    private Button yes;
+    private final ArrayList<View> Targets = new ArrayList<>();
+    private final ArrayList<String> PrimaryTexts = new ArrayList<>();
+    private final ArrayList<String> SecondaryTexts = new ArrayList<>();
+    private TextView SalAmt, inHandAmt, accountAmt, inHandCount, accountCount;
     private final int[] FragmentList =
             new int[]{R.drawable.info_h1, R.drawable.info_h2,
                     R.drawable.info_h3, R.drawable.info_h4,
                     R.drawable.info_h5, R.drawable.info_h6};
     private int cashAmt, cashCount, accAmt, accCount, totalExp, totalSalary;
+    private TutorialUtil util;
+    private AppUtilViewModel appVm;
 
     public Ear_Tracker() {
     }
@@ -64,8 +75,11 @@ public class Ear_Tracker extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-        adapter = new salaryAdapter();
+        if (savedInstanceState == null) {
+            vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+            appVm = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
+            adapter = new salaryAdapter();
+        }
         //Comes before onCreateView
         //initialise methods that don't require activity or context
     }
@@ -90,12 +104,23 @@ public class Ear_Tracker extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         String s = Constants.RUPEE + getSalary();
-        salAmt.setText(s);
+        SalAmt.setText(s);
         getExp();
+        util = new TutorialUtil(requireActivity(), requireContext(), requireActivity(), requireActivity());
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (getUserVisibleHint()) {
+                TutorialPhase2();
+            }
+        }
     }
 
     private void findView(View v) {
-        salAmt = v.findViewById(R.id.salAmt);
+        SalAmt = v.findViewById(R.id.salAmt);
         salSplitList = v.findViewById(R.id.salList);
         addSal = v.findViewById(R.id.addSal);
         addSal.setOnClickListener(v1 -> callPopUpWindow(false, null));
@@ -129,7 +154,7 @@ public class Ear_Tracker extends Fragment {
         FrameLayout expName;
         EditText salSource, salAmt, salDate;
         RadioGroup rdGrp1, rdGrp2;
-        Button yes, no;
+        Button no;
         String date;
 //        ----------------------------------------------------------------
 //        Init Views------------------------------------------------------
@@ -202,6 +227,17 @@ public class Ear_Tracker extends Fragment {
         popupWindow.setBackgroundDrawable(null);
         popupWindow.setElevation(6);
         popupWindow.showAsDropDown(addSal);
+        AppUtilViewModel appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
+        appVM.getCheckerData().observe(requireActivity(), launchChecker -> {
+            try {
+                if (launchChecker.getTimesLaunched() == 0) {
+                    Commons.SnackBar(popupTitle, "To complete fill all the fields and tap on 'Add'");
+                    Targets.add(yes);
+                }
+            } catch (Exception ignored) {
+                appVM.InsertLaunchChecker(new LaunchChecker(0));
+            }
+        });
     }
 
     private void onClickYesPopup(boolean isEdit, @Nullable salaryEntity salary,
@@ -272,20 +308,35 @@ public class Ear_Tracker extends Fragment {
                         vm.DeleteInHandBalance();
                         vm.InsertInHandBalance(bal);
                     }
-                    if (getBudType()!=3){
-                        Commons.setDefaultBudget(vm,totalSalary, totalExp, getBudType());
+                    if (getBudType() != 3) {
+                        Commons.setDefaultBudget(vm, totalSalary, totalExp, getBudType());
                     }
                 } else {
                     sal.setId(salary.getId());
                     vm.UpdateSalary(sal);
-                    if (getBudType()!=3){
-                        Commons.setDefaultBudget(vm,totalSalary, totalExp, getBudType());
+                    if (getBudType() != 3) {
+                        Commons.setDefaultBudget(vm, totalSalary, totalExp, getBudType());
                     }
                 }
+                appChecker();
             }
         } else {
             Commons.SnackBar(getView(), "Field(s) may be empty");
         }
+    }
+
+    private void appChecker() {
+        appVm.getCheckerData().observe(requireActivity(), launchChecker -> {
+            if (launchChecker.getTimesLaunched()==0){
+                util.setPhaseStatus(1);
+                util.isPhaseStatus().observe(requireActivity(), aBoolean -> {
+                    if (aBoolean == 1) {
+                        MainActivity.initTutorialPhase3();
+                        util.isPhaseStatus().removeObservers(requireActivity());
+                    }
+                });
+            }
+        });
     }
 
     private void callOnDeletePopup(salaryEntity salaryEntity, @Nullable String isUpdate) {
@@ -312,7 +363,7 @@ public class Ear_Tracker extends Fragment {
                 popupWindow.dismiss();
                 callOnDeletePopup(salaryEntity, "1");
             });
-        } else if (salaryEntity != null){
+        } else if (salaryEntity != null) {
             if (isUpdate.equals("1")) {
                 String s = "Do you want to update balance according to current deletion?";
                 body.setText(s);
@@ -334,7 +385,7 @@ public class Ear_Tracker extends Fragment {
                     callOnDeletePopup(salaryEntity, "0");
 
                 });
-            } else if (isUpdate.equals("0")&&getBudType()!=3) {
+            } else if (isUpdate.equals("0") && getBudType() != 3) {
                 String s = "Do you want to update budget according to current deletion?";
                 body.setText(s);
                 yes.setOnClickListener(v1 -> {
@@ -390,6 +441,18 @@ public class Ear_Tracker extends Fragment {
         adapter.setOnItemClickListener(exp -> callPopUpWindow(true, exp));
     }
 
+    private void TutorialPhase2() {
+//        Floating Btn--
+        Targets.add(addSal);
+        PrimaryTexts.add("Earnings Tracker");
+        SecondaryTexts.add("This is where all your earnings are tracked, tap here to add one");
+//        --------------
+//        Popup--
+//        --------------
+
+        util.TutorialPhase2(Targets, PrimaryTexts, SecondaryTexts);
+    }
+
     private balanceEntity getBal() {
         AtomicReference<balanceEntity> bal = new AtomicReference<>(new balanceEntity());
         vm.getBalance().observe(requireActivity(), balanceEntity -> {
@@ -437,7 +500,7 @@ public class Ear_Tracker extends Fragment {
                 finalTotalSalary.set(total);
                 try {
                     String s1 = Constants.RUPEE + "" + total;
-                    salAmt.setText(s1);
+                    SalAmt.setText(s1);
                     inHandCount.setText(String.valueOf(cashCount));
                     accountCount.setText(String.valueOf(accCount));
                     String s2 = Constants.RUPEE + "" + accAmt;
@@ -468,12 +531,13 @@ public class Ear_Tracker extends Fragment {
         });
     }
 
-    private int getBudType(){
+    private int getBudType() {
         AtomicInteger type = new AtomicInteger(3);
         vm.getBudget().observe(requireActivity(), budgetEntity -> {
-            try{
+            try {
                 type.set(budgetEntity.getRefreshPeriod());
-            }catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         });
         return type.get();
     }

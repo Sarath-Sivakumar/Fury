@@ -81,4 +81,7 @@ dependencies {
     //swipeDecorator
     implementation 'it.xabaras.android:recyclerview-swipedecorator:1.4'
 
+    //Tap Target Prompt
+    implementation 'uk.co.samuelwall:material-tap-target-prompt:3.3.2'
+
 }
