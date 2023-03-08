@@ -227,7 +227,7 @@ public class Ear_Tracker extends Fragment {
         appVM.getCheckerData().observe(requireActivity(), launchChecker -> {
             try {
                 if (launchChecker.getTimesLaunched()==0){
-                    Commons.SnackBar(getView(),"To complete fill all the fields and tap on 'Add'");
+                    Commons.SnackBar(popupTitle,"To complete fill all the fields and tap on 'Add'");
                     Targets.add(yes);
                 }
             }catch (Exception ignored){
@@ -314,9 +314,9 @@ public class Ear_Tracker extends Fragment {
                         Commons.setDefaultBudget(vm, totalSalary, totalExp, getBudType());
                     }
                 }
-                util.setPhaseStatus(true);
+                util.setPhaseStatus(1);
                 util.isPhaseStatus().observe(requireActivity(),aBoolean -> {
-                    if (aBoolean){
+                    if (aBoolean==1){
                         MainActivity.initTutorialPhase3();
                         util.isPhaseStatus().removeObservers(requireActivity());
                     }

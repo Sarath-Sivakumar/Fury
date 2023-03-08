@@ -2,7 +2,6 @@ package app.personal.fury.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
@@ -13,6 +12,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewPropertyAnimatorCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import app.personal.MVVM.Entity.LaunchChecker;
+import app.personal.MVVM.Viewmodel.AppUtilViewModel;
 import app.personal.MVVM.Viewmodel.userInitViewModel;
 import app.personal.fury.R;
 import app.personal.fury.UI.User_Init.Landing;
@@ -28,6 +29,18 @@ public class splash extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         uvm = new ViewModelProvider(this).get(userInitViewModel.class);
+        AppUtilViewModel appVm = new ViewModelProvider(this).get(AppUtilViewModel.class);
+        appVm.getCheckerData().observe(this, launchChecker -> {
+            try{
+                if (launchChecker.getTimesLaunched()>0){
+                    LaunchChecker checker = launchChecker;
+                    checker.setTimesLaunched(checker.getTimesLaunched()+1);
+                    appVm.UpdateLaunchChecker(checker);
+                }
+            }catch (Exception ignored){
+                appVm.InsertLaunchChecker(new LaunchChecker(0));
+            }
+        });
         uvm.checkForUser();
         dataFetch();
         getWindow().getDecorView().setSystemUiVisibility(

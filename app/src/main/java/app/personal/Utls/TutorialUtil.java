@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import app.personal.MVVM.Entity.LaunchChecker;
 import app.personal.MVVM.Viewmodel.AppUtilViewModel;
 import app.personal.fury.R;
+import app.personal.fury.UI.MainActivity;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 public class TutorialUtil {
@@ -28,7 +29,7 @@ public class TutorialUtil {
     private final ViewModelStoreOwner owner;
     private final LifecycleOwner lOwner;
     private AppUtilViewModel appVM;
-    private MutableLiveData<Boolean> PhaseStatus = new MutableLiveData<>();
+    private MutableLiveData<Integer> PhaseStatus = new MutableLiveData<>();
     private MaterialTapTargetPrompt.Builder builder;
 
     public TutorialUtil(Activity activity, Context context, ViewModelStoreOwner owner, LifecycleOwner lOwner) {
@@ -40,11 +41,11 @@ public class TutorialUtil {
         appVM = new ViewModelProvider(owner).get(AppUtilViewModel.class);
     }
 
-    public MutableLiveData<Boolean> isPhaseStatus() {
+    public MutableLiveData<Integer> isPhaseStatus() {
         return PhaseStatus;
     }
 
-    public void setPhaseStatus(boolean val){
+    public void setPhaseStatus(int val){
         PhaseStatus.postValue(val);
     }
 
@@ -94,7 +95,7 @@ public class TutorialUtil {
                     builder.setPromptStateChangeListener((prompt1, state1) -> {
                         if (state1 == STATE_FINISHED) {
                             Log.e("Tutorial", "Phase 2 Complete.");
-                            PhaseStatus.postValue(true);
+                            PhaseStatus.postValue(1);
                         }
                     });
                 }
@@ -132,7 +133,45 @@ public class TutorialUtil {
                     Tutorial(Targets.get(0), PrimaryTexts.get(0), SecondaryTexts.get(0));
                     builder.setPromptStateChangeListener((prompt1, state1) -> {
                         if (state1 == STATE_FINISHED) {
-                            Log.e("Tutorial", "Phase 3 Complete.");
+                            Log.e("Tutorial", "Phase 4 Complete.");
+                        }
+                    });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                appVM.InsertLaunchChecker(new LaunchChecker(0));
+            }
+        });
+    }
+
+    public void TutorialPhase5(ArrayList<View> Targets, ArrayList<String> PrimaryTexts, ArrayList<String> SecondaryTexts) {
+        builder.setAutoDismiss(false);
+        appVM.getCheckerData().observe(lOwner, launchChecker -> {
+            try {
+                if (launchChecker.getTimesLaunched() == 0) {
+                    Tutorial(Targets.get(0), PrimaryTexts.get(0), SecondaryTexts.get(0));
+                    builder.setPromptStateChangeListener((prompt1, state1) -> {
+                        if (state1 == STATE_FINISHED) {
+                            Log.e("Tutorial", "Phase 5 Complete.");
+                        }
+                    });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                appVM.InsertLaunchChecker(new LaunchChecker(0));
+            }
+        });
+    }
+
+    public void TutorialPhase6(ArrayList<View> Targets, ArrayList<String> PrimaryTexts, ArrayList<String> SecondaryTexts) {
+        builder.setAutoDismiss(false);
+        appVM.getCheckerData().observe(lOwner, launchChecker -> {
+            try {
+                if (launchChecker.getTimesLaunched() == 0) {
+                    Tutorial(Targets.get(0), PrimaryTexts.get(0), SecondaryTexts.get(0));
+                    builder.setPromptStateChangeListener((prompt1, state1) -> {
+                        if (state1 == STATE_FINISHED) {
+                            Log.e("Tutorial", "Phase 6 Complete.");
                         }
                     });
                 }

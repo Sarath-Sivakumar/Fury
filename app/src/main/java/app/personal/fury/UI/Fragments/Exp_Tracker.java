@@ -32,6 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 import app.personal.MVVM.Entity.balanceEntity;
@@ -42,6 +43,7 @@ import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
+import app.personal.Utls.TutorialUtil;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.expList.expAdapter;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
@@ -56,6 +58,7 @@ public class Exp_Tracker extends Fragment {
     private RecyclerView.ViewHolder ViewHolder;
     private int accBal = 0, inHandBal = 0, cashAmt, cashCount, accAmt, accCount, cDAvg, s2;
     private String userName = "";
+    private TutorialUtil util;
 
     public Exp_Tracker() {}
 
@@ -65,6 +68,9 @@ public class Exp_Tracker extends Fragment {
         initViewModel();
         accBal = getBalance();
         inHandBal = getInHandBalance();
+        if (savedInstanceState==null){
+            util = new TutorialUtil(requireActivity(), requireContext(), requireActivity(), requireActivity());
+        }
     }
 
     private void init(View v) {
@@ -177,7 +183,17 @@ public class Exp_Tracker extends Fragment {
             if (cDAvg > s2) {
                 showWarningPopup();
             }
+            ExpTutorial();
         }
+    }
+
+    private void ExpTutorial(){
+        ArrayList<View> Targets = new ArrayList<>();
+        ArrayList<String> PrimaryTexts = new ArrayList<>(), SecondaryTexts = new ArrayList<>();
+        Targets.add(fltBtn);
+        PrimaryTexts.add("Expense Tracker");
+        SecondaryTexts.add("This is the area where new expenses are added, Tap here to add one.");
+        util.TutorialPhase6(Targets, PrimaryTexts, SecondaryTexts);
     }
 
     private int getBalance() {

@@ -212,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<View> Targets = new ArrayList<>();
         ArrayList<String> PrimaryTexts = new ArrayList<>();
         ArrayList<String> SecondaryTexts = new ArrayList<>();
+        redirectTo(2);
 //        Home
         Targets.add(Objects.requireNonNull(tl.getTabAt(1)).view);
         PrimaryTexts.add("Budget");
@@ -220,9 +221,21 @@ public class MainActivity extends AppCompatActivity {
         util.TutorialPhase3(Targets, PrimaryTexts, SecondaryTexts);
     }
 
+    public static void initTutorialPhase5(){
+        ArrayList<View> Targets = new ArrayList<>();
+        ArrayList<String> PrimaryTexts = new ArrayList<>();
+        ArrayList<String> SecondaryTexts = new ArrayList<>();
+//        Home
+        Targets.add(Objects.requireNonNull(tl.getTabAt(0)).view);
+        PrimaryTexts.add("Expenses");
+        SecondaryTexts.add("Lets explore the Expense Tracker!");
+//        ----
+        util.TutorialPhase5(Targets, PrimaryTexts, SecondaryTexts);
+    }
+
     private void initTutorialPhase1(){
         TutorialUtil util = new TutorialUtil(this,this, this,this);
-        util.setPhaseStatus(false);
+        util.setPhaseStatus(0);
         ArrayList<View> Targets = new ArrayList<>();
         ArrayList<String> PrimaryTexts = new ArrayList<>();
         ArrayList<String> SecondaryTexts = new ArrayList<>();
