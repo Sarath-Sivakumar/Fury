@@ -15,6 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,6 +71,16 @@
                     android:layout_gravity="center"
                     android:layout_height="wrap_content" />
 
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/Due_repeat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checkbox_text"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="0dp"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="0dp"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -100,7 +111,6 @@
                         android:fontFamily="@font/raleway_bold"
                         android:text="Cancel"
                         android:textAllCaps="false" />
-
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

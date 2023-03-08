@@ -35,7 +35,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/maintxttitle"
@@ -43,20 +43,21 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:paddingTop="6dp"
-                        android:text="Total Amount"
-                        android:textSize="18sp" />
-
+                        android:text="Total Amount Due"
+                        android:textSize="16sp" />
+                    <TextView
+                        style="@style/maintxtamount"
+                        android:id="@+id/dueTotalText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="6dp"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textSize="26sp" />
                 </LinearLayout>
 
-                <TextView
-                    style="@style/maintxtamount"
-                    android:id="@+id/dueTotalText"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:fontFamily="@font/work_sans_semibold"
-                    android:gravity="center"
-                    android:singleLine="true"
-                    android:textSize="26sp" />
+
 
             </LinearLayout>
 
@@ -170,6 +171,7 @@
                     android:gravity="center"
                     android:fontFamily="@font/source_sans_pro_semibold"
                     android:layout_marginTop="12dp"
+                    android:layout_marginBottom="6dp"
                     android:text="Upcoming Dues"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -178,7 +180,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_borderonly"
-                android:layout_margin="6dp">
+                android:layout_margin="3dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dueList"

@@ -43,13 +43,15 @@
                         android:gravity="center_horizontal"
                         android:paddingTop="6dp"
                         android:text="@string/total_expense_today"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         style="@style/maintxtamount"
                         android:id="@+id/todayExp"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="6dp"
                         android:singleLine="true"
                         android:gravity="center"
                         android:textSize="26sp" />

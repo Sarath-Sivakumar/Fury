@@ -17,6 +17,11 @@
             android:title="Rate us" />
 
         <item
+            android:id="@+id/donate"
+            android:icon="@drawable/nav_icon_donate"
+            android:title="contribute us" />
+
+        <item
             android:id="@+id/logout"
             android:icon="@drawable/nav_icon_logout"
             android:title="Logout" />
