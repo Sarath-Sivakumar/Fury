@@ -31,16 +31,16 @@ public class splash extends AppCompatActivity {
         uvm = new ViewModelProvider(this).get(userInitViewModel.class);
         AppUtilViewModel appVm = new ViewModelProvider(this).get(AppUtilViewModel.class);
         appVm.getCheckerData().observe(this, launchChecker -> {
-//            try{
+            try{
 //                if (launchChecker.getTimesLaunched()>0){
 //                    LaunchChecker checker = launchChecker;
 //                    checker.setTimesLaunched(checker.getTimesLaunched()+1);
 //                    appVm.UpdateLaunchChecker(checker);
 //                }
-//            }catch (Exception ignored){
-//                appVm.InsertLaunchChecker(new LaunchChecker(0));
-//            }
-            appVm.UpdateLaunchChecker(new LaunchChecker(launchChecker.getId(), 1));
+                appVm.UpdateLaunchChecker(new LaunchChecker(launchChecker.getId(), 1));
+            }catch (Exception ignored){
+                appVm.InsertLaunchChecker(new LaunchChecker(1));
+            }
         });
         uvm.checkForUser();
         dataFetch();
