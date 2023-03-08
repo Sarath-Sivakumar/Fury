@@ -63,7 +63,8 @@ public class Exp_Tracker extends Fragment {
     private TutorialUtil util;
     private AppUtilViewModel appVM;
 
-    public Exp_Tracker() {}
+    public Exp_Tracker() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,10 +72,8 @@ public class Exp_Tracker extends Fragment {
         initViewModel();
         accBal = getBalance();
         inHandBal = getInHandBalance();
-        if (savedInstanceState==null){
-            appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
-            util = new TutorialUtil(requireActivity(), requireContext(), requireActivity(), requireActivity());
-        }
+        appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
+        util = new TutorialUtil(requireActivity(), requireContext(), requireActivity(), requireActivity());
     }
 
     private void init(View v) {
@@ -166,16 +165,15 @@ public class Exp_Tracker extends Fragment {
             }
         });
         try {
-            if (entity.get().getBal()>0){
+            if (entity.get().getBal() > 0) {
                 if (entity.get().getRefreshPeriod() == Constants.BUDGET_MONTHLY) {
                     s2 = entity.get().getAmount() / Commons.getDays(Calendar.MONTH);
                 } else {
                     s2 = entity.get().getAmount() / 7;
                 }
             }
-        }
-        catch (Exception e){
-            Log.e("Popup_debug", "Error: "+e.getMessage());
+        } catch (Exception e) {
+            Log.e("Popup_debug", "Error: " + e.getMessage());
         }
         return entity.get();
     }
@@ -183,7 +181,7 @@ public class Exp_Tracker extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser){
+        if (isVisibleToUser) {
             if (cDAvg > s2) {
                 showWarningPopup();
             }
@@ -191,7 +189,7 @@ public class Exp_Tracker extends Fragment {
         }
     }
 
-    private void ExpTutorial(){
+    private void ExpTutorial() {
         ArrayList<View> Targets = new ArrayList<>();
         ArrayList<String> PrimaryTexts = new ArrayList<>(), SecondaryTexts = new ArrayList<>();
         Targets.add(fltBtn);
@@ -446,14 +444,15 @@ public class Exp_Tracker extends Fragment {
         }
     }
 
-    private void addChecker(){
+    private void addChecker() {
         appVM.getCheckerData().observe(requireActivity(), launchChecker -> {
-            try{
-                if (launchChecker.getTimesLaunched()==0){
+            try {
+                if (launchChecker.getTimesLaunched() == 0) {
                     MainActivity.redirectTo(4);
-                    Commons.SnackBar(getView(),"Let's explore Dues and Debt..");
+                    Commons.SnackBar(getView(), "Let's explore Dues and Debt..");
                 }
-            }catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         });
 
     }
