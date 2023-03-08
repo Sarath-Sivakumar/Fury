@@ -43,7 +43,6 @@ public class splash extends AppCompatActivity {
             }
         });
         uvm.checkForUser();
-        dataFetch();
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
         setContentView(R.layout.init_splash);
@@ -70,6 +69,7 @@ public class splash extends AppCompatActivity {
             viewAnimator.setInterpolator(new DecelerateInterpolator()).start();
             animationStarted = true;
         }
+        dataFetch();
     }
 
     private void dataFetch() {
