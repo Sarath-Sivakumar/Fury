@@ -29,6 +29,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -44,6 +45,7 @@ import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.MVVM.Viewmodel.userInitViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
+import app.personal.Utls.TutorialUtil;
 import app.personal.Utls.ViewPager.viewPager;
 
 import app.personal.fury.R;
@@ -63,11 +65,12 @@ public class MainActivity extends AppCompatActivity {
     private userInitViewModel uvm;
     private mainViewModel vm;
     private LoggedInUserViewModel userVM;
-    private TabLayout tl;
+    private static TabLayout tl;
     private DrawerLayout dl;
     private Toolbar tb;
     private ImageView userDp;
     private TextView userName;
+    private static TutorialUtil util;
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 
     @Override
@@ -197,10 +200,43 @@ public class MainActivity extends AppCompatActivity {
 
         //Firebase Topics to be implemented here..
         vm.initFirebaseMessagingService(Constants.ExpFirebaseService);
-
+        util = new TutorialUtil(this,this, this,this);
         findView();
         initViewPager();
         isStoragePermissionGranted();
+//        redirectTo(1);
+        initTutorialPhase1();
+    }
+
+    public static void initTutorialPhase3(){
+        ArrayList<View> Targets = new ArrayList<>();
+        ArrayList<String> PrimaryTexts = new ArrayList<>();
+        ArrayList<String> SecondaryTexts = new ArrayList<>();
+//        Home
+        Targets.add(Objects.requireNonNull(tl.getTabAt(1)).view);
+        PrimaryTexts.add("Budget");
+        SecondaryTexts.add("Lets set your budget!");
+//        ----
+        util.TutorialPhase3(Targets, PrimaryTexts, SecondaryTexts);
+    }
+
+    private void initTutorialPhase1(){
+        TutorialUtil util = new TutorialUtil(this,this, this,this);
+        util.setPhaseStatus(false);
+        ArrayList<View> Targets = new ArrayList<>();
+        ArrayList<String> PrimaryTexts = new ArrayList<>();
+        ArrayList<String> SecondaryTexts = new ArrayList<>();
+//        Home
+        Targets.add(Objects.requireNonNull(tl.getTabAt(2)).view);
+        PrimaryTexts.add("Welcome To Fury home");
+        SecondaryTexts.add("This is where most of your activity in Fury gets summarized");
+//        ----
+//        Earnings
+        Targets.add(Objects.requireNonNull(tl.getTabAt(3)).view);
+        PrimaryTexts.add("Lets set your earnings!");
+        SecondaryTexts.add("Tap here to view your Earnings tracker");
+
+        util.TutorialPhase1(Targets, PrimaryTexts, SecondaryTexts);
     }
 
     private void setUserViewModel(){
@@ -400,6 +436,10 @@ public class MainActivity extends AppCompatActivity {
             vp.setCurrentItem(item);
             Log.e("App","Stop it daddy! uwwu!");
         }
+    }
+
+    public static int getTab(){
+        return vp.getCurrentItem();
     }
     public void isStoragePermissionGranted() {
         if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)

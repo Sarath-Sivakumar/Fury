@@ -2,7 +2,7 @@ package app.personal.fury.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
@@ -29,15 +29,7 @@ public class splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         uvm = new ViewModelProvider(this).get(userInitViewModel.class);
         uvm.checkForUser();
-        uvm.getUserId().observe(this, firebaseUser -> {
-            if (firebaseUser == null) {
-                startActivity(new Intent(this, Landing.class));
-                finish();
-            } else {
-                startActivity(new Intent(this, MainActivity.class));
-                finish();
-            }
-        });
+        dataFetch();
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
         setContentView(R.layout.init_splash);
@@ -60,11 +52,21 @@ public class splash extends AppCompatActivity {
             viewAnimator = ViewCompat.animate(v)
                     .scaleX(5).scaleY(5)
                     .setStartDelay(0)
-                    .setDuration(100);
+                    .setDuration(300);
             viewAnimator.setInterpolator(new DecelerateInterpolator()).start();
             animationStarted = true;
         }
-//        startActivity(new Intent(this, MainActivity.class));
-//        finish();
+    }
+
+    private void dataFetch(){
+        uvm.getUserId().observe(this, firebaseUser -> {
+            if (firebaseUser == null) {
+                startActivity(new Intent(this, Landing.class));
+                finish();
+            } else {
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+            }
+        });
     }
 }

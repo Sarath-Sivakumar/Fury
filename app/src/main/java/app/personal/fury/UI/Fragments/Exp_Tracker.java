@@ -56,7 +56,6 @@ public class Exp_Tracker extends Fragment {
     private RecyclerView.ViewHolder ViewHolder;
     private int accBal = 0, inHandBal = 0, cashAmt, cashCount, accAmt, accCount, cDAvg, s2;
     private String userName = "";
-    private boolean isViewed;
 
     public Exp_Tracker() {}
 
@@ -66,7 +65,6 @@ public class Exp_Tracker extends Fragment {
         initViewModel();
         accBal = getBalance();
         inHandBal = getInHandBalance();
-        isViewed = false;
     }
 
     private void init(View v) {
@@ -158,15 +156,11 @@ public class Exp_Tracker extends Fragment {
             }
         });
         try {
-            if (entity.get().getBal()>0 && !isViewed){
+            if (entity.get().getBal()>0){
                 if (entity.get().getRefreshPeriod() == Constants.BUDGET_MONTHLY) {
                     s2 = entity.get().getAmount() / Commons.getDays(Calendar.MONTH);
                 } else {
                     s2 = entity.get().getAmount() / 7;
-                }
-                if (cDAvg > s2) {
-                    showWarningPopup();
-                    isViewed = true;
                 }
             }
         }
@@ -174,6 +168,16 @@ public class Exp_Tracker extends Fragment {
             Log.e("Popup_debug", "Error: "+e.getMessage());
         }
         return entity.get();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            if (cDAvg > s2) {
+                showWarningPopup();
+            }
+        }
     }
 
     private int getBalance() {
