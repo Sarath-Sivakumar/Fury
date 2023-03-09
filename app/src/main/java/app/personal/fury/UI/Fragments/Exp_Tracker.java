@@ -60,7 +60,6 @@ public class Exp_Tracker extends Fragment {
     private RecyclerView.ViewHolder ViewHolder;
     private int accBal = 0, inHandBal = 0, cashAmt, cashCount, accAmt, accCount, cDAvg, s2;
     private String userName = "";
-    private TutorialUtil util;
     private AppUtilViewModel appVM;
 
     public Exp_Tracker() {
@@ -73,7 +72,6 @@ public class Exp_Tracker extends Fragment {
         accBal = getBalance();
         inHandBal = getInHandBalance();
         appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
-        util = new TutorialUtil(requireActivity(), requireContext(), requireActivity(), requireActivity());
     }
 
     private void init(View v) {
@@ -185,11 +183,14 @@ public class Exp_Tracker extends Fragment {
             if (cDAvg > s2) {
                 showWarningPopup();
             }
-            ExpTutorial();
+            try{
+                ExpTutorial();
+            }catch (Exception ignored){}
         }
     }
 
     private void ExpTutorial() {
+        TutorialUtil util = new TutorialUtil(requireActivity(), requireContext(), requireActivity(), requireActivity());
         ArrayList<View> Targets = new ArrayList<>();
         ArrayList<String> PrimaryTexts = new ArrayList<>(), SecondaryTexts = new ArrayList<>();
         Targets.add(fltBtn);
