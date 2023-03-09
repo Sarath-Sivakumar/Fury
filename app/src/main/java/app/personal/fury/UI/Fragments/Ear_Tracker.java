@@ -476,9 +476,6 @@ public class Ear_Tracker extends Fragment {
         PrimaryTexts.add("Earnings Tracker");
         SecondaryTexts.add("This is where all your earnings are tracked, tap here to add one");
 //        --------------
-//        Popup--
-//        --------------
-
         util.TutorialPhase2(Targets, PrimaryTexts, SecondaryTexts);
     }
 
