@@ -26,13 +26,11 @@
             android:layout_gravity="center"
             android:orientation="vertical">
 
-
                 <TextView
                     android:id="@+id/dueName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Rent"
                     android:layout_marginTop="4dp"
                     android:singleLine="true"
                     android:fontFamily="@font/raleway_bold"
@@ -50,7 +48,6 @@
                 android:gravity="center"
                 android:fontFamily="@font/work_sans_semibold"
                 android:textColor="?attr/colorOnSecondary"
-                android:text="100000"
                 android:singleLine="true"
                 android:textSize="18sp" />
 
@@ -72,7 +69,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="02"
             android:fontFamily="@font/work_sans_semibold"
             android:textColor="@color/theme_red"
             android:textSize="24sp" />

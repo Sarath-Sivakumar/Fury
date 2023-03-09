@@ -26,8 +26,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="center"
-            android:layout_marginStart="6dp"
-            android:src="@drawable/frag_icon_home" />
+            android:layout_marginStart="6dp" />
 
         <TextView
             android:id="@+id/indicatorText"
