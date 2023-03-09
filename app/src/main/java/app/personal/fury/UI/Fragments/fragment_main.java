@@ -146,6 +146,7 @@ public class fragment_main extends Fragment {
         vm.getSalary().observe(requireActivity(), salaryEntityList -> {
             try{
                 bankEr[0] = 0;
+                cashEr[0] = 0;
                 for (int i = 0; i<salaryEntityList.size();i++){
                     if (salaryEntityList.get(i).getSalMode()==Constants.SAL_MODE_ACC){
                         bankEr[0] = bankEr[0] + salaryEntityList.get(i).getSalary();
@@ -161,6 +162,7 @@ public class fragment_main extends Fragment {
         vm.getExp().observe(requireActivity(), expEntities -> {
             try{
                 bankEx[0] = 0;
+                cashEx[0] = 0;
                 for (int i = 0; i<expEntities.size();i++){
                     if (expEntities.get(i).getExpMode()==Constants.SAL_MODE_ACC){
                         bankEx[0] = bankEx[0] + expEntities.get(i).getExpenseAmt();
