@@ -38,7 +38,6 @@ import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
-import app.personal.Utls.TutorialUtil;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.mainLists.categoryAdapter;
 import app.personal.fury.UI.Adapters.mainLists.duesAdapter;
@@ -60,7 +59,6 @@ public class fragment_main extends Fragment {
     private final ArrayList<debtEntity> debtList = new ArrayList<>();
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
     private final int[] FragmentList = new int[]{R.drawable.infos1, R.drawable.infos2, R.drawable.infos3, R.drawable.infos4, R.drawable.infos5, R.drawable.infos6};
-    private boolean isView = true;
 
     public fragment_main() {
     }
@@ -142,8 +140,19 @@ public class fragment_main extends Fragment {
         String s4 = debt.getFinalDate();
         date.setText(s4);
         yes.setOnClickListener(v1 -> {
-            debt.setStatus(Constants.DEBT_PAID);
-            vm.UpdateDebt(debt);
+            if (debt.getIsRepeat()==Constants.NON_REPEATING_DUE){
+                debt.setStatus(Constants.DEBT_PAID);
+                vm.UpdateDebt(debt);
+            }else {
+                debt.setStatus(Constants.DEBT_NOT_PAID);
+                debt.setDate(Commons.getDate());
+                String[] Date = debt.getFinalDate().split("/");
+                String month = String.valueOf(Integer.parseInt(Date[1])+1);
+                String [] curDate = Commons.getDate().split("/");
+                String year = curDate[2];
+                debt.setFinalDate(Date[0]+"/"+month+"/"+year);
+                vm.UpdateDebt(debt);
+            }
             popupWindow.dismiss();
         });
         no.setOnClickListener(v1 -> popupWindow.dismiss());
@@ -169,10 +178,6 @@ public class fragment_main extends Fragment {
         dAdapter.clear();
         initViewModel();
         MobileAds.initialize(requireContext());
-        if (savedInstanceState == null && isView) {
-            debtWaring();
-//            Tutorial();
-        }
     }
 
     @Override
@@ -239,17 +244,6 @@ public class fragment_main extends Fragment {
         });
     }
 
-    private void Tutorial(){
-        TutorialUtil util = new TutorialUtil(requireActivity(),requireContext(),
-                requireActivity(),requireActivity());
-        ArrayList<View> Targets = new ArrayList<>();
-        ArrayList<String> PrimaryTexts = new ArrayList<>();
-        ArrayList<String> SecondaryTexts = new ArrayList<>();
-        Targets.add(mainProgressBar);
-        PrimaryTexts.add("Welcome To your Fury home");
-        SecondaryTexts.add("This is where most of your activity in Fury gets summarized");
-//        util.mainFragTutorial(Targets, PrimaryTexts, SecondaryTexts);
-    }
     private void getSal() {
         vm.getSalary().observe(requireActivity(), salaryEntity -> {
             salary = 0;
@@ -353,7 +347,6 @@ public class fragment_main extends Fragment {
                     } else if (dAdapter.getItemCount() <= 0 && debtEntities.isEmpty()) {
                         dueList.setVisibility(View.GONE);
                         noDues.setVisibility(View.VISIBLE);
-//                    noDues;
                     } else {
                         dueList.setVisibility(View.VISIBLE);
                         noDues.setVisibility(View.GONE);
@@ -386,7 +379,6 @@ public class fragment_main extends Fragment {
         expense = 0;
         cAdapter.clear();
         dAdapter.clear();
-        isView = true;
         try {
             initViewModel();
             setMain(progress);
@@ -396,9 +388,13 @@ public class fragment_main extends Fragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        isView = false;
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            try {
+                debtWaring();
+            }catch (Exception ignored){}
+        }
     }
 
     @Override

@@ -315,7 +315,7 @@ public class BudgetFragment extends Fragment {
         //Budget
         Targets.add(addBudget);
         PrimaryTexts.add("This is where you set your budget");
-        SecondaryTexts.add("Tap here to create budget, your can set it automatically or manually.");
+        SecondaryTexts.add("Tap here to create a budget, you can set it automatically or manually.");
 //        ----
 
         util.TutorialPhase4(Targets, PrimaryTexts, SecondaryTexts);

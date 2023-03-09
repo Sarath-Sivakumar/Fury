@@ -1,5 +1,6 @@
 package app.personal.MVVM.Entity;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -13,24 +14,28 @@ public class debtEntity {
     private int id;
     private String Source, date, finalDate, status;
     private int Amount;
+    @ColumnInfo(defaultValue = "0")
+    private int isRepeat;
 
     @Ignore
-    public debtEntity(int id, String Source, String date, String finalDate, int Amount, String status) {
+    public debtEntity(int id, String Source, String date, String finalDate, int Amount, String status, int isRepeat) {
         this.id = id;
         this.Source = Source;
         this.date = date;
         this.finalDate = finalDate;
         this.Amount = Amount;
         this.status = status;
+        this.isRepeat = isRepeat;
     }
 
     @Ignore
-    public debtEntity(String Source, String date, String finalDate, int Amount, String status) {
+    public debtEntity(String Source, String date, String finalDate, int Amount, String status, int isRepeat) {
         this.Source = Source;
         this.date = date;
         this.finalDate = finalDate;
         this.Amount = Amount;
         this.status = status;
+        this.isRepeat = isRepeat;
     }
 
     public debtEntity() {}
@@ -59,6 +64,10 @@ public class debtEntity {
         return status;
     }
 
+    public int getIsRepeat() {
+        return isRepeat;
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }
@@ -81,5 +90,9 @@ public class debtEntity {
 
     public void setFinalDate(String finalDate) {
         this.finalDate = finalDate;
+    }
+
+    public void setIsRepeat(int isRepeat) {
+        this.isRepeat = isRepeat;
     }
 }
