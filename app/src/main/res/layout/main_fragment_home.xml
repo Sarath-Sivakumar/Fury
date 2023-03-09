@@ -37,7 +37,7 @@
                 android:layout_marginTop="9dp"
                 android:backgroundTint="@color/app_theme_secondary"
                 android:elevation="6dp"
-                app:cardCornerRadius="20dp">
+                app:cardCornerRadius="15dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -248,20 +248,55 @@
                     android:layout_width="0.3dp"
                     android:layout_height="match_parent" />
             </LinearLayout>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
                 android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
                 android:layout_marginTop="12dp"
-                android:fontFamily="@font/raleway_bold"
-                android:paddingTop="12dp"
-                android:paddingBottom="8dp"
-                android:text="Fury Statistics"
-                android:textSize="18sp" />
+                android:layout_marginBottom="12dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center"
+                    android:fontFamily="@font/raleway_semibold"
+                    android:text="@string/fury_statistics"
+                    android:textSize="16sp" />
+
+                <Switch
+                    android:id="@+id/stat_switch"
+                    android:layout_width="0dp"
+                    android:layout_weight=".2"
+                    android:text=""
+                    android:fontFamily="@font/source_sans_pro_semibold"
+                    android:textSize="12sp"
+                    android:textAlignment="textEnd"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/stat_disable"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:elevation="3dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/activate_to_see_daily_statitics"/>
+
+            </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/stat_layout"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

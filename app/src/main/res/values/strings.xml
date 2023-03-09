@@ -139,6 +139,8 @@
     <string name="accountTitle">Bank</string>
     <string name="fury_monitor_dues_debt">Fury Monitor/Dues</string>
     <string name="checkbox_text">Repeat on this day</string>
+    <string name="fury_statistics">Fury Statistics</string>
+    <string name="activate_to_see_daily_statitics">Activate to see daily statitics</string>
 
 
 </resources>
