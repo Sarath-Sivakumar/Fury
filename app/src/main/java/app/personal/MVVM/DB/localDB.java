@@ -10,6 +10,7 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import app.personal.MVVM.Dao.localDao;
+import app.personal.MVVM.Entity.CustomCategory;
 import app.personal.MVVM.Entity.LaunchChecker;
 import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.budgetEntity;
@@ -27,8 +28,9 @@ import app.personal.Utls.Constants;
         budgetEntity.class,
         inHandBalEntity.class,
         userEntity.class,
-        LaunchChecker.class},
-        version = Constants.DB_LATEST_VERSION,
+        LaunchChecker.class,
+        CustomCategory.class},
+        version = Constants.DB_VERSION,
         autoMigrations = {
                 @AutoMigration(from = 1, to = 2),
                 @AutoMigration(from = 5, to = 6)
@@ -46,7 +48,8 @@ public abstract class localDB extends RoomDatabase {
                     .fallbackToDestructiveMigration()
                     .addMigrations(MIGRATION_1_2,MIGRATION_2_3,MIGRATION_3_4,
                             MIGRATION_4_5,MIGRATION_6_7,MIGRATION_7_8,
-                            MIGRATION_8_9, MIGRATION_9_10, MIGRATION_10_11)
+                            MIGRATION_8_9, MIGRATION_9_10, MIGRATION_10_11,
+                            MIGRATION_11_12, MIGRATION_12_13)
                     .build();
         }
         return instance;
@@ -112,6 +115,20 @@ public abstract class localDB extends RoomDatabase {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL("CREATE TABLE IF NOT EXISTS 'Launch_Checker' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL , 'timesLaunched' INTEGER NOT NULL DEFAULT 0)");
+        }
+    };
+
+    static final Migration MIGRATION_11_12 = new Migration(11, 12) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE 'Debt_Table' ADD COLUMN 'isRepeat' INTEGER NOT NULL DEFAULT 0");
+        }
+    };
+
+    static final Migration MIGRATION_12_13 = new Migration(12, 13) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS 'custom_Category' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL , 'CategoryName' VARCHAR(30))");
         }
     };
 }

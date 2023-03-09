@@ -66,13 +66,13 @@ public class allDues extends AppCompatActivity {
     }
 
     private void initViewModel() {
-        adapter = new dueAdapter();
+        adapter = new dueAdapter(false);
         adapter.setContext(this);
         vm = new ViewModelProvider(this).get(mainViewModel.class);
         vm.getDebt().observe(this, entity -> {
             if (!entity.isEmpty()) {
                 adapter.clear();
-                adapter.setDebt(entity, false);
+                adapter.setDebt(entity, 0);
                 showRecyclerView();
             } else {
                 showEmpty();

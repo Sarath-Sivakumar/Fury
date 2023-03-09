@@ -258,7 +258,7 @@
                 android:fontFamily="@font/raleway_bold"
                 android:paddingTop="12dp"
                 android:paddingBottom="8dp"
-                android:text="Fury Statitics"
+                android:text="Fury Statistics"
                 android:textSize="18sp" />
 
         <LinearLayout

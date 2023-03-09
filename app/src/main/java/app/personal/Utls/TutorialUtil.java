@@ -181,4 +181,29 @@ public class TutorialUtil {
             }
         });
     }
+
+    public void TutorialPhase7(ArrayList<View> Targets, ArrayList<String> PrimaryTexts, ArrayList<String> SecondaryTexts) {
+        builder.setAutoDismiss(false);
+        appVM.getCheckerData().observe(lOwner, launchChecker -> {
+            try {
+                if (launchChecker.getTimesLaunched() == 0) {
+                    Tutorial(Targets.get(0), PrimaryTexts.get(0), SecondaryTexts.get(0));
+                    builder.setPromptStateChangeListener((prompt1, state1) -> {
+                        if (state1 == STATE_FINISHED) {
+                            Log.e("Tutorial", "Phase 7 Complete.");
+                            appVM.getCheckerData().observe(lOwner, launchChecker1 -> {
+                                if (launchChecker1.getTimesLaunched()==0){
+                                    appVM.UpdateLaunchChecker(new LaunchChecker(launchChecker1.getId(),
+                                            launchChecker.getTimesLaunched()+1));
+                                }
+                            });
+                        }
+                    });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                appVM.InsertLaunchChecker(new LaunchChecker(0));
+            }
+        });
+    }
 }

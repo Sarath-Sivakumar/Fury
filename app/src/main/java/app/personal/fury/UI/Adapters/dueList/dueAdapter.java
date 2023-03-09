@@ -24,18 +24,31 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     private final List<debtEntity> debt = new ArrayList<>();
     private onItemClickListener listener;
     private int totalSum = 0;
-    private boolean filter;
+    private int filter;
     private Context context;
+    private boolean isRepeating;
+    private int size = 0, repeatSize = 0;
 //    @ColorInt
 //    private int colorGreen;
+
+    public dueAdapter(boolean isRepeating){
+        this.isRepeating = isRepeating;
+    }
 
     @NonNull
     @Override
     public expHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater
-                .from(parent.getContext())
-                .inflate(R.layout.recycler_item_upcoming, parent, false);
-        return new expHolder(itemView);
+        if (!isRepeating){
+            View itemView = LayoutInflater
+                    .from(parent.getContext())
+                    .inflate(R.layout.recycler_item_upcoming, parent, false);
+            return new expHolder(itemView);
+        }else{
+            View itemView = LayoutInflater
+                    .from(parent.getContext())
+                    .inflate(R.layout.recycler_item_repeatingdue, parent, false);
+            return new expHolder(itemView);
+        }
     }
 
     @SuppressLint("ResourceAsColor")
@@ -45,12 +58,12 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
         String amt = Constants.RUPEE + entity.getAmount();
         holder.dAmt.setText(amt);
         String uname = entity.getSource();
-        String[] arr= uname.split(" ");
-        String dname=arr[0];
+        String[] arr = uname.split(" ");
+        String dname = arr[0];
         holder.dName.setText(dname);
-        if (entity.getStatus().equals(Constants.DEBT_PAID)){
+        if (entity.getStatus().equals(Constants.DEBT_PAID)) {
             holder.dFinalDate.setText(entity.getDate());
-        }else {
+        } else {
             holder.dFinalDate.setText(entity.getFinalDate());
         }
 //        holder.dStatus.setText(entity.getStatus());
@@ -69,29 +82,29 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
         return totalSum;
     }
 
-    public void setContext(Context context){
+    public void setContext(Context context) {
         this.context = context;
     }
 
-    public void setDebt(List<debtEntity> debt, boolean filter) {
-        int size = debt.size();
+    public void setDebt(List<debtEntity> debt, int filter) {
+        size = debt.size();
         this.filter = filter;
         totalSum = 0;
-        if (filter) {
-            for (int i = 0; i < size; i++) {
-                if (debt.get(i).getStatus().equals(Constants.DEBT_NOT_PAID)) {
-                    totalSum = totalSum + debt.get(i).getAmount();
+        for (int i = 0; i < size; i++) {
+            totalSum = totalSum + debt.get(i).getAmount();
+            if (filter == 1) {
+                if (debt.get(i).getStatus().equals(Constants.DEBT_NOT_PAID) &&
+                        debt.get(i).getIsRepeat() == Constants.NON_REPEATING_DUE) {
                     this.debt.add(debt.get(i));
                 }
-            }
-        } else {
-//            TypedValue typedValue = new TypedValue();
-//            Resources.Theme theme = context.getTheme();
-//            theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true);
-//            colorGreen = typedValue.data;
-
-            for (int i = 0; i < size; i++) {
+            } else if (filter == 0) {
                 this.debt.add(debt.get(i));
+
+            } else {
+                if (debt.get(i).getIsRepeat() == Constants.REPEATING_DUE) {
+                    repeatSize = repeatSize + 1;
+                    this.debt.add(debt.get(i));
+                }
             }
         }
         notifyDataSetChanged();
@@ -107,7 +120,7 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     }
 
     class expHolder extends RecyclerView.ViewHolder {
-        private final TextView dAmt, dStatus, dFinalDate,dName, icoText;
+        private final TextView dAmt, dStatus, dFinalDate, dName, icoText;
 
         public expHolder(@NonNull View itemView) {
             super(itemView);

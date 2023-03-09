@@ -61,6 +61,7 @@ public class Ear_Tracker extends Fragment {
     private final ArrayList<String> PrimaryTexts = new ArrayList<>();
     private final ArrayList<String> SecondaryTexts = new ArrayList<>();
     private TextView SalAmt, inHandAmt, accountAmt, inHandCount, accountCount;
+    private int oldBal = 0;
     private final int[] FragmentList =
             new int[]{R.drawable.info_h1, R.drawable.info_h2,
                     R.drawable.info_h3, R.drawable.info_h4,
@@ -314,6 +315,29 @@ public class Ear_Tracker extends Fragment {
                 } else {
                     sal.setId(salary.getId());
                     vm.UpdateSalary(sal);
+                    if (sal.getSalMode() == Constants.SAL_MODE_ACC) {
+                        balanceEntity bal = getBal();
+                        int oldBal = sal.getSalary();
+                        if (bal != null) {
+                            oldBal = oldBal + (oldBal -this.oldBal);
+                            bal.setBalance(oldBal);
+                        } else {
+                            bal.setBalance(0);
+                        }
+                        vm.DeleteBalance();
+                        vm.InsertBalance(bal);
+                    } else {
+                        inHandBalEntity bal = getInHandBal();
+                        int oldBal = sal.getSalary();
+                        if (bal != null) {
+                            oldBal = oldBal + (oldBal -this.oldBal);
+                            bal.setBalance(oldBal);
+                        } else {
+                            bal.setBalance(0);
+                        }
+                        vm.DeleteInHandBalance();
+                        vm.InsertInHandBalance(bal);
+                    }
                     if (getBudType() != 3) {
                         Commons.setDefaultBudget(vm, totalSalary, totalExp, getBudType());
                     }
@@ -415,6 +439,7 @@ public class Ear_Tracker extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                oldBal = adapter.getSalaryEntity(viewHolder.getPosition()).getSalary();
                 callOnDeletePopup(adapter.getSalaryEntity(viewHolder.getPosition()), null);
                 adapter.notifyDataSetChanged();
             }

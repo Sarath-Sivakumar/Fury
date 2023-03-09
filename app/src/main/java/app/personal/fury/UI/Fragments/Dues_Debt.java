@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -36,38 +37,46 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import app.personal.MVVM.Entity.debtEntity;
+import app.personal.MVVM.Viewmodel.AppUtilViewModel;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
+import app.personal.Utls.TutorialUtil;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.dueList.dueAdapter;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class Dues_Debt extends Fragment {
 
-    private TextView totalDueDisplay;
-    private RecyclerView dueList;
+    private TextView totalDueDisplay, totalRepeatingDues;
+    private RecyclerView dueList, repeatList;
     private mainViewModel vm;
-    private dueAdapter adapter;
+    private AppUtilViewModel appVM;
+    private TutorialUtil util;
+    private dueAdapter mainDueAdapter, repeatDue;
     private TextView noDues;
     private int finalTotalDue = 0;
     private AdView ad;
     private FloatingActionButton fltBtn;
 
-    public Dues_Debt() {}
+    public Dues_Debt() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adapter = new dueAdapter();
+        mainDueAdapter = new dueAdapter(false);
+        repeatDue = new dueAdapter(true);
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-        MobileAds.initialize(getContext());
+        appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
+        MobileAds.initialize(requireContext());
     }
 
     @Override
@@ -78,22 +87,28 @@ public class Dues_Debt extends Fragment {
         initViewModel();
         return v;
     }
+
     private void requestAd() {
         AdRequest adRequest = new AdRequest.Builder().build();
         ad.loadAd(adRequest);
     }
 
-    private void find(View v){
+    private void find(View v) {
         dueList = v.findViewById(R.id.dueList);
         fltBtn = v.findViewById(R.id.addDue);
         ad = v.findViewById(R.id.adView3);
         fltBtn.setOnClickListener(v1 -> callPopupWindow(Constants.itemAdd));
         totalDueDisplay = v.findViewById(R.id.dueTotalText);
         noDues = v.findViewById(R.id.dueTotalNo);
+        repeatList = v.findViewById(R.id.RepeatdueList);
+        totalRepeatingDues = v.findViewById(R.id.repeatDues);
         touchHelper();
         dueList.setLayoutManager(new LinearLayoutManager(requireContext()));
         dueList.setHasFixedSize(true);
-        dueList.setAdapter(adapter);
+        dueList.setAdapter(mainDueAdapter);
+        repeatList.setLayoutManager(new LinearLayoutManager(requireContext()));
+        repeatList.setHasFixedSize(true);
+        repeatList.setAdapter(repeatDue);
         requestAd();
     }
 
@@ -111,6 +126,7 @@ public class Dues_Debt extends Fragment {
             TextView DueDateTitle;
             EditText name, amt;
             CalendarView c;
+            CheckBox isRepeat;
             AtomicBoolean date = new AtomicBoolean(false);
             final String[] currDate = new String[1];
             currDate[0] = null;
@@ -119,6 +135,7 @@ public class Dues_Debt extends Fragment {
             amt = view.findViewById(R.id.D_amt);
             cancel = view.findViewById(R.id.due_c);
             DueDateTitle = view.findViewById(R.id.Due_);
+            isRepeat = view.findViewById(R.id.Due_repeat);
             c = view.findViewById(R.id.D_date);
             c.setVisibility(View.GONE);
 
@@ -161,8 +178,13 @@ public class Dues_Debt extends Fragment {
                         entity.setFinalDate(currDate[0]);
                         entity.setStatus(Constants.DEBT_NOT_PAID);
                         entity.setSource(name.getText().toString());
+                        if (isRepeat.isChecked()) {
+                            entity.setIsRepeat(Constants.REPEATING_DUE);
+                        } else {
+                            entity.setIsRepeat(Constants.NON_REPEATING_DUE);
+                        }
                         vm.InsertDebt(entity);
-                        adapter.clear();
+                        mainDueAdapter.clear();
                         popupWindow.dismiss();
                     } else {
                         Commons.SnackBar(getView(), "Select a valid date");
@@ -188,7 +210,8 @@ public class Dues_Debt extends Fragment {
             viewAnimator.setInterpolator(new DecelerateInterpolator()).start();
             new CountDownTimer(1500, 1000) {
                 @Override
-                public void onTick(long millisUntilFinished) {}
+                public void onTick(long millisUntilFinished) {
+                }
 
                 @Override
                 public void onFinish() {
@@ -208,11 +231,16 @@ public class Dues_Debt extends Fragment {
     private void initViewModel() {
         vm.getDebt().observe(requireActivity(), entity -> {
             if (entity != null) {
-                adapter.clear();
-                adapter.setDebt(entity, true);
+                mainDueAdapter.clear();
+                repeatDue.clear();
+                repeatDue.setDebt(entity, 3);
+                mainDueAdapter.setDebt(entity, 1);
                 finalTotalDue = 0;
-                finalTotalDue = adapter.getTotalDebt();
-                noDues.setText("0"+adapter.getItemCount());
+                finalTotalDue = mainDueAdapter.getTotalDebt();
+                String totalDues = "0" + mainDueAdapter.getItemCount();
+                noDues.setText(totalDues);
+                String totalRepeatingDue = "0" + repeatDue.getItemCount();
+                totalRepeatingDues.setText(totalRepeatingDue);
             }
             String s = Constants.RUPEE + finalTotalDue;
             totalDueDisplay.setText(s);
@@ -232,28 +260,29 @@ public class Dues_Debt extends Fragment {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 if (direction == ItemTouchHelper.RIGHT) {
-                    vm.DeleteDebt(adapter.getDebtAt(viewHolder.getAdapterPosition()));
+                    vm.DeleteDebt(mainDueAdapter.getDebtAt(viewHolder.getAdapterPosition()));
                     Commons.SnackBar(requireView(), "Debt deleted.");
-                    adapter.clear();
+                    mainDueAdapter.clear();
                 } else {
-                    debtEntity entity = adapter.getDebtAt(viewHolder.getAdapterPosition());
+                    debtEntity entity = mainDueAdapter.getDebtAt(viewHolder.getAdapterPosition());
 
                     if (!entity.getStatus().equals(Constants.DEBT_PAID)) {
                         entity.setStatus(Constants.DEBT_PAID);
                         entity.setDate(Commons.getDate());
-                        vm.DeleteDebt(adapter.getDebtAt(viewHolder.getAdapterPosition()));
+                        vm.DeleteDebt(mainDueAdapter.getDebtAt(viewHolder.getAdapterPosition()));
                         vm.InsertDebt(entity);
 
 //                        Commons.SnackBar(recyclerView, "Debt marked as paid.");
 
                         callPopupWindow(Constants.itemPaid);
-                        adapter.notifyDataSetChanged();
+                        mainDueAdapter.notifyDataSetChanged();
                     } else {
                         Commons.SnackBar(requireView(), "Debt marked as paid on " + entity.getDate() + ".");
-                        adapter.notifyDataSetChanged();
+                        mainDueAdapter.notifyDataSetChanged();
                     }
                 }
             }
+
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                         .addSwipeLeftBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.theme_green))
@@ -274,7 +303,88 @@ public class Dues_Debt extends Fragment {
             }
         }).attachToRecyclerView(dueList);
 
-        adapter.setOnItemClickListener(Due -> {
+        mainDueAdapter.setOnItemClickListener(Due -> {
         });
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT
+                | ItemTouchHelper.RIGHT) {
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
+                                  @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                if (direction == ItemTouchHelper.RIGHT) {
+                    vm.DeleteDebt(repeatDue.getDebtAt(viewHolder.getAdapterPosition()));
+                    Commons.SnackBar(requireView(), "Debt deleted.");
+                    repeatDue.clear();
+                } else {
+                    debtEntity entity = repeatDue.getDebtAt(viewHolder.getAdapterPosition());
+
+                    if (!entity.getStatus().equals(Constants.DEBT_PAID)) {
+                        entity.setStatus(Constants.DEBT_NOT_PAID);
+                        entity.setDate(Commons.getDate());
+                        String[] date = entity.getFinalDate().split("/");
+                        String month = String.valueOf(Integer.parseInt(date[1]) + 1);
+                        String[] curDate = Commons.getDate().split("/");
+                        String year = curDate[2];
+                        entity.setFinalDate(date[0] + "/" + month + "/" + year);
+                        vm.DeleteDebt(repeatDue.getDebtAt(viewHolder.getAdapterPosition()));
+                        vm.InsertDebt(entity);
+
+//                        Commons.SnackBar(recyclerView, "Debt marked as paid.");
+
+                        callPopupWindow(Constants.itemPaid);
+                        repeatDue.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                        .addSwipeLeftBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.theme_green))
+                        .addSwipeLeftActionIcon(R.drawable.common_icon_mark)
+                        .addSwipeLeftLabel("Mark as paid")
+                        .setSwipeLeftLabelColor(ContextCompat.getColor(requireActivity(), R.color.full_white))
+                        .setSwipeLeftLabelTextSize(TypedValue.COMPLEX_UNIT_SP, 12)
+                        .addSwipeLeftCornerRadius(TypedValue.COMPLEX_UNIT_SP, 15)
+                        .addSwipeRightBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.theme_red))
+                        .addSwipeRightActionIcon(R.drawable.common_icon_trash)
+                        .addSwipeRightLabel("Delete")
+                        .setSwipeRightLabelColor(ContextCompat.getColor(requireActivity(), R.color.full_white))
+                        .setSwipeRightLabelTextSize(TypedValue.COMPLEX_UNIT_SP, 12)
+                        .addSwipeRightCornerRadius(TypedValue.COMPLEX_UNIT_SP, 15)
+                        .create()
+                        .decorate();
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            }
+        }).attachToRecyclerView(repeatList);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            appVM.getCheckerData().observe(requireActivity(), launchChecker -> {
+                if (launchChecker.getTimesLaunched() == 0) {
+                    DuesTutorial();
+                }
+            });
+        }
+    }
+
+    private void DuesTutorial() {
+        util = new TutorialUtil(requireActivity(), requireContext(), requireActivity(), requireActivity());
+        ArrayList<View> Target = new ArrayList<>();
+        ArrayList<String> PrimaryTexts = new ArrayList<>(), SecondaryTexts = new ArrayList<>();
+
+        Target.add(fltBtn);
+        PrimaryTexts.add("Welcome to Dues And Debt");
+        SecondaryTexts.add("Here you can track your one time dues or repeating dues, Tap here to add one.");
+
+        util.TutorialPhase7(Target, PrimaryTexts, SecondaryTexts);
     }
 }

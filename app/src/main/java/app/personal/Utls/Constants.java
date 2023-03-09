@@ -12,9 +12,10 @@ public class Constants {
             inHandBalTable = "In_Hand_Bal_Table",
             dbName = "Fury_Database",
             userTable = "User_Table",
-            launchChecker = "Launch_Checker";
+            launchChecker = "Launch_Checker",
+            CustomCategory = "custom_Category";
     //DO NOT CHANGE----------------------------------------------------
-    public static final int DB_LATEST_VERSION = 11;
+    public static final int DB_VERSION = 13;
     //-------------------------------------------------------------
     public static final String Dues = "Dues And Debt",
             Exp = "Expense Tracker",
