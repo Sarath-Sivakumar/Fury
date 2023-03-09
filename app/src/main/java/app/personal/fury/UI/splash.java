@@ -21,7 +21,7 @@ import app.personal.fury.UI.User_Init.Landing;
 public class splash extends AppCompatActivity {
 
     private ViewGroup container;
-
+    private int currLaunch = 0;
     private boolean animationStarted = false;
     private userInitViewModel uvm;
 
@@ -29,19 +29,19 @@ public class splash extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         uvm = new ViewModelProvider(this).get(userInitViewModel.class);
+        uvm.checkForUser();
         AppUtilViewModel appVm = new ViewModelProvider(this).get(AppUtilViewModel.class);
         appVm.getCheckerData().observe(this, launchChecker -> {
             try{
                 if (launchChecker.getTimesLaunched()>0){
                     appVm.UpdateLaunchChecker(new LaunchChecker(launchChecker.getId(),
                             launchChecker.getTimesLaunched()+1));
+                    appVm.getCheckerData().removeObservers(this);
                 }
-//                appVm.UpdateLaunchChecker(new LaunchChecker(launchChecker.getId(), 1));
             }catch (Exception ignored){
                 appVm.InsertLaunchChecker(new LaunchChecker(0));
             }
         });
-        uvm.checkForUser();
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
         setContentView(R.layout.init_splash);
