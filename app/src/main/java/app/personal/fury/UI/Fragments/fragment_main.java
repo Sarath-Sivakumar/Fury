@@ -60,8 +60,7 @@ public class fragment_main extends Fragment {
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
     private final int[] FragmentList = new int[]{R.drawable.infos1, R.drawable.infos2, R.drawable.infos3, R.drawable.infos4, R.drawable.infos5, R.drawable.infos6};
 
-    public fragment_main() {
-    }
+    public fragment_main() {}
 
     private void requestAd() {
         AdRequest adRequest = new AdRequest.Builder().build();
