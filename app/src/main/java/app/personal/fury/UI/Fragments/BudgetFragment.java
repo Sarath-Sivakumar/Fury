@@ -325,7 +325,9 @@ public class BudgetFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isView){
-            InitTutorialPhase4();
+            try{
+                InitTutorialPhase4();
+            }catch (Exception ignored){}
         }
     }
 
