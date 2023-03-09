@@ -368,11 +368,13 @@ public class Dues_Debt extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            appVM.getCheckerData().observe(requireActivity(), launchChecker -> {
-                if (launchChecker.getTimesLaunched() == 0) {
-                    DuesTutorial();
-                }
-            });
+            try{
+                appVM.getCheckerData().observe(requireActivity(), launchChecker -> {
+                    if (launchChecker.getTimesLaunched() == 0) {
+                        DuesTutorial();
+                    }
+                });
+            }catch (Exception ignored){}
         }
     }
 

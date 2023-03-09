@@ -115,7 +115,9 @@ public class Ear_Tracker extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             if (getUserVisibleHint()) {
-                TutorialPhase2();
+                try{
+                    TutorialPhase2();
+                }catch (Exception ignored){}
             }
         }
     }
@@ -350,17 +352,19 @@ public class Ear_Tracker extends Fragment {
     }
 
     private void appChecker() {
-        appVm.getCheckerData().observe(requireActivity(), launchChecker -> {
-            if (launchChecker.getTimesLaunched()==0){
-                util.setPhaseStatus(1);
-                util.isPhaseStatus().observe(requireActivity(), aBoolean -> {
-                    if (aBoolean == 1) {
-                        MainActivity.initTutorialPhase3();
-                        util.isPhaseStatus().removeObservers(requireActivity());
-                    }
-                });
-            }
-        });
+        try{
+            appVm.getCheckerData().observe(requireActivity(), launchChecker -> {
+                if (launchChecker.getTimesLaunched() == 0) {
+                    util.setPhaseStatus(1);
+                    util.isPhaseStatus().observe(requireActivity(), aBoolean -> {
+                        if (aBoolean == 1) {
+                            MainActivity.initTutorialPhase3();
+                            util.isPhaseStatus().removeObservers(requireActivity());
+                        }
+                    });
+                }
+            });
+        }catch (Exception ignored){}
     }
 
     private void callOnDeletePopup(salaryEntity salaryEntity, @Nullable String isUpdate) {
