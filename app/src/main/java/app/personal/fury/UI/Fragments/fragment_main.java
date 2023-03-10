@@ -33,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import app.personal.MVVM.Entity.debtEntity;
@@ -148,12 +149,14 @@ public class fragment_main extends Fragment {
                 bankEr[0] = 0;
                 cashEr[0] = 0;
                 for (int i = 0; i<salaryEntityList.size();i++){
-                    if (salaryEntityList.get(i).getSalMode()==Constants.SAL_MODE_ACC){
-                        bankEr[0] = bankEr[0] + salaryEntityList.get(i).getSalary();
-                    } else if (salaryEntityList.get(i).getSalMode()==Constants.SAL_MODE_CASH) {
-                        cashEr[0] = cashEr[0] + salaryEntityList.get(i).getSalary();
-                    }else{
-                        Log.e("Stat", "Earnings");
+                    if (Objects.equals(salaryEntityList.get(i).getCreationDate(), Commons.getDate())){
+                        if (salaryEntityList.get(i).getSalMode() == Constants.SAL_MODE_ACC) {
+                            bankEr[0] = bankEr[0] + salaryEntityList.get(i).getSalary();
+                        } else if (salaryEntityList.get(i).getSalMode() == Constants.SAL_MODE_CASH) {
+                            cashEr[0] = cashEr[0] + salaryEntityList.get(i).getSalary();
+                        } else {
+                            Log.e("Stat", "Earnings");
+                        }
                     }
                 }
             }catch (Exception ignored){}
@@ -164,12 +167,14 @@ public class fragment_main extends Fragment {
                 bankEx[0] = 0;
                 cashEx[0] = 0;
                 for (int i = 0; i<expEntities.size();i++){
-                    if (expEntities.get(i).getExpMode()==Constants.SAL_MODE_ACC){
-                        bankEx[0] = bankEx[0] + expEntities.get(i).getExpenseAmt();
-                    } else if (expEntities.get(i).getExpMode()==Constants.SAL_MODE_CASH) {
-                        cashEx[0] = cashEx[0] + expEntities.get(i).getExpenseAmt();
-                    }else{
-                        Log.e("Stat", "Earnings");
+                    if (expEntities.get(i).getDate().equals(Commons.getDate())){
+                        if (expEntities.get(i).getExpMode() == Constants.SAL_MODE_ACC) {
+                            bankEx[0] = bankEx[0] + expEntities.get(i).getExpenseAmt();
+                        } else if (expEntities.get(i).getExpMode() == Constants.SAL_MODE_CASH) {
+                            cashEx[0] = cashEx[0] + expEntities.get(i).getExpenseAmt();
+                        } else {
+                            Log.e("Stat", "Expense");
+                        }
                     }
                 }
             }catch (Exception ignored){}
