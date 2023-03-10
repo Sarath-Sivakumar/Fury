@@ -48,8 +48,8 @@ public class Landing extends AppCompatActivity {
                     builder.setPrimaryTextGravity(Gravity.CENTER);
                     builder.setSecondaryTextGravity(Gravity.CENTER);
                     builder.setTextGravity(Gravity.CENTER);
-                    builder.setPrimaryText("Welcome To Fury!");
-                    builder.setSecondaryText("Tap here to Signup or if you have a account tap anywhere else.");
+                    builder.setPrimaryText("Welcome to Fury!");
+                    builder.setSecondaryText("If you're here for the first time,please sign up and join our community.");
                     builder.setBackgroundColour(getResources().getColor(R.color.d2));
                     builder.setFocalColour(getResources().getColor(R.color.l1));
                     builder.setBackButtonDismissEnabled(false);

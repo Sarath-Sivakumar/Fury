@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +51,20 @@ import app.personal.fury.ViewPagerAdapter.infoGraphicsAdapter;
 public class fragment_main extends Fragment {
     private CircularProgressIndicator mainProgressBar;
     private TextView mainProgressText, dAvg, expView, budgetView;
+    private TextView cashEarn, cashExp, cashBal,
+                    bankEarn, bankExp, bankBal,
+                    totalEarn, totalExp, totalBal;
+
+    private final int[] cashEr = {0};
+    private final int[] cashEx = {0};
+    private final int[] cashBa = {0};
+    private final int[] bankEr = {0};
+    private final int[] bankEx = {0};
+    private final int[] bankBa = {0};
+    private int totalEr = 0;
+    private int totalEx = 0;
+    private int totalBa = 0;
+
     private mainViewModel vm;
     private duesAdapter dAdapter;
     private categoryAdapter cAdapter;
@@ -64,8 +79,7 @@ public class fragment_main extends Fragment {
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
     private final int[] FragmentList = new int[]{R.drawable.infos1, R.drawable.infos2, R.drawable.infos3, R.drawable.infos4, R.drawable.infos5, R.drawable.infos6};
 
-    public fragment_main() {
-    }
+    public fragment_main() {}
 
     private void requestAd() {
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -74,6 +88,7 @@ public class fragment_main extends Fragment {
 
     @SuppressLint("SetTextI18n")
     public void findView(View v) {
+        initStat(v);
         mainProgressBar = v.findViewById(R.id.indicator);
         mainProgressText = v.findViewById(R.id.mainText);
         expView = v.findViewById(R.id.expText);
@@ -110,12 +125,6 @@ public class fragment_main extends Fragment {
         ig_tl.setupWithViewPager(ig_vp, true);
         Commons.timedSliderInit(ig_vp, FragmentList, 5);
 
-        budgetView.setOnClickListener(v1 -> {
-            if (budgetView.getText().toString().equals("Set a budget.")) {
-                MainActivity.redirectTo(1);
-            }
-        });
-
         Button allExp = v.findViewById(R.id.allExp);
         allExp.setOnClickListener(v1 -> startActivity(new Intent(getContext(), app.personal.fury.UI.allExp.class)));
         Button allDues = v.findViewById(R.id.allDues);
@@ -140,6 +149,92 @@ public class fragment_main extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+        budgetView.setOnClickListener(v1 -> {
+            if (budgetView.getText().toString().equals("Set a budget.")) {
+                MainActivity.redirectTo(1);
+            }
+        });
+    }
+
+    private void initStat(View v){
+        cashEarn = v.findViewById(R.id.cashEarnings);
+        cashExp = v.findViewById(R.id.cashExpense);
+        cashBal = v.findViewById(R.id.cashBalance);
+        bankEarn = v.findViewById(R.id.bankEarnings);
+        bankExp = v.findViewById(R.id.bankExpense);
+        bankBal = v.findViewById(R.id.bankBalance);
+        totalEarn = v.findViewById(R.id.totalEarnings);
+        totalExp = v.findViewById(R.id.totalExpense);
+        totalBal = v.findViewById(R.id.totalBalance);
+    }
+
+    private void setStat(){
+        vm.getSalary().observe(requireActivity(), salaryEntityList -> {
+            try{
+                bankEr[0] = 0;
+                cashEr[0] = 0;
+                for (int i = 0; i<salaryEntityList.size();i++){
+                    if (salaryEntityList.get(i).getSalMode()==Constants.SAL_MODE_ACC){
+                        bankEr[0] = bankEr[0] + salaryEntityList.get(i).getSalary();
+                    } else if (salaryEntityList.get(i).getSalMode()==Constants.SAL_MODE_CASH) {
+                        cashEr[0] = cashEr[0] + salaryEntityList.get(i).getSalary();
+                    }else{
+                        Log.e("Stat", "Earnings");
+                    }
+                }
+            }catch (Exception ignored){}
+        });
+        totalEr = bankEr[0] + cashEr[0];
+        vm.getExp().observe(requireActivity(), expEntities -> {
+            try{
+                bankEx[0] = 0;
+                cashEx[0] = 0;
+                for (int i = 0; i<expEntities.size();i++){
+                    if (expEntities.get(i).getExpMode()==Constants.SAL_MODE_ACC){
+                        bankEx[0] = bankEx[0] + expEntities.get(i).getExpenseAmt();
+                    } else if (expEntities.get(i).getExpMode()==Constants.SAL_MODE_CASH) {
+                        cashEx[0] = cashEx[0] + expEntities.get(i).getExpenseAmt();
+                    }else{
+                        Log.e("Stat", "Earnings");
+                    }
+                }
+            }catch (Exception ignored){}
+        });
+        totalEx = bankEx[0] + cashEx[0];
+        vm.getBalance().observe(requireActivity(), balanceEntity -> {
+            try{
+                bankBa[0] = balanceEntity.getBalance();
+            }catch(Exception ignored){}
+        });
+        vm.getInHandBalance().observe(requireActivity(), inHandBalEntity -> {
+            try{
+                cashBa[0] = inHandBalEntity.getBalance();
+            }catch (Exception ignored){}
+        });
+        totalBa = bankBa[0] + cashBa[0];
+
+        try{
+            String cea = Constants.RUPEE + cashEr[0];
+            cashEarn.setText(cea);
+            String cex = Constants.RUPEE + cashEx[0];
+            cashExp.setText(cex);
+            String cba = Constants.RUPEE + cashBa[0];
+            cashBal.setText(cba);
+            String bea = Constants.RUPEE + bankEr[0];
+            bankEarn.setText(bea);
+            String bex = Constants.RUPEE + bankEx[0];
+            bankExp.setText(bex);
+            String bba = Constants.RUPEE + bankBa[0];
+            bankBal.setText(bba);
+
+            String ter = Constants.RUPEE + totalEr;
+            totalEarn.setText(ter);
+            String tex = Constants.RUPEE + totalEx;
+            totalExp.setText(tex);
+            String tba = Constants.RUPEE + totalBa;
+            totalBal.setText(tba);
+        }catch (Exception ignored){
+        }
     }
 
     private void callWarningPopup(debtEntity debt) {
@@ -213,7 +308,6 @@ public class fragment_main extends Fragment {
         findView(v);
         getExp(filter);
         try {
-
             setMain(progress);
         } catch (Exception e) {
             e.printStackTrace();
@@ -240,6 +334,7 @@ public class fragment_main extends Fragment {
         getSal();
         getDebt();
         getBud();
+        setStat();
     }
 
     private void getBud() {
@@ -266,12 +361,14 @@ public class fragment_main extends Fragment {
                 } catch (Exception ignored) {
                 }
             }
+            setStat();
         });
     }
 
     private void getSal() {
         vm.getSalary().observe(requireActivity(), salaryEntity -> {
             salary = 0;
+            setStat();
             if (!salaryEntity.isEmpty()) {
                 for (int i = 0; i < salaryEntity.size(); i++) {
                     salary = salary + salaryEntity.get(i).getSalary();
@@ -284,6 +381,7 @@ public class fragment_main extends Fragment {
         vm.getExp().observe(requireActivity(), expEntities -> {
             expense = 0;
             cAdapter.clear();
+            setStat();
             for (int i = 0; i < expEntities.size(); i++) {
                 expense = expense + expEntities.get(i).getExpenseAmt();
             }
@@ -364,6 +462,7 @@ public class fragment_main extends Fragment {
     private void getDebt() {
         vm.getDebt().observe(requireActivity(), debtEntities -> {
             try {
+                setStat();
                 if (debtEntities != null) {
                     dAdapter.setDues(debtEntities);
                     if (dAdapter.getItemCount() <= 0) {
@@ -391,6 +490,7 @@ public class fragment_main extends Fragment {
         } else {
             prg = 0 + "%";
         }
+        setStat();
         mainProgressText.setText(prg);
         String p = Constants.RUPEE + expense;
         expView.setText(p);
@@ -406,6 +506,7 @@ public class fragment_main extends Fragment {
         dAdapter.clear();
         try {
             initViewModel();
+            setStat();
             setMain(progress);
         } catch (Exception e) {
             e.printStackTrace();

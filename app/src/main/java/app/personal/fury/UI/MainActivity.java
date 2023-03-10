@@ -248,8 +248,8 @@ public class MainActivity extends AppCompatActivity {
 //        ----
 //        Earnings
         Targets.add(Objects.requireNonNull(tl.getTabAt(3)).view);
-        PrimaryTexts.add("Lets set your earnings!");
-        SecondaryTexts.add("Tap here to view your Earnings tracker");
+        PrimaryTexts.add("Let's track your earnings first!");
+        SecondaryTexts.add("Tap here to manage your earnings");
 
         util.TutorialPhase1(Targets, PrimaryTexts, SecondaryTexts);
     }
