@@ -9,7 +9,6 @@ import android.view.Gravity;
 import android.view.View;
 
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 import app.personal.MVVM.Entity.LaunchChecker;
 import app.personal.MVVM.Viewmodel.AppUtilViewModel;
 import app.personal.fury.R;
-import app.personal.fury.UI.MainActivity;
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 public class TutorialUtil {
