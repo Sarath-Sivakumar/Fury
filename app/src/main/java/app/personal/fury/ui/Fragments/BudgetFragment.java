@@ -274,6 +274,7 @@ public class BudgetFragment extends Fragment {
                     budget.setAmount(Integer.parseInt(Amt.getText().toString()));
                     budget.setBal(Integer.parseInt(Amt.getText().toString()) - totalExp);
                     budget.setRefreshPeriod(type);
+                    budget.setCreationDate(Commons.getDate());
                     vm.DeleteBudget();
                     vm.InsertBudget(budget);
                     popupWindow.dismiss();
