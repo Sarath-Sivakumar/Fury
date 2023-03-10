@@ -49,7 +49,7 @@ public abstract class localDB extends RoomDatabase {
                     .addMigrations(MIGRATION_1_2,MIGRATION_2_3,MIGRATION_3_4,
                             MIGRATION_4_5,MIGRATION_6_7,MIGRATION_7_8,
                             MIGRATION_8_9, MIGRATION_9_10, MIGRATION_10_11,
-                            MIGRATION_11_12, MIGRATION_12_13)
+                            MIGRATION_11_12, MIGRATION_12_13, MIGRATION_13_14)
                     .build();
         }
         return instance;
@@ -129,6 +129,12 @@ public abstract class localDB extends RoomDatabase {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL("CREATE TABLE IF NOT EXISTS 'custom_Category' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL , 'CategoryName' VARCHAR(30))");
+        }
+    };
+    static final Migration MIGRATION_13_14 = new Migration(13, 14) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE 'Budget_Table' ADD COLUMN 'CreationDate' VARCHAR(15) DEFAULT 'Not Set'");
         }
     };
 }

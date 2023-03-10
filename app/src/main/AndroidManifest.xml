@@ -35,34 +35,34 @@
             android:name=".CustomCategory"
             android:exported="false" />
         <activity
-            android:name=".UI.User_Init.login.forgot_pass"
+            android:name=".ui.User_Init.login.forgot_pass"
             android:exported="false" />
         <activity
-            android:name=".UI.Drawer.Notification_Activity"
+            android:name=".ui.Drawer.Notification_Activity"
             android:exported="false" />
         <activity
-            android:name=".UI.Drawer.Settings_Activity"
+            android:name=".ui.Drawer.Settings_Activity"
             android:exported="false" />
         <activity
-            android:name=".UI.User_Init.Landing"
+            android:name=".ui.User_Init.Landing"
             android:exported="false" />
         <activity
-            android:name=".UI.User_Init.signUp.signUp"
+            android:name=".ui.User_Init.signUp.signUp"
             android:exported="false" />
         <activity
-            android:name=".UI.User_Init.login.Login"
+            android:name=".ui.User_Init.login.Login"
             android:exported="false" />
         <activity
-            android:name=".UI.allDues"
+            android:name=".ui.allDues"
             android:exported="false" />
         <activity
-            android:name=".UI.allExp"
+            android:name=".ui.allExp"
             android:exported="false" />
         <activity
-            android:name=".UI.MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".UI.splash"
+            android:name=".ui.splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -71,7 +71,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UI.Drawer.WebViewActivity"
+            android:name=".ui.Drawer.WebViewActivity"
             android:exported="false" />
 
         <meta-data

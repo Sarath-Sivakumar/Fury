@@ -15,7 +15,7 @@ public class Constants {
             launchChecker = "Launch_Checker",
             CustomCategory = "custom_Category";
     //DO NOT CHANGE----------------------------------------------------
-    public static final int DB_VERSION = 13;
+    public static final int DB_VERSION = 14;
     //-------------------------------------------------------------
     public static final String Dues = "Dues And Debt",
             Exp = "Expense Tracker",
