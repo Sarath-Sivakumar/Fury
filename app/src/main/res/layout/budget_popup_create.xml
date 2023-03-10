@@ -102,6 +102,21 @@
                             android:textSize="13sp" />
 
                     </RadioGroup>
+                        <TextView
+                            android:id="@+id/bud_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="12dp"
+                            android:text="Select ending date"
+                            android:fontFamily="@font/work_sans_medium"
+                            android:textSize="18sp"/>
+
+                        <CalendarView
+                            android:id="@+id/nd_date"
+                            android:layout_width="wrap_content"
+                            android:layout_gravity="center"
+                            android:visibility="gone"
+                            android:layout_height="wrap_content" />
 
                     <Button
                         android:id="@+id/continue_btn"

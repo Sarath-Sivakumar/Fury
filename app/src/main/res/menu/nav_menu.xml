@@ -19,7 +19,7 @@
         <item
             android:id="@+id/donate"
             android:icon="@drawable/nav_icon_donate"
-            android:title="contribute us" />
+            android:title="Donate" />
 
         <item
             android:id="@+id/logout"
