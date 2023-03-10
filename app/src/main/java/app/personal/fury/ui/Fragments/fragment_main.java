@@ -52,8 +52,8 @@ public class fragment_main extends Fragment {
     private CircularProgressIndicator mainProgressBar;
     private TextView mainProgressText, dAvg, expView, budgetView;
     private TextView cashEarn, cashExp, cashBal,
-                    bankEarn, bankExp, bankBal,
-                    totalEarn, totalExp, totalBal;
+            bankEarn, bankExp, bankBal,
+            totalEarn, totalExp, totalBal;
 
     private final int[] cashEr = {0};
     private final int[] cashEx = {0};
@@ -79,7 +79,8 @@ public class fragment_main extends Fragment {
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
     private final int[] FragmentList = new int[]{R.drawable.infos1, R.drawable.infos2, R.drawable.infos3, R.drawable.infos4, R.drawable.infos5, R.drawable.infos6};
 
-    public fragment_main() {}
+    public fragment_main() {
+    }
 
     private void requestAd() {
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -156,7 +157,7 @@ public class fragment_main extends Fragment {
         });
     }
 
-    private void initStat(View v){
+    private void initStat(View v) {
         cashEarn = v.findViewById(R.id.cashEarnings);
         cashExp = v.findViewById(R.id.cashExpense);
         cashBal = v.findViewById(R.id.cashBalance);
@@ -168,13 +169,13 @@ public class fragment_main extends Fragment {
         totalBal = v.findViewById(R.id.totalBalance);
     }
 
-    private void setStat(){
+    private void setStat() {
         vm.getSalary().observe(requireActivity(), salaryEntityList -> {
-            try{
+            try {
                 bankEr[0] = 0;
                 cashEr[0] = 0;
-                for (int i = 0; i<salaryEntityList.size();i++){
-                    if (Objects.equals(salaryEntityList.get(i).getCreationDate(), Commons.getDate())){
+                for (int i = 0; i < salaryEntityList.size(); i++) {
+                    if (Objects.equals(salaryEntityList.get(i).getCreationDate(), Commons.getDate())) {
                         if (salaryEntityList.get(i).getSalMode() == Constants.SAL_MODE_ACC) {
                             bankEr[0] = bankEr[0] + salaryEntityList.get(i).getSalary();
                         } else if (salaryEntityList.get(i).getSalMode() == Constants.SAL_MODE_CASH) {
@@ -184,15 +185,16 @@ public class fragment_main extends Fragment {
                         }
                     }
                 }
-            }catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         });
         totalEr = bankEr[0] + cashEr[0];
         vm.getExp().observe(requireActivity(), expEntities -> {
-            try{
+            try {
                 bankEx[0] = 0;
                 cashEx[0] = 0;
-                for (int i = 0; i<expEntities.size();i++){
-                    if (expEntities.get(i).getDate().equals(Commons.getDate())){
+                for (int i = 0; i < expEntities.size(); i++) {
+                    if (expEntities.get(i).getDate().equals(Commons.getDate())) {
                         if (expEntities.get(i).getExpMode() == Constants.SAL_MODE_ACC) {
                             bankEx[0] = bankEx[0] + expEntities.get(i).getExpenseAmt();
                         } else if (expEntities.get(i).getExpMode() == Constants.SAL_MODE_CASH) {
@@ -202,22 +204,18 @@ public class fragment_main extends Fragment {
                         }
                     }
                 }
-            }catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         });
         totalEx = bankEx[0] + cashEx[0];
-        vm.getBalance().observe(requireActivity(), balanceEntity -> {
-            try{
-                bankBa[0] = balanceEntity.getBalance();
-            }catch(Exception ignored){}
-        });
-        vm.getInHandBalance().observe(requireActivity(), inHandBalEntity -> {
-            try{
-                cashBa[0] = inHandBalEntity.getBalance();
-            }catch (Exception ignored){}
-        });
+
+        bankBa[0] = bankEr[0] - bankEx[0];
+
+        cashBa[0] = cashEr[0] - cashEx[0];
+
         totalBa = bankBa[0] + cashBa[0];
 
-        try{
+        try {
             String cea = Constants.RUPEE + cashEr[0];
             cashEarn.setText(cea);
             String cex = Constants.RUPEE + cashEx[0];
@@ -237,7 +235,7 @@ public class fragment_main extends Fragment {
             totalExp.setText(tex);
             String tba = Constants.RUPEE + totalBa;
             totalBal.setText(tba);
-        }catch (Exception ignored){
+        } catch (Exception ignored) {
         }
     }
 
@@ -264,17 +262,17 @@ public class fragment_main extends Fragment {
         String s4 = debt.getFinalDate();
         date.setText(s4);
         yes.setOnClickListener(v1 -> {
-            if (debt.getIsRepeat()==Constants.NON_REPEATING_DUE){
+            if (debt.getIsRepeat() == Constants.NON_REPEATING_DUE) {
                 debt.setStatus(Constants.DEBT_PAID);
                 vm.UpdateDebt(debt);
-            }else {
+            } else {
                 debt.setStatus(Constants.DEBT_NOT_PAID);
                 debt.setDate(Commons.getDate());
                 String[] Date = debt.getFinalDate().split("/");
-                String month = String.valueOf(Integer.parseInt(Date[1])+1);
-                String [] curDate = Commons.getDate().split("/");
+                String month = String.valueOf(Integer.parseInt(Date[1]) + 1);
+                String[] curDate = Commons.getDate().split("/");
                 String year = curDate[2];
-                debt.setFinalDate(Date[0]+"/"+month+"/"+year);
+                debt.setFinalDate(Date[0] + "/" + month + "/" + year);
                 vm.UpdateDebt(debt);
             }
             popupWindow.dismiss();
@@ -523,7 +521,8 @@ public class fragment_main extends Fragment {
         if (isVisibleToUser) {
             try {
                 debtWaring();
-            }catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         }
     }
 
