@@ -257,7 +257,7 @@ public class BudgetFragment extends Fragment {
         income.setText(s);
 
         yes.setOnClickListener(v -> {
-            int type = 3;
+            int type;
             if (grp.getCheckedRadioButtonId() == R.id.monthly) {
                 type = Constants.BUDGET_MONTHLY;
             } else if (grp.getCheckedRadioButtonId() == R.id.weekly) {
@@ -313,12 +313,11 @@ public class BudgetFragment extends Fragment {
         ArrayList<View> Targets = new ArrayList<>();
         ArrayList<String> PrimaryTexts = new ArrayList<>();
         ArrayList<String> SecondaryTexts = new ArrayList<>();
-        //Budget
+//      Budget
         Targets.add(addBudget);
         PrimaryTexts.add("This is where you set your budget");
         SecondaryTexts.add("Tap here to create a budget, you can set it automatically or manually.");
-//        ----
-
+//      ----
         util.TutorialPhase4(Targets, PrimaryTexts, SecondaryTexts);
     }
 
