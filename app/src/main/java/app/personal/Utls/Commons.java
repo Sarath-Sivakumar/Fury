@@ -169,9 +169,10 @@ public class Commons {
         }
     }
 
+    static int DAYS_LIMIT = 7;//Change this to change data collection period..(7 for 1 week)
     private static String limiterAvg(ArrayList<Integer> totalExp) {
         int total = 0;
-        if (totalExp.size() >= 7) {
+        if (totalExp.size() >= DAYS_LIMIT) {
             for (int i = 0; i < totalExp.size(); i++) {
                 total = total + totalExp.get(i);
             }
@@ -182,13 +183,12 @@ public class Commons {
     }
 
     private static String findAvg(ArrayList<Integer> totalExp) {
-        //7 for 1 week
-        if (totalExp.size() >= 1) {
+
+        if (totalExp.size() >= DAYS_LIMIT) {
             int total = 0;
             for (int i = 0; i < totalExp.size(); i++) {
                 total = total + totalExp.get(i);
             }
-            Log.e("AVG", "Size: " + totalExp.size() + "Total: " + total);
             return Constants.RUPEE + total / totalExp.size() + "/Day";
         } else {
             return Constants.dAvgNoData;
@@ -227,11 +227,6 @@ public class Commons {
         } else {
             return 0;
         }
-    }
-
-    public static String getDailyAvg(float budget, int days) {
-//        getDays(Integer.parseInt(getMonth()))
-        return String.valueOf((int) (budget / days));
     }
 
     public static boolean isEmail(String Email) {
