@@ -115,7 +115,11 @@ public class Exp_Tracker extends Fragment {
                 accCount = 0;
                 if (e != null) {
                     if (!e.isEmpty()) {
-                        dLimit.setText(Commons.getAvg(e, true));
+                        String s = Commons.getAvg(e, true);
+                        if (s.equals("Collecting data!")){
+                            dLimit.setTextSize(12);
+                        }
+                        dLimit.setText(s);
                         cDAvg = Integer.parseInt(Commons.getAvg(e, false));
                         Log.e("Daily avg", "Value: "+Commons.getAvg(e, false));
                     } else {
@@ -314,14 +318,15 @@ public class Exp_Tracker extends Fragment {
                     vm.InsertInHandBalance(entity1);
                 }
 
-                budgetEntity oldBudget = getBudget();
                 try {
-                    budgetEntity bud = oldBudget;
-                    vm.DeleteBudget();
-                    bud.setBal(oldBudget.getBal() + amt);
-                    vm.InsertBudget(bud);
-                } catch (Exception ignored) {
-                }
+                    if (Commons.isAfterDate(getBudget().getCreationDate())){
+                        budgetEntity oldBudget = getBudget();
+                        budgetEntity bud = oldBudget;
+                        vm.DeleteBudget();
+                        bud.setBal(oldBudget.getBal() + amt);
+                        vm.InsertBudget(bud);
+                    }
+                } catch (Exception ignored) {}
 
                 vm.DeleteExp(entity);
                 adapter.clear();
@@ -481,15 +486,17 @@ public class Exp_Tracker extends Fragment {
             bal.setBalance(oldBal - Integer.parseInt(expAmt.getText().toString()));
             vm.InsertInHandBalance(bal);
         }
-        budgetEntity oldBudget;
+
         try {
-            oldBudget = getBudget();
-            budgetEntity bud = oldBudget;
-            vm.DeleteBudget();
-            bud.setBal(oldBudget.getBal() - Integer.parseInt(expAmt.getText().toString()));
-            vm.InsertBudget(bud);
-        } catch (Exception ignored) {
-        }
+            budgetEntity oldBudget;
+            if (Commons.isAfterDate(getBudget().getCreationDate())) {
+                oldBudget = getBudget();
+                budgetEntity bud = oldBudget;
+                vm.DeleteBudget();
+                bud.setBal(oldBudget.getBal() - Integer.parseInt(expAmt.getText().toString()));
+                vm.InsertBudget(bud);
+            }
+        } catch (Exception ignored) {}
 
         expView.setText(adapter.getTotalExpStr());
         String s = Constants.RUPEE + (accBal + inHandBal);

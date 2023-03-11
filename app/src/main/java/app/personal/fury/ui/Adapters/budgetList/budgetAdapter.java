@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.personal.MVVM.Entity.expEntity;
+import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
 
@@ -24,6 +25,8 @@ public class budgetAdapter extends RecyclerView.Adapter<budgetAdapter.topCatHold
             electricity = new ArrayList<>(), recharge = new ArrayList<>(), fees = new ArrayList<>(),
             subscriptions = new ArrayList<>(), health = new ArrayList<>(), bills = new ArrayList<>(),
             others = new ArrayList<>();
+    private String CreationDate;
+    private int BudgetType;
 
     @NonNull
     @Override
@@ -106,49 +109,63 @@ public class budgetAdapter extends RecyclerView.Adapter<budgetAdapter.topCatHold
         notifyDataSetChanged();
     }
 
+    public void setBudgetInfo(String CreationDate, int BudgetType){
+        this.CreationDate = CreationDate;
+        this.BudgetType = BudgetType;
+    }
     public void setExp(List<expEntity> allExp) {
         for (int i = 0; i < allExp.size(); i++) {
-            switch (allExp.get(i).getExpenseName()){
-                case Constants.Food:
-                    food.add(allExp.get(i));
-                    break;
-                case Constants.Travel:
-                    travel.add(allExp.get(i));
-                    break;
-                case Constants.Rent:
-                    rent.add(allExp.get(i));
-                    break;
-                case Constants.Gas:
-                    gas.add(allExp.get(i));
-                    break;
-                case Constants.Groceries:
-                    groceries.add(allExp.get(i));
-                    break;
-                case Constants.Electricity:
-                    electricity.add(allExp.get(i));
-                    break;
-                case Constants.Recharge:
-                    recharge.add(allExp.get(i));
-                    break;
-                case Constants.Fees:
-                    fees.add(allExp.get(i));
-                    break;
-                case Constants.Subscriptions:
-                    subscriptions.add(allExp.get(i));
-                    break;
-                case Constants.Health_Care:
-                    health.add(allExp.get(i));
-                    break;
-                case Constants.Bills:
-                    bills.add(allExp.get(i));
-                    break;
-                case Constants.OTHERS:
-                    others.add(allExp.get(i));
-                    break;
-                default:
-                    break;
+            if (Commons.isAfterDate(allExp.get(i).getDate())){
+                listSplitter(allExp, i);
             }
         }
+        ListSetter();
+    }
+
+    private void listSplitter(List<expEntity> allExp, int i){
+        switch (allExp.get(i).getExpenseName()){
+            case Constants.Food:
+                food.add(allExp.get(i));
+                break;
+            case Constants.Travel:
+                travel.add(allExp.get(i));
+                break;
+            case Constants.Rent:
+                rent.add(allExp.get(i));
+                break;
+            case Constants.Gas:
+                gas.add(allExp.get(i));
+                break;
+            case Constants.Groceries:
+                groceries.add(allExp.get(i));
+                break;
+            case Constants.Electricity:
+                electricity.add(allExp.get(i));
+                break;
+            case Constants.Recharge:
+                recharge.add(allExp.get(i));
+                break;
+            case Constants.Fees:
+                fees.add(allExp.get(i));
+                break;
+            case Constants.Subscriptions:
+                subscriptions.add(allExp.get(i));
+                break;
+            case Constants.Health_Care:
+                health.add(allExp.get(i));
+                break;
+            case Constants.Bills:
+                bills.add(allExp.get(i));
+                break;
+            case Constants.OTHERS:
+                others.add(allExp.get(i));
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void ListSetter(){
         if (!food.isEmpty()) {
             expEntity Food = compressor(food);
             allCategory.add(Food);

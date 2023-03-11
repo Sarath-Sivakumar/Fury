@@ -161,7 +161,7 @@ public class Dues_Debt extends Fragment {
                         c.setVisibility(View.GONE);
                         date.set(true);
                     } else {
-                        Commons.SnackBar(getView(), "Set a date one day ahead of " + Commons.getDate());
+                        Commons.SnackBar(add, "Set a date one day ahead of " + Commons.getDate());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -187,10 +187,10 @@ public class Dues_Debt extends Fragment {
                         mainDueAdapter.clear();
                         popupWindow.dismiss();
                     } else {
-                        Commons.SnackBar(getView(), "Select a valid date");
+                        Commons.SnackBar(add, "Select a valid date");
                     }
                 } else {
-                    Commons.SnackBar(getView(), "Set due date");
+                    Commons.SnackBar(add, "Set due date");
                 }
             });
             cancel.setOnClickListener(v -> popupWindow.dismiss());
