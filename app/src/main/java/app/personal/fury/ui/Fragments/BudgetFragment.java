@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
@@ -28,7 +29,12 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 import app.personal.MVVM.Entity.LaunchChecker;
 import app.personal.MVVM.Entity.budgetEntity;
@@ -49,10 +55,11 @@ public class BudgetFragment extends Fragment {
     private mainViewModel vm;
     private int totalSalary = 0, totalExp = 0;
     private budgetAdapter adapter;
-    private boolean isView = false;
+    private boolean isView = false, deletedOnce = false;
     private final int[] FragmentList = new int[]{R.drawable.info_1, R.drawable.info_2, R.drawable.info_3};
     private AdView ad;
-    private int prevType = 3;
+    private int prevType = 3, prevAmt = 0;
+    private String prevDate = "0";
     private TutorialUtil util;
 
     public BudgetFragment() {
@@ -118,51 +125,22 @@ public class BudgetFragment extends Fragment {
     }
 
     private void initItems() {
-        vm.getExp().observe(getViewLifecycleOwner(), expEntities -> {
-            int total = 0;
-            adapter.clear();
-            if (expEntities != null && !expEntities.isEmpty()) {
-                adapter.setExp(expEntities);
-                for (int i = 0; i < expEntities.size(); i++) {
-                    total = total + expEntities.get(i).getExpenseAmt();
-                }
-                try {
-                    CurrentDailyLimit.setText(Commons.getAvg(expEntities, true));
-                    String s1 = Constants.RUPEE + total;
-                    Expense.setText(s1);
-                } catch (Exception ignored) {
-                }
-                adapter.notifyDataSetChanged();
-            } else {
-                try {
-                    String s = "No data to process";
-                    CurrentDailyLimit.setText(s);
-                    CurrentDailyLimit.setTextSize(14);
-                    String s1 = Constants.RUPEE + total;
-                    Expense.setText(s1);
-                } catch (Exception ignored) {
-                }
-            }
-            totalExp = total;
-        });
-
-        vm.getSalary().observe(getViewLifecycleOwner(), salaryEntities -> {
-            totalSalary = 0;
-            if (salaryEntities != null && !salaryEntities.isEmpty()) {
-                for (int i = 0; i < salaryEntities.size(); i++) {
-                    totalSalary = totalSalary + salaryEntities.get(i).getSalary();
-                }
-            }
-        });
-
         vm.getBudget().observe(getViewLifecycleOwner(), budgetEntities -> {
             try {
                 prevType = budgetEntities.getRefreshPeriod();
+                prevDate = budgetEntities.getCreationDate();
+                prevAmt = budgetEntities.getAmount();
                 String s = Constants.RUPEE + budgetEntities.getAmount();
                 BudgetAmt.setText(s);
                 String s1 = Constants.RUPEE + budgetEntities.getBal();
                 Balance.setText(s1);
                 String s2;
+                adapter.setBudgetInfo(budgetEntities.getCreationDate(), budgetEntities.getRefreshPeriod());
+                if (!Commons.budgetValidityChecker(budgetEntities.getRefreshPeriod(),
+                        budgetEntities.getCreationDate()) && !deletedOnce) {
+                    vm.DeleteBudget();
+                    deletedOnce = true;
+                }
                 if (prevType == Constants.BUDGET_MONTHLY) {
                     s2 = Constants.RUPEE + (budgetEntities.getAmount() / Commons.getDays(Calendar.MONTH)) + " /day";
                 } else {
@@ -180,6 +158,47 @@ public class BudgetFragment extends Fragment {
                 }
             }
         });
+
+        vm.getExp().observe(getViewLifecycleOwner(), expEntities -> {
+            int total = 0;
+            adapter.clear();
+            if (expEntities != null && !expEntities.isEmpty()) {
+                adapter.setExp(expEntities);
+                for (int i = 0; i < expEntities.size(); i++) {
+                    total = total + expEntities.get(i).getExpenseAmt();
+                }
+                try {
+                    String s = Commons.getAvg(expEntities, true);
+                    CurrentDailyLimit.setText(s);
+                    if (Objects.equals(s, "Collecting data!")) {
+                        CurrentDailyLimit.setTextSize(12);
+                    }
+                    String s1 = Constants.RUPEE + total;
+                    Expense.setText(s1);
+                } catch (Exception ignored) {
+                }
+                adapter.notifyDataSetChanged();
+            } else {
+                try {
+                    String s = "No data to process";
+                    CurrentDailyLimit.setText(s);
+                    CurrentDailyLimit.setTextSize(12);
+                    String s1 = Constants.RUPEE + total;
+                    Expense.setText(s1);
+                } catch (Exception ignored) {
+                }
+            }
+            totalExp = total;
+        });
+
+        vm.getSalary().observe(getViewLifecycleOwner(), salaryEntities -> {
+            totalSalary = 0;
+            if (salaryEntities != null && !salaryEntities.isEmpty()) {
+                for (int i = 0; i < salaryEntities.size(); i++) {
+                    totalSalary = totalSalary + salaryEntities.get(i).getSalary();
+                }
+            }
+        });
     }
 
     private void callAddBudgetPopup() {
@@ -193,6 +212,22 @@ public class BudgetFragment extends Fragment {
         Button cancel = view.findViewById(R.id.cancel_btn);
         RadioGroup budTypeGrp = view.findViewById(R.id.budType);
         cancel.setOnClickListener(v -> popupWindow.dismiss());
+        CalendarView cal = view.findViewById(R.id.nd_date);
+        AtomicReference<String> startDate = new AtomicReference<>(Commons.getDate());
+
+        cal.setOnDateChangeListener((view1, year, month, dayOfMonth) -> {
+            startDate.set(dayOfMonth + "/" + (month + 1) + "/" + year);
+        });
+
+        if (!prevDate.equals("0")) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+                Date d = sdf.parse(prevDate);
+                assert d != null;
+                cal.setDate(d.getTime());
+            } catch (Exception ignored) {
+            }
+        }
 
         if (prevType == Constants.BUDGET_MONTHLY) {
             budTypeGrp.check(R.id.monthly);
@@ -204,12 +239,12 @@ public class BudgetFragment extends Fragment {
             popupWindow.dismiss();
             if (budTypeGrp.getCheckedRadioButtonId() == R.id.weekly) {
                 Commons.fakeLoadingScreen(requireContext(), totalSalary, totalExp,
-                        Constants.BUDGET_WEEKLY, vm, addBudget);
+                        Constants.BUDGET_WEEKLY, vm, addBudget, startDate.get());
                 onBudgetSetTutorial(getView(), "Great we've set a budget..");
                 loadNextPhase();
             } else {
                 Commons.fakeLoadingScreen(requireContext(), totalSalary, totalExp,
-                        Constants.BUDGET_MONTHLY, vm, addBudget);
+                        Constants.BUDGET_MONTHLY, vm, addBudget, startDate.get());
                 onBudgetSetTutorial(getView(), "Great we've set a budget..");
                 loadNextPhase();
             }
@@ -250,6 +285,32 @@ public class BudgetFragment extends Fragment {
         EditText Amt = view.findViewById(R.id.budget);
         TextView income = view.findViewById(R.id.income);
         RadioGroup grp = view.findViewById(R.id.budType);
+        CalendarView cal = view.findViewById(R.id.nd_date);
+        AtomicReference<String> startDate = new AtomicReference<>(Commons.getDate());
+
+        cal.setOnDateChangeListener((view1, year, month, dayOfMonth) -> {
+            startDate.set(dayOfMonth + "/" + (month + 1) + "/" + year);
+        });
+
+        if (!prevDate.equals("0")) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+                Date d = sdf.parse(prevDate);
+                assert d != null;
+                cal.setDate(d.getTime());
+            } catch (Exception ignored) {
+            }
+        }
+
+        if (prevAmt != 0) {
+            Amt.setText(String.valueOf(prevAmt));
+        }
+
+        if (prevType == Constants.BUDGET_MONTHLY) {
+            grp.check(R.id.monthly);
+        } else {
+            grp.check(R.id.weekly);
+        }
 
         String s = Constants.RUPEE + totalSalary;
         income.setText(s);
@@ -262,7 +323,7 @@ public class BudgetFragment extends Fragment {
                 type = Constants.BUDGET_WEEKLY;
             } else {
                 type = 3;
-                Commons.SnackBar(getView(), "Select a budget type.");
+                Commons.SnackBar(yes, "Select a budget type.");
             }
             if (!Amt.getText().toString().trim().isEmpty() &&
                     (Integer.parseInt(Amt.getText().toString().trim()) <
@@ -272,7 +333,7 @@ public class BudgetFragment extends Fragment {
                     budget.setAmount(Integer.parseInt(Amt.getText().toString()));
                     budget.setBal(Integer.parseInt(Amt.getText().toString()) - totalExp);
                     budget.setRefreshPeriod(type);
-                    budget.setCreationDate(Commons.getDate());
+                    budget.setCreationDate(startDate.get());
                     vm.DeleteBudget();
                     vm.InsertBudget(budget);
                     popupWindow.dismiss();
@@ -280,9 +341,9 @@ public class BudgetFragment extends Fragment {
                     loadNextPhase();
                 }
             } else if (!Amt.getText().toString().trim().isEmpty() && (Integer.parseInt(Amt.getText().toString().trim()) > Integer.parseInt(String.valueOf(totalSalary)))) {
-                Commons.SnackBar(getView(), "Budget Amount should be less than total earnings.");
+                Commons.SnackBar(yes, "Budget Amount should be less than total earnings.");
             } else {
-                Commons.SnackBar(getView(), "Set a budget.");
+                Commons.SnackBar(yes, "Set a budget.");
             }
         });
 

@@ -312,7 +312,7 @@ public class Ear_Tracker extends Fragment {
                         vm.InsertInHandBalance(bal);
                     }
                     if (getBudType() != 3) {
-                        Commons.setDefaultBudget(vm, totalSalary, totalExp, getBudType());
+                        Commons.setDefaultBudget(vm, totalSalary, totalExp, getBudType(), Commons.getDate());
                     }
                 } else {
                     sal.setId(salary.getId());
@@ -341,7 +341,7 @@ public class Ear_Tracker extends Fragment {
                         vm.InsertInHandBalance(bal);
                     }
                     if (getBudType() != 3) {
-                        Commons.setDefaultBudget(vm, totalSalary, totalExp, getBudType());
+                        Commons.setDefaultBudget(vm, totalSalary, totalExp, getBudType(), Commons.getDate());
                     }
                 }
                 appChecker();
@@ -417,7 +417,7 @@ public class Ear_Tracker extends Fragment {
                 String s = "Do you want to update budget according to current deletion?";
                 body.setText(s);
                 yes.setOnClickListener(v1 -> {
-                    Commons.setDefaultBudget(vm, totalSalary, totalExp, getBudType());
+                    Commons.setDefaultBudget(vm, totalSalary, totalExp, getBudType(), Commons.getDate());
                     popupWindow.dismiss();
                 });
             }

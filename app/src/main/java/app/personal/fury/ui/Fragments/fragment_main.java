@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
@@ -73,8 +72,8 @@ public class fragment_main extends Fragment {
     private AdView ad;
     private RecyclerView dueList;
     private LinearLayout noDues,statview,statdisabled;
-    private Switch statButton;
     private int filter = 0;
+    private boolean isViewed = false;
     private final ArrayList<debtEntity> debtList = new ArrayList<>();
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
     private final int[] FragmentList = new int[]{R.drawable.infos1, R.drawable.infos2, R.drawable.infos3, R.drawable.infos4, R.drawable.infos5, R.drawable.infos6};
@@ -98,7 +97,7 @@ public class fragment_main extends Fragment {
         mainProgressBar.setMax(Constants.LIMITER_MAX);
         ad = v.findViewById(R.id.adView);
         dueList = v.findViewById(R.id.dueList);
-        statButton = v.findViewById(R.id.stat_switch);
+        Switch statButton = v.findViewById(R.id.stat_switch);
 //        statButton.setText("Inactive");
 
         statview = v.findViewById(R.id.stat_layout);
@@ -345,6 +344,10 @@ public class fragment_main extends Fragment {
                 String s = Constants.RUPEE + budgetEntities.getAmount();
                 budgetView.setText(s);
                 budgetTotalAmount = budgetEntities.getAmount();
+                if (!isViewed){
+                    debtWaring();
+                    isViewed=true;
+                }
                 try {
                     progress = Commons.setProgress(expense, budgetTotalAmount);
                     setMain(progress);
@@ -512,17 +515,6 @@ public class fragment_main extends Fragment {
             setMain(progress);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            try {
-                debtWaring();
-            } catch (Exception ignored) {
-            }
         }
     }
 

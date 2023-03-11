@@ -18,6 +18,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -76,9 +77,9 @@ public class Commons {
     }
 
     public static int setProgress(float exp, float sal) {
-        if (exp>sal){
+        if (exp > sal) {
             return 100;
-        }else{
+        } else {
             return (int) ((exp / sal) * 100);
         }
     }
@@ -170,6 +171,7 @@ public class Commons {
     }
 
     static int DAYS_LIMIT = 7;//Change this to change data collection period..(7 for 1 week)
+
     private static String limiterAvg(ArrayList<Integer> totalExp) {
         int total = 0;
         if (totalExp.size() >= DAYS_LIMIT) {
@@ -279,11 +281,12 @@ public class Commons {
         }.start();
     }
 
-    public static void setDefaultBudget(mainViewModel vm, int totalSalary, int totalExp, int budType) {
+    public static void setDefaultBudget(mainViewModel vm, int totalSalary, int totalExp, int budType, String CreationDate) {
         budgetEntity bud = new budgetEntity();
         bud.setAmount(Commons.getValueByPercent(totalSalary, 80));
         bud.setBal(Commons.getValueByPercent(totalSalary, 80) - totalExp);
         bud.setRefreshPeriod(budType);
+        bud.setCreationDate(CreationDate);
         vm.DeleteBudget();
         vm.InsertBudget(bud);
     }
@@ -293,7 +296,8 @@ public class Commons {
         return sorter.getSortedList();
     }
 
-    public static void fakeLoadingScreen(Context c, int totalSalary, int totalExp, int budType, mainViewModel vm, FloatingActionButton anchor) {
+    public static void fakeLoadingScreen(Context c, int totalSalary, int totalExp,
+                                         int budType, mainViewModel vm, FloatingActionButton anchor, String creationDate) {
         new CountDownTimer(2000, 1000) {
             final PopupWindow fakeScrn = new PopupWindow(c);
 
@@ -335,11 +339,48 @@ public class Commons {
 
                     @Override
                     public void onFinish() {
-                        Commons.setDefaultBudget(vm, totalSalary, totalExp, budType);
+                        Commons.setDefaultBudget(vm, totalSalary, totalExp, budType, creationDate);
                         fakeScrn.dismiss();
                     }
                 }.start();
             }
         }.start();
+    }
+
+    public static boolean isAfterDate(String Date) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+            Date dateBefore = sdf.parse(Commons.getDate());
+            Date dateAfter = sdf.parse(Date);
+            assert dateAfter != null;
+            assert dateBefore != null;
+            return dateAfter.getTime() <= dateBefore.getTime();
+        } catch (Exception ignored) {
+            return false;
+        }
+    }
+
+    public static boolean budgetValidityChecker(int BudgetType, String Date){
+        try{
+            String [] sDate = Date.split("/");
+            String newDate;
+            if (BudgetType==Constants.BUDGET_WEEKLY){
+                newDate = "07/" + sDate[1] + "/" + sDate[2];
+            }else{
+                newDate = "31/" + sDate[1] + "/" + sDate[2];
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+            Date refDate = sdf.parse(Commons.getDate());
+            Date budgetDate = sdf.parse(Date);
+            Date AddDate = sdf.parse(newDate);
+            assert refDate != null;
+            assert budgetDate != null;
+            assert AddDate != null;
+            long time = Math.abs(budgetDate.getTime() + AddDate.getTime());
+            Date afterDate = new Date(time);
+            return afterDate.getTime() >= refDate.getTime();
+        }catch (Exception ignored){
+            return false;
+        }
     }
 }
