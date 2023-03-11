@@ -1,5 +1,6 @@
 package app.personal.fury.ui.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +11,11 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -69,7 +72,8 @@ public class fragment_main extends Fragment {
     private int progress = 0;
     private AdView ad;
     private RecyclerView dueList;
-    private LinearLayout noDues;
+    private LinearLayout noDues,statview,statdisabled;
+    private Switch statButton;
     private int filter = 0;
     private final ArrayList<debtEntity> debtList = new ArrayList<>();
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
@@ -83,6 +87,7 @@ public class fragment_main extends Fragment {
         ad.loadAd(adRequest);
     }
 
+    @SuppressLint("SetTextI18n")
     public void findView(View v) {
         initStat(v);
         mainProgressBar = v.findViewById(R.id.indicator);
@@ -93,6 +98,26 @@ public class fragment_main extends Fragment {
         mainProgressBar.setMax(Constants.LIMITER_MAX);
         ad = v.findViewById(R.id.adView);
         dueList = v.findViewById(R.id.dueList);
+        statButton = v.findViewById(R.id.stat_switch);
+//        statButton.setText("Inactive");
+
+        statview = v.findViewById(R.id.stat_layout);
+        statdisabled = v.findViewById(R.id.stat_disable);
+
+        statButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked){
+                statview.setVisibility(View.VISIBLE);
+                statdisabled.setVisibility(View.GONE);
+//                statButton.setText("Active");
+            }
+            else {
+                statview.setVisibility(View.GONE);
+                statdisabled.setVisibility(View.VISIBLE);
+//                statButton.setText("Inactive");
+            }
+        });
+
+
         ViewPager ig_vp = v.findViewById(R.id.infoGraphics_vp);
         TabLayout ig_tl = v.findViewById(R.id.infoGraphics_tab);
 

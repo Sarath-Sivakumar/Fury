@@ -18,7 +18,7 @@
         <item name="android:windowLightStatusBar">false</item>
 
         <!-- Customize your theme here. -->
-        <item name="android:fontFamily">@font/raleway_semibold</item>
+        <item name="android:fontFamily">@font/spartan_semibold</item>
 
     </style>
 

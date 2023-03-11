@@ -321,7 +321,7 @@ public class Commons {
             @Override
             public void onFinish() {
                 fakeScrn.dismiss();
-                new CountDownTimer(2000, 1000) {
+                new CountDownTimer(1000, 500) {
                     @Override
                     public void onTick(long millisUntilFinished) {
                         LayoutInflater inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
