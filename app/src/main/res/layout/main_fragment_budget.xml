@@ -233,16 +233,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="14dp"
                 android:orientation="horizontal">
 
                 <TextView
                     style="@style/textstyle2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:gravity="start"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="10dp"
+                    android:gravity="start|center"
                     android:text="Top expense categories"
                     android:textSize="16sp" />
             </LinearLayout>

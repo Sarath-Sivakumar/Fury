@@ -31,11 +31,11 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="150dp"
                 android:layout_marginStart="3dp"
                 android:layout_marginTop="9dp"
                 android:layout_marginEnd="3dp"
-                android:backgroundTint="@color/app_theme_secondary"
+                android:backgroundTint="@color/d2"
                 android:elevation="6dp"
                 app:cardCornerRadius="15dp">
 

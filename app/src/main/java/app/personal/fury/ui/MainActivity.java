@@ -1,6 +1,7 @@
 package app.personal.fury.ui;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -341,6 +342,8 @@ public class MainActivity extends AppCompatActivity {
                 logout(navView);
             } else if (item.getItemId()==R.id.rateus) {
                 rate();
+            } else if (item.getItemId()==R.id.donate) {
+                donate(navView);
             }else{
                 Log.e("App", "Daddy stop! Please aaaah!");
             }
@@ -358,6 +361,31 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id" + getPackageName())));
         }
 
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void donate(View navView){
+        PopupWindow popupWindow = new PopupWindow(this);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
+        View view = inflater.inflate(R.layout.popup_action_acceptads, null);
+        popupWindow.setContentView(view);
+        popupWindow.setFocusable(true);
+
+
+        Button yes = view.findViewById(R.id.dyes_btn);
+        Button no = view.findViewById(R.id.dno_btn);
+        no.setOnClickListener(v -> popupWindow.dismiss());
+        yes.setOnClickListener(v -> {
+
+        });
+
+        popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+        popupWindow.setBackgroundDrawable(null);
+        popupWindow.setElevation(6);
+        popupWindow.setOverlapAnchor(true);
+        popupWindow.showAsDropDown(navView);
     }
     private void findView() {
         vp = findViewById(R.id.viewPager);

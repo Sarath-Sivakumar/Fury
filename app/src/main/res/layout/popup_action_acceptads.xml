@@ -23,13 +23,13 @@
             android:src="@drawable/colored_icon_ads" />
 
         <TextView
-            android:id="@+id/dlttxt"
+            android:id="@+id/adtxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="10dp"
             android:fontFamily="@font/source_sans_pro_semibold"
-            android:text="This will result in "
+            android:text="@string/support_video_ad"
             android:textSize="19sp" />
 
         <LinearLayout
@@ -48,7 +48,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_borderonly"
                 android:fontFamily="@font/raleway_bold"
-                android:text="Ok"
+                android:text="Watch"
+                android:drawableEnd="@drawable/common_icon_adplay"
                 android:textAllCaps="false" />
 
             <Button
@@ -60,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_borderonly"
                 android:fontFamily="@font/raleway_bold"
-                android:text="Cancel"
+                android:text="No Thanks"
                 android:textAllCaps="false" />
 
         </LinearLayout>
