@@ -284,7 +284,8 @@ public class Exp_Tracker extends Fragment {
         accBal = getBalance();
         inHandBal = getInHandBalance();
         PopupWindow popupWindow = new PopupWindow(getContext());
-        LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) requireContext()
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
         if (layout == Constants.itemDelete) {
             View view = inflater.inflate(R.layout.popup_action_expdelete, null);
