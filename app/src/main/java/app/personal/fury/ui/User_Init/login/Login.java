@@ -59,6 +59,7 @@ public class Login extends AppCompatActivity {
         progress = findViewById(R.id.progress);
         TextView f_pass = findViewById(R.id.f_pass);
         f_pass.setOnClickListener(view -> forgotPassword());
+        observeForError();
         Password.setOnTouchListener((v, event) -> {
             final int Right=2;
             if(event.getAction()==MotionEvent.ACTION_UP) {
@@ -89,15 +90,18 @@ public class Login extends AppCompatActivity {
             String password = Password.getText().toString().trim();
             if (new Commons().isConnectedToInternet(this)) {
                 if (Commons.isValidPass(password) && Commons.isEmail(email)) {
+                    progress.setVisibility(View.VISIBLE);
                     uvm.Login(email, password);
                     uvm.getUserId().observe(this, firebaseUser -> {
                         if (Objects.equals(firebaseUser.getEmail(), email)){
-                            progress.setVisibility(View.VISIBLE);
                             finishAffinity();
+                        }else{
+                            progress.setVisibility(View.GONE);
                         }
                     });
                 } else {
                     Commons.SnackBar(Login, "Invalid Credentials!");
+                    progress.setVisibility(View.GONE);
                 }
             }
             else {
@@ -105,6 +109,15 @@ public class Login extends AppCompatActivity {
             }
         }
         );
+    }
+
+    private void observeForError(){
+        uvm.getFirebaseError().observe(this, s -> {
+            if (!s.equals("Null")){
+                Commons.SnackBar(progress, s);
+                uvm.setDefaultError();
+            }
+        });
     }
 
     private void forgotPassword(){

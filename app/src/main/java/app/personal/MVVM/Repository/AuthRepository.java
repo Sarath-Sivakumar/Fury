@@ -3,15 +3,10 @@ package app.personal.MVVM.Repository;
 import android.app.Application;
 import android.net.Uri;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,14 +16,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
 
 import app.personal.MVVM.Entity.userEntity;
-import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 
 public class AuthRepository {
@@ -40,6 +33,9 @@ public class AuthRepository {
     private final MutableLiveData<FirebaseUser> userLiveData;
     private final MutableLiveData<Boolean> isLoggedOutLiveData;
     private final MutableLiveData<userEntity> userData;
+    private final MutableLiveData<String> FirebaseAuthError;
+
+    private String default_Error = "Null";
 
     public AuthRepository(Application application) {
         this.application = application;
@@ -47,6 +43,8 @@ public class AuthRepository {
         this.userLiveData = new MutableLiveData<>();
         this.isLoggedOutLiveData = new MutableLiveData<>();
         this.userData = new MutableLiveData<>();
+        this.FirebaseAuthError =  new MutableLiveData<>();
+        FirebaseAuthError.postValue(default_Error);
 
         if (firebaseAuth.getCurrentUser() != null) {
             userLiveData.postValue(firebaseAuth.getCurrentUser());
@@ -64,7 +62,7 @@ public class AuthRepository {
                         fetchUserData();
                     } else {
                         isLoggedOutLiveData.postValue(true);
-                        Log.e("AuthRepository", "login: " + task.getException().getMessage());
+                        FirebaseAuthError.postValue(Objects.requireNonNull(task.getException()).getMessage());
                     }
                 });
     }
@@ -79,46 +77,33 @@ public class AuthRepository {
                 + "images/" + UUID.randomUUID().toString());
         if (!entity.getImgUrl().equals(Constants.DEFAULT_DP)) {
             StorageReference photoRef = storage.getReferenceFromUrl(entity.getImgUrl());
-            photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    // File deleted successfully
-                    Log.d("DP Delete", "onSuccess: deleted file");
-                    ref.putFile(filePath).addOnSuccessListener(taskSnapshot -> {
-                        if (taskSnapshot.getError() == null) {
-                            Log.e("Firebase", "Image uploaded!");
-                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    UpdateDBDP(uri.toString(), entity.getName());
-                                }
-                            });
+            photoRef.delete().addOnSuccessListener(aVoid -> {
+                // File deleted successfully
+                Log.d("DP Delete", "onSuccess: deleted file");
+                ref.putFile(filePath).addOnSuccessListener(taskSnapshot -> {
+                    if (taskSnapshot.getError() == null) {
+                        Log.e("Firebase", "Image uploaded!");
+                        ref.getDownloadUrl().addOnSuccessListener(uri -> UpdateDBDP(uri.toString(), entity.getName()));
 
-                        } else {
-                            Log.e("Firebase", "Image error: " + taskSnapshot.getError().getMessage());
-                        }
-                    });
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Uh-oh, an error occurred!
-                    Log.d("DP Delete", "onFailure: did not delete file");
-                }
+                    } else {
+                        FirebaseAuthError.postValue(Objects.requireNonNull(taskSnapshot.getError()).getMessage());
+                        Log.e("Firebase", "Image error: " + taskSnapshot.getError().getMessage());
+                    }
+                });
+            }).addOnFailureListener(exception -> {
+                // Uh-oh, an error occurred!
+                FirebaseAuthError.postValue(Objects.requireNonNull(exception.getMessage()));
+                Log.d("DP Delete", "onFailure: did not delete file");
             });
         } else {
 
             ref.putFile(filePath).addOnSuccessListener(taskSnapshot -> {
                 if (taskSnapshot.getError() == null) {
                     Log.e("Firebase", "Image uploaded!");
-                    ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            UpdateDBDP(uri.toString(), entity.getName());
-                        }
-                    });
+                    ref.getDownloadUrl().addOnSuccessListener(uri -> UpdateDBDP(uri.toString(), entity.getName()));
 
                 } else {
+                    FirebaseAuthError.postValue(Objects.requireNonNull(taskSnapshot.getError().getMessage()));
                     Log.e("Firebase", "Image error: " + taskSnapshot.getError().getMessage());
                 }
             });
@@ -132,7 +117,11 @@ public class AuthRepository {
         map.put("imgUrl", userEntity.getImgUrl());
         String user = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
         db.getReference(Constants.Users).child(user)
-                .setValue(map);
+                .setValue(map, (error, ref) -> {
+                    if(error != null) {
+                        FirebaseAuthError.postValue(Objects.requireNonNull(error.getMessage()));
+                    }
+                });
     }
 
     private void UpdateDBDP(String uri, @NonNull String userName) {
@@ -141,7 +130,11 @@ public class AuthRepository {
         map.put("imgUrl", uri);
         String user = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
         db.getReference(Constants.Users).child(user)
-                .setValue(map);
+                .setValue(map, (error, ref) -> {
+                    if(error != null) {
+                        FirebaseAuthError.postValue(Objects.requireNonNull(error.getMessage()));
+                    }
+                });
     }
     public void insertUserData(userEntity userData) {
         userLiveData.postValue(firebaseAuth.getCurrentUser());
@@ -155,6 +148,7 @@ public class AuthRepository {
                     if (error == null) {
                         isLoggedOutLiveData.postValue(false);
                     } else {
+                        FirebaseAuthError.postValue(Objects.requireNonNull(error.getMessage()));
                         Log.e("Firebase", "signup: Data add error: " + error.getMessage());
                     }
                 });
@@ -175,7 +169,7 @@ public class AuthRepository {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        FirebaseAuthError.postValue(Objects.requireNonNull(error.getMessage()));
                     }
                 });
     }
@@ -188,7 +182,8 @@ public class AuthRepository {
                         insertUserData(userData);
                     } else {
                         isLoggedOutLiveData.postValue(true);
-                        Log.e("AuthRepository", "SignUp: " + task.getException().getMessage());
+                        Log.e("AuthRepository", "SignUp: " + Objects.requireNonNull(task.getException()).getMessage());
+                        FirebaseAuthError.postValue(Objects.requireNonNull(task.getException().getMessage()));
                     }
                 });
     }
@@ -211,7 +206,14 @@ public class AuthRepository {
         return userData;
     }
 
+    public MutableLiveData<String> getFirebaseError() {
+        return FirebaseAuthError;
+    }
     public MutableLiveData<Boolean> getIsLoggedOutLiveData() {
         return isLoggedOutLiveData;
+    }
+
+    public void setDefaultError(){
+        FirebaseAuthError.postValue(default_Error);
     }
 }
