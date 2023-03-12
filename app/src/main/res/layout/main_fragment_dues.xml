@@ -107,7 +107,7 @@
                         android:layout_marginTop="6dp"
                         android:layout_marginBottom="10dp"
                         android:fontFamily="@font/raleway_bold"
-                        android:text="Total Dues"
+                        android:text="Upcoming Dues"
                         android:textColor="@color/l1"
                         android:textSize="14sp" />
 

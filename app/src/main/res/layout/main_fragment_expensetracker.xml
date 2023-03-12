@@ -130,11 +130,11 @@
                                         android:text="@string/count" />
                                 </LinearLayout>
 
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height=".2dp"
-                                    android:background="@color/cardview_light_background"
-                                    android:backgroundTint="@color/d1"/>
+<!--                                <View-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height=".2dp"-->
+<!--                                    android:background="@color/cardview_light_background"-->
+<!--                                    android:backgroundTint="@color/d1"/>-->
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -216,11 +216,11 @@
                                         android:textSize="16sp" />
                                 </LinearLayout>
 
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height=".2dp"
-                                    android:background="@color/cardview_light_background"
-                                    android:backgroundTint="@color/d1"/>
+<!--                                <View-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height=".2dp"-->
+<!--                                    android:background="@color/cardview_light_background"-->
+<!--                                    android:backgroundTint="@color/d1"/>-->
 
 
                                 <LinearLayout

@@ -117,12 +117,12 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     }
 
     class expHolder extends RecyclerView.ViewHolder {
-        private final TextView dAmt, dStatus, dFinalDate, dName, icoText;
+        private final TextView dAmt, dFinalDate, dName, icoText;
 
         public expHolder(@NonNull View itemView) {
             super(itemView);
             dAmt = itemView.findViewById(R.id.dAmt);
-            dStatus = itemView.findViewById(R.id.dStatus);
+//            dStatus = itemView.findViewById(R.id.dStatus);
             dFinalDate = itemView.findViewById(R.id.finalDate);
             icoText = itemView.findViewById(R.id.icoText);
             dName = itemView.findViewById(R.id.dName);
