@@ -72,47 +72,49 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
             holder.expPercent.setText(s);
         }
 
-        switch (entity.getExpenseName()) {
-            case Constants.Food:
-                holder.expIcon.setImageResource(R.drawable.cat_icon_food);
-                break;
-            case Constants.Travel:
-                holder.expIcon.setImageResource(R.drawable.cat_icon_travel);
-                break;
-            case Constants.Rent:
-                holder.expIcon.setImageResource(R.drawable.cat_icon_rent);
-                break;
-            case Constants.Gas:
-                holder.expIcon.setImageResource(R.drawable.cat_icon_gas);
-                break;
-            case Constants.Groceries:
-                holder.expIcon.setImageResource(R.drawable.cat_icon_grocery);
-                break;
-            case Constants.Electricity:
-                holder.expIcon.setImageResource(R.drawable.cat_icon_electricity);
-                break;
-            case Constants.Recharge:
-                holder.expIcon.setImageResource(R.drawable.cat_icon_recharge);
-                break;
-            case Constants.Fees:
-                holder.expIcon.setImageResource(R.drawable.cat_icon_fees);
-                break;
-            case Constants.Subscriptions:
-                holder.expIcon.setImageResource(R.drawable.cat_icon_subscription);
-                break;
-            case Constants.Health_Care:
-                holder.expIcon.setImageResource(R.drawable.cat_icon_health);
-                break;
-            case Constants.Bills:
-                holder.expIcon.setImageResource(R.drawable.cat_icon_bill);
-                break;
-            case Constants.OTHERS:
+        try{
+            switch (entity.getExpenseName()) {
+                case Constants.Food:
+                    holder.expIcon.setImageResource(R.drawable.cat_icon_food);
+                    break;
+                case Constants.Travel:
+                    holder.expIcon.setImageResource(R.drawable.cat_icon_travel);
+                    break;
+                case Constants.Rent:
+                    holder.expIcon.setImageResource(R.drawable.cat_icon_rent);
+                    break;
+                case Constants.Gas:
+                    holder.expIcon.setImageResource(R.drawable.cat_icon_gas);
+                    break;
+                case Constants.Groceries:
+                    holder.expIcon.setImageResource(R.drawable.cat_icon_grocery);
+                    break;
+                case Constants.Electricity:
+                    holder.expIcon.setImageResource(R.drawable.cat_icon_electricity);
+                    break;
+                case Constants.Recharge:
+                    holder.expIcon.setImageResource(R.drawable.cat_icon_recharge);
+                    break;
+                case Constants.Fees:
+                    holder.expIcon.setImageResource(R.drawable.cat_icon_fees);
+                    break;
+                case Constants.Subscriptions:
+                    holder.expIcon.setImageResource(R.drawable.cat_icon_subscription);
+                    break;
+                case Constants.Health_Care:
+                    holder.expIcon.setImageResource(R.drawable.cat_icon_health);
+                    break;
+                case Constants.Bills:
+                    holder.expIcon.setImageResource(R.drawable.cat_icon_bill);
+                    break;
+                case Constants.OTHERS:
 //                Change this in expAdapter and budgetAdapter..
-                holder.expIcon.setImageResource(R.drawable.cat_icon_otherexp);
-                break;
-            default:
-                break;
-        }
+                    holder.expIcon.setImageResource(R.drawable.cat_icon_otherexp);
+                    break;
+                default:
+                    break;
+            }
+        }catch (Exception ignored){}
     }
 
     public void setExpes(List<expEntity> exp, float salary, int filter) {

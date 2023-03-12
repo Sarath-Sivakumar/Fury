@@ -61,6 +61,7 @@ public class Exp_Tracker extends Fragment {
     private int accBal = 0, inHandBal = 0, cashAmt, cashCount, accAmt, accCount, cDAvg, s2;
     private String userName = "";
     private AppUtilViewModel appVM;
+    private boolean isViewed = false;
 
     public Exp_Tracker() {
     }
@@ -114,12 +115,18 @@ public class Exp_Tracker extends Fragment {
                 accCount = 0;
                 if (e != null) {
                     if (!e.isEmpty()) {
-                        dLimit.setText(Commons.getAvg(e, true));
+                        String s = Commons.getAvg(e, true);
+                        if (s.equals("Collecting data!")){
+                            dLimit.setTextSize(12);
+                        }
+                        dLimit.setText(s);
                         cDAvg = Integer.parseInt(Commons.getAvg(e, false));
+                        Log.e("Daily avg", "Value: "+Commons.getAvg(e, false));
                     } else {
                         String s = "No data to process";
                         dLimit.setTextSize(14);
                         dLimit.setText(s);
+                        cDAvg = 0;
                     }
                     for (int i = 0; i < e.size(); i++) {
                         if (e.get(i).getExpMode() == Constants.SAL_MODE_ACC) {
@@ -136,11 +143,10 @@ public class Exp_Tracker extends Fragment {
                         accountExp.setText(s2);
                         inHandCount.setText(String.valueOf(cashCount));
                         accountCount.setText(String.valueOf(accCount));
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    }
+                    } catch (Exception ignored) {}
                 }
-            } catch (Exception ignored) {
+            } catch (Exception e1) {
+                e1.printStackTrace();
             }
         });
     }
@@ -169,6 +175,10 @@ public class Exp_Tracker extends Fragment {
                 } else {
                     s2 = entity.get().getAmount() / 7;
                 }
+                if (cDAvg > s2 && !isViewed) {
+                    showWarningPopup();
+                    isViewed=true;
+                }
             }
         } catch (Exception e) {
             Log.e("Popup_debug", "Error: " + e.getMessage());
@@ -180,9 +190,6 @@ public class Exp_Tracker extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            if (cDAvg > s2) {
-                showWarningPopup();
-            }
             try {
                 ExpTutorial();
             } catch (Exception ignored) {
@@ -311,13 +318,15 @@ public class Exp_Tracker extends Fragment {
                     vm.InsertInHandBalance(entity1);
                 }
 
-                budgetEntity oldBudget = getBudget();
-                try{
-                    budgetEntity bud = oldBudget;
-                    vm.DeleteBudget();
-                    bud.setBal(oldBudget.getBal() + amt);
-                    vm.InsertBudget(bud);
-                }catch (Exception ignored){}
+                try {
+                    if (Commons.isAfterDate(getBudget().getCreationDate())){
+                        budgetEntity oldBudget = getBudget();
+                        budgetEntity bud = oldBudget;
+                        vm.DeleteBudget();
+                        bud.setBal(oldBudget.getBal() + amt);
+                        vm.InsertBudget(bud);
+                    }
+                } catch (Exception ignored) {}
 
                 vm.DeleteExp(entity);
                 adapter.clear();
@@ -477,13 +486,16 @@ public class Exp_Tracker extends Fragment {
             bal.setBalance(oldBal - Integer.parseInt(expAmt.getText().toString()));
             vm.InsertInHandBalance(bal);
         }
-        budgetEntity oldBudget;
+
         try {
-            oldBudget = getBudget();
-            budgetEntity bud = oldBudget;
-            vm.DeleteBudget();
-            bud.setBal(oldBudget.getBal() - Integer.parseInt(expAmt.getText().toString()));
-            vm.InsertBudget(bud);
+            budgetEntity oldBudget;
+            if (Commons.isAfterDate(getBudget().getCreationDate())) {
+                oldBudget = getBudget();
+                budgetEntity bud = oldBudget;
+                vm.DeleteBudget();
+                bud.setBal(oldBudget.getBal() - Integer.parseInt(expAmt.getText().toString()));
+                vm.InsertBudget(bud);
+            }
         } catch (Exception ignored) {}
 
         expView.setText(adapter.getTotalExpStr());
@@ -582,7 +594,6 @@ public class Exp_Tracker extends Fragment {
         super.onResume();
         initViewModel();
         getBalance();
-//        getExp();
         getBudget();
     }
 

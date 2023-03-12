@@ -16,12 +16,10 @@ import app.personal.fury.R;
 
 public class infoGraphicsAdapter extends PagerAdapter {
 
-    private final Context context;
     private final int[] images;
     private final LayoutInflater inflater;
 
     public infoGraphicsAdapter(Context context, int[] images) {
-        this.context = context;
         this.images = images;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -43,9 +41,7 @@ public class infoGraphicsAdapter extends PagerAdapter {
         ImageView imageView = itemView.findViewById(R.id.infoGraphics);
         try{
             imageView.setImageResource(images[position]);
-        }catch (Exception e){
-            imageView.setImageResource(R.drawable.nav_icon_settings);
-        }
+        }catch (Exception ignored){}
         Objects.requireNonNull(container).addView(itemView);
         return itemView;
     }

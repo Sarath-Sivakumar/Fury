@@ -20,7 +20,7 @@ public class Constants {
     public static final String Dues = "Dues And Debt",
             Exp = "Expense Tracker",
             Earnings = "Earnings Tracker",
-            main = "Fury",
+            main = "Dashboard",
             Budget = "Budgets",
             RUPEE = "₹",
             DEBT_PAID = "Paid",
