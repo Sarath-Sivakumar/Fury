@@ -67,6 +67,7 @@ public class signUp extends AppCompatActivity {
         pass2 = findViewById(R.id.u_pass2);
         progress = findViewById(R.id.progress);
 
+        observeForError();
 
         pass2.setOnTouchListener((v, event) -> {
             final int Right=2;
@@ -115,8 +116,6 @@ public class signUp extends AppCompatActivity {
                                         if (firebaseUser.getEmail().equals(mail)) {
                                             finishAffinity();
                                         }
-                                    }else{
-
                                     }
                                 });
                             } else {
@@ -139,6 +138,16 @@ public class signUp extends AppCompatActivity {
                 Commons.SnackBar(signUp, "No internet available");
             }
         });
-
+    }
+    private void observeForError(){
+        uvm.getFirebaseError().observe(this, s -> {
+            if (!s.equals("Null")){
+                Commons.SnackBar(progress, s);
+                if (progress.getVisibility()==View.VISIBLE){
+                    progress.setVisibility(View.GONE);
+                }
+                uvm.setDefaultError();
+            }
+        });
     }
 }

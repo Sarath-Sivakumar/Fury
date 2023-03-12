@@ -115,6 +115,9 @@ public class Login extends AppCompatActivity {
         uvm.getFirebaseError().observe(this, s -> {
             if (!s.equals("Null")){
                 Commons.SnackBar(progress, s);
+                if (progress.getVisibility()==View.VISIBLE){
+                    progress.setVisibility(View.GONE);
+                }
                 uvm.setDefaultError();
             }
         });
