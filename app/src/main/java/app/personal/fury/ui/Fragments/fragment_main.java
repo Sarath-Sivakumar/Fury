@@ -233,8 +233,7 @@ public class fragment_main extends Fragment {
             totalExp.setText(tex);
             String tba = Constants.RUPEE + totalBa;
             totalBal.setText(tba);
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
     }
 
     private void callWarningPopup(debtEntity debt) {

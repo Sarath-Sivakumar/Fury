@@ -63,7 +63,7 @@
                     android:layout_marginBottom="0dp" />
 
                 <include
-                    layout="@layout/nav_options_about"
+                    layout="@layout/nav_options_utils"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
@@ -72,7 +72,7 @@
                     android:layout_marginBottom="12dp" />
 
                 <include
-                    layout="@layout/nav_options_utils"
+                    layout="@layout/nav_options_about"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
