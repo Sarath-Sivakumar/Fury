@@ -34,9 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="0dp"
                 android:layout_marginTop="70sp"
-                android:fontFamily="@font/raleway_bold"
                 android:text="@string/welcome_nback"
-                android:textSize="22sp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <ScrollView
@@ -53,9 +52,10 @@
                 <EditText
                     android:id="@+id/l_mail"
                     android:layout_width="300dp"
+                    android:fontFamily="@font/work_sans_semibold"
                     android:layout_height="?actionBarSize"
-                    android:fontFamily="@font/raleway_semibold"
                     android:hint="@string/email"
+                    android:longClickable="false"
                     android:singleLine="true"
                     android:textSize="16sp" />
 
@@ -67,7 +67,7 @@
                         android:id="@+id/l_pass"
                         android:layout_width="300dp"
                         android:layout_height="?actionBarSize"
-                        android:fontFamily="@font/raleway_semibold"
+                        android:fontFamily="@font/work_sans_semibold"
                         android:hint="@string/password"
                         android:inputType="textPassword"
                         android:longClickable="false"

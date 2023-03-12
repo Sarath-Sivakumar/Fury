@@ -251,6 +251,46 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/textstyle2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_weight=".8"
+                    android:text="@string/learn_with_fury"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:orientation="vertical">
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/infoGraphics_vp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:minHeight="200dp" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/infoGraphics_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@android:color/transparent"
+                    app:tabBackground="@drawable/tab_selector"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp" />
+            </FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:layout_marginEnd="6dp"
                 android:layout_marginTop="12dp"
@@ -520,53 +560,14 @@
                         android:layout_weight=".25"
                         android:fontFamily="@font/source_sans_pro_semibold"
                         android:gravity="center"
-                        android:textColor="@color/white"
+                        android:textColor="@color/l3"
                         android:textSize="18sp" />
 
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
 
-                <TextView
-                    style="@style/textstyle2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp"
-                    android:layout_weight=".8"
-                    android:text="@string/learn_with_fury"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:orientation="vertical">
-
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/infoGraphics_vp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:minHeight="200dp" />
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/infoGraphics_tab"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:background="@android:color/transparent"
-                    app:tabBackground="@drawable/tab_selector"
-                    app:tabGravity="center"
-                    app:tabIndicatorHeight="0dp" />
-            </FrameLayout>
 
 
             <LinearLayout
@@ -636,7 +637,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
                 android:layout_marginBottom="12dp"
                 android:orientation="vertical">
 
@@ -654,7 +654,7 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="120dp"
+                        android:layout_height="60dp"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:text="Great! There's No Pending Dues." />
@@ -670,7 +670,7 @@
                     android:background="@android:color/transparent"
                     android:divider="@null"
                     android:isScrollContainer="true"
-                    android:minHeight="90dp"
+                    android:minHeight="65dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:reverseLayout="true"

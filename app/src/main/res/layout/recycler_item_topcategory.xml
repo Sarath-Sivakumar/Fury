@@ -31,9 +31,8 @@
             android:layout_height="match_parent"
             android:layout_marginStart="12dp"
             android:gravity="center|start"
-            android:fontFamily="@font/source_sans_pro_semibold"
             android:textColor="?attr/colorOnSecondary"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
     </LinearLayout>
 

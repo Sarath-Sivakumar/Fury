@@ -33,9 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginTop="70sp"
-            android:fontFamily="@font/raleway_bold"
             android:text="Create\nAccount"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <ScrollView
@@ -54,7 +53,7 @@
                 android:layout_width="300dp"
                 android:layout_height="?actionBarSize"
                 android:drawableEnd="@drawable/common_icon_person"
-                android:fontFamily="@font/raleway_semibold"
+                android:fontFamily="@font/work_sans_semibold"
                 android:hint="@string/name"
                 android:singleLine="true"
                 android:textSize="16sp" />
@@ -64,7 +63,7 @@
                 android:layout_width="300dp"
                 android:layout_height="?actionBarSize"
                 android:drawableEnd="@drawable/common_icon_mail"
-                android:fontFamily="@font/raleway_semibold"
+                android:fontFamily="@font/work_sans_semibold"
                 android:hint="@string/email"
                 android:singleLine="true"
                 android:textSize="16sp" />
@@ -74,7 +73,7 @@
                 android:layout_width="300dp"
                 android:layout_height="?actionBarSize"
                 android:drawableEnd="@drawable/common_icon_password"
-                android:fontFamily="@font/raleway_semibold"
+                android:fontFamily="@font/work_sans_semibold"
                 android:hint="@string/create_password"
                 android:inputType="textPassword"
                 android:longClickable="false"
@@ -86,7 +85,7 @@
                 android:layout_width="300dp"
                 android:layout_height="?actionBarSize"
                 android:drawableEnd="@drawable/common_icon_eyeclose"
-                android:fontFamily="@font/raleway_semibold"
+                android:fontFamily="@font/work_sans_semibold"
                 android:hint="@string/confirm_password"
                 android:inputType="textPassword"
                 android:longClickable="false"

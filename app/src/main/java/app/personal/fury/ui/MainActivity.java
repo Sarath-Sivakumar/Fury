@@ -344,6 +344,8 @@ public class MainActivity extends AppCompatActivity {
                 rate();
             } else if (item.getItemId()==R.id.donate) {
                 donate(navView);
+            } else if (item.getItemId()==R.id.invite) {
+                share(MainActivity.this);
             }else{
                 Log.e("App", "Daddy stop! Please aaaah!");
             }
@@ -363,6 +365,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private  void share(Context context){
+        Intent sentIntent = new Intent();
+        sentIntent.setAction(Intent.ACTION_SEND);
+        sentIntent.putExtra(Intent.EXTRA_TEXT,"Get Fury now on : https://play.google.com/store/apps/details?id="+getPackageName());
+        sentIntent.setType("text/plain");
+        context.startActivity(sentIntent);
+    }
+
     @SuppressLint("SetTextI18n")
     private void donate(View navView){
         PopupWindow popupWindow = new PopupWindow(this);
@@ -377,7 +387,8 @@ public class MainActivity extends AppCompatActivity {
         Button no = view.findViewById(R.id.dno_btn);
         no.setOnClickListener(v -> popupWindow.dismiss());
         yes.setOnClickListener(v -> {
-
+            popupWindow.dismiss();
+            Commons.SnackBar(navView, "Oops! something went wrong :(");
         });
 
         popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);

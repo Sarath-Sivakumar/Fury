@@ -33,6 +33,15 @@
     <ListView
         android:id="@+id/notificationList"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/no_noti"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="No new notifications"
+        android:textSize="16sp"/>
 
 </LinearLayout>

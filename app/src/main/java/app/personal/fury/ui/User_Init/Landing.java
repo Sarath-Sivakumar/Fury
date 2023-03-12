@@ -24,7 +24,7 @@ public class Landing extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.init_activity_landing);
         init();
-        Tutorial();
+//        Tutorial();
     }
 
     private void init() {
@@ -34,31 +34,31 @@ public class Landing extends AppCompatActivity {
         signup.setOnClickListener(v -> startActivity(new Intent(this, signUp.class)));
     }
 
-    private void Tutorial(){
-        appVM = new ViewModelProvider(this).get(AppUtilViewModel.class);
-        appVM.getCheckerData().observe(this,launchChecker -> {
-            try{
-//                Init Tutorial here
-                if (launchChecker.getTimesLaunched()==0){
-                    MaterialTapTargetPrompt.Builder builder = new MaterialTapTargetPrompt.Builder(this);
-                    builder.setTarget(signup);
-                    builder.setPrimaryTextGravity(Gravity.CENTER);
-                    builder.setSecondaryTextGravity(Gravity.CENTER);
-                    builder.setTextGravity(Gravity.CENTER);
-                    builder.setPrimaryText("Welcome to Fury!");
-                    builder.setSecondaryText("If you're here for the first time,please sign up and join our community.");
-                    builder.setBackgroundColour(getResources().getColor(R.color.d2));
-                    builder.setFocalColour(getResources().getColor(R.color.l1));
-                    builder.setBackButtonDismissEnabled(false);
-                    builder.setPromptStateChangeListener((prompt, state) -> {
-                        //Use if needed
-                    });
-                    builder.show();
-                }
-            }catch (Exception e){
-                e.printStackTrace();
-                appVM.InsertLaunchChecker(new LaunchChecker(0));
-            }
-        });
-    }
+//    private void Tutorial(){
+//        appVM = new ViewModelProvider(this).get(AppUtilViewModel.class);
+//        appVM.getCheckerData().observe(this,launchChecker -> {
+//            try{
+////                Init Tutorial here
+//                if (launchChecker.getTimesLaunched()==0){
+//                    MaterialTapTargetPrompt.Builder builder = new MaterialTapTargetPrompt.Builder(this);
+//                    builder.setTarget(signup);
+//                    builder.setPrimaryTextGravity(Gravity.CENTER);
+//                    builder.setSecondaryTextGravity(Gravity.CENTER);
+//                    builder.setTextGravity(Gravity.CENTER);
+//                    builder.setPrimaryText("Welcome to Fury!");
+//                    builder.setSecondaryText("If you're here for the first time,please sign up and join our community.");
+//                    builder.setBackgroundColour(getResources().getColor(R.color.d2));
+//                    builder.setFocalColour(getResources().getColor(R.color.l1));
+//                    builder.setBackButtonDismissEnabled(false);
+//                    builder.setPromptStateChangeListener((prompt, state) -> {
+//                        //Use if needed
+//                    });
+//                    builder.show();
+//                }
+//            }catch (Exception e){
+//                e.printStackTrace();
+//                appVM.InsertLaunchChecker(new LaunchChecker(0));
+//            }
+//        });
+//    }
 }

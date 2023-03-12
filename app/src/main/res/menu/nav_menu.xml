@@ -22,6 +22,11 @@
             android:title="Donate" />
 
         <item
+            android:id="@+id/invite"
+            android:icon="@drawable/nav_icon_share"
+            android:title="Invite Friends" />
+
+        <item
             android:id="@+id/logout"
             android:icon="@drawable/nav_icon_logout"
             android:title="Logout" />
