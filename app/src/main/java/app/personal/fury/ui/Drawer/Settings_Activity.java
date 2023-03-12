@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -25,6 +27,7 @@ import java.io.IOException;
 
 import app.personal.MVVM.Entity.userEntity;
 import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
+import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
@@ -32,12 +35,18 @@ import app.personal.fury.R;
 public class Settings_Activity extends AppCompatActivity {
 
     private LoggedInUserViewModel userVM;
+    private mainViewModel mainVM;
     private ImageButton uploadPic;
     private ImageView profilePic;
     private TextView profileName;
     private EditText profileNameEdit;
     private Button save, discard;
-    private Button contact, faq, feedback, privacy, terms, about;
+    private Button contact;
+    private Button faq;
+    private Button feedback;
+    private Button privacy;
+    private Button terms;
+    private Button about;
     private userEntity userData = new userEntity();
     // request code
     private final int PICK_IMAGE_REQUEST = 22;
@@ -47,6 +56,7 @@ public class Settings_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_activity_settings);
         userVM = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
+        mainVM = new ViewModelProvider(this).get(mainViewModel.class);
         init();
     }
 
@@ -54,6 +64,17 @@ public class Settings_Activity extends AppCompatActivity {
         findView();
         getUserData();
         OnClick();
+    }
+
+    private void clearData() {
+//        Call a popup before this..
+        mainVM.DeleteAllDebt();
+        mainVM.DeleteAllSalary();
+        mainVM.DeleteAllExp();
+        mainVM.DeleteBudget();
+        mainVM.DeleteBalance();
+        mainVM.DeleteInHandBalance();
+        finish();
     }
 
     private void getUserData() {
@@ -82,6 +103,7 @@ public class Settings_Activity extends AppCompatActivity {
         privacy = findViewById(R.id.p_policies);
         terms = findViewById(R.id.t_c);
         about = findViewById(R.id.app_info);
+        Button clearData = findViewById(R.id.u_clearData);
 
         uploadPic = findViewById(R.id.uploadPic);
         profilePic = findViewById(R.id.profilePic);
@@ -96,6 +118,7 @@ public class Settings_Activity extends AppCompatActivity {
             profileNameEdit.setText(profileName.getText().toString());
             profileName.setVisibility(View.GONE);
         });
+        clearData.setOnClickListener(v -> callPopupWindow());
     }
 
     private void OnClick() {
@@ -109,20 +132,20 @@ public class Settings_Activity extends AppCompatActivity {
         });
 
         faq.setOnClickListener(v -> {
-            Intent i = new Intent(this, WebViewActivity.class);
-            i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "FAQ");
-            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "URL here");
-            startActivity(i);
+//            Intent i = new Intent(this, WebViewActivity.class);
+//            i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "FAQ");
+//            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "URL here");
+//            startActivity(i);
         });
 
         feedback.setOnClickListener(v -> {
 
             Intent intent = new Intent(Intent.ACTION_SENDTO);
-            String UriText = "mailto:" +      Uri.encode("shoptourhome@gmail.com") +"?subject="+
+            String UriText = "mailto:" + Uri.encode("shoptourhome@gmail.com") + "?subject=" +
                     Uri.encode("Write to us: ") + Uri.encode("");
             Uri uri = Uri.parse(UriText);
             intent.setData(uri);
-            startActivity(Intent.createChooser(intent,"send email"));
+            startActivity(Intent.createChooser(intent, "send email"));
 //            Toast.makeText(this, "Thanks for the,feedback!", Toast.LENGTH_SHORT).show();
 
         });
@@ -130,21 +153,21 @@ public class Settings_Activity extends AppCompatActivity {
         privacy.setOnClickListener(v -> {
             Intent i = new Intent(this, WebViewActivity.class);
             i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "Privacy Policy");
-            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "file:///android_asset/web_resources/privacy_policy.html");
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL, "file:///android_asset/web_resources/privacy_policy.html");
             startActivity(i);
         });
 
         terms.setOnClickListener(v -> {
             Intent i = new Intent(this, WebViewActivity.class);
             i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "Terms and Conditions");
-            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "file:///android_asset/web_resources/t_c.html");
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL, "file:///android_asset/web_resources/t_c.html");
             startActivity(i);
         });
 
         about.setOnClickListener(v -> {
             Intent i = new Intent(this, WebViewActivity.class);
             i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "About us");
-            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "file:///android_asset/web_resources/about_app.html");
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL, "file:///android_asset/web_resources/about_app.html");
             startActivity(i);
         });
 
@@ -172,6 +195,63 @@ public class Settings_Activity extends AppCompatActivity {
             save.setVisibility(View.GONE);
             discard.setVisibility(View.GONE);
         });
+    }
+
+    private void fakeLoadingScreen() {
+        new CountDownTimer(3000, 1000) {
+            final PopupWindow popupWindow = new PopupWindow(Settings_Activity.this);
+            @Override
+            public void onTick(long millisUntilFinished) {
+                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                assert inflater !=null;
+                View view = inflater.inflate(R.layout.popup_budget_fake_loading, null);
+                TextView t = view.findViewById(R.id.loadingText);
+                String s = "Clearing your data, please wait..";
+                t.setText(s);
+                popupWindow.setContentView(view);
+                popupWindow.setFocusable(true);
+                popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+                popupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+                popupWindow.setBackgroundDrawable(null);
+                popupWindow.setElevation(6);
+                popupWindow.showAsDropDown(about);
+            }
+
+            @Override
+            public void onFinish() {
+                popupWindow.dismiss();
+                clearData();
+            }
+        }.start();
+
+    }
+
+    private void callPopupWindow() {
+        PopupWindow popupWindow = new PopupWindow(this);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
+        View view = inflater.inflate(R.layout.popup_action_balanceclear, null);
+        popupWindow.setContentView(view);
+        popupWindow.setFocusable(true);
+
+        TextView warning = view.findViewById(R.id.dlttxt);
+        Button yes = view.findViewById(R.id.dyes_btn);
+        Button no = view.findViewById(R.id.dno_btn);
+
+        String s = "This will clear all your data.";
+        warning.setText(s);
+        no.setOnClickListener(v -> popupWindow.dismiss());
+        yes.setOnClickListener(v -> {
+            fakeLoadingScreen();
+            popupWindow.dismiss();
+        });
+
+        popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+        popupWindow.setBackgroundDrawable(null);
+        popupWindow.setElevation(6);
+        popupWindow.setOverlapAnchor(true);
+        popupWindow.showAsDropDown(uploadPic);
     }
 
     private void callPopupWindow(ImageButton uploadPic) {

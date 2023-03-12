@@ -63,6 +63,9 @@ public class localRepository {
     public void DeleteDebt(debtEntity debt){
         new DeleteDebtAsyncTask(dao).execute(debt);
     }
+    public void DeleteAllDebt(){
+        new DeleteAllDebtAsyncTask(dao).execute();
+    }
 
     public void InsertSalary(salaryEntity salary) {
         new InsertSalAsyncTask(dao).execute(salary);
@@ -75,6 +78,9 @@ public class localRepository {
     public void DeleteSalary(salaryEntity salary){
         new DeleteSalAsyncTask(dao).execute(salary);
     }
+    public void DeleteAllSalary(){
+        new DeleteAllSalAsyncTask(dao).execute();
+    }
 
     public void InsertExp(expEntity exp) {
         new InsertExpAsyncTask(dao).execute(exp);
@@ -86,6 +92,9 @@ public class localRepository {
 
     public void DeleteExp(expEntity exp){
         new DeleteExpAsyncTask(dao).execute(exp);
+    }
+    public void DeleteAllExp(){
+        new DeleteAllExpAsyncTask(dao).execute();
     }
 
     public void InsertBudget(budgetEntity budgetEntity){
@@ -159,6 +168,19 @@ public class localRepository {
         @Override
         protected Void doInBackground(expEntity... entities) {
             dao.DeleteExp(entities[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteAllExpAsyncTask extends AsyncTask<Void,Void,Void> {
+        private  localDao dao;
+        private DeleteAllExpAsyncTask(localDao dao){
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            dao.deleteAllExpData();
             return null;
         }
     }
@@ -256,6 +278,19 @@ public class localRepository {
             return null;
         }
     }
+
+    private static class DeleteAllSalAsyncTask extends AsyncTask<Void,Void,Void> {
+        private  localDao dao;
+        private DeleteAllSalAsyncTask(localDao dao){
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            dao.DeleteAllSal();
+            return null;
+        }
+    }
     //----------------------------------------------------------------------------------------------
     //Debt background task------------------------------------------------------------------------
     private static class InsertDebtAsyncTask extends AsyncTask<debtEntity,Void,Void> {
@@ -293,6 +328,19 @@ public class localRepository {
         @Override
         protected Void doInBackground(debtEntity... entities) {
             dao.DeleteDebt(entities[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteAllDebtAsyncTask extends AsyncTask<Void,Void,Void> {
+        private  localDao dao;
+        private DeleteAllDebtAsyncTask(localDao dao){
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            dao.DeleteAllDebt();
             return null;
         }
     }
@@ -337,5 +385,4 @@ public class localRepository {
             return null;
         }
     }
-
 }

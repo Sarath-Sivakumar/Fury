@@ -9,7 +9,6 @@ import androidx.lifecycle.LiveData;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import app.personal.MVVM.Entity.balanceEntity;
@@ -19,7 +18,6 @@ import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Entity.inHandBalEntity;
 import app.personal.MVVM.Entity.salaryEntity;
 import app.personal.MVVM.Repository.localRepository;
-import app.personal.Utls.Constants;
 
 public class mainViewModel extends AndroidViewModel {
 
@@ -70,6 +68,10 @@ public class mainViewModel extends AndroidViewModel {
         repo.DeleteExp(entity);
     }
 
+    public void DeleteAllExp(){
+        repo.DeleteAllExp();
+    }
+
     public void InsertBalance(balanceEntity entity) {
         repo.InsertBalance(entity);
     }
@@ -98,6 +100,10 @@ public class mainViewModel extends AndroidViewModel {
         repo.DeleteSalary(entity);
     }
 
+    public void DeleteAllSalary(){
+        repo.DeleteAllSalary();
+    }
+
     public void InsertDebt(debtEntity entity) {
         repo.InsertDebt(entity);
     }
@@ -108,6 +114,10 @@ public class mainViewModel extends AndroidViewModel {
 
     public void DeleteDebt(debtEntity entity) {
         repo.DeleteDebt(entity);
+    }
+
+    public void DeleteAllDebt(){
+        repo.DeleteAllDebt();
     }
 
     public void InsertBudget(budgetEntity entity) {

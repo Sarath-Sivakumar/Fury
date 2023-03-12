@@ -69,6 +69,9 @@ public interface localDao {
     @Delete
     void DeleteSal(salaryEntity entity);
 
+    @Query("DELETE FROM Salary_Table")
+    void DeleteAllSal();
+
     @Query("SELECT * FROM Salary_Table ORDER BY id DESC")
     LiveData<List<salaryEntity>> getSalData();
 
@@ -82,6 +85,9 @@ public interface localDao {
 
     @Delete
     void DeleteDebt(debtEntity entity);
+
+    @Query("DELETE FROM Debt_Table")
+    void DeleteAllDebt();
 
     @Query("SELECT * FROM Debt_Table ORDER BY id DESC")
     LiveData<List<debtEntity>> getDebtData();
