@@ -124,6 +124,6 @@ public class Login extends AppCompatActivity {
     }
 
     private void forgotPassword(){
-        startActivity(new Intent(Login.this,forgot_pass.class));
+        startActivity(new Intent(Login.this, app.personal.fury.ui.User_Init.login.forgot_pass.class));
     }
 }

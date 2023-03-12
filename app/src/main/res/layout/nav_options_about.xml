@@ -21,6 +21,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:background="@drawable/button_settings"
                 android:id="@+id/p_policies"
+                android:textAllCaps="false"
                 android:layout_width="match_parent"
                 android:drawableLeft="@drawable/common_icon_privacy"
                 android:layout_height="wrap_content"
@@ -37,6 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
+                android:textAllCaps="false"
                 android:drawableLeft="@drawable/common_icon_file"
                 android:gravity="start|center"
                 android:text="@string/terms_conditions"
@@ -50,6 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
                 android:gravity="start|center"
+                android:textAllCaps="false"
                 android:text="@string/about_fury"
                 android:drawableLeft="@drawable/common_icon_about"
                 android:textSize="14sp" />

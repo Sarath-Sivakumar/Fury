@@ -26,7 +26,8 @@
             android:background="@drawable/button_settings"
             android:drawableLeft="@drawable/common_icon_trash"
             android:gravity="start|center"
-            android:text="ClearData"
+            android:textAllCaps="false"
+            android:text="Clear all data"
             android:textSize="14sp" />
 
     </LinearLayout>
