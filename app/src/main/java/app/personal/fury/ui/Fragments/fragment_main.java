@@ -71,7 +71,7 @@ public class fragment_main extends Fragment {
     private int progress = 0;
     private AdView ad;
     private RecyclerView dueList;
-    private LinearLayout noDues,statview,statdisabled;
+    private LinearLayout noDues, statview, statdisabled;
     private int filter = 0;
     private boolean isViewed = false;
     private final ArrayList<debtEntity> debtList = new ArrayList<>();
@@ -104,12 +104,11 @@ public class fragment_main extends Fragment {
         statdisabled = v.findViewById(R.id.stat_disable);
 
         statButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked){
+            if (isChecked) {
                 statview.setVisibility(View.VISIBLE);
                 statdisabled.setVisibility(View.GONE);
 //                statButton.setText("Active");
-            }
-            else {
+            } else {
                 statview.setVisibility(View.GONE);
                 statdisabled.setVisibility(View.VISIBLE);
 //                statButton.setText("Inactive");
@@ -234,8 +233,7 @@ public class fragment_main extends Fragment {
             totalExp.setText(tex);
             String tba = Constants.RUPEE + totalBa;
             totalBal.setText(tba);
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
     }
 
     private void callWarningPopup(debtEntity debt) {
@@ -320,11 +318,10 @@ public class fragment_main extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViewModel();
-        try {
+        if (budgetTotalAmount > 0) {
             progress = Commons.setProgress(expense, budgetTotalAmount);
             setMain(progress);
-        } catch (Exception e) {
-//          No budget set yet...
+        } else {
             progress = Commons.setProgress(expense, salary);
             setMain(progress);
         }
@@ -344,18 +341,6 @@ public class fragment_main extends Fragment {
                 String s = Constants.RUPEE + budgetEntities.getAmount();
                 budgetView.setText(s);
                 budgetTotalAmount = budgetEntities.getAmount();
-                if (!isViewed){
-                    debtWaring();
-                    isViewed=true;
-                }
-                try {
-                    progress = Commons.setProgress(expense, budgetTotalAmount);
-                    setMain(progress);
-                } catch (Exception e) {
-//                    No budget set yet...
-                    progress = Commons.setProgress(expense, salary);
-                    setMain(progress);
-                }
             } catch (Exception e) {
                 budgetTotalAmount = 0;
                 try {
@@ -365,6 +350,17 @@ public class fragment_main extends Fragment {
                     budgetView.setElegantTextHeight(true);
                 } catch (Exception ignored) {
                 }
+            }
+            if (!isViewed) {
+                debtWaring();
+                isViewed = true;
+            }
+            if (budgetTotalAmount > 0) {
+                progress = Commons.setProgress(expense, budgetTotalAmount);
+                setMain(progress);
+            } else {
+                progress = Commons.setProgress(expense, salary);
+                setMain(progress);
             }
             setStat();
         });
@@ -391,7 +387,8 @@ public class fragment_main extends Fragment {
                 expense = expense + expEntities.get(i).getExpenseAmt();
             }
             cAdapter.setExpes(expEntities, salary, filter);
-
+            String p = Constants.RUPEE + expense;
+            expView.setText(p);
             try {
                 if (Commons.getAvg(expEntities, true).equals(Constants.dAvgNoData)) {
                     dAvg.setTextSize(12);
@@ -490,10 +487,10 @@ public class fragment_main extends Fragment {
     private void setMain(int progress) {
         mainProgressBar.setProgress(progress, true);
         String prg;
-        if (progress > 0 && progress <= 100) {
+        if (progress >= 0 && progress <= 100) {
             prg = progress + "%";
         } else {
-            prg = 0 + "%";
+            prg = "NaN";
         }
         setStat();
         mainProgressText.setText(prg);

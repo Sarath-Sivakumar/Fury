@@ -16,10 +16,13 @@ public class userInitViewModel extends AndroidViewModel {
     private final AuthRepository authRepo;
     private final MutableLiveData<FirebaseUser> userId;
 
+    private final MutableLiveData<String> FirebaseAuthError;
+
     public userInitViewModel(@NonNull Application application) {
         super(application);
         authRepo = new AuthRepository(application);
         userId = authRepo.getUserId();
+        FirebaseAuthError = authRepo.getFirebaseError();
     }
 
     public void checkForUser(){
@@ -35,5 +38,11 @@ public class userInitViewModel extends AndroidViewModel {
 
     public MutableLiveData<FirebaseUser> getUserId(){
         return userId;
+    }
+    public MutableLiveData<String> getFirebaseError(){
+        return FirebaseAuthError;
+    }
+    public void setDefaultError(){
+        authRepo.setDefaultError();
     }
 }
