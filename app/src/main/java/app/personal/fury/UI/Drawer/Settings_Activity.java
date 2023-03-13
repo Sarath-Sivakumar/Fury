@@ -133,7 +133,6 @@ public class Settings_Activity extends AppCompatActivity {
     }
 
     private void clearData() {
-//        Call a popup before this.. ca-app-pub-3940256099942544/1033173712
         mainVM.DeleteBalance();
         mainVM.DeleteInHandBalance();
         mainVM.DeleteAllDebt();
