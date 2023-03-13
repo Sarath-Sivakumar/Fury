@@ -27,14 +27,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/version"
-            android:layout_marginBottom="24dp"
-            android:fontFamily="@font/work_sans_semibold"
-            android:textSize="8sp"
-            android:gravity="center"/>
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/version"-->
+<!--            android:layout_marginBottom="24dp"-->
+<!--            android:fontFamily="@font/work_sans_semibold"-->
+<!--            android:textSize="8sp"-->
+<!--            android:gravity="center"/>-->
 
     </LinearLayout>
 </FrameLayout>

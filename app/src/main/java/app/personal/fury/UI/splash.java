@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
 
 import androidx.annotation.Nullable;
@@ -42,8 +43,8 @@ public class splash extends AppCompatActivity {
                 appVm.InsertLaunchChecker(new LaunchChecker(0));
             }
         });
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.init_splash);
     }
 
@@ -64,7 +65,7 @@ public class splash extends AppCompatActivity {
             viewAnimator = ViewCompat.animate(v)
                     .scaleX(5).scaleY(5)
                     .setStartDelay(0)
-                    .setDuration(300);
+                    .setDuration(200);
             viewAnimator.setInterpolator(new DecelerateInterpolator()).start();
             animationStarted = true;
         }
