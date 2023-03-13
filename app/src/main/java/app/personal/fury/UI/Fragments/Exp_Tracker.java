@@ -30,6 +30,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -61,6 +63,7 @@ public class Exp_Tracker extends Fragment {
     private int accBal = 0, inHandBal = 0, cashAmt, cashCount, accAmt, accCount, cDAvg, s2;
     private String userName = "";
     private AppUtilViewModel appVM;
+    private AdView ad;
     private boolean isViewed = false;
 
     public Exp_Tracker() {
@@ -92,6 +95,8 @@ public class Exp_Tracker extends Fragment {
         fltBtn.setOnClickListener(v1 -> callPopupWindow(Constants.itemAdd));
         String s1 = Constants.RUPEE + (getBalance() + getInHandBalance());
         balanceView.setText(s1);
+        ad = v.findViewById(R.id.adView3);
+        requestAd();
     }
 
     private void initViewModel() {
@@ -149,6 +154,11 @@ public class Exp_Tracker extends Fragment {
                 e1.printStackTrace();
             }
         });
+    }
+
+    private void requestAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        ad.loadAd(adRequest);
     }
 
     private budgetEntity getBudget() {
