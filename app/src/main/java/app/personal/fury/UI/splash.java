@@ -25,6 +25,7 @@ public class splash extends AppCompatActivity {
     private int currLaunch = 0;
     private boolean animationStarted = false;
     private userInitViewModel uvm;
+    private int animScale = 5;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,7 +64,7 @@ public class splash extends AppCompatActivity {
             View v = container.getChildAt(i);
             ViewPropertyAnimatorCompat viewAnimator;
             viewAnimator = ViewCompat.animate(v)
-                    .scaleX(5).scaleY(5)
+                    .scaleX(animScale).scaleY(animScale)
                     .setStartDelay(0)
                     .setDuration(200);
             viewAnimator.setInterpolator(new DecelerateInterpolator()).start();
