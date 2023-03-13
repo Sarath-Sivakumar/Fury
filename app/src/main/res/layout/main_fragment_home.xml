@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Fragments.fragment_main">
+    tools:context=".UI.Fragments.fragment_main">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -365,7 +365,7 @@
                     android:layout_marginBottom="0dp"
                     android:baselineAligned="false"
                     android:orientation="horizontal">
-                    <!--If not textview is not used then use view-->
+                    <!--If textview is not used then use view-->
                     <View
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -382,10 +382,9 @@
                         android:layout_gravity="center"
                         android:layout_margin="3dp"
                         android:layout_weight=".25"
-                        android:fontFamily="@font/source_sans_pro_semibold"
                         android:gravity="center"
                         android:text="Earnings"
-                        android:textColor="@color/theme_green"
+                        android:textColor="@color/l1"
                         android:textSize="14sp" />
 
                     <TextView
@@ -394,10 +393,9 @@
                         android:layout_gravity="center"
                         android:layout_margin="3dp"
                         android:layout_weight=".25"
-                        android:fontFamily="@font/source_sans_pro_semibold"
                         android:gravity="center"
                         android:text="Expense"
-                        android:textColor="@color/theme_green"
+                        android:textColor="@color/l1"
                         android:textSize="14sp" />
 
                     <TextView
@@ -406,10 +404,9 @@
                         android:layout_gravity="center"
                         android:layout_margin="3dp"
                         android:layout_weight=".25"
-                        android:fontFamily="@font/source_sans_pro_semibold"
                         android:gravity="center"
                         android:text="Balance"
-                        android:textColor="@color/theme_green"
+                        android:textColor="@color/l1"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -426,10 +423,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight=".25"
-                        android:fontFamily="@font/source_sans_pro_semibold"
                         android:gravity="center"
                         android:text="Cash"
-                        android:textColor="@color/theme_green"
+                        android:textColor="@color/l1"
                         android:textSize="14sp" />
 
                     <TextView
@@ -476,10 +472,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight=".25"
-                        android:fontFamily="@font/source_sans_pro_semibold"
                         android:gravity="center"
                         android:text="Bank"
-                        android:textColor="@color/theme_green"
+                        android:textColor="@color/l1"
                         android:textSize="14sp" />
 
                     <TextView
@@ -527,10 +522,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight=".25"
-                        android:fontFamily="@font/source_sans_pro_semibold"
                         android:gravity="center"
                         android:text="Total"
-                        android:textColor="@color/theme_green"
+                        android:textColor="@color/l1"
                         android:textSize="14sp" />
 
                     <TextView
@@ -560,7 +554,7 @@
                         android:layout_weight=".25"
                         android:fontFamily="@font/source_sans_pro_semibold"
                         android:gravity="center"
-                        android:textColor="@color/l3"
+                        android:textColor="@color/theme_green_dark"
                         android:textSize="18sp" />
 
                 </LinearLayout>
@@ -571,6 +565,7 @@
 
 
             <LinearLayout
+                android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -585,7 +580,7 @@
                     android:layout_height="0.1dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="2dp"
-                    android:background="@android:color/darker_gray" />
+                    android:background="?attr/colorPrimary" />
             </LinearLayout>
 
 
@@ -603,7 +598,7 @@
                 android:layout_height="0.05dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
-                android:background="@android:color/darker_gray" />
+                android:background="?attr/colorPrimary" />
 
             <LinearLayout
                 android:layout_width="match_parent"
