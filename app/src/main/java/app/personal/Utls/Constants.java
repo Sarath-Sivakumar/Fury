@@ -48,7 +48,10 @@ public class Constants {
             DuesData = "DUES",
             EarningsData = "EARNINGS",
             BudgetData = "BUDGET",
-            ExpFirebaseService = "expense";
+            ExpFirebaseService = "expense",
+            PromoFirebaseService = "promotion",
+            UpdateFirebaseService = "update";
+
     //Internal-------------------------------------------------------
     public static final int itemDelete = 0,
             itemAdd = 1,

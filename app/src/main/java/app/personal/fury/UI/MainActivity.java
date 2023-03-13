@@ -203,6 +203,10 @@ public class MainActivity extends AppCompatActivity {
 
         //Firebase Topics to be implemented here..
         vm.initFirebaseMessagingService(Constants.ExpFirebaseService);
+        vm.initFirebaseMessagingService(Constants.PromoFirebaseService);
+        vm.initFirebaseMessagingService(Constants.UpdateFirebaseService);
+
+
         util = new TutorialUtil(this,this, this,this);
         findView();
         initViewPager();
