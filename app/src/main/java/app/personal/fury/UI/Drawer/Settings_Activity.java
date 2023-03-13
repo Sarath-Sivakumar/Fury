@@ -1,5 +1,6 @@
 package app.personal.fury.UI.Drawer;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -21,9 +22,18 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import java.io.IOException;
 
+import app.personal.MVVM.Entity.balanceEntity;
+import app.personal.MVVM.Entity.inHandBalEntity;
 import app.personal.MVVM.Entity.userEntity;
 import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
 import app.personal.MVVM.Viewmodel.mainViewModel;
@@ -49,6 +59,7 @@ public class Settings_Activity extends AppCompatActivity {
     private userEntity userData = new userEntity();
     // request code
     private final int PICK_IMAGE_REQUEST = 22;
+    private InterstitialAd interstitial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,16 +74,87 @@ public class Settings_Activity extends AppCompatActivity {
         findView();
         getUserData();
         OnClick();
+        initAd();
+    }
+
+    private void initAd(){
+        MobileAds.initialize(this);
+        String TestAdId = "ca-app-pub-3940256099942544/1033173712";
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(
+                this,
+                TestAdId,
+                adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        interstitial = interstitialAd;
+//                        Log.i(TAG, "onAdLoaded");
+//                        Toast.makeText(MyActivity.this, "onAdLoaded()", Toast.LENGTH_SHORT).show();
+                        interstitialAd.setFullScreenContentCallback(
+                                new FullScreenContentCallback() {
+                                    @Override
+                                    public void onAdDismissedFullScreenContent() {
+                                        // Called when fullscreen content is dismissed.
+                                        // Make sure to set your reference to null so you don't
+                                        // show it a second time.
+                                        interstitial = null;
+//                                        Log.d("TAG", "The ad was dismissed.");
+                                    }
+
+                                    @Override
+                                    public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                        // Called when fullscreen content failed to show.
+                                        // Make sure to set your reference to null so you don't
+                                        // show it a second time.
+                                        interstitial = null;
+//                                        Log.d("TAG", "The ad failed to show.");
+                                    }
+
+                                    @Override
+                                    public void onAdShowedFullScreenContent() {
+                                        // Called when fullscreen content is shown.
+//                                        Log.d("TAG", "The ad was shown.");
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+//                        Log.i(TAG, loadAdError.getMessage());
+                        interstitial = null;
+
+//                        String error =
+//                                String.format(
+//                                        "domain: %s, code: %d, message: %s",
+//                                        loadAdError.getDomain(), loadAdError.getCode(), loadAdError.getMessage());
+//                        Toast.makeText(
+//                                        MyActivity.this, "onAdFailedToLoad() with error: " + error, Toast.LENGTH_SHORT)
+//                                .show();
+                    }
+                });
+    }
+
+    private void showInterstitial() {
+        // Show the ad if it's ready. Otherwise toast and restart the game.
+        if (interstitial != null) {
+            interstitial.show(this);
+        }
     }
 
     private void clearData() {
-//        Call a popup before this..
+//        Call a popup before this.. ca-app-pub-3940256099942544/1033173712
+        mainVM.DeleteBalance();
+        mainVM.DeleteInHandBalance();
         mainVM.DeleteAllDebt();
         mainVM.DeleteAllSalary();
         mainVM.DeleteAllExp();
         mainVM.DeleteBudget();
-        mainVM.DeleteBalance();
-        mainVM.DeleteInHandBalance();
+        mainVM.InsertBalance(new balanceEntity(0));
+        mainVM.InsertInHandBalance(new inHandBalEntity(0));
         finish();
     }
 
@@ -245,6 +327,7 @@ public class Settings_Activity extends AppCompatActivity {
         no.setOnClickListener(v -> popupWindow.dismiss());
         yes.setOnClickListener(v -> {
             fakeLoadingScreen();
+            showInterstitial();
             popupWindow.dismiss();
         });
 
