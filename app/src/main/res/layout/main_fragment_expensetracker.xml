@@ -27,10 +27,10 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:paddingLeft="12dp"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="6dp"
                     android:paddingRight="12dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginTop="3dp"
                     android:background="@drawable/background_mainamount"
                     android:elevation="6dp"
                     android:orientation="vertical">
@@ -78,7 +78,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp">
+                    android:layout_marginTop="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -382,10 +382,11 @@
                     style="@style/textstyle2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
                     android:gravity="start"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="5dp"
                     android:text="Today's expenses"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -394,20 +395,55 @@
                 android:id="@+id/exp_list"
                 android:layout_width="match_parent"
                 android:layout_height="450dp"
-                android:layout_margin="12dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="0dp"
                 android:background="@drawable/background_borderonly"
                 tools:listitem="@layout/recycler_item_exp" />
 
-            <!--            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"-->
-            <!--                android:id="@+id/adView"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:minHeight="50dp"-->
-            <!--                android:minWidth="320dp"-->
-            <!--                ads:adSize="BANNER"-->
-            <!--                ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />-->
-            <!--            &lt;!&ndash;Test ID ca-app-pub-3940256099942544/6300978111&ndash;&gt;-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="12dp">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ad" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="2dp"
+                        android:background="?attr/colorPrimary" />
+                </LinearLayout>
+
+                <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/adView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="50dp"
+                    android:minWidth="320dp"
+                    android:layout_marginTop="6dp"
+                    ads:adSize="BANNER"
+                    ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="6dp"
+                    android:background="?attr/colorPrimary" />
+
+            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
