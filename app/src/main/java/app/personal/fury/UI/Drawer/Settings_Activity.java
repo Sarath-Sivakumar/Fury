@@ -24,6 +24,8 @@ import com.bumptech.glide.Glide;
 
 import java.io.IOException;
 
+import app.personal.MVVM.Entity.balanceEntity;
+import app.personal.MVVM.Entity.inHandBalEntity;
 import app.personal.MVVM.Entity.userEntity;
 import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
 import app.personal.MVVM.Viewmodel.mainViewModel;
@@ -67,12 +69,14 @@ public class Settings_Activity extends AppCompatActivity {
 
     private void clearData() {
 //        Call a popup before this..
+        mainVM.DeleteBalance();
+        mainVM.DeleteInHandBalance();
         mainVM.DeleteAllDebt();
         mainVM.DeleteAllSalary();
         mainVM.DeleteAllExp();
         mainVM.DeleteBudget();
-        mainVM.DeleteBalance();
-        mainVM.DeleteInHandBalance();
+        mainVM.InsertBalance(new balanceEntity(0));
+        mainVM.InsertInHandBalance(new inHandBalEntity(0));
         finish();
     }
 

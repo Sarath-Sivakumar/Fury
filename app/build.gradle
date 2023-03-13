@@ -5,15 +5,21 @@ plugins {
 
 android {
     compileSdk 33
-
+def version = "1.0.0"
     defaultConfig {
         applicationId "app.personal.fury"
         minSdk 28
         targetSdk 33
         versionCode 1
-        versionName "1.0.0"
+        versionName version
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+//        productFlavors{
+//            flavor1{
+//                resValue("String","app_name", "Fury"+version)
+//            }
+//        }
 
         javaCompileOptions {
             annotationProcessorOptions {

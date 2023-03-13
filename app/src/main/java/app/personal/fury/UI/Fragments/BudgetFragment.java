@@ -143,8 +143,10 @@ public class BudgetFragment extends Fragment {
                 }
                 if (prevType == Constants.BUDGET_MONTHLY) {
                     s2 = Constants.RUPEE + (budgetEntities.getAmount() / Commons.getDays(Calendar.MONTH)) + " /day";
-                } else {
+                } else if (prevType == Constants.BUDGET_WEEKLY){
                     s2 = Constants.RUPEE + (budgetEntities.getAmount() / 7) + " /day";
+                }else{
+                    s2 = "-";
                 }
                 DailyLimitAllowed.setText(s2);
 
@@ -154,6 +156,8 @@ public class BudgetFragment extends Fragment {
                     BudgetAmt.setText(s);
                     String s1 = Constants.RUPEE + "0";
                     Balance.setText(s1);
+                    String s2 = "-";
+                    DailyLimitAllowed.setText(s2);
                 } catch (Exception ignored) {
                 }
             }
