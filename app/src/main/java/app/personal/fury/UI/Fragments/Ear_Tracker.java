@@ -61,7 +61,8 @@ public class Ear_Tracker extends Fragment {
     private final ArrayList<String> PrimaryTexts = new ArrayList<>();
     private final ArrayList<String> SecondaryTexts = new ArrayList<>();
     private TextView SalAmt, inHandAmt, accountAmt, inHandCount, accountCount;
-    private int oldBal = 0;
+    private int oldBal = 0, budType;
+    private String budDate;
     private final int[] FragmentList =
             new int[]{R.drawable.info_h1, R.drawable.info_h2,
                     R.drawable.info_h3, R.drawable.info_h4,
@@ -115,9 +116,10 @@ public class Ear_Tracker extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             if (getUserVisibleHint()) {
-                try{
+                try {
                     TutorialPhase2();
-                }catch (Exception ignored){}
+                } catch (Exception ignored) {
+                }
             }
         }
     }
@@ -312,7 +314,7 @@ public class Ear_Tracker extends Fragment {
                         vm.InsertInHandBalance(bal);
                     }
                     if (getBudType() != 3) {
-                        Commons.setDefaultBudget(vm, totalSalary, totalExp, getBudType(), Commons.getDate());
+                        Commons.setDefaultBudget(vm, totalSalary, totalExp, budType, budDate);
                     }
                 } else {
                     sal.setId(salary.getId());
@@ -321,7 +323,7 @@ public class Ear_Tracker extends Fragment {
                         balanceEntity bal = getBal();
                         int oldBal = sal.getSalary();
                         if (bal != null) {
-                            oldBal = oldBal + (oldBal -this.oldBal);
+                            oldBal = oldBal + (oldBal - this.oldBal);
                             bal.setBalance(oldBal);
                         } else {
                             bal.setBalance(0);
@@ -332,7 +334,7 @@ public class Ear_Tracker extends Fragment {
                         inHandBalEntity bal = getInHandBal();
                         int oldBal = sal.getSalary();
                         if (bal != null) {
-                            oldBal = oldBal + (oldBal -this.oldBal);
+                            oldBal = oldBal + (oldBal - this.oldBal);
                             bal.setBalance(oldBal);
                         } else {
                             bal.setBalance(0);
@@ -341,7 +343,7 @@ public class Ear_Tracker extends Fragment {
                         vm.InsertInHandBalance(bal);
                     }
                     if (getBudType() != 3) {
-                        Commons.setDefaultBudget(vm, totalSalary, totalExp, getBudType(), Commons.getDate());
+                        Commons.setDefaultBudget(vm, totalSalary, totalExp, budType, budDate);
                     }
                 }
                 appChecker();
@@ -352,7 +354,7 @@ public class Ear_Tracker extends Fragment {
     }
 
     private void appChecker() {
-        try{
+        try {
             appVm.getCheckerData().observe(requireActivity(), launchChecker -> {
                 if (launchChecker.getTimesLaunched() == 0) {
                     util.setPhaseStatus(1);
@@ -364,7 +366,8 @@ public class Ear_Tracker extends Fragment {
                     });
                 }
             });
-        }catch (Exception ignored){}
+        } catch (Exception ignored) {
+        }
     }
 
     private void callOnDeletePopup(salaryEntity salaryEntity, @Nullable String isUpdate) {
@@ -410,16 +413,21 @@ public class Ear_Tracker extends Fragment {
                         vm.InsertInHandBalance(new inHandBalEntity(curBal - salary));
                     }
                     popupWindow.dismiss();
-                    callOnDeletePopup(salaryEntity, "0");
+                    if (budType == Constants.BUDGET_MONTHLY || budType == Constants.BUDGET_WEEKLY){
+                        callOnDeletePopup(salaryEntity, "0");
+                    }
 
                 });
-            } else if (isUpdate.equals("0") && getBudType() != 3) {
+            } else if (isUpdate.equals("0") &&
+                    (budType == Constants.BUDGET_MONTHLY || budType == Constants.BUDGET_WEEKLY)) {
                 String s = "Do you want to update budget according to current deletion?";
                 body.setText(s);
                 yes.setOnClickListener(v1 -> {
-                    Commons.setDefaultBudget(vm, totalSalary, totalExp, getBudType(), Commons.getDate());
+                    Commons.setDefaultBudget(vm, totalSalary, totalExp, budType, budDate);
                     popupWindow.dismiss();
                 });
+            } else {
+                no.callOnClick();
             }
         }
 
@@ -443,6 +451,8 @@ public class Ear_Tracker extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                budDate = getBudDate();
+                budType = getBudType();
                 oldBal = adapter.getSalaryEntity(viewHolder.getPosition()).getSalary();
                 callOnDeletePopup(adapter.getSalaryEntity(viewHolder.getPosition()), null);
                 adapter.notifyDataSetChanged();
@@ -563,8 +573,21 @@ public class Ear_Tracker extends Fragment {
             try {
                 type.set(budgetEntity.getRefreshPeriod());
             } catch (Exception ignored) {
+                type.set(3);
             }
         });
         return type.get();
+    }
+
+    private String getBudDate() {
+        AtomicReference<String> date = new AtomicReference<>("null");
+        vm.getBudget().observe(requireActivity(), budgetEntity -> {
+            try {
+                date.set(budgetEntity.getCreationDate());
+            } catch (Exception ignored) {
+                date.set("null");
+            }
+        });
+        return date.get();
     }
 }

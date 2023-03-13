@@ -91,8 +91,6 @@ public class Settings_Activity extends AppCompatActivity {
                         // The mInterstitialAd reference will be null until
                         // an ad is loaded.
                         interstitial = interstitialAd;
-//                        Log.i(TAG, "onAdLoaded");
-//                        Toast.makeText(MyActivity.this, "onAdLoaded()", Toast.LENGTH_SHORT).show();
                         interstitialAd.setFullScreenContentCallback(
                                 new FullScreenContentCallback() {
                                     @Override
@@ -101,7 +99,7 @@ public class Settings_Activity extends AppCompatActivity {
                                         // Make sure to set your reference to null so you don't
                                         // show it a second time.
                                         interstitial = null;
-//                                        Log.d("TAG", "The ad was dismissed.");
+                                        finish();
                                     }
 
                                     @Override
@@ -110,30 +108,19 @@ public class Settings_Activity extends AppCompatActivity {
                                         // Make sure to set your reference to null so you don't
                                         // show it a second time.
                                         interstitial = null;
-//                                        Log.d("TAG", "The ad failed to show.");
+                                        finish();
                                     }
 
                                     @Override
                                     public void onAdShowedFullScreenContent() {
-                                        // Called when fullscreen content is shown.
-//                                        Log.d("TAG", "The ad was shown.");
                                     }
                                 });
                     }
 
                     @Override
                     public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        // Handle the error
-//                        Log.i(TAG, loadAdError.getMessage());
                         interstitial = null;
-
-//                        String error =
-//                                String.format(
-//                                        "domain: %s, code: %d, message: %s",
-//                                        loadAdError.getDomain(), loadAdError.getCode(), loadAdError.getMessage());
-//                        Toast.makeText(
-//                                        MyActivity.this, "onAdFailedToLoad() with error: " + error, Toast.LENGTH_SHORT)
-//                                .show();
+                        finish();
                     }
                 });
     }
@@ -155,7 +142,6 @@ public class Settings_Activity extends AppCompatActivity {
         mainVM.DeleteBudget();
         mainVM.InsertBalance(new balanceEntity(0));
         mainVM.InsertInHandBalance(new inHandBalEntity(0));
-        finish();
     }
 
     private void getUserData() {
