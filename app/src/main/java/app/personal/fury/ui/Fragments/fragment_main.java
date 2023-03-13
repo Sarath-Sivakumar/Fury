@@ -236,6 +236,14 @@ public class fragment_main extends Fragment {
         } catch (Exception ignored) {}
     }
 
+    private void initViewModel() {
+        getExp(filter);
+        getSal();
+        getDebt();
+        getBud();
+        setStat();
+    }
+
     private void callWarningPopup(debtEntity debt) {
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -243,7 +251,7 @@ public class fragment_main extends Fragment {
         View v = inflater.inflate(R.layout.popup_due_warning, null);
         popupWindow.setContentView(v);
 
-        TextView mainBody, name, date;
+        TextView mainBody, name, date ;
         Button yes, no;
 
         mainBody = v.findViewById(R.id.warning);
@@ -252,7 +260,7 @@ public class fragment_main extends Fragment {
         yes = v.findViewById(R.id.yes_btn);
         no = v.findViewById(R.id.no_btn);
 
-        String s1 = "Attention!\n Your due " + debt.getSource() + " of \n" + Constants.RUPEE + debt.getAmount() + " is nearing its deadline.";
+        String s1 = "Your due " + debt.getSource() + " of \n" + Constants.RUPEE + debt.getAmount() + " is nearing its deadline.";
         mainBody.setText(s1);
         String s2 = debt.getSource();
         name.setText(s2);
@@ -327,13 +335,6 @@ public class fragment_main extends Fragment {
         }
     }
 
-    private void initViewModel() {
-        getExp(filter);
-        getSal();
-        getDebt();
-        getBud();
-        setStat();
-    }
 
     private void getBud() {
         vm.getBudget().observe(requireActivity(), budgetEntities -> {

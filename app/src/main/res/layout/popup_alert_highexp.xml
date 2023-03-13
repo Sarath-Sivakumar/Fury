@@ -49,16 +49,15 @@
             android:gravity="center"
             android:padding="5dp"
             android:text="{Daily Average}"
-            android:textSize="20sp" />
+            android:textSize="22sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/source_sans_pro_bold"
             android:gravity="center"
-            android:padding="10dp"
-            android:text="Your budget may become inefficient"
-            android:textSize="18sp" />
+            android:paddingBottom="6dp"
+            android:text="If this continues\nYour financial stability will be compromised!!!"
+            android:textSize="14sp" />
 
     </LinearLayout>
 

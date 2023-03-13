@@ -256,7 +256,8 @@ public class Exp_Tracker extends Fragment {
         warningTitle1 = view.findViewById(R.id.expWarning);
         if (userName != null) {
             if (!userName.trim().equals("")) {
-                String title1 = userName + warningTitle1.getText().toString();
+                String war = "\nYou are spending too much recently";
+                String title1 = "Attention,"+userName +" !"+ war;
                 warningTitle1.setText(title1);
             }
         } else {
@@ -274,7 +275,7 @@ public class Exp_Tracker extends Fragment {
             };
         }
         dAvg = view.findViewById(R.id.expDAvg);
-        String s = cDAvg + " /Day";
+        String s = Constants.RUPEE+cDAvg + " /Day";
         dAvg.setText(s);
 
         popupWindow.setFocusable(true);
@@ -427,10 +428,10 @@ public class Exp_Tracker extends Fragment {
                         vm.InsertExp(entity);
                         updateVals(entity, expAmt);
                     } else if (fromAcc == 0) {
-                        Commons.SnackBar(getView(), "Not enough money to spend as cash.\nTry bank account instead.");
+                        Commons.SnackBar(getView(), "Cash balance seems insufficient.\ncheck transaction records again.");
                         fromCash = 1;
                     } else {
-                        Commons.SnackBar(getView(), "Not enough money to spend.");
+                        Commons.SnackBar(getView(), "The balance is insufficient.");
                     }
                     break;
 
@@ -440,10 +441,10 @@ public class Exp_Tracker extends Fragment {
                         vm.InsertExp(entity);
                         updateVals(entity, expAmt);
                     } else if (fromCash == 0) {
-                        Commons.SnackBar(getView(), "Not enough money to spend as cash.\nTry bank account instead.");
+                        Commons.SnackBar(getView(), "Bank balance seems insufficient.\ncheck transaction records again.");
                         fromAcc = 1;
                     } else {
-                        Commons.SnackBar(getView(), "Not enough money to spend.");
+                        Commons.SnackBar(getView(), "The balance is insufficient");
                     }
                     break;
                 default:

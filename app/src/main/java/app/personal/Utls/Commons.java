@@ -170,7 +170,7 @@ public class Commons {
         }
     }
 
-    static int DAYS_LIMIT = 7;//Change this to change data collection period..(7 for 1 week)
+    static int DAYS_LIMIT = 3;//Change this to change data collection period..(7 for 1 week)
 
     private static String limiterAvg(ArrayList<Integer> totalExp) {
         int total = 0;

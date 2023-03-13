@@ -1,19 +1,15 @@
 package app.personal.fury.ui.User_Init;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.widget.Button;
 
-import app.personal.MVVM.Entity.LaunchChecker;
 import app.personal.MVVM.Viewmodel.AppUtilViewModel;
 import app.personal.fury.R;
 import app.personal.fury.ui.User_Init.login.Login;
 import app.personal.fury.ui.User_Init.signUp.signUp;
-import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 public class Landing extends AppCompatActivity {
 

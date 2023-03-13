@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -125,10 +124,13 @@ public class Settings_Activity extends AppCompatActivity {
         uploadPic.setOnClickListener(v -> callPopupWindow(uploadPic));
 
         contact.setOnClickListener(v -> {
-//            Intent i = new Intent(this, WebViewActivity.class);
-//            i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "Contact Us");
-//            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL, "URL here");
-//            startActivity(i);
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            String UriText = "mailto:" + Uri.encode("shoptourhome@gmail.com") + "?subject=" +
+                    Uri.encode("Write to us: ") + Uri.encode("");
+            Uri uri = Uri.parse(UriText);
+            intent.setData(uri);
+            startActivity(Intent.createChooser(intent, "send email"));
+//            Toast.makeText(this, "Thanks for the,feedback!", Toast.LENGTH_SHORT).show();
         });
 
         faq.setOnClickListener(v -> {
@@ -198,7 +200,7 @@ public class Settings_Activity extends AppCompatActivity {
     }
 
     private void fakeLoadingScreen() {
-        new CountDownTimer(3000, 1000) {
+        new CountDownTimer(2000, 1000) {
             final PopupWindow popupWindow = new PopupWindow(Settings_Activity.this);
             @Override
             public void onTick(long millisUntilFinished) {
