@@ -73,7 +73,9 @@
     </style>
 
     <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+        <item name="android:windowActionBar">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 
