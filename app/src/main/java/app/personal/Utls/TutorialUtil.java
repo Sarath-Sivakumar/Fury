@@ -23,17 +23,13 @@ import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 public class TutorialUtil {
 
     private final Context context;
-    private final Activity activity;
-    private final ViewModelStoreOwner owner;
     private final LifecycleOwner lOwner;
-    private AppUtilViewModel appVM;
-    private MutableLiveData<Integer> PhaseStatus = new MutableLiveData<>();
-    private MaterialTapTargetPrompt.Builder builder;
+    private final AppUtilViewModel appVM;
+    private final MutableLiveData<Integer> PhaseStatus = new MutableLiveData<>();
+    private final MaterialTapTargetPrompt.Builder builder;
 
     public TutorialUtil(Activity activity, Context context, ViewModelStoreOwner owner, LifecycleOwner lOwner) {
         this.context = context;
-        this.owner = owner;
-        this.activity = activity;
         this.lOwner = lOwner;
         this.builder = new MaterialTapTargetPrompt.Builder(activity);
         appVM = new ViewModelProvider(owner).get(AppUtilViewModel.class);
@@ -193,6 +189,7 @@ public class TutorialUtil {
                                 if (launchChecker1.getTimesLaunched()==0){
                                     appVM.UpdateLaunchChecker(new LaunchChecker(launchChecker1.getId(),
                                             launchChecker.getTimesLaunched()+1));
+                                    appVM.getCheckerData().removeObservers(lOwner);
                                 }
                             });
                         }

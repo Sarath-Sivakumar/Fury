@@ -28,9 +28,11 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.budgetEntity;
 import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Entity.expEntity;
+import app.personal.MVVM.Entity.inHandBalEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.fury.R;
 
@@ -382,5 +384,16 @@ public class Commons {
         }catch (Exception ignored){
             return false;
         }
+    }
+
+    public static void clearData(mainViewModel mainVM) {
+        mainVM.DeleteBalance();
+        mainVM.DeleteInHandBalance();
+        mainVM.DeleteAllDebt();
+        mainVM.DeleteAllSalary();
+        mainVM.DeleteAllExp();
+        mainVM.DeleteBudget();
+        mainVM.InsertBalance(new balanceEntity(0));
+        mainVM.InsertInHandBalance(new inHandBalEntity(0));
     }
 }
