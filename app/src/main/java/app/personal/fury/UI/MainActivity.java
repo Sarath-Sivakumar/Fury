@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -386,7 +385,6 @@ public class MainActivity extends AppCompatActivity {
         View view = inflater.inflate(R.layout.popup_action_acceptads, null);
         popupWindow.setContentView(view);
         popupWindow.setFocusable(true);
-
 
         Button yes = view.findViewById(R.id.dyes_btn);
         Button no = view.findViewById(R.id.dno_btn);
