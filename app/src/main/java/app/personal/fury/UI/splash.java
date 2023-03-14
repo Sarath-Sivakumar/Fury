@@ -22,7 +22,7 @@ import app.personal.fury.UI.User_Init.Landing;
 public class splash extends AppCompatActivity {
 
     private ViewGroup container;
-    private int currLaunch = 0;
+    private final int currLaunch = 0;
     private boolean animationStarted = false;
     private userInitViewModel uvm;
     private int animScale = 5;
