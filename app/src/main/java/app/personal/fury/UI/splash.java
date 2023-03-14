@@ -7,10 +7,12 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.DecelerateInterpolator;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewPropertyAnimatorCompat;
+import androidx.core.view.ViewPropertyAnimatorListener;
 import androidx.lifecycle.ViewModelProvider;
 
 import app.personal.MVVM.Entity.LaunchChecker;
@@ -22,11 +24,12 @@ import app.personal.fury.UI.User_Init.Landing;
 public class splash extends AppCompatActivity {
 
     private ViewGroup container;
-    private int currLaunch = 0;
+    private final int currLaunch = 0;
     private boolean animationStarted = false;
     private userInitViewModel uvm;
-    private int animScale = 5;
-
+//----Anim variables-----------------------------
+    private final int animScale = 2, delay = 1000, duration = 100;
+//-----------------------------------------------
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,12 +68,28 @@ public class splash extends AppCompatActivity {
             ViewPropertyAnimatorCompat viewAnimator;
             viewAnimator = ViewCompat.animate(v)
                     .scaleX(animScale).scaleY(animScale)
-                    .setStartDelay(0)
-                    .setDuration(300);
+                    .setStartDelay(delay)
+                    .setDuration(duration);
             viewAnimator.setInterpolator(new DecelerateInterpolator()).start();
             animationStarted = true;
+            viewAnimator.setListener(new ViewPropertyAnimatorListener() {
+                @Override
+                public void onAnimationStart(@NonNull View view) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(@NonNull View view) {
+                    dataFetch();
+                }
+
+                @Override
+                public void onAnimationCancel(@NonNull View view) {
+                    dataFetch();
+                }
+            });
         }
-        dataFetch();
+
     }
 
     private void dataFetch() {

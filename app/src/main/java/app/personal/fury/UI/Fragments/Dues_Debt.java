@@ -328,15 +328,18 @@ public class Dues_Debt extends Fragment {
                         entity.setStatus(Constants.DEBT_NOT_PAID);
                         entity.setDate(Commons.getDate());
                         String[] date = entity.getFinalDate().split("/");
-                        String month = String.valueOf(Integer.parseInt(date[1]) + 1);
-                        String[] curDate = Commons.getDate().split("/");
-                        String year = curDate[2];
+                        String month;
+                        String year;
+                        if (Integer.parseInt(date[1])<12){
+                            month = String.valueOf(Integer.parseInt(date[1]) + 1);
+                            year = date[2];
+                        }else{
+                            month = String.valueOf(1);
+                            year = String.valueOf(Integer.parseInt(date[2]) + 1);
+                        }
                         entity.setFinalDate(date[0] + "/" + month + "/" + year);
                         vm.DeleteDebt(repeatDue.getDebtAt(viewHolder.getAdapterPosition()));
                         vm.InsertDebt(entity);
-
-//                        Commons.SnackBar(recyclerView, "Debt marked as paid.");
-
                         callPopupWindow(Constants.itemPaid);
                         repeatDue.notifyDataSetChanged();
                     }
