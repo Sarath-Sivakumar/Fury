@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -249,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
 //        Home
         Targets.add(Objects.requireNonNull(tl.getTabAt(2)).view);
         PrimaryTexts.add("Welcome To Fury home");
-        SecondaryTexts.add("This is where most of your activity in Fury gets summarized");
+        SecondaryTexts.add("This is where most of your activity in Fury gets summarized.\n\n\nThis is a tutorial ALL DATA created during TUTORIAL PHASE will later be CLEARED.");
 //        ----
 //        Earnings
         Targets.add(Objects.requireNonNull(tl.getTabAt(3)).view);

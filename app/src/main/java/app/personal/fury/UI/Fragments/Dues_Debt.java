@@ -51,6 +51,7 @@ import app.personal.Utls.Constants;
 import app.personal.Utls.TutorialUtil;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.dueList.dueAdapter;
+import app.personal.fury.UI.MainActivity;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class Dues_Debt extends Fragment {
@@ -185,6 +186,13 @@ public class Dues_Debt extends Fragment {
                         }
                         vm.InsertDebt(entity);
                         mainDueAdapter.clear();
+                        appVM.getCheckerData().observe(requireActivity(), launchChecker -> {
+                            if (launchChecker.getTimesLaunched() == 0) {
+                                clearDataAfterTutorial();
+                            }else{
+                                appVM.getCheckerData().removeObservers(requireActivity());
+                            }
+                        });
                         popupWindow.dismiss();
                     } else {
                         Commons.SnackBar(add, "Select a valid date");
@@ -226,6 +234,37 @@ public class Dues_Debt extends Fragment {
         popupWindow.setBackgroundDrawable(null);
         popupWindow.setElevation(6);
         popupWindow.showAsDropDown(fltBtn);
+    }
+
+    private void clearDataAfterTutorial() {
+        new CountDownTimer(2000, 1000) {
+            final PopupWindow popupWindow = new PopupWindow(requireContext());
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                assert inflater != null;
+                View view = inflater.inflate(R.layout.popup_budget_fake_loading, null);
+                TextView t = view.findViewById(R.id.loadingText);
+                String s = "Clearing your data, please wait..";
+                t.setText(s);
+                popupWindow.setContentView(view);
+                popupWindow.setFocusable(true);
+                popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+                popupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+                popupWindow.setBackgroundDrawable(null);
+                popupWindow.setElevation(6);
+                popupWindow.showAsDropDown(dueList);
+            }
+
+            @Override
+            public void onFinish() {
+                popupWindow.dismiss();
+                Commons.clearData(vm);
+                appVM.getCheckerData().removeObservers(requireActivity());
+                MainActivity.redirectTo(2);
+            }
+        }.start();
     }
 
     private void initViewModel() {
@@ -330,10 +369,10 @@ public class Dues_Debt extends Fragment {
                         String[] date = entity.getFinalDate().split("/");
                         String month;
                         String year;
-                        if (Integer.parseInt(date[1])<12){
+                        if (Integer.parseInt(date[1]) < 12) {
                             month = String.valueOf(Integer.parseInt(date[1]) + 1);
                             year = date[2];
-                        }else{
+                        } else {
                             month = String.valueOf(1);
                             year = String.valueOf(Integer.parseInt(date[2]) + 1);
                         }
@@ -371,13 +410,14 @@ public class Dues_Debt extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            try{
+            try {
                 appVM.getCheckerData().observe(requireActivity(), launchChecker -> {
                     if (launchChecker.getTimesLaunched() == 0) {
                         DuesTutorial();
                     }
                 });
-            }catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
         }
     }
 

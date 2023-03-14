@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +42,7 @@ import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
+import app.personal.Utls.TutorialUtil;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.mainLists.categoryAdapter;
 import app.personal.fury.UI.Adapters.mainLists.duesAdapter;
@@ -243,7 +245,6 @@ public class fragment_main extends Fragment {
         getBud();
         setStat();
     }
-
     private void callWarningPopup(debtEntity debt) {
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
