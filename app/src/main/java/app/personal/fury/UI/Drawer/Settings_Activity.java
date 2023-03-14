@@ -132,17 +132,6 @@ public class Settings_Activity extends AppCompatActivity {
         }
     }
 
-    private void clearData() {
-        mainVM.DeleteBalance();
-        mainVM.DeleteInHandBalance();
-        mainVM.DeleteAllDebt();
-        mainVM.DeleteAllSalary();
-        mainVM.DeleteAllExp();
-        mainVM.DeleteBudget();
-        mainVM.InsertBalance(new balanceEntity(0));
-        mainVM.InsertInHandBalance(new inHandBalEntity(0));
-    }
-
     private void getUserData() {
         userVM.getUserData().observe(this, userEntity -> {
             if (userEntity != null) {
@@ -289,7 +278,7 @@ public class Settings_Activity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 popupWindow.dismiss();
-                clearData();
+                Commons.clearData(mainVM);
             }
         }.start();
 
