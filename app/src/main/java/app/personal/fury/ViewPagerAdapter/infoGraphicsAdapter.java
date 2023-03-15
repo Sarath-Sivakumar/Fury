@@ -37,7 +37,7 @@ public class infoGraphicsAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
-        View itemView = inflater.inflate(R.layout.main_fragment_infographics, container, false);
+        View itemView = inflater.inflate(R.layout.item_activity_infographics, container, false);
         ImageView imageView = itemView.findViewById(R.id.infoGraphics);
         try{
             imageView.setImageResource(images[position]);
