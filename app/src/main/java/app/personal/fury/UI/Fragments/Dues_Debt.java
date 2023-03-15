@@ -427,8 +427,8 @@ public class Dues_Debt extends Fragment {
         ArrayList<String> PrimaryTexts = new ArrayList<>(), SecondaryTexts = new ArrayList<>();
 
         Target.add(fltBtn);
-        PrimaryTexts.add("Welcome to Dues And Debt");
-        SecondaryTexts.add("Here you can track your one time dues or repeating dues, Tap here to add one.");
+        PrimaryTexts.add("Dues And Debt");
+        SecondaryTexts.add("1. Personalised notifications are provided to remind you of payment when the due date is nearby\n\n2. Repeating dues get repeated on the date provided\n\n3. Swiping left on a due will mark it as paid and on right swipe the due will be deleted");
 
         util.TutorialPhase7(Target, PrimaryTexts, SecondaryTexts);
     }

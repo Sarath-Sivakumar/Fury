@@ -298,8 +298,8 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> SecondaryTexts = new ArrayList<>();
 //        Home
         Targets.add(Objects.requireNonNull(tl.getTabAt(0)).view);
-        PrimaryTexts.add("Expenses");
-        SecondaryTexts.add("Lets explore the Expense Tracker!");
+        PrimaryTexts.add("The Expense Tracker");
+        SecondaryTexts.add("Lets add a sample expense\n(This sample will be cleared after the tutorial)");
 //        ----
         util.TutorialPhase5(Targets, PrimaryTexts, SecondaryTexts);
     }
