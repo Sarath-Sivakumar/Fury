@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.fonts.FontFamily;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
@@ -313,12 +315,12 @@ public class MainActivity extends AppCompatActivity {
 //        Home
         Targets.add(Objects.requireNonNull(tl.getTabAt(2)).view);
         PrimaryTexts.add("Welcome To Fury");
-        SecondaryTexts.add("Follow this tutorial to see how fury works\n\n(NOTE that all data collected during this phase is considered as samples and will be cleared after completing the tutorial)\n\n");
+        SecondaryTexts.add("Follow this tutorial to see how fury works\n\n(DISCLAIMER all data collected during this phase is taken as sample and will be cleared after completing the tutorial)\n\n");
 //        ----
 //        Earnings
         Targets.add(Objects.requireNonNull(tl.getTabAt(3)).view);
         PrimaryTexts.add("This is the Earnings Tracker!");
-        SecondaryTexts.add("Tap here to add a sample of your earnings\n(This sample will be cleared after the tutorial)");
+        SecondaryTexts.add("Tap here to add a sample of your earnings\n(This sample will be cleared after tutorial)\n");
 
         util.TutorialPhase1(Targets, PrimaryTexts, SecondaryTexts);
     }
@@ -450,7 +452,6 @@ public class MainActivity extends AppCompatActivity {
         popupWindow.setContentView(view);
         popupWindow.setFocusable(true);
 
-
         Button yes = view.findViewById(R.id.dyes_btn);
         Button no = view.findViewById(R.id.dno_btn);
         no.setOnClickListener(v -> popupWindow.dismiss());
@@ -499,18 +500,23 @@ public class MainActivity extends AppCompatActivity {
                 switch(tab.getPosition()){
                     case 0:
                         tb.setTitle(Constants.Exp);
+                        tab.getIcon().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
                         break;
                     case 1:
                         tb.setTitle(Constants.Budget);
+                        tab.getIcon().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
                         break;
                     case 2:
                         tb.setTitle(Constants.main);
+                        tab.getIcon().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
                         break;
                     case 3:
                         tb.setTitle(Constants.Earnings);
+                        tab.getIcon().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
                         break;
                     case 4:
                         tb.setTitle(Constants.Dues);
+                        tab.getIcon().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
                         break;
                     default:
                         tb.setTitle("Noiccee!");
@@ -520,7 +526,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {}
+            public void onTabUnselected(TabLayout.Tab tab) {
+                //for removing the color of first icon when switched to next tab
+                tl.getTabAt(0).getIcon().clearColorFilter();
+                //for other tabs
+                tab.getIcon().clearColorFilter();
+                }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}

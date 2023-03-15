@@ -57,11 +57,11 @@ public class TutorialUtil {
         builder.setPrimaryTextSize(64.0f);
         builder.setSecondaryTextSize(46.0f);
         builder.setPrimaryTextTypeface(Typeface.create(Typeface.SANS_SERIF, 800,true));
-        builder.setSecondaryTextTypeface(Typeface.create(Typeface.SANS_SERIF,600,true));
-        builder.setPrimaryTextColour(context.getResources().getColor(R.color.h1_dark));
-        builder.setSecondaryTextColour(context.getResources().getColor(R.color.white));
-        builder.setBackgroundColour(context.getResources().getColor(R.color.theme_green_dark));
-        builder.setFocalColour(context.getResources().getColor(R.color.full_white));
+        builder.setSecondaryTextTypeface(Typeface.create(Typeface.SANS_SERIF,700,true));
+        builder.setPrimaryTextColour(context.getResources().getColor(R.color.tp_primary_color));
+        builder.setSecondaryTextColour(context.getResources().getColor(R.color.tp_secondary_color));
+        builder.setBackgroundColour(context.getResources().getColor(R.color.tp_bg_color));
+        builder.setFocalColour(context.getResources().getColor(R.color.tp_focal_color));
         builder.setBackButtonDismissEnabled(false);
         builder.show();
     }

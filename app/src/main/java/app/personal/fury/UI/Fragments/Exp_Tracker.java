@@ -213,7 +213,7 @@ public class Exp_Tracker extends Fragment {
         ArrayList<String> PrimaryTexts = new ArrayList<>(), SecondaryTexts = new ArrayList<>();
         Targets.add(fltBtn);
         PrimaryTexts.add("Expense Tracker");
-        SecondaryTexts.add("1. Our expense tracker offer the most simple and convenient way to track expenses\n\n2. Cash expense and bank expense can be registered separately as how you made the payment\n\n3. Balance get updated as soon as new logs created\n\n4. We also provide realtime tips and warnings as per your spending\n\n5. Swipe right or left on the expense item to delete them and click on each to view details\n\nTAP ON THE ICON TO ADD A SAMPLE");
+        SecondaryTexts.add("1. Our expense tracker offer the most simplified and convenient way to track expenses\n\n2. Cash expense and bank expense can be registered separately as how you made the payment\n\n3. Balance get updated as soon as new logs created\n\n4. We also provide realtime tips and warnings as per your spending\n\n5. Swipe right or left on the expense item to delete them and click on each to view details\n\nTAP ON THE ICON TO ADD A SAMPLE");
         util.TutorialPhase6(Targets, PrimaryTexts, SecondaryTexts);
     }
 
