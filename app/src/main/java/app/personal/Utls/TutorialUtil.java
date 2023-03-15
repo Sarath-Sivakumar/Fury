@@ -4,7 +4,10 @@ import static uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt.S
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 
@@ -43,6 +46,7 @@ public class TutorialUtil {
         PhaseStatus.postValue(val);
     }
 
+
     private void Tutorial(View Target, String PrimaryText, String SecondaryText) {
         builder.setTarget(Target);
         builder.setPrimaryTextGravity(Gravity.CENTER);
@@ -50,8 +54,14 @@ public class TutorialUtil {
         builder.setTextGravity(Gravity.CENTER);
         builder.setPrimaryText(PrimaryText);
         builder.setSecondaryText(SecondaryText);
-        builder.setBackgroundColour(context.getResources().getColor(R.color.d2));
-        builder.setFocalColour(context.getResources().getColor(R.color.l1));
+        builder.setPrimaryTextSize(64.0f);
+        builder.setSecondaryTextSize(46.0f);
+        builder.setPrimaryTextTypeface(Typeface.create(Typeface.SANS_SERIF, 800,true));
+        builder.setSecondaryTextTypeface(Typeface.create(Typeface.SANS_SERIF,700,true));
+        builder.setPrimaryTextColour(context.getResources().getColor(R.color.tp_primary_color));
+        builder.setSecondaryTextColour(context.getResources().getColor(R.color.tp_secondary_color));
+        builder.setBackgroundColour(context.getResources().getColor(R.color.tp_bg_color));
+        builder.setFocalColour(context.getResources().getColor(R.color.tp_focal_color));
         builder.setBackButtonDismissEnabled(false);
         builder.show();
     }

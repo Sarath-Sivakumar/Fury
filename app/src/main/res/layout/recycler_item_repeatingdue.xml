@@ -14,7 +14,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:layout_weight=".7"
+        android:layout_weight=".60"
         android:background="@drawable/background_borderonly"
         android:backgroundTint="@color/d2"
         android:orientation="vertical">
@@ -22,26 +22,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_margin="6dp"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="0dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_gravity="center"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="0dp"
                 android:backgroundTint="?attr/colorPrimaryVariant"
-                app:cardCornerRadius="30dp">
+                app:cardCornerRadius="35dp">
 
                 <TextView
                     android:id="@+id/icoText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/source_sans_pro_bold"
                     android:gravity="center"
                     android:text="R"
+                    android:fontFamily="@font/source_sans_pro_bold"
                     android:textColor="?attr/colorOnSecondary"
-                    android:textSize="20sp" />
+                    android:textSize="24sp" />
 
             </androidx.cardview.widget.CardView>
 
@@ -56,22 +57,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/raleway_bold"
-                    android:gravity="start|center"
+                    android:gravity="start"
                     android:layout_marginStart="12dp"
-                    android:textColor="@color/h1_light"
+                    android:textColor="?attr/colorOnSecondary"
                     android:text="Rent"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/dAmt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="0dp"
                     android:gravity="end"
                     android:fontFamily="@font/work_sans_bold"
                     android:text="100000"
-                    android:textColor="@color/h2_light"
-                    android:textSize="24sp" />
+                    android:textColor="?attr/colorOnSecondary"
+                    android:textSize="22sp" />
 
             </LinearLayout>
         </LinearLayout>
@@ -81,9 +81,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="0.3"
+        android:layout_weight="0.2"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="6dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -91,7 +91,7 @@
             android:textColor="@color/h1_dark"
             android:fontFamily="@font/raleway_semibold"
             android:gravity="end"
-            android:text="Repeat On" />
+            android:text="Repeats on" />
 
         <TextView
             android:id="@+id/finalDate"
@@ -100,9 +100,8 @@
             android:gravity="end"
             android:textColor="@color/h2_dark"
             android:fontFamily="@font/work_sans_medium"
-            android:text="Day (x)/Month" />
+            android:text="31/12/2023" />
 
-
-          </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

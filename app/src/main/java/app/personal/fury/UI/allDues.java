@@ -2,12 +2,15 @@ package app.personal.fury.UI;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Canvas;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -19,6 +22,7 @@ import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.dueList.dueAdapter;
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class allDues extends AppCompatActivity {
 
@@ -110,7 +114,25 @@ public class allDues extends AppCompatActivity {
                     }
                 }
             }
-        }).attachToRecyclerView(recyclerView);
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                        .addSwipeLeftBackgroundColor(ContextCompat.getColor(allDues.this, R.color.theme_green))
+                        .addSwipeLeftActionIcon(R.drawable.common_icon_mark)
+                        .addSwipeLeftLabel("Mark as paid")
+                        .setSwipeLeftLabelColor(ContextCompat.getColor(allDues.this, R.color.full_white))
+                        .setSwipeLeftLabelTextSize(TypedValue.COMPLEX_UNIT_SP, 12)
+                        .addSwipeLeftCornerRadius(TypedValue.COMPLEX_UNIT_SP, 15)
+                        .addSwipeRightBackgroundColor(ContextCompat.getColor(allDues.this, R.color.theme_red))
+                        .addSwipeRightActionIcon(R.drawable.common_icon_trash)
+                        .addSwipeRightLabel("Delete")
+                        .setSwipeRightLabelColor(ContextCompat.getColor(allDues.this, R.color.full_white))
+                        .setSwipeRightLabelTextSize(TypedValue.COMPLEX_UNIT_SP, 12)
+                        .addSwipeRightCornerRadius(TypedValue.COMPLEX_UNIT_SP, 15)
+                        .create()
+                        .decorate();
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            }
+    }).attachToRecyclerView(recyclerView);
 
         adapter.setOnItemClickListener(Due -> {
 //            Intent intent = new Intent(requireActivity(), activityToLaunch.class);
