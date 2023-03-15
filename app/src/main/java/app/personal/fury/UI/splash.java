@@ -24,12 +24,12 @@ import app.personal.fury.UI.User_Init.Landing;
 public class splash extends AppCompatActivity {
 
     private ViewGroup container;
-    private final int currLaunch = 0;
     private boolean animationStarted = false;
     private userInitViewModel uvm;
-//----Anim variables-----------------------------
+    //----Anim variables-----------------------------
     private final int animScale = 2, delay = 1000, duration = 100;
-//-----------------------------------------------
+
+    //-----------------------------------------------
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,13 +37,13 @@ public class splash extends AppCompatActivity {
         uvm.checkForUser();
         AppUtilViewModel appVm = new ViewModelProvider(this).get(AppUtilViewModel.class);
         appVm.getCheckerData().observe(this, launchChecker -> {
-            try{
-                if (launchChecker.getTimesLaunched()>0){
+            try {
+                if (launchChecker.getTimesLaunched() > 0) {
                     appVm.UpdateLaunchChecker(new LaunchChecker(launchChecker.getId(),
-                            launchChecker.getTimesLaunched()+1));
+                            launchChecker.getTimesLaunched() + 1));
                     appVm.getCheckerData().removeObservers(this);
                 }
-            }catch (Exception ignored){
+            } catch (Exception ignored) {
                 appVm.InsertLaunchChecker(new LaunchChecker(0));
             }
         });
@@ -55,11 +55,10 @@ public class splash extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         container = findViewById(R.id.container);
-        if (!hasFocus || animationStarted) {
-            return;
+        if (hasFocus || !animationStarted) {
+            animate();
+            super.onWindowFocusChanged(hasFocus);
         }
-        animate();
-        super.onWindowFocusChanged(hasFocus);
     }
 
     private void animate() {
