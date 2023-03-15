@@ -6,14 +6,14 @@
     android:orientation="vertical">
 
     <app.personal.Utls.ViewPager.viewPager
-        android:id="@+id/infoGraphics_vp"
+        android:id="@+id/sliderVP"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@null"
         android:minHeight="200dp" />
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/infoGraphics_tab"
+        android:id="@+id/sliderTab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

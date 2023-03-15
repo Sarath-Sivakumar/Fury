@@ -26,6 +26,7 @@ public class splash extends AppCompatActivity {
     private ViewGroup container;
     private boolean animationStarted = false;
     private userInitViewModel uvm;
+    private AppUtilViewModel appVm;
     //----Anim variables-----------------------------
     private final int animScale = 2, delay = 1000, duration = 100;
 
@@ -35,7 +36,7 @@ public class splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         uvm = new ViewModelProvider(this).get(userInitViewModel.class);
         uvm.checkForUser();
-        AppUtilViewModel appVm = new ViewModelProvider(this).get(AppUtilViewModel.class);
+        appVm = new ViewModelProvider(this).get(AppUtilViewModel.class);
         appVm.getCheckerData().observe(this, launchChecker -> {
             try {
                 if (launchChecker.getTimesLaunched() > 0) {
@@ -94,8 +95,18 @@ public class splash extends AppCompatActivity {
     private void dataFetch() {
         uvm.getUserId().observe(this, firebaseUser -> {
             if (firebaseUser == null) {
-                startActivity(new Intent(this, Landing.class));
-                finish();
+                appVm.getCheckerData().observe(this, launchChecker -> {
+                    try {
+                        if (launchChecker.getTimesLaunched() > 0) {
+                            startActivity(new Intent(this, Landing.class));
+                            finish();
+                        }else{
+                            startActivity(new Intent(this, splashTutorialSlider.class));
+                            finish();
+                        }
+                    } catch (Exception ignored) {
+                    }
+                });
             } else {
                 startActivity(new Intent(this, MainActivity.class));
                 finish();
