@@ -483,8 +483,10 @@ public class Ear_Tracker extends Fragment {
     private void TutorialPhase2() {
 //        Floating Btn--
         Targets.add(addSal);
-        PrimaryTexts.add("Earnings Tracker");
-        SecondaryTexts.add("This is where all your earnings are tracked, tap here to add one");
+        PrimaryTexts.add("Earnings Tracker Features");
+        SecondaryTexts.add("1. Earnings can be added as either cash or bank as per how you received them\n\n2. " +
+                "Recurring earnings can be added with their recurrence period so that it will be added to your balance automatically on the respected period\n\n" +
+                "3. Once earnings added you can edit them by clicking on each item\n\n4. Earnings can be deleted by swiping left or right on the item\n\n\nTAP ON THE ICON TO ADD A SAMPLE");
 //        --------------
         util.TutorialPhase2(Targets, PrimaryTexts, SecondaryTexts);
     }

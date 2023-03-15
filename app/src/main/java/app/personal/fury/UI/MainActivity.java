@@ -7,9 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.fonts.FontFamily;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.CountDownTimer;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,10 +30,18 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.text.SimpleDateFormat;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -75,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView userDp;
     private TextView userName;
     private static TutorialUtil util;
+    private InterstitialAd interstitial;
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 
     @Override
@@ -214,7 +224,60 @@ public class MainActivity extends AppCompatActivity {
         isStoragePermissionGranted();
 //        redirectTo(1);
         initTutorialPhase1();
+        initAd();
     }
+
+    private void initAd(){
+        MobileAds.initialize(this);
+        String TestAdId = "ca-app-pub-3940256099942544/1033173712";
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(
+                this,
+                TestAdId,
+                adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        interstitial = interstitialAd;
+                        interstitialAd.setFullScreenContentCallback(
+                                new FullScreenContentCallback() {
+                                    @Override
+                                    public void onAdDismissedFullScreenContent() {
+                                        // Called when fullscreen content is dismissed.
+                                        // Make sure to set your reference to null so you don't
+                                        // show it a second time.
+                                        interstitial = null;
+                                    }
+
+                                    @Override
+                                    public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                        // Called when fullscreen content failed to show.
+                                        // Make sure to set your reference to null so you don't
+                                        // show it a second time.
+                                        interstitial = null;
+                                    }
+
+                                    @Override
+                                    public void onAdShowedFullScreenContent() {
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        interstitial = null;
+                    }
+                });
+    }
+    private void showInterstitial() {
+        // Show the ad if it's ready. Otherwise toast and restart the game.
+        if (interstitial != null) {
+            interstitial.show(this);
+        }
+    }
+
 
     public static void initTutorialPhase3(){
         ArrayList<View> Targets = new ArrayList<>();
@@ -223,8 +286,8 @@ public class MainActivity extends AppCompatActivity {
         redirectTo(2);
 //        Home
         Targets.add(Objects.requireNonNull(tl.getTabAt(1)).view);
-        PrimaryTexts.add("Budget");
-        SecondaryTexts.add("Lets set your budget!");
+        PrimaryTexts.add("This is the Budgeting Zone");
+        SecondaryTexts.add("Tap here to add a sample budget\n(This sample will be cleared after the tutorial)");
 //        ----
         util.TutorialPhase3(Targets, PrimaryTexts, SecondaryTexts);
     }
@@ -249,13 +312,13 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> SecondaryTexts = new ArrayList<>();
 //        Home
         Targets.add(Objects.requireNonNull(tl.getTabAt(2)).view);
-        PrimaryTexts.add("Welcome To Fury home");
-        SecondaryTexts.add("This is where most of your activity in Fury gets summarized.\n\n\nThis is a tutorial ALL DATA created during TUTORIAL PHASE will later be CLEARED.");
+        PrimaryTexts.add("Welcome To Fury");
+        SecondaryTexts.add("Follow this tutorial to see how fury works\n\n(NOTE that all data collected during this phase is considered as samples and will be cleared after completing the tutorial)\n\n");
 //        ----
 //        Earnings
         Targets.add(Objects.requireNonNull(tl.getTabAt(3)).view);
-        PrimaryTexts.add("Let's track your earnings first!");
-        SecondaryTexts.add("Tap here to manage your earnings");
+        PrimaryTexts.add("This is the Earnings Tracker!");
+        SecondaryTexts.add("Tap here to add a sample of your earnings\n(This sample will be cleared after the tutorial)");
 
         util.TutorialPhase1(Targets, PrimaryTexts, SecondaryTexts);
     }
@@ -392,8 +455,8 @@ public class MainActivity extends AppCompatActivity {
         Button no = view.findViewById(R.id.dno_btn);
         no.setOnClickListener(v -> popupWindow.dismiss());
         yes.setOnClickListener(v -> {
+            showInterstitial();
             popupWindow.dismiss();
-            Commons.SnackBar(navView, "Oops! something went wrong :(");
         });
 
         popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);

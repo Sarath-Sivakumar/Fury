@@ -378,8 +378,9 @@ public class BudgetFragment extends Fragment {
         ArrayList<String> SecondaryTexts = new ArrayList<>();
 //      Budget
         Targets.add(addBudget);
-        PrimaryTexts.add("This is where you set your budget");
-        SecondaryTexts.add("Tap here to create a budget, you can set it automatically or manually.");
+        PrimaryTexts.add("Budgeting");
+        SecondaryTexts.add("1. Fury automates your budget with some special sets of calculations considering your earings.Manual budgeting is also available for those who wants to create their own budget\n\n2. Ideal daily limit shows the maximum amount you can spend in a day as per your budget and current average shows your current spending rate\n\n3. Weekly or monthly budget can be created as per user and they repeat after previous budget period ends\n\nUSE THIS PEN TO CREATE A SAMPLE");
+                                                      //write about ideal and current
 //      ----
         util.TutorialPhase4(Targets, PrimaryTexts, SecondaryTexts);
     }
