@@ -260,7 +260,7 @@ public class fragment_main extends Fragment {
         yes = v.findViewById(R.id.yes_btn);
         no = v.findViewById(R.id.no_btn);
 
-        String s1 = "The below due of "+ Constants.RUPEE + debt.getAmount() +"\nvery close to it's deadline";
+        String s1 = "The below due of "+ Constants.RUPEE + debt.getAmount() +"\nis close to it's deadline";
         mainBody.setText(s1);
         String s2 = debt.getSource();
         name.setText(s2);

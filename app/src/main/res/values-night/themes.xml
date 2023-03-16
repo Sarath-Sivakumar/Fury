@@ -80,9 +80,13 @@
         <item name="android:windowDrawsSystemBarBackgrounds">false</item>
     </style>
 
+<!--    <style name="act_main">-->
+<!--        <item name="android:background">@drawable/main_bg_dark</item>-->
+<!--    </style>-->
+
     <style name="MyTabTextAppearance" parent="TextAppearance.AppCompat.Button">
         <item name="android:fontFamily">@fonts/iransans_b</item>
-        <item name="android:textSize">8sp</item>
+        <item name="android:textSize">9sp</item>
         <item name="textAllCaps">false</item>
     </style>
 
