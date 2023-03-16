@@ -19,16 +19,15 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:padding="12dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:src="@drawable/colored_icon_update" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="12dp"
+                android:padding="6dp"
                 android:gravity="center"
                 android:text="@string/update_your_app"
                 android:fontFamily="@font/raleway_bold"
@@ -41,10 +40,10 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/work_sans_medium"
             android:text="@string/to_enjoy_our_latest_features_nplease_update_the_app"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:gravity="center"
-            android:layout_marginBottom="15dp"
-            android:padding="12dp" />
+            android:layout_marginBottom="6dp"
+            android:padding="6dp" />
 
 
 

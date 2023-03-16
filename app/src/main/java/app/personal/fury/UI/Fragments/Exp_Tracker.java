@@ -266,8 +266,8 @@ public class Exp_Tracker extends Fragment {
         warningTitle1 = view.findViewById(R.id.expWarning);
         if (userName != null) {
             if (!userName.trim().equals("")) {
-                String war = "\nYou are spending too much recently";
-                String title1 = "Attention,"+userName +" !"+ war;
+                String war = "\nYou are spending too much";
+                String title1 = "Attention,"+userName +"!"+ war;
                 warningTitle1.setText(title1);
             }
         } else {

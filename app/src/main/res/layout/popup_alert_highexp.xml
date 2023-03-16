@@ -25,7 +25,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
             android:contentDescription="@null"
             android:padding="6dp"
             android:scaleType="fitCenter"
@@ -55,9 +55,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="0dp"
             android:paddingBottom="6dp"
-            android:text="If this continues\nYour financial stability will be compromised!!!"
-            android:textSize="14sp" />
+            android:text="If this continues\nYour financial stability will be compromised."
+            android:textSize="12sp" />
 
     </LinearLayout>
 

@@ -14,13 +14,6 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:padding="12dp"
-            android:contentDescription="@null"
-            android:scaleType="fitCenter"
-            android:src="@drawable/colored_icon_duewarning" />
 
 <!--        <TextView-->
 <!--            android:id="@+id/attention"-->
@@ -31,97 +24,120 @@
 <!--            android:padding="10dp"-->
 <!--            android:text="Attention"-->
 <!--            android:textSize="24sp" />-->
-
-        <TextView
-            android:id="@+id/warning"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/source_sans_pro_bold"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="Your due of (DUE_NAME) is nearing its pay date.."
-            android:textSize="20sp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:padding="2dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@drawable/background_borderonly"
+            android:paddingBottom="6dp"
+            android:layout_marginBottom="12dp">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:padding="3dp"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/colored_icon_duewarning" />
+
+            <TextView
+                android:id="@+id/warning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro_bold"
+                android:gravity="center"
+                android:padding="3dp"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="0dp"
+                android:text="Your due of (DUE_NAME) is nearing its pay date.."
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
+                android:layout_margin="6dp"
+                android:padding="2dp"
+                android:orientation="vertical">
 
-                <TextView
-                    android:visibility="gone"
-                    android:id="@+id/NameDue"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".5"
-                    android:gravity="center"
-                    android:text="(DUE_NAME)"
-                    android:textSize="15sp" />
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
 
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="|"-->
-<!--                    android:textSize="15sp"/>-->
+                    <TextView
+                        android:id="@+id/NameDue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:gravity="center"
+                        android:text="(DUE_NAME)"
+                        android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/DateDue"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".5"
-                    android:gravity="center"
-                    android:text="(DUE_DATE)"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="|"
+                        android:textSize="15sp"/>
+
+                    <TextView
+                        android:id="@+id/DateDue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".5"
+                        android:gravity="center"
+                        android:text="(DUE_DATE)"
+                        android:textSize="14sp" />
+                </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/source_sans_pro_bold"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="Have you cleared this due?"
-            android:textSize="19sp" />
-
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/yes_btn"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_margin="4dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_borderonly"
-                android:fontFamily="@font/raleway_bold"
-                android:text="Yes"
-                android:textAllCaps="false" />
+                android:fontFamily="@font/source_sans_pro_semibold"
+                android:gravity="center"
+                android:padding="6dp"
+                android:text="Have you already cleared this due?"
+                android:textSize="19sp" />
 
-            <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:id="@+id/no_btn"
-                android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_margin="4dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_borderonly"
-                android:fontFamily="@font/raleway_bold"
-                android:text="No"
-                android:textAllCaps="false" />
+                android:layout_marginTop="6dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/yes_btn"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="0dp"
+                    android:layout_weight=".5"
+                    android:layout_margin="4dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_borderonly"
+                    android:fontFamily="@font/raleway_bold"
+                    android:text="Yes"
+                    android:textAllCaps="false" />
+
+                <Button
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:id="@+id/no_btn"
+                    android:layout_width="0dp"
+                    android:layout_weight=".5"
+                    android:layout_margin="4dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_borderonly"
+                    android:fontFamily="@font/raleway_bold"
+                    android:text="No"
+                    android:textAllCaps="false" />
+
+            </LinearLayout>
 
         </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>
