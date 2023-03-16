@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.fonts.FontFamily;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -26,7 +25,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
@@ -43,7 +41,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.text.SimpleDateFormat;
-import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -72,7 +69,7 @@ import app.personal.fury.UI.Fragments.Ear_Tracker;
 import app.personal.fury.UI.Fragments.Exp_Tracker;
 import app.personal.fury.UI.Fragments.fragment_main;
 import app.personal.fury.UI.User_Init.Landing;
-import app.personal.fury.ViewPagerAdapter.vpAdapter;
+import app.personal.fury.UI.Adapters.ViewPagerAdapter.vpAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -106,9 +103,9 @@ public class MainActivity extends AppCompatActivity {
             Log.e("Main", "onCreateError: "+e.getMessage());
         }
         if (savedInstanceState == null) {
+            tb.setTitle(Constants.main);
             vp.setCurrentItem(2, true);
         }
-
     }
 
     private void processSalary(@NonNull List<salaryEntity> salList) {
@@ -219,12 +216,10 @@ public class MainActivity extends AppCompatActivity {
         vm.initFirebaseMessagingService(Constants.PromoFirebaseService);
         vm.initFirebaseMessagingService(Constants.UpdateFirebaseService);
 
-
         util = new TutorialUtil(this,this, this,this);
         findView();
         initViewPager();
         isStoragePermissionGranted();
-//        redirectTo(1);
         initTutorialPhase1();
         initAd();
     }
@@ -534,7 +529,11 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
+            public void onTabReselected(TabLayout.Tab tab) {
+                if (tab.getPosition()==2){
+                    tb.setTitle(Constants.main);
+                }
+            }
         });
     }
 

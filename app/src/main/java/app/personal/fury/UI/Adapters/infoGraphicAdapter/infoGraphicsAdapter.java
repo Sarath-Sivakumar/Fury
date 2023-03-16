@@ -1,4 +1,4 @@
-package app.personal.fury.ViewPagerAdapter;
+package app.personal.fury.UI.Adapters.infoGraphicAdapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

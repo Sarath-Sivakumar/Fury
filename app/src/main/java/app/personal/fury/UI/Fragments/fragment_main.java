@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,12 +41,11 @@ import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
-import app.personal.Utls.TutorialUtil;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.mainLists.categoryAdapter;
 import app.personal.fury.UI.Adapters.mainLists.duesAdapter;
 import app.personal.fury.UI.MainActivity;
-import app.personal.fury.ViewPagerAdapter.infoGraphicsAdapter;
+import app.personal.fury.UI.Adapters.infoGraphicAdapter.infoGraphicsAdapter;
 
 public class fragment_main extends Fragment {
     private CircularProgressIndicator mainProgressBar;
@@ -75,7 +73,7 @@ public class fragment_main extends Fragment {
     private RecyclerView dueList;
     private LinearLayout noDues, statview, statdisabled;
     private int filter = 0;
-    private boolean isViewed = false;
+    private boolean isViewed = false, isVisible = false;
     private final ArrayList<debtEntity> debtList = new ArrayList<>();
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
     private final int[] FragmentList = new int[]{R.drawable.infos1, R.drawable.infos2, R.drawable.infos3, R.drawable.infos4, R.drawable.infos5, R.drawable.infos6};
@@ -235,7 +233,8 @@ public class fragment_main extends Fragment {
             totalExp.setText(tex);
             String tba = Constants.RUPEE + totalBa;
             totalBal.setText(tba);
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 
     private void initViewModel() {
@@ -245,6 +244,7 @@ public class fragment_main extends Fragment {
         getBud();
         setStat();
     }
+
     private void callWarningPopup(debtEntity debt) {
         PopupWindow popupWindow = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -252,7 +252,7 @@ public class fragment_main extends Fragment {
         View v = inflater.inflate(R.layout.popup_due_warning, null);
         popupWindow.setContentView(v);
 
-        TextView mainBody, name, date ;
+        TextView mainBody, name, date;
         Button yes, no;
 
         mainBody = v.findViewById(R.id.warning);
@@ -353,7 +353,7 @@ public class fragment_main extends Fragment {
                 } catch (Exception ignored) {
                 }
             }
-            if (!isViewed) {
+            if (!isViewed && isVisible) {
                 debtWaring();
                 isViewed = true;
             }
@@ -389,9 +389,9 @@ public class fragment_main extends Fragment {
                 expense = expense + expEntities.get(i).getExpenseAmt();
             }
             cAdapter.setExpes(expEntities, salary, filter);
-            String p = Constants.RUPEE + expense;
-            expView.setText(p);
             try {
+                String p = Constants.RUPEE + expense;
+                expView.setText(p);
                 if (Commons.getAvg(expEntities, true).equals(Constants.dAvgNoData)) {
                     dAvg.setTextSize(12);
                 }
@@ -432,13 +432,15 @@ public class fragment_main extends Fragment {
                         }
                     }
                 }
-                if (!debtList.isEmpty() && debtList.size() > 1) {
-                    ArrayList<debtEntity> newDebtList = Commons.debtSorterProMax(debtList);
-                    debtList.clear();
-                    callWarningPopup(newDebtList.get(newDebtList.size() - 1));
-                    newDebtList.clear();
-                } else if (debtList.size() == 1) {
-                    callWarningPopup(debtList.get(0));
+                if (isVisible){
+                    if (!debtList.isEmpty() && debtList.size() > 1) {
+                        ArrayList<debtEntity> newDebtList = Commons.debtSorterProMax(debtList);
+                        debtList.clear();
+                        callWarningPopup(newDebtList.get(newDebtList.size() - 1));
+                        newDebtList.clear();
+                    } else if (debtList.size() == 1) {
+                        callWarningPopup(debtList.get(0));
+                    }
                 }
             }
         });
@@ -515,6 +517,13 @@ public class fragment_main extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        isVisible = isVisibleToUser;
+        Log.e("isVisible", "setUserVisibleHint: "+isVisibleToUser);
     }
 
     @Override
