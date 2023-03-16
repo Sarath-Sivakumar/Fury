@@ -33,11 +33,17 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:elevation="0dp" />
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height=".1dp"-->
+<!--            android:background="@color/design_default_color_primary_dark"-->
+<!--            android:backgroundTint="?attr/colorPrimary"/>-->
 
         <com.google.android.material.tabs.TabLayout
+            style="@style/MyTabLayout"
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?actionBarSize"
             android:elevation="6dp"
             app:tabMode="auto" />
     </LinearLayout>

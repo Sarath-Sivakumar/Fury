@@ -282,6 +282,14 @@
                 android:id="@+id/top_exp"
                 android:layout_width="match_parent"
                 android:layout_height="248dp"
+                android:paddingStart="3dp"
+                android:paddingEnd="3dp"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
                 android:background="@drawable/background_borderonly"
                 tools:listitem="@layout/recycler_item_topcategory" />
 
@@ -289,11 +297,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="6dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="12sp"
                     android:text="Ad" />
                 <!--                        android:textColor="@color/theme_gold"-->
 
@@ -319,7 +331,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.1dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="6dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="0dp"
                 android:background="?attr/colorPrimary" />
 
             <FrameLayout

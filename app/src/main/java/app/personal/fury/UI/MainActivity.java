@@ -483,11 +483,11 @@ public class MainActivity extends AppCompatActivity {
         vp.setAdapter(adapter);
         vp.setPagingEnabled(false);
         tl.setupWithViewPager(vp, true);
-        Objects.requireNonNull(tl.getTabAt(0)).setIcon(R.drawable.frag_icon_expense);
-        Objects.requireNonNull(tl.getTabAt(1)).setIcon(R.drawable.frag_icon_budget);
-        Objects.requireNonNull(tl.getTabAt(2)).setIcon(R.drawable.frag_icon_home);
-        Objects.requireNonNull(tl.getTabAt(3)).setIcon(R.drawable.frag_icon_earnings);
-        Objects.requireNonNull(tl.getTabAt(4)).setIcon(R.drawable.frag_icon_dues);
+        Objects.requireNonNull(tl.getTabAt(0)).setIcon(R.drawable.frag_icon_expense).setText("Expense");
+        Objects.requireNonNull(tl.getTabAt(1)).setIcon(R.drawable.frag_icon_budget).setText("Budget");
+        Objects.requireNonNull(tl.getTabAt(2)).setIcon(R.drawable.frag_icon_home).setText("Home");
+        Objects.requireNonNull(tl.getTabAt(3)).setIcon(R.drawable.frag_icon_earnings).setText("Earnings");
+        Objects.requireNonNull(tl.getTabAt(4)).setIcon(R.drawable.frag_icon_dues).setText("Dues");
         tl.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -495,23 +495,24 @@ public class MainActivity extends AppCompatActivity {
                 switch(tab.getPosition()){
                     case 0:
                         tb.setTitle(Constants.Exp);
-                        tab.getIcon().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+                        tab.getIcon().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+//                        tl.setTabTextColors();
                         break;
                     case 1:
                         tb.setTitle(Constants.Budget);
-                        tab.getIcon().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+                        tab.getIcon().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
                         break;
                     case 2:
                         tb.setTitle(Constants.main);
-                        tab.getIcon().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+                        tab.getIcon().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
                         break;
                     case 3:
                         tb.setTitle(Constants.Earnings);
-                        tab.getIcon().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+                        tab.getIcon().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
                         break;
                     case 4:
                         tb.setTitle(Constants.Dues);
-                        tab.getIcon().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+                        tab.getIcon().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
                         break;
                     default:
                         tb.setTitle("Noiccee!");
