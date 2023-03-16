@@ -62,7 +62,7 @@
         <item name="fontFamily">@font/raleway_semibold</item>
     </style>
 
-    <style name="overviewtxttitle">
+    <style name="over_viewtxttitle">
         <item name="android:textColor">@color/theme_green</item>
         <item name="fontFamily">@font/raleway_semibold</item>
     </style>
@@ -80,6 +80,21 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowDrawsSystemBarBackgrounds">false</item>
+    </style>
+
+    <style name="MyTabTextAppearance" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:fontFamily">@fonts/iransans_b</item>
+        <item name="android:textSize">8sp</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="MyTabLayout" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="tabTextAppearance">@style/MyTabTextAppearance</item>
+        <item name="tabIndicatorColor">?attr/colorSecondary</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabPaddingStart">6dp</item>
+        <item name="tabPaddingEnd">6dp</item>
+        <item name="tabSelectedTextColor">?attr/colorSecondary</item>
     </style>
 
 </resources>
