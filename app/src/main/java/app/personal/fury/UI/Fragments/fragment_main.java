@@ -63,7 +63,7 @@ public class fragment_main extends Fragment {
     private int totalEr = 0;
     private int totalEx = 0;
     private int totalBa = 0;
-
+    private PopupWindow warningPopup;
     private mainViewModel vm;
     private duesAdapter dAdapter;
     private categoryAdapter cAdapter;
@@ -246,11 +246,11 @@ public class fragment_main extends Fragment {
     }
 
     private void callWarningPopup(debtEntity debt) {
-        PopupWindow popupWindow = new PopupWindow(getContext());
+        warningPopup = new PopupWindow(getContext());
         LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
         View v = inflater.inflate(R.layout.popup_due_warning, null);
-        popupWindow.setContentView(v);
+        warningPopup.setContentView(v);
 
         TextView mainBody, name, date;
         Button yes, no;
@@ -281,16 +281,16 @@ public class fragment_main extends Fragment {
                 debt.setFinalDate(Date[0] + "/" + month + "/" + year);
                 vm.UpdateDebt(debt);
             }
-            popupWindow.dismiss();
+            warningPopup.dismiss();
         });
-        no.setOnClickListener(v1 -> popupWindow.dismiss());
+        no.setOnClickListener(v1 -> warningPopup.dismiss());
 
-        popupWindow.setFocusable(true);
-        popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
-        popupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
-        popupWindow.setBackgroundDrawable(null);
-        popupWindow.setElevation(6);
-        popupWindow.showAsDropDown(mainProgressText);
+        warningPopup.setFocusable(true);
+        warningPopup.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        warningPopup.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+        warningPopup.setBackgroundDrawable(null);
+        warningPopup.setElevation(6);
+        warningPopup.showAsDropDown(mainProgressText);
     }
 
     @Override
@@ -354,7 +354,10 @@ public class fragment_main extends Fragment {
                 }
             }
             if (!isViewed && isVisible) {
-                debtWaring();
+                try {
+                    debtWaring();
+                } catch (Exception ignored) {
+                }
                 isViewed = true;
             }
             if (budgetTotalAmount > 0) {
@@ -432,14 +435,20 @@ public class fragment_main extends Fragment {
                         }
                     }
                 }
-                if (isVisible){
+                if (isVisible) {
                     if (!debtList.isEmpty() && debtList.size() > 1) {
                         ArrayList<debtEntity> newDebtList = Commons.debtSorterProMax(debtList);
                         debtList.clear();
-                        callWarningPopup(newDebtList.get(newDebtList.size() - 1));
+                        try {
+                            callWarningPopup(newDebtList.get(newDebtList.size() - 1));
+                        } catch (Exception ignored) {
+                        }
                         newDebtList.clear();
                     } else if (debtList.size() == 1) {
-                        callWarningPopup(debtList.get(0));
+                        try {
+                            callWarningPopup(debtList.get(0));
+                        } catch (Exception ignored) {
+                        }
                     }
                 }
             }
@@ -523,7 +532,16 @@ public class fragment_main extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         isVisible = isVisibleToUser;
-        Log.e("isVisible", "setUserVisibleHint: "+isVisibleToUser);
+        Log.e("isVisible", "setUserVisibleHint: " + isVisibleToUser);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        try {
+            warningPopup.dismiss();
+        } catch (Exception ignored) {
+        }
     }
 
     @Override
