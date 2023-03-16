@@ -323,7 +323,7 @@ public class Ear_Tracker extends Fragment {
                         balanceEntity bal = getBal();
                         int oldBal = sal.getSalary();
                         if (bal != null) {
-                            oldBal = oldBal + (oldBal - this.oldBal);
+                            oldBal = bal.getBalance() - oldBal;
                             bal.setBalance(oldBal);
                         } else {
                             bal.setBalance(0);
@@ -334,7 +334,7 @@ public class Ear_Tracker extends Fragment {
                         inHandBalEntity bal = getInHandBal();
                         int oldBal = sal.getSalary();
                         if (bal != null) {
-                            oldBal = oldBal + (oldBal - this.oldBal);
+                            oldBal = bal.getBalance() - oldBal;
                             bal.setBalance(oldBal);
                         } else {
                             bal.setBalance(0);
