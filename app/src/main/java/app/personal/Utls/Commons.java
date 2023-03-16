@@ -86,6 +86,10 @@ public class Commons {
         }
     }
 
+    public static int setCategoryProgress(float exp, float sal) {
+        return (int) ((exp / sal) * 100);
+    }
+
     public static int getDay() {
         Date d = new Date();
         return d.getDay();
@@ -362,13 +366,13 @@ public class Commons {
         }
     }
 
-    public static boolean budgetValidityChecker(int BudgetType, String Date){
-        try{
-            String [] sDate = Date.split("/");
+    public static boolean budgetValidityChecker(int BudgetType, String Date) {
+        try {
+            String[] sDate = Date.split("/");
             String newDate;
-            if (BudgetType==Constants.BUDGET_WEEKLY){
+            if (BudgetType == Constants.BUDGET_WEEKLY) {
                 newDate = "07/" + sDate[1] + "/" + sDate[2];
-            }else{
+            } else {
                 newDate = "31/" + sDate[1] + "/" + sDate[2];
             }
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
@@ -381,7 +385,7 @@ public class Commons {
             long time = Math.abs(budgetDate.getTime() + AddDate.getTime());
             Date afterDate = new Date(time);
             return afterDate.getTime() >= refDate.getTime();
-        }catch (Exception ignored){
+        } catch (Exception ignored) {
             return false;
         }
     }
