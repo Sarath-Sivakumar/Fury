@@ -115,7 +115,6 @@ public class fragment_main extends Fragment {
             }
         });
 
-
         ViewPager ig_vp = v.findViewById(R.id.infoGraphics_vp);
         TabLayout ig_tl = v.findViewById(R.id.infoGraphics_tab);
 
@@ -238,8 +237,8 @@ public class fragment_main extends Fragment {
     }
 
     private void initViewModel() {
-        getExp(filter);
         getSal();
+        getExp(filter);
         getDebt();
         getBud();
         setStat();
@@ -302,8 +301,6 @@ public class fragment_main extends Fragment {
         progress = 0;
         salary = 0;
         expense = 0;
-        cAdapter.clear();
-        dAdapter.clear();
         initViewModel();
         MobileAds.initialize(requireContext());
     }
@@ -314,7 +311,7 @@ public class fragment_main extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.main_fragment_home, container, false);
         findView(v);
-        getExp(filter);
+        initViewModel();
         try {
             setMain(progress);
         } catch (Exception e) {
@@ -386,12 +383,14 @@ public class fragment_main extends Fragment {
     private void getExp(int filter) {
         vm.getExp().observe(requireActivity(), expEntities -> {
             expense = 0;
-            cAdapter.clear();
             setStat();
+            if (!expEntities.isEmpty()){
+                cAdapter.clear();
+                cAdapter.setExpes(expEntities, salary, filter);
+            }
             for (int i = 0; i < expEntities.size(); i++) {
                 expense = expense + expEntities.get(i).getExpenseAmt();
             }
-            cAdapter.setExpes(expEntities, salary, filter);
             try {
                 String p = Constants.RUPEE + expense;
                 expView.setText(p);
@@ -478,6 +477,7 @@ public class fragment_main extends Fragment {
         vm.getDebt().observe(requireActivity(), debtEntities -> {
             try {
                 setStat();
+                dAdapter.clear();
                 if (debtEntities != null) {
                     dAdapter.setDues(debtEntities);
                     if (dAdapter.getItemCount() <= 0) {
@@ -517,15 +517,11 @@ public class fragment_main extends Fragment {
         progress = 0;
         salary = 0;
         expense = 0;
-        cAdapter.clear();
-        dAdapter.clear();
+        initViewModel();
+        setStat();
         try {
-            initViewModel();
-            setStat();
             setMain(progress);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception ignored) {}
     }
 
     @Override
@@ -538,10 +534,18 @@ public class fragment_main extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        try {
+        try{
             warningPopup.dismiss();
-        } catch (Exception ignored) {
-        }
+        }catch (Exception ignored){}
+        Log.e("onStop", "onStop");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        try{
+            warningPopup.dismiss();
+        }catch (Exception ignored){}
     }
 
     @Override
@@ -550,13 +554,9 @@ public class fragment_main extends Fragment {
         progress = 0;
         salary = 0;
         expense = 0;
-        cAdapter.clear();
-        dAdapter.clear();
+        initViewModel();
         try {
-            initViewModel();
             setMain(progress);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception ignored) {}
     }
 }

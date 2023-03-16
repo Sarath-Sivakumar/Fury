@@ -222,14 +222,15 @@ public class BudgetFragment extends Fragment {
         cal.setOnDateChangeListener((view1, year, month, dayOfMonth) -> {
             startDate.set(dayOfMonth + "/" + (month + 1) + "/" + year);
         });
-
-        if (!prevDate.equals("0")) {
-            try {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-                Date d = sdf.parse(prevDate);
-                assert d != null;
-                cal.setDate(d.getTime());
-            } catch (Exception ignored) {
+        if (prevDate!=null){
+            if (!prevDate.equals("0")) {
+                try {
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+                    Date d = sdf.parse(prevDate);
+                    assert d != null;
+                    cal.setDate(d.getTime());
+                } catch (Exception ignored) {
+                }
             }
         }
 
