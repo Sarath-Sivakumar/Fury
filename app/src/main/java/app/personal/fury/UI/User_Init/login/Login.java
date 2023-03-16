@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import java.util.Objects;
 
+import app.personal.MVVM.Entity.LaunchChecker;
+import app.personal.MVVM.Viewmodel.AppUtilViewModel;
 import app.personal.MVVM.Viewmodel.userInitViewModel;
 import app.personal.Utls.Commons;
 import app.personal.fury.R;
@@ -26,6 +28,7 @@ import app.personal.fury.UI.MainActivity;
 public class Login extends AppCompatActivity {
 
     private userInitViewModel uvm;
+    private AppUtilViewModel appVM;
     private EditText Email, Password;
     private Button Login;
     private ProgressBar progress;
@@ -41,6 +44,7 @@ public class Login extends AppCompatActivity {
 
     private void setViewModel(){
         uvm = new ViewModelProvider(this).get(userInitViewModel.class);
+        appVM = new ViewModelProvider(this).get(AppUtilViewModel.class);
         uvm.getUserId().observe(this, firebaseUser -> {
             if (firebaseUser!=null){
                 startActivity(new Intent(this, MainActivity.class));
@@ -94,7 +98,14 @@ public class Login extends AppCompatActivity {
                     uvm.Login(email, password);
                     uvm.getUserId().observe(this, firebaseUser -> {
                         if (Objects.equals(firebaseUser.getEmail(), email)){
-                            finishAffinity();
+                            appVM.getCheckerData().observe(this, launchChecker1 -> {
+                                if (launchChecker1.getTimesLaunched()==0){
+                                    appVM.UpdateLaunchChecker(new LaunchChecker(launchChecker1.getId(),
+                                            launchChecker1.getTimesLaunched()+1));
+                                    finishAffinity();
+                                    appVM.getCheckerData().removeObservers(this);
+                                }
+                            });
                         }else{
                             progress.setVisibility(View.GONE);
                         }

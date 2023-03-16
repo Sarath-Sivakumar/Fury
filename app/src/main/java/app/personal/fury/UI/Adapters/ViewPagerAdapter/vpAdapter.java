@@ -1,4 +1,4 @@
-package app.personal.fury.ViewPagerAdapter;
+package app.personal.fury.UI.Adapters.ViewPagerAdapter;
 
 import android.view.ViewGroup;
 

@@ -46,7 +46,7 @@ import app.personal.Utls.TutorialUtil;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.budgetList.budgetAdapter;
 import app.personal.fury.UI.MainActivity;
-import app.personal.fury.ViewPagerAdapter.infoGraphicsAdapter;
+import app.personal.fury.UI.Adapters.infoGraphicAdapter.infoGraphicsAdapter;
 
 public class BudgetFragment extends Fragment {
 
