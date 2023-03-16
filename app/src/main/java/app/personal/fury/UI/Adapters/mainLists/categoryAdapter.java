@@ -20,7 +20,7 @@ import app.personal.fury.R;
 
 public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHolder> {
 
-//    private onItemClickListener listener;
+    //    private onItemClickListener listener;
     private final List<expEntity> sumExp = new ArrayList<>();
     private final List<expEntity> orgExp = new ArrayList<>();
     private final List<expEntity> food = new ArrayList<>(), travel = new ArrayList<>(),
@@ -31,7 +31,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
     private float salary;
     private int filter;
     private final int foodIndex = 0, travelIndex = 1, rentIndex = 2,
-            gasIndex = 3, groceryIndex = 4 ,electricityIndex = 5, rechargeIndex = 6,
+            gasIndex = 3, groceryIndex = 4, electricityIndex = 5, rechargeIndex = 6,
             feesIndex = 7, subsIndex = 8, healthIndex = 9, billsIndex = 10, othersIndex = 11;
 
     @NonNull
@@ -43,7 +43,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         return new catHolder(itemView);
     }
 
-    public void clear(){
+    public void clear() {
         sumExp.clear();
         food.clear();
         travel.clear();
@@ -63,16 +63,16 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
     public void onBindViewHolder(@NonNull catHolder holder, int position) {
         expEntity entity = sumExp.get(position);
         holder.expName.setText(entity.getExpenseName());
-        if (Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary) > 100 ||
-                Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary) < 0) {
+        if (Commons.setCategoryProgress(sumExp.get(position).getExpenseAmt(), salary) > 100 ||
+                Commons.setCategoryProgress(sumExp.get(position).getExpenseAmt(), salary) < 0) {
             clear();
             setExpes(orgExp, salary, filter);
         } else {
-            String s = Commons.setProgress(sumExp.get(position).getExpenseAmt(), salary) + "%";
+            String s = Commons.setCategoryProgress(sumExp.get(position).getExpenseAmt(), salary) + "%";
             holder.expPercent.setText(s);
         }
 
-        try{
+        try {
             switch (entity.getExpenseName()) {
                 case Constants.Food:
                     holder.expIcon.setImageResource(R.drawable.cat_icon_food);
@@ -114,18 +114,21 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                 default:
                     break;
             }
-        }catch (Exception ignored){}
+        } catch (Exception ignored) {
+        }
     }
 
     public void setExpes(List<expEntity> exp, float salary, int filter) {
 //        0-today, 1-month, 2-year
         clear();
+        orgExp.clear();
         setDefaultList();
         this.salary = salary;
         this.filter = filter;
-        orgExp.clear();
         orgExp.addAll(exp);
-
+        Log.e("setExp", "Array size: " + exp.size());
+        Log.e("setExp", "Salary: " + salary);
+        Log.e("setExp", "Filter: " + filter);
         Thread t = new Thread(() -> {
             for (int i = 0; i < exp.size(); i++) {
 //            Checks if exp date = current date
@@ -162,7 +165,9 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
                     this.notifyDataSetChanged();
                 } catch (Exception e) {
                     clear();
-                    setExpes(exp, salary, filter);
+                    if (exp.size()!=0){
+                        setExpes(exp, salary, filter);
+                    }
                 }
                 i++;
             }
@@ -397,7 +402,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
     }
 
     static class catHolder extends RecyclerView.ViewHolder {
-        private final TextView expName,expPercent;
+        private final TextView expName, expPercent;
         private final ImageView expIcon;
 
         public catHolder(@NonNull View v) {
