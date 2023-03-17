@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 
 import app.personal.fury.R;
 
-public class frag1 extends Fragment {
+public class frag3 extends Fragment {
 
-    public frag1() {
+    public frag3() {
         // Required empty public constructor
     }
 
