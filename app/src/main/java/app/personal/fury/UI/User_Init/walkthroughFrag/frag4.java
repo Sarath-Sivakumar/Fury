@@ -25,6 +25,11 @@ public class frag4 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.item_walkthrough_due, container, false);
+        View v = inflater.inflate(R.layout.item_walkthrough_due, container, false);
+        findView(v);
+        return v;
+    }
+    private void findView(View v){
+
     }
 }
