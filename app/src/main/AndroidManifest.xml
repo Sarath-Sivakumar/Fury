@@ -32,7 +32,8 @@
         android:theme="@style/Theme.Fury"
         tools:targetApi="31">
         <activity
-            android:name=".splashTutorialSlider"
+            android:name=".UI.splashTutorialSlider"
+            android:theme="@style/SplashTheme"
             android:exported="false" />
         <activity
             android:name=".UI.User_Init.login.forgot_pass"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="bottom"
-    android:background="@drawable/init_walk_bg">
+    android:background="@drawable/init_walk_bg_exp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,10 +14,10 @@
         android:layout_weight="1">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/colored_icon_warning"/>
+            android:src="@drawable/walk_icon_exp"/>
 
     </LinearLayout>
 
@@ -58,13 +58,15 @@
             android:layout_margin="12dp"
             android:orientation="horizontal">
 
-            <TextView
+            <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:id="@+id/skip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:text="Skip"
                 android:layout_gravity="center"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
             
             <View
                 android:layout_width="0dp"
@@ -73,7 +75,6 @@
 
 
             <TextView
-                android:id="@+id/next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Next"
@@ -82,6 +83,7 @@
                 android:textSize="14sp" />
             
             <ImageButton
+                android:id="@+id/next"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
