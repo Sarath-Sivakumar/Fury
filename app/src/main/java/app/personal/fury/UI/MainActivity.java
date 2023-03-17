@@ -161,7 +161,6 @@ public class MainActivity extends AppCompatActivity {
             Log.e("Local Repository", "Error: " + e.getMessage());
         }
     }
-
     private void monthlyCalculations(salaryEntity sal) {
         String creationDate = sal.getCreationDate();
         String currentDate = Commons.getDate();
@@ -223,7 +222,6 @@ public class MainActivity extends AppCompatActivity {
         initTutorialPhase1();
         initAd();
     }
-
     private void initAd(){
         MobileAds.initialize(this);
         String TestAdId = "ca-app-pub-3940256099942544/1033173712";
@@ -274,8 +272,6 @@ public class MainActivity extends AppCompatActivity {
             interstitial.show(this);
         }
     }
-
-
     public static void initTutorialPhase3(){
         ArrayList<View> Targets = new ArrayList<>();
         ArrayList<String> PrimaryTexts = new ArrayList<>();
@@ -288,7 +284,6 @@ public class MainActivity extends AppCompatActivity {
 //        ----
         util.TutorialPhase3(Targets, PrimaryTexts, SecondaryTexts);
     }
-
     public static void initTutorialPhase5(){
         ArrayList<View> Targets = new ArrayList<>();
         ArrayList<String> PrimaryTexts = new ArrayList<>();
@@ -300,7 +295,6 @@ public class MainActivity extends AppCompatActivity {
 //        ----
         util.TutorialPhase5(Targets, PrimaryTexts, SecondaryTexts);
     }
-
     private void initTutorialPhase1(){
         TutorialUtil util = new TutorialUtil(this,this, this,this);
         util.setPhaseStatus(0);
@@ -319,7 +313,6 @@ public class MainActivity extends AppCompatActivity {
 
         util.TutorialPhase1(Targets, PrimaryTexts, SecondaryTexts);
     }
-
     private void setUserViewModel(){
         userVM.getIsLoggedOut().observe(this, Boolean->{
             if (Boolean){
@@ -350,7 +343,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     private int getInHandBal(){
         AtomicInteger bal = new AtomicInteger();
         vm.getInHandBalance().observe(this, inHandBalEntity -> {
@@ -362,7 +354,6 @@ public class MainActivity extends AppCompatActivity {
         });
         return bal.get();
     }
-
     private int getBal(){
         AtomicInteger bal = new AtomicInteger();
         vm.getBalance().observe(this, balanceEntity -> {
@@ -419,7 +410,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
     }
-
     private void rate(){
         try {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
@@ -429,7 +419,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
     private  void share(Context context){
         Intent sentIntent = new Intent();
         sentIntent.setAction(Intent.ACTION_SEND);
@@ -437,7 +426,6 @@ public class MainActivity extends AppCompatActivity {
         sentIntent.setType("text/plain");
         context.startActivity(sentIntent);
     }
-
     @SuppressLint("SetTextI18n")
     private void donate(View navView){
         PopupWindow popupWindow = new PopupWindow(this);
@@ -469,7 +457,6 @@ public class MainActivity extends AppCompatActivity {
         dl = findViewById(R.id.drawerLayout);
         setSupportActionBar(tb);
     }
-
     private void initViewPager() {
         vpAdapter adapter = new vpAdapter(getSupportFragmentManager());
 

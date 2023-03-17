@@ -260,7 +260,7 @@ public class fragment_main extends Fragment {
         yes = v.findViewById(R.id.yes_btn);
         no = v.findViewById(R.id.no_btn);
 
-        String s1 = "The below due of "+ Constants.RUPEE + debt.getAmount() +"\nvery close to it's deadline";
+        String s1 = "The below due of " + Constants.RUPEE + debt.getAmount() + "\nvery close to it's deadline";
         mainBody.setText(s1);
         String s2 = debt.getSource();
         name.setText(s2);
@@ -384,10 +384,8 @@ public class fragment_main extends Fragment {
         vm.getExp().observe(requireActivity(), expEntities -> {
             expense = 0;
             setStat();
-            if (!expEntities.isEmpty()){
-                cAdapter.clear();
-                cAdapter.setExpes(expEntities, salary, filter);
-            }
+            cAdapter.clear();
+            cAdapter.setExpes(expEntities, salary, filter);
             for (int i = 0; i < expEntities.size(); i++) {
                 expense = expense + expEntities.get(i).getExpenseAmt();
             }
@@ -521,7 +519,8 @@ public class fragment_main extends Fragment {
         setStat();
         try {
             setMain(progress);
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 
     @Override
@@ -534,18 +533,20 @@ public class fragment_main extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        try{
+        try {
             warningPopup.dismiss();
-        }catch (Exception ignored){}
+        } catch (Exception ignored) {
+        }
         Log.e("onStop", "onStop");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        try{
+        try {
             warningPopup.dismiss();
-        }catch (Exception ignored){}
+        } catch (Exception ignored) {
+        }
     }
 
     @Override
@@ -557,6 +558,7 @@ public class fragment_main extends Fragment {
         initViewModel();
         try {
             setMain(progress);
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 }
