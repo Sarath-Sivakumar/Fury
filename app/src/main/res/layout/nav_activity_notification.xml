@@ -33,11 +33,14 @@
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/notificationList"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/notiList"
         android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        tools:listitem="@layout/recycler_item_notification"
+        android:visibility="visible"/>
 
     <TextView
         android:id="@+id/no_noti"
@@ -45,6 +48,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="@string/no_new_notifications"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:visibility="gone" />
 
 </LinearLayout>
