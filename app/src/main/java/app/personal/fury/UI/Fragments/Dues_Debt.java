@@ -56,13 +56,12 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 public class Dues_Debt extends Fragment {
 
-    private TextView totalDueDisplay, totalRepeatingDues;
+    private TextView totalDueDisplay, totalRepeatingDues, noDues;
     private RecyclerView dueList, repeatList;
     private mainViewModel vm;
     private AppUtilViewModel appVM;
     private TutorialUtil util;
     private dueAdapter mainDueAdapter, repeatDue;
-    private TextView noDues;
     private int finalTotalDue = 0;
     private AdView ad;
     private FloatingActionButton fltBtn;

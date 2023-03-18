@@ -1,6 +1,5 @@
 package app.personal.fury.UI.Adapters.dueList;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,7 +86,9 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     public void setDebt(List<debtEntity> debt, int filter) {
         totalSum = 0;
         for (int i = 0; i < debt.size(); i++) {
-            totalSum = totalSum + debt.get(i).getAmount();
+            if (debt.get(i).getStatus().equals(Constants.DEBT_NOT_PAID)){
+                totalSum = totalSum + debt.get(i).getAmount();
+            }
             if (filter == 1) {
                 if (debt.get(i).getStatus().equals(Constants.DEBT_NOT_PAID) &&
                         debt.get(i).getIsRepeat() == Constants.NON_REPEATING_DUE) {
