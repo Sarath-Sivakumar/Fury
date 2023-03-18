@@ -321,10 +321,10 @@ public class Ear_Tracker extends Fragment {
                     vm.UpdateSalary(sal);
                     if (sal.getSalMode() == Constants.SAL_MODE_ACC) {
                         balanceEntity bal = getBal();
-                        int oldBal = sal.getSalary();
+                        int oldBal = salary.getSalary();
                         if (bal != null) {
-                            oldBal = bal.getBalance() - oldBal;
-                            bal.setBalance(oldBal);
+                            oldBal = oldBal - bal.getBalance();
+                            bal.setBalance(oldBal+sal.getSalary());
                         } else {
                             bal.setBalance(0);
                         }
@@ -332,10 +332,10 @@ public class Ear_Tracker extends Fragment {
                         vm.InsertBalance(bal);
                     } else {
                         inHandBalEntity bal = getInHandBal();
-                        int oldBal = sal.getSalary();
+                        int oldBal = salary.getSalary();
                         if (bal != null) {
-                            oldBal = bal.getBalance() - oldBal;
-                            bal.setBalance(oldBal);
+                            oldBal = oldBal - bal.getBalance();
+                            bal.setBalance(oldBal+sal.getSalary());
                         } else {
                             bal.setBalance(0);
                         }
