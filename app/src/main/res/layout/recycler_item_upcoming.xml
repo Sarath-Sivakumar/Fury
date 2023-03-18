@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="55dp"
-    android:layout_marginTop="10dp"
+    android:layout_height="wrap_content"
     android:layout_marginStart="6dp"
+    android:layout_marginTop="10dp"
     android:layout_marginEnd="6dp"
     android:background="@drawable/background_borderonly"
     android:backgroundTint="@color/white"
+    android:maxHeight="60dp"
+    android:minHeight="?attr/actionBarSize"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -39,9 +41,9 @@
                     android:id="@+id/icoText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fontFamily="@font/source_sans_pro_bold"
                     android:gravity="center"
                     android:text="R"
-                    android:fontFamily="@font/source_sans_pro_bold"
                     android:textColor="?attr/colorOnSecondary"
                     android:textSize="24sp" />
 
@@ -55,21 +57,26 @@
 
                 <TextView
                     android:id="@+id/dName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="0.6"
+                    android:ellipsize="end"
                     android:fontFamily="@font/raleway_bold"
                     android:gravity="start"
-                    android:layout_marginStart="12dp"
-                    android:textColor="@color/h2_dark"
+                    android:singleLine="true"
                     android:text="Rent"
+                    android:textColor="@color/h2_dark"
                     android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/dAmt"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
+                    android:layout_weight="1"
                     android:fontFamily="@font/work_sans_bold"
+                    android:gravity="end"
+                    android:singleLine="true"
                     android:text="100000"
                     android:textColor="@color/h2_dark"
                     android:textSize="22sp" />
@@ -89,19 +96,19 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/h1_dark"
             android:fontFamily="@font/raleway_semibold"
             android:gravity="end"
-            android:text="Due date" />
+            android:text="Due date"
+            android:textColor="@color/h1_dark" />
 
         <TextView
             android:id="@+id/finalDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:textColor="@color/h2_dark"
             android:fontFamily="@font/work_sans_medium"
-            android:text="31/12/2023" />
+            android:gravity="end"
+            android:text="31/12/2023"
+            android:textColor="@color/h2_dark" />
 
     </LinearLayout>
 

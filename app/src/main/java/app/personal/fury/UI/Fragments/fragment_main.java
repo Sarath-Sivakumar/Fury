@@ -358,13 +358,15 @@ public class fragment_main extends Fragment {
                 }
                 isViewed = true;
             }
-            if (budgetTotalAmount > 0) {
-                progress = Commons.setProgress(expense, budgetTotalAmount);
-                setMain(progress);
-            } else {
-                progress = Commons.setProgress(expense, salary);
-                setMain(progress);
-            }
+            try{
+                if (budgetTotalAmount > 0) {
+                    progress = Commons.setProgress(expense, budgetTotalAmount);
+                    setMain(progress);
+                } else {
+                    progress = Commons.setProgress(expense, salary);
+                    setMain(progress);
+                }
+            }catch (Exception ignored){}
             setStat();
         });
     }
