@@ -1,7 +1,6 @@
 package app.personal.fury.UI.Adapters.dueList;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +20,8 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     private final List<debtEntity> debt = new ArrayList<>();
     private onItemClickListener listener;
     private int totalSum = 0;
-    private int filter;
-    private Context context;
-    private int isRepeating;
-    private int size = 0, repeatSize = 0;
+    private final int isRepeating;
+    private int repeatSize = 0;
 //    @ColorInt
 //    private int colorGreen;
 
@@ -86,15 +83,9 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
         return totalSum;
     }
 
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
     public void setDebt(List<debtEntity> debt, int filter) {
-        size = debt.size();
-        this.filter = filter;
         totalSum = 0;
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < debt.size(); i++) {
             totalSum = totalSum + debt.get(i).getAmount();
             if (filter == 1) {
                 if (debt.get(i).getStatus().equals(Constants.DEBT_NOT_PAID) &&
