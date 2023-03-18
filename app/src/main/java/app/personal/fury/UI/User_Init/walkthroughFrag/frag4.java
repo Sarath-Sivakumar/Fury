@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 
 import app.personal.fury.R;
 
-public class frag1 extends Fragment {
+public class frag4 extends Fragment {
 
-    public frag1() {
+    public frag4() {
         // Required empty public constructor
     }
 
@@ -25,7 +25,7 @@ public class frag1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.item_walkthrough_exp, container, false);
+        View v = inflater.inflate(R.layout.item_walkthrough_due, container, false);
         findView(v);
         return v;
     }
