@@ -6,12 +6,14 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -20,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -84,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView userName;
     private static TutorialUtil util;
     private InterstitialAd interstitial;
+    @ColorInt
+    private int accent;
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 
     @Override
@@ -93,14 +98,14 @@ public class MainActivity extends AppCompatActivity {
         init();
         setNav();
         setUserViewModel();
-        try{
+        try {
             vm.getSalary().observe(this, salaryEntityList -> {
-                if (salaryEntityList!=null){
+                if (salaryEntityList != null) {
                     processSalary(salaryEntityList);
                 }
             });
-        }catch (Exception e){
-            Log.e("Main", "onCreateError: "+e.getMessage());
+        } catch (Exception e) {
+            Log.e("Main", "onCreateError: " + e.getMessage());
         }
         if (savedInstanceState == null) {
             tb.setTitle(Constants.main);
@@ -126,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
     private void dailyCalculations(salaryEntity sal) {
         try {
             String creationDate = sal.getCreationDate();
@@ -161,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
             Log.e("Local Repository", "Error: " + e.getMessage());
         }
     }
+
     private void monthlyCalculations(salaryEntity sal) {
         String creationDate = sal.getCreationDate();
         String currentDate = Commons.getDate();
@@ -204,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
             vm.UpdateSalary(sal);
         }
     }
+
     private void init() {
         //init AD here..
         uvm = new ViewModelProvider(this).get(userInitViewModel.class);
@@ -215,14 +223,15 @@ public class MainActivity extends AppCompatActivity {
         vm.initFirebaseMessagingService(Constants.PromoFirebaseService);
         vm.initFirebaseMessagingService(Constants.UpdateFirebaseService);
 
-        util = new TutorialUtil(this,this, this,this);
+        util = new TutorialUtil(this, this, this, this);
         findView();
         initViewPager();
         isStoragePermissionGranted();
         initTutorialPhase1();
         initAd();
     }
-    private void initAd(){
+
+    private void initAd() {
         MobileAds.initialize(this);
         String TestAdId = "ca-app-pub-3940256099942544/1033173712";
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -266,13 +275,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
     private void showInterstitial() {
         // Show the ad if it's ready. Otherwise toast and restart the game.
         if (interstitial != null) {
             interstitial.show(this);
         }
     }
-    public static void initTutorialPhase3(){
+
+    public static void initTutorialPhase3() {
         ArrayList<View> Targets = new ArrayList<>();
         ArrayList<String> PrimaryTexts = new ArrayList<>();
         ArrayList<String> SecondaryTexts = new ArrayList<>();
@@ -284,7 +295,8 @@ public class MainActivity extends AppCompatActivity {
 //        ----
         util.TutorialPhase3(Targets, PrimaryTexts, SecondaryTexts);
     }
-    public static void initTutorialPhase5(){
+
+    public static void initTutorialPhase5() {
         ArrayList<View> Targets = new ArrayList<>();
         ArrayList<String> PrimaryTexts = new ArrayList<>();
         ArrayList<String> SecondaryTexts = new ArrayList<>();
@@ -295,8 +307,9 @@ public class MainActivity extends AppCompatActivity {
 //        ----
         util.TutorialPhase5(Targets, PrimaryTexts, SecondaryTexts);
     }
-    private void initTutorialPhase1(){
-        TutorialUtil util = new TutorialUtil(this,this, this,this);
+
+    private void initTutorialPhase1() {
+        TutorialUtil util = new TutorialUtil(this, this, this, this);
         util.setPhaseStatus(0);
         ArrayList<View> Targets = new ArrayList<>();
         ArrayList<String> PrimaryTexts = new ArrayList<>();
@@ -313,59 +326,63 @@ public class MainActivity extends AppCompatActivity {
 
         util.TutorialPhase1(Targets, PrimaryTexts, SecondaryTexts);
     }
-    private void setUserViewModel(){
-        userVM.getIsLoggedOut().observe(this, Boolean->{
-            if (Boolean){
+
+    private void setUserViewModel() {
+        userVM.getIsLoggedOut().observe(this, Boolean -> {
+            if (Boolean) {
                 startActivity(new Intent(this, Landing.class));
                 finish();
             }
         });
 
         userVM.getUserData().observe(this, userEntity -> {
-            if (userEntity!=null){
+            if (userEntity != null) {
                 String uname = userEntity.getName();
-                String[] arr= uname.split(" ");
-                String fName=arr[0];
-                String s = "Hello "+fName;
+                String[] arr = uname.split(" ");
+                String fName = arr[0];
+                String s = "Hello " + fName;
                 userName.setText(s);
-                if (userEntity.getImgUrl().equals(Constants.DEFAULT_DP)){
+                if (userEntity.getImgUrl().equals(Constants.DEFAULT_DP)) {
                     userDp.setImageResource(R.drawable.nav_icon_account);
-                }else{
+                } else {
                     Glide.with(this).load(userEntity.getImgUrl()).circleCrop().into(userDp);
                 }
             }
         });
 
         uvm.getUserId().observe(this, firebaseUser -> {
-            if (firebaseUser==null){
+            if (firebaseUser == null) {
                 startActivity(new Intent(this, Landing.class));
                 finish();
             }
         });
     }
-    private int getInHandBal(){
+
+    private int getInHandBal() {
         AtomicInteger bal = new AtomicInteger();
         vm.getInHandBalance().observe(this, inHandBalEntity -> {
             if (inHandBalEntity != null) {
                 bal.set(inHandBalEntity.getBalance());
-            }else{
+            } else {
                 bal.set(0);
             }
         });
         return bal.get();
     }
-    private int getBal(){
+
+    private int getBal() {
         AtomicInteger bal = new AtomicInteger();
         vm.getBalance().observe(this, balanceEntity -> {
-            if (balanceEntity!=null){
+            if (balanceEntity != null) {
                 bal.set(balanceEntity.getBalance());
-            }else {
+            } else {
                 bal.set(0);
             }
         });
         return bal.get();
     }
-    private void setNav(){
+
+    private void setNav() {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
                 dl, tb,
@@ -390,19 +407,19 @@ public class MainActivity extends AppCompatActivity {
         navView.inflateMenu(R.menu.nav_menu);
 
         navView.setNavigationItemSelectedListener(item -> {
-            if (item.getItemId()==R.id.notification){
+            if (item.getItemId() == R.id.notification) {
                 startActivity(new Intent(MainActivity.this, Notification_Activity.class));
-            } else if (item.getItemId()==R.id.settings) {
+            } else if (item.getItemId() == R.id.settings) {
                 startActivity(new Intent(MainActivity.this, Settings_Activity.class));
-            } else if (item.getItemId()==R.id.logout) {
+            } else if (item.getItemId() == R.id.logout) {
                 logout(navView);
-            } else if (item.getItemId()==R.id.rateus) {
+            } else if (item.getItemId() == R.id.rateus) {
                 rate();
-            } else if (item.getItemId()==R.id.donate) {
+            } else if (item.getItemId() == R.id.donate) {
                 donate(navView);
-            } else if (item.getItemId()==R.id.invite) {
+            } else if (item.getItemId() == R.id.invite) {
                 share(MainActivity.this);
-            }else{
+            } else {
                 Log.e("App", "Daddy stop! Please aaaah!");
             }
 
@@ -410,24 +427,26 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
     }
-    private void rate(){
+
+    private void rate() {
         try {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
-        }
-        catch (ActivityNotFoundException e){
+        } catch (ActivityNotFoundException e) {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id" + getPackageName())));
         }
 
     }
-    private  void share(Context context){
+
+    private void share(Context context) {
         Intent sentIntent = new Intent();
         sentIntent.setAction(Intent.ACTION_SEND);
-        sentIntent.putExtra(Intent.EXTRA_TEXT,"Get Fury now on : https://play.google.com/store/apps/details?id="+getPackageName());
+        sentIntent.putExtra(Intent.EXTRA_TEXT, "Get Fury now on : https://play.google.com/store/apps/details?id=" + getPackageName());
         sentIntent.setType("text/plain");
         context.startActivity(sentIntent);
     }
+
     @SuppressLint("SetTextI18n")
-    private void donate(View navView){
+    private void donate(View navView) {
         PopupWindow popupWindow = new PopupWindow(this);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
@@ -450,6 +469,7 @@ public class MainActivity extends AppCompatActivity {
         popupWindow.setOverlapAnchor(true);
         popupWindow.showAsDropDown(navView);
     }
+
     private void findView() {
         vp = findViewById(R.id.viewPager);
         tl = findViewById(R.id.tabLayout);
@@ -457,8 +477,14 @@ public class MainActivity extends AppCompatActivity {
         dl = findViewById(R.id.drawerLayout);
         setSupportActionBar(tb);
     }
+
     private void initViewPager() {
         vpAdapter adapter = new vpAdapter(getSupportFragmentManager());
+
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = getTheme();
+        theme.resolveAttribute(com.google.android.material.R.attr.colorAccent, typedValue, true);
+        accent = typedValue.data;
 
         //Add fragments here
         adapter.addFragment(new Exp_Tracker());
@@ -479,27 +505,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 vp.setCurrentItem(tab.getPosition());
-                switch(tab.getPosition()){
+                switch (tab.getPosition()) {
                     case 0:
                         tb.setTitle(Constants.Exp);
-                        Objects.requireNonNull(tab.getIcon()).setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+                        tab.getIcon().setColorFilter(accent, PorterDuff.Mode.SRC_IN);
 //                        tl.setTabTextColors();
                         break;
                     case 1:
                         tb.setTitle(Constants.Budget);
-                        Objects.requireNonNull(tab.getIcon()).setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+                        tab.getIcon().setColorFilter(accent, PorterDuff.Mode.SRC_IN);
                         break;
                     case 2:
                         tb.setTitle(Constants.main);
-                        Objects.requireNonNull(tab.getIcon()).setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+                        tab.getIcon().setColorFilter(accent, PorterDuff.Mode.SRC_IN);
                         break;
                     case 3:
                         tb.setTitle(Constants.Earnings);
-                        Objects.requireNonNull(tab.getIcon()).setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+                        tab.getIcon().setColorFilter(accent, PorterDuff.Mode.SRC_IN);
                         break;
                     case 4:
                         tb.setTitle(Constants.Dues);
-                        Objects.requireNonNull(tab.getIcon()).setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+                        tab.getIcon().setColorFilter(accent, PorterDuff.Mode.SRC_IN);
                         break;
                     default:
                         tb.setTitle("Noiccee!");
@@ -510,22 +536,23 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                //for removing the color of first icon when switched to next tab
-                Objects.requireNonNull(Objects.requireNonNull(tl.getTabAt(0)).getIcon()).clearColorFilter();
-                //for other tabs
-                Objects.requireNonNull(tab.getIcon()).clearColorFilter();
+                //for removing the color of tab icon when switched to next tab (.clearColorFilter() instead of setColorFilter.)
+                for (int i = 0; i <= 4; i++) {
+                        Objects.requireNonNull(Objects.requireNonNull(tl.getTabAt(i)).getIcon())
+                                .setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
                 }
+            }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                if (tab.getPosition()==2){
+                if (tab.getPosition() == 2) {
                     tb.setTitle(Constants.main);
                 }
             }
         });
     }
 
-    private void logout(View navView){
+    private void logout(View navView) {
         PopupWindow popupWindow = new PopupWindow(this);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
@@ -559,33 +586,35 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    }
 
-    public static void redirectTo(int i){
+    public static void redirectTo(int i) {
         int item = vp.getCurrentItem();
-        try{
+        try {
             vp.setCurrentItem(i);
-        }catch (Exception e){
+        } catch (Exception e) {
             vp.setCurrentItem(item);
-            Log.e("App","Stop it daddy! uwwu!");
+            Log.e("App", "Stop it daddy! uwwu!");
         }
     }
 
-    public static int getTab(){
+    public static int getTab() {
         return vp.getCurrentItem();
     }
+
     public void isStoragePermissionGranted() {
         if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED) {
-            Log.v("permission","Permission is granted");
+            Log.v("permission", "Permission is granted");
         } else {
-            Log.v("permission","Permission is revoked");
+            Log.v("permission", "Permission is revoked");
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-            Log.v("permission","Permission: "+permissions[0]+ "was "+grantResults[0]);
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Log.v("permission", "Permission: " + permissions[0] + "was " + grantResults[0]);
             //resume tasks needing this permission
         }
     }
