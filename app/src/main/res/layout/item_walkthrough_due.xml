@@ -17,34 +17,38 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/colored_icon_warning"/>
+            android:src="@drawable/walk_icon_due"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:orientation="vertical"
-        android:background="@drawable/walkthrough_bg">
+        android:layout_height="400dp"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Expense Tracker"
-            android:layout_marginTop="50dp"
-            android:textSize="20sp"
-            android:gravity="center"/>
+            android:text="Dues &amp; debts"
+            android:layout_marginStart="12dp"
+            android:padding="12dp"
+            android:fontFamily="@font/raleway_bold"
+            android:textColor="@color/h1_dark"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:textSize="22sp"
+            android:gravity="start|center"/>
 
         <TextView
             android:id="@+id/detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp"
-            android:text="expense tracker is a tool used to keep track of all your expenses in order to better manage your finances. "
-            android:layout_marginTop="30dp"
+            android:layout_marginStart="12dp"
+            android:textColor="@color/full_white"
+            android:text="You can easily keep track of your dues and debt, and set reminders for upcoming payments. Fury also alert you before due-date so you won't miss any payments in accident."
             android:textSize="20sp"
-            android:gravity="center"/>
+            android:gravity="start|center"/>
 
         <View
             android:layout_width="match_parent"
@@ -55,7 +59,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="bottom"
-            android:layout_margin="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="?attr/actionBarSize"
+            android:layout_marginTop="0dp"
             android:orientation="horizontal">
 
             <Button
@@ -64,9 +71,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Previous"
+                android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:layout_gravity="center"
-                android:textSize="12sp" />
+                android:textSize="16sp" />
 
             <View
                 android:layout_width="0dp"
@@ -74,21 +82,14 @@
                 android:layout_height="0dp"/>
 
 
-            <TextView
-                android:id="@+id/next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Next"
-                android:layout_marginEnd="12dp"
-                android:layout_gravity="end|center"
-                android:textSize="14sp" />
-
             <ImageButton
+                android:id="@+id/next"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_gravity="end"
                 android:background="@drawable/button_circle"
+                android:contentDescription="@null"
                 app:tint="@color/theme_green"
                 android:src="@drawable/common_icon_next"/>
 

@@ -19,7 +19,6 @@
 
         <!-- Customize your theme here. -->
         <item name="android:fontFamily">@font/spartan_semibold</item>
-
     </style>
 
     <style name="textstyle1">

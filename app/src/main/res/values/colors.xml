@@ -60,4 +60,8 @@
     <color name="tp_secondary_color">#1282a2</color>
     <color name="tp_focal_color">#90caf9</color>
 
+    <!--    Walkthrough-->
+    <color name="slidertab_dot">#e5e5e5</color>
+    <color name="Slider_selected">#6d6875</color>
+
 </resources>

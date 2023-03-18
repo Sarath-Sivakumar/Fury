@@ -31,10 +31,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Fury"
         tools:targetApi="31">
+
         <activity
             android:name=".UI.splashTutorialSlider"
-            android:theme="@style/SplashTheme"
             android:exported="false" />
+
         <activity
             android:name=".UI.User_Init.login.forgot_pass"
             android:exported="false" />
@@ -75,7 +76,7 @@
         <activity
             android:name=".UI.Drawer.WebViewActivity"
             android:exported="false" />
-        <activity android:name=".UI.splashTutorialSlider" />
+
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
