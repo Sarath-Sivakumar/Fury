@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_popupshade">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,13 +28,13 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
                         android:fontFamily="@font/raleway_bold"
                         android:gravity="center"
                         android:padding="12dp"
-                        android:text="Create your Budget"
+                        android:text="@string/create_your_budget"
                         android:textSize="24sp" />
 
                 </LinearLayout>
@@ -57,7 +59,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/raleway_semibold"
                             android:gravity="center"
-                            android:text="Total Income"
+                            android:text="@string/total_income"
                             android:textSize="16sp" />
 
                         <TextView
@@ -66,7 +68,7 @@
                             android:layout_weight="0.6"
                             android:layout_height="wrap_content"
                             android:gravity="end"
-                            android:text="Your Income"
+                            android:text="@string/your_income"
                             android:fontFamily="@font/work_sans_semibold"
                             android:layout_marginStart="6dp"/>
                     </LinearLayout>
@@ -89,7 +91,7 @@
                             android:gravity="center"
                             android:layout_marginTop="3dp"
                             android:layout_marginBottom="6dp"
-                            android:text="Set Budget"
+                            android:text="@string/set_budget"
                             android:textSize="16sp" />
 
                         <EditText
@@ -101,7 +103,8 @@
                             android:inputType="numberDecimal"
                             android:singleLine="true"
                             android:fontFamily="@font/work_sans_medium"
-                            android:hint="₹" />
+                            android:hint="@string/rupee"
+                            tools:ignore="Autofill,VisualLintTextFieldSize" />
 
                     </LinearLayout>
 
@@ -113,22 +116,24 @@
                         android:layout_marginStart="6dp"
                         android:layout_marginBottom="6dp"
                         android:textSize="14sp"
-                        android:text="Budget Type"/>
+                        android:text="@string/budget_type"/>
 
                     <RadioGroup
                         android:id="@+id/budType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingEnd="0dp">
+                        android:paddingEnd="0dp"
+                        tools:ignore="RtlSymmetry">
 
                         <RadioButton
                             android:id="@+id/weekly"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Weekly"
-                            android:textSize="13sp" />
+                            android:text="@string/weekly"
+                            android:textSize="13sp"
+                            tools:ignore="VisualLintButtonSize" />
 
                         <RadioButton
                             android:id="@+id/monthly"
@@ -136,7 +141,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/monthly"
-                            android:textSize="13sp" />
+                            android:textSize="13sp"
+                            tools:ignore="VisualLintButtonSize" />
 
                     </RadioGroup>
 
@@ -147,7 +153,7 @@
                         android:layout_marginTop="6dp"
                         android:layout_marginBottom="6dp"
                         android:gravity="center|start"
-                        android:text="Select Start date"
+                        android:text="@string/select_start_date"
                         android:textSize="14sp" />
 
                     <CalendarView
@@ -160,11 +166,12 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="6dp"
+                        android:gravity="center"
+                        android:text="@string/Budget_rule"
                         android:textSize="10sp"
-                        android:text="@string/Budget_rule"/>
+                        tools:ignore="SmallSp,TextContrastCheck" />
 
                     <Button
                         android:id="@+id/yes_btn"
@@ -173,8 +180,9 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/background_borderonly"
                         android:fontFamily="@font/raleway_bold"
-                        android:text="Continue"
-                        android:textAllCaps="false" />
+                        android:text="@string/cont"
+                        android:textAllCaps="false"
+                        tools:ignore="TextContrastCheck,VisualLintButtonSize" />
 
                 </LinearLayout>
             </LinearLayout>

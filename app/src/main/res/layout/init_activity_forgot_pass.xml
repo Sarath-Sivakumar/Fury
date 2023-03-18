@@ -22,7 +22,8 @@
             android:layout_marginTop="70sp"
             android:background="@android:color/transparent"
             android:padding="12dp"
-            android:src="@drawable/common_icon_back" />
+            android:src="@drawable/common_icon_back"
+            tools:ignore="ContentDescription,ImageContrastCheck,SpeakableTextPresentCheck" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -63,7 +64,8 @@
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
             android:padding="12dp"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            tools:ignore="Autofill" />
 
             <Button
                 android:id="@+id/passchange"
@@ -73,7 +75,8 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/button_login"
                 android:text="@string/send_mail"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="TextContrastCheck,VisualLintButtonSize" />
 
         </LinearLayout>
     </ScrollView>
