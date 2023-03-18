@@ -22,8 +22,6 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     private int totalSum = 0;
     private final int isRepeating;
     private int repeatSize = 0;
-//    @ColorInt
-//    private int colorGreen;
 
     public dueAdapter(int isRepeating){
         this.isRepeating = isRepeating;
