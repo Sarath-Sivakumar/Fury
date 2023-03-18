@@ -401,8 +401,8 @@ public class MainActivity extends AppCompatActivity {
 
         View v = navView.getHeaderView(0);
 
-        userDp = (ImageView) v.findViewById(R.id.userDP);
-        userName = (TextView) v.findViewById(R.id.profileName);
+        userDp = v.findViewById(R.id.userDP);
+        userName = v.findViewById(R.id.profileName);
 
         navView.inflateMenu(R.menu.nav_menu);
 
@@ -536,12 +536,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                //for removing the color of tab icon when switched to next tab .clearColorFilter()
+                //for removing the color of tab icon when switched to next tab (.clearColorFilter() instead of setColorFilter.)
                 for (int i = 0; i <= 4; i++) {
-//                    if (tab.getPosition()!=i){
                         Objects.requireNonNull(Objects.requireNonNull(tl.getTabAt(i)).getIcon())
                                 .setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
-
                 }
             }
 

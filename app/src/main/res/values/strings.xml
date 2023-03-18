@@ -215,6 +215,8 @@
     <string name="salary">salary</string>
     <string name="r">R</string>
     <string name="rent">Rent</string>
+    <string name="welcome_to_fury">Welcome to fury</string>
+    <string name="noti_ex">This is an example test to display welcome message with a fixed length</string>
 
 
 </resources>
