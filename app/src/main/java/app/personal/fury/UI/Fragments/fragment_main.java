@@ -38,6 +38,7 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import app.personal.MVVM.Entity.debtEntity;
+import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
@@ -63,8 +64,9 @@ public class fragment_main extends Fragment {
     private int totalEr = 0;
     private int totalEx = 0;
     private int totalBa = 0;
-    private PopupWindow warningPopup;
+    private PopupWindow warningPopup, updatePopup;
     private mainViewModel vm;
+    private LoggedInUserViewModel userVM;
     private duesAdapter dAdapter;
     private categoryAdapter cAdapter;
     private int salary = 0, expense = 0, budgetTotalAmount = 0;
@@ -73,7 +75,7 @@ public class fragment_main extends Fragment {
     private RecyclerView dueList;
     private LinearLayout noDues, statview, statdisabled;
     private int filter = 0;
-    private boolean isViewed = false, isVisible = false;
+    private boolean isViewed = false, isVisible = false, updateIsViewed = false;
     private final ArrayList<debtEntity> debtList = new ArrayList<>();
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
     private final int[] FragmentList = new int[]{R.drawable.infos1, R.drawable.infos2, R.drawable.infos3, R.drawable.infos4, R.drawable.infos5, R.drawable.infos6};
@@ -237,6 +239,10 @@ public class fragment_main extends Fragment {
     }
 
     private void initViewModel() {
+        if (!updateIsViewed){
+            update();
+            updateIsViewed = true;
+        }
         getSal();
         getExp(filter);
         getDebt();
@@ -260,7 +266,7 @@ public class fragment_main extends Fragment {
         yes = v.findViewById(R.id.yes_btn);
         no = v.findViewById(R.id.no_btn);
 
-        String s1 = "The below due of "+ Constants.RUPEE + debt.getAmount() +"\nis close to it's deadline";
+        String s1 = "The below due of " + Constants.RUPEE + debt.getAmount() + "\nis close to it's deadline";
 
         mainBody.setText(s1);
         String s2 = debt.getSource();
@@ -293,10 +299,38 @@ public class fragment_main extends Fragment {
         warningPopup.showAsDropDown(mainProgressText);
     }
 
+    private void callUpdatePopup() {
+        updatePopup = new PopupWindow(getContext());
+        LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
+        View v = inflater.inflate(R.layout.popup_app_update, null);
+        updatePopup.setContentView(v);
+
+        Button yes, no;
+        no = v.findViewById(R.id.ignore);
+        yes = v.findViewById(R.id.update);
+
+        yes.setOnClickListener(v1 -> {
+            //Some Intent Shit here...
+            updatePopup.dismiss();
+        });
+
+        no.setOnClickListener(v1 -> updatePopup.dismiss());
+
+        updatePopup.setFocusable(true);
+        updatePopup.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        updatePopup.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+        updatePopup.setBackgroundDrawable(null);
+        updatePopup.setElevation(6);
+        updatePopup.showAsDropDown(mainProgressText);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+        userVM = new ViewModelProvider(requireActivity()).get(LoggedInUserViewModel.class);
+        userVM.update();
         cAdapter = new categoryAdapter();
         dAdapter = new duesAdapter();
         progress = 0;
@@ -358,7 +392,7 @@ public class fragment_main extends Fragment {
                 }
                 isViewed = true;
             }
-            try{
+            try {
                 if (budgetTotalAmount > 0) {
                     progress = Commons.setProgress(expense, budgetTotalAmount);
                     setMain(progress);
@@ -366,7 +400,8 @@ public class fragment_main extends Fragment {
                     progress = Commons.setProgress(expense, salary);
                     setMain(progress);
                 }
-            }catch (Exception ignored){}
+            } catch (Exception ignored) {
+            }
             setStat();
         });
     }
@@ -451,6 +486,14 @@ public class fragment_main extends Fragment {
                         }
                     }
                 }
+            }
+        });
+    }
+
+    private void update(){
+        userVM.updateListener().observe(requireActivity(), integer -> {
+            if (integer==Constants.UpdateAvailable){
+             callUpdatePopup();
             }
         });
     }
