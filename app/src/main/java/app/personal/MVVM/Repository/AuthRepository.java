@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
 
+import app.personal.MVVM.Entity.update;
 import app.personal.MVVM.Entity.userEntity;
 import app.personal.Utls.Constants;
 
@@ -30,12 +31,13 @@ public class AuthRepository {
     private final FirebaseAuth firebaseAuth;
     private final FirebaseDatabase db = FirebaseDatabase.getInstance(Constants.DB_INSTANCE);
     private final DatabaseReference userDataRef = db.getReference(Constants.Users);
+    private final DatabaseReference updateDataRef = db.getReference(Constants.AppVersion);
     private final MutableLiveData<FirebaseUser> userLiveData;
     private final MutableLiveData<Boolean> isLoggedOutLiveData;
     private final MutableLiveData<userEntity> userData;
     private final MutableLiveData<String> FirebaseAuthError;
-
-    private String default_Error = "Null";
+    private final MutableLiveData<Integer> Update;
+    private final String default_Error = "Null";
 
     public AuthRepository(Application application) {
         this.application = application;
@@ -43,8 +45,11 @@ public class AuthRepository {
         this.userLiveData = new MutableLiveData<>();
         this.isLoggedOutLiveData = new MutableLiveData<>();
         this.userData = new MutableLiveData<>();
-        this.FirebaseAuthError =  new MutableLiveData<>();
-        FirebaseAuthError.postValue(default_Error);
+        this.FirebaseAuthError = new MutableLiveData<>();
+        this.Update = new MutableLiveData<>();
+
+        this.FirebaseAuthError.postValue(default_Error);
+        this.Update.postValue(Constants.UpdateNotAvailable);
 
         if (firebaseAuth.getCurrentUser() != null) {
             userLiveData.postValue(firebaseAuth.getCurrentUser());
@@ -118,7 +123,7 @@ public class AuthRepository {
         String user = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
         db.getReference(Constants.Users).child(user)
                 .setValue(map, (error, ref) -> {
-                    if(error != null) {
+                    if (error != null) {
                         FirebaseAuthError.postValue(Objects.requireNonNull(error.getMessage()));
                     }
                 });
@@ -131,11 +136,12 @@ public class AuthRepository {
         String user = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
         db.getReference(Constants.Users).child(user)
                 .setValue(map, (error, ref) -> {
-                    if(error != null) {
+                    if (error != null) {
                         FirebaseAuthError.postValue(Objects.requireNonNull(error.getMessage()));
                     }
                 });
     }
+
     public void insertUserData(userEntity userData) {
         userLiveData.postValue(firebaseAuth.getCurrentUser());
         HashMap<String, Object> map = new HashMap<>();
@@ -154,9 +160,10 @@ public class AuthRepository {
                 });
     }
 
-    public void checkForUser(){
+    public void checkForUser() {
         userLiveData.postValue(firebaseAuth.getCurrentUser());
     }
+
     public void fetchUserData() {
         userDataRef.child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
                 .addValueEventListener(new ValueEventListener() {
@@ -172,6 +179,27 @@ public class AuthRepository {
                         FirebaseAuthError.postValue(Objects.requireNonNull(error.getMessage()));
                     }
                 });
+    }
+
+    public void updateListener() {
+        updateDataRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                update data = snapshot.getValue(update.class);
+                if (data != null) {
+                    if (data.getVersion().equals(Constants.APP_VERSION)) {
+                        Update.postValue(Constants.UpdateNotAvailable);
+                    } else {
+                        Update.postValue(Constants.UpdateAvailable);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                FirebaseAuthError.postValue(Objects.requireNonNull(error.getMessage()));
+            }
+        });
     }
 
     public void signup(String Email, String Password, userEntity userData) {
@@ -197,6 +225,10 @@ public class AuthRepository {
         return userLiveData;
     }
 
+    public MutableLiveData<Integer> getUpdate() {
+        return Update;
+    }
+
     public MutableLiveData<userEntity> getUserData() {
         try {
             fetchUserData();
@@ -209,11 +241,12 @@ public class AuthRepository {
     public MutableLiveData<String> getFirebaseError() {
         return FirebaseAuthError;
     }
+
     public MutableLiveData<Boolean> getIsLoggedOutLiveData() {
         return isLoggedOutLiveData;
     }
 
-    public void setDefaultError(){
+    public void setDefaultError() {
         FirebaseAuthError.postValue(default_Error);
     }
 }
