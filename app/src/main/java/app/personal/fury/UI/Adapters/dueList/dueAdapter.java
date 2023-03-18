@@ -1,6 +1,7 @@
 package app.personal.fury.UI.Adapters.dueList;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +23,6 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     private int totalSum = 0;
     private final int isRepeating;
     private int repeatSize = 0;
-//    @ColorInt
-//    private int colorGreen;
 
     public dueAdapter(int isRepeating){
         this.isRepeating = isRepeating;
@@ -50,7 +49,6 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
         }
     }
 
-    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull expHolder holder, int position) {
         debtEntity entity = debt.get(position);
@@ -66,6 +64,9 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
             holder.dFinalDate.setText(entity.getFinalDate());
         }
         if (isRepeating>=2){
+            if (entity.getStatus().equals(Constants.DEBT_PAID)){
+                holder.dStatus.setTextColor(Color.GREEN);
+            }
             holder.dStatus.setText(entity.getStatus());
         }
         //To get first letter in source name--------------------------------------
