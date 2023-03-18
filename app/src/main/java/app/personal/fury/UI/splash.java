@@ -89,7 +89,6 @@ public class splash extends AppCompatActivity {
                 }
             });
         }
-
     }
 
     private void dataFetch() {

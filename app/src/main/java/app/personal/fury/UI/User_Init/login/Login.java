@@ -24,7 +24,6 @@ import app.personal.MVVM.Viewmodel.userInitViewModel;
 import app.personal.Utls.Commons;
 import app.personal.fury.R;
 import app.personal.fury.UI.MainActivity;
-import app.personal.fury.UI.splashTutorialSlider;
 
 public class Login extends AppCompatActivity {
 
@@ -33,7 +32,7 @@ public class Login extends AppCompatActivity {
     private EditText Email, Password;
     private Button Login;
     private ProgressBar progress;
-    private Boolean passvisible=false;
+    private Boolean passVisible =false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +47,7 @@ public class Login extends AppCompatActivity {
         appVM = new ViewModelProvider(this).get(AppUtilViewModel.class);
         uvm.getUserId().observe(this, firebaseUser -> {
             if (firebaseUser!=null){
-                startActivity(new Intent(this, splashTutorialSlider.class));
+                startActivity(new Intent(this, MainActivity.class));
                 finish();
             }
         });
@@ -70,18 +69,18 @@ public class Login extends AppCompatActivity {
             if(event.getAction()==MotionEvent.ACTION_UP) {
                 if (event.getRawX() >= Password.getRight() - Password.getCompoundDrawables()[Right].getBounds().width()) {
                     int selection = Password.getSelectionEnd();
-                    if (passvisible) {
+                    if (passVisible) {
                         //set icon
                         Password.setCompoundDrawablesRelativeWithIntrinsicBounds (0, 0, R.drawable.common_icon_eyeclose,0);
                         //pass hide
                         Password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                        passvisible = false;
+                        passVisible = false;
                     } else {
                         //set icon
                         Password.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.common_icon_eyeopen,0);
                         //pass show
                         Password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                        passvisible = true;
+                        passVisible = true;
                     }
                     Password.setSelection(selection);
                     return true;
@@ -100,7 +99,7 @@ public class Login extends AppCompatActivity {
                     uvm.getUserId().observe(this, firebaseUser -> {
                         if (Objects.equals(firebaseUser.getEmail(), email)){
                             appVM.getCheckerData().observe(this, launchChecker1 -> {
-                                if (launchChecker1.getTimesLaunched()==0){
+                                if (launchChecker1.getTimesLaunched()>0){
                                     appVM.UpdateLaunchChecker(new LaunchChecker(launchChecker1.getId(),
                                             launchChecker1.getTimesLaunched()+1));
                                     finishAffinity();
