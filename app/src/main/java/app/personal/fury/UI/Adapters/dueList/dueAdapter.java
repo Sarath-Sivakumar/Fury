@@ -23,27 +23,32 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     private int totalSum = 0;
     private int filter;
     private Context context;
-    private boolean isRepeating;
+    private int isRepeating;
     private int size = 0, repeatSize = 0;
 //    @ColorInt
 //    private int colorGreen;
 
-    public dueAdapter(boolean isRepeating){
+    public dueAdapter(int isRepeating){
         this.isRepeating = isRepeating;
     }
 
     @NonNull
     @Override
     public expHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (!isRepeating){
+        if (isRepeating==1){
             View itemView = LayoutInflater
                     .from(parent.getContext())
                     .inflate(R.layout.recycler_item_upcoming, parent, false);
             return new expHolder(itemView);
-        }else{
+        }else if (isRepeating==0){
             View itemView = LayoutInflater
                     .from(parent.getContext())
                     .inflate(R.layout.recycler_item_repeatingdue, parent, false);
+            return new expHolder(itemView);
+        } else{
+            View itemView = LayoutInflater
+                    .from(parent.getContext())
+                    .inflate(R.layout.recycler_item_alldue, parent, false);
             return new expHolder(itemView);
         }
     }
@@ -63,7 +68,9 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
         } else {
             holder.dFinalDate.setText(entity.getFinalDate());
         }
-//        holder.dStatus.setText(entity.getStatus());
+        if (isRepeating>=2){
+            holder.dStatus.setText(entity.getStatus());
+        }
         //To get first letter in source name--------------------------------------
         String ico = String.valueOf(entity.getSource().charAt(0)).toUpperCase();
         holder.icoText.setText(ico);
@@ -117,12 +124,12 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     }
 
     class expHolder extends RecyclerView.ViewHolder {
-        private final TextView dAmt, dFinalDate, dName, icoText;
+        private final TextView dAmt, dFinalDate, dName, icoText, dStatus;
 
         public expHolder(@NonNull View itemView) {
             super(itemView);
             dAmt = itemView.findViewById(R.id.dAmt);
-//            dStatus = itemView.findViewById(R.id.dStatus);
+            dStatus = itemView.findViewById(R.id.dStatus);
             dFinalDate = itemView.findViewById(R.id.finalDate);
             icoText = itemView.findViewById(R.id.icoText);
             dName = itemView.findViewById(R.id.dName);

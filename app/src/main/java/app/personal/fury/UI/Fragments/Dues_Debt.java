@@ -73,8 +73,8 @@ public class Dues_Debt extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainDueAdapter = new dueAdapter(false);
-        repeatDue = new dueAdapter(true);
+        mainDueAdapter = new dueAdapter(0);
+        repeatDue = new dueAdapter(1);
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
         MobileAds.initialize(requireContext());
