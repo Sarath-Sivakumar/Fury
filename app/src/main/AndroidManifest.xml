@@ -75,6 +75,7 @@
         <activity
             android:name=".UI.Drawer.WebViewActivity"
             android:exported="false" />
+        <activity android:name=".UI.splashTutorialSlider" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

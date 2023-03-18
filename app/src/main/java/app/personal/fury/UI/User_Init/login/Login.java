@@ -24,6 +24,7 @@ import app.personal.MVVM.Viewmodel.userInitViewModel;
 import app.personal.Utls.Commons;
 import app.personal.fury.R;
 import app.personal.fury.UI.MainActivity;
+import app.personal.fury.UI.splashTutorialSlider;
 
 public class Login extends AppCompatActivity {
 
@@ -47,7 +48,7 @@ public class Login extends AppCompatActivity {
         appVM = new ViewModelProvider(this).get(AppUtilViewModel.class);
         uvm.getUserId().observe(this, firebaseUser -> {
             if (firebaseUser!=null){
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, splashTutorialSlider.class));
                 finish();
             }
         });
