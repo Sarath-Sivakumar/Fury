@@ -1,0 +1,65 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@drawable/background_recyclersitems"
+    android:backgroundTint="?attr/colorPrimary"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="3dp"
+    android:layout_marginStart="6dp"
+    android:layout_marginEnd="6dp"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@+id/notiIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:padding="12dp"
+            android:src="@drawable/common_icon_notification"
+            tools:ignore="ImageContrastCheck" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginEnd="12dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/noti_title"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="3dp"
+            android:layout_weight=".5"
+            android:gravity="bottom|start"
+            android:text="@string/welcome_to_fury"
+            android:textColor="?attr/colorOnSecondary"
+            android:textSize="14sp"
+            tools:ignore="TextContrastCheck,VisualLintBounds" />
+
+        <TextView
+            android:id="@+id/noti_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="3dp"
+            android:layout_weight=".5"
+            android:fontFamily="@font/raleway_medium"
+            android:gravity="top|start"
+            android:singleLine="true"
+            android:text="@string/noti_ex"
+            android:textSize="12sp"
+            tools:ignore="TextContrastCheck,VisualLintBounds" />
+
+    </LinearLayout>
+</LinearLayout>

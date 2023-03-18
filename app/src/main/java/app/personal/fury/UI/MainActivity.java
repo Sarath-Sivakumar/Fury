@@ -384,8 +384,8 @@ public class MainActivity extends AppCompatActivity {
 
         View v = navView.getHeaderView(0);
 
-        userDp = (ImageView) v.findViewById(R.id.userDP);
-        userName = (TextView) v.findViewById(R.id.profileName);
+        userDp = v.findViewById(R.id.userDP);
+        userName = v.findViewById(R.id.profileName);
 
         navView.inflateMenu(R.menu.nav_menu);
 
@@ -482,24 +482,24 @@ public class MainActivity extends AppCompatActivity {
                 switch(tab.getPosition()){
                     case 0:
                         tb.setTitle(Constants.Exp);
-                        tab.getIcon().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+                        Objects.requireNonNull(tab.getIcon()).setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
 //                        tl.setTabTextColors();
                         break;
                     case 1:
                         tb.setTitle(Constants.Budget);
-                        tab.getIcon().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+                        Objects.requireNonNull(tab.getIcon()).setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
                         break;
                     case 2:
                         tb.setTitle(Constants.main);
-                        tab.getIcon().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+                        Objects.requireNonNull(tab.getIcon()).setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
                         break;
                     case 3:
                         tb.setTitle(Constants.Earnings);
-                        tab.getIcon().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+                        Objects.requireNonNull(tab.getIcon()).setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
                         break;
                     case 4:
                         tb.setTitle(Constants.Dues);
-                        tab.getIcon().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+                        Objects.requireNonNull(tab.getIcon()).setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
                         break;
                     default:
                         tb.setTitle("Noiccee!");
@@ -511,9 +511,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 //for removing the color of first icon when switched to next tab
-                tl.getTabAt(0).getIcon().clearColorFilter();
+                Objects.requireNonNull(Objects.requireNonNull(tl.getTabAt(0)).getIcon()).clearColorFilter();
                 //for other tabs
-                tab.getIcon().clearColorFilter();
+                Objects.requireNonNull(tab.getIcon()).clearColorFilter();
                 }
 
             @Override
