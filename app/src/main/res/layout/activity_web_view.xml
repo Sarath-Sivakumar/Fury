@@ -21,16 +21,18 @@
             android:background="@android:color/transparent"
             android:contentDescription="@null"
             android:padding="12dp"
-            android:src="@drawable/common_icon_back" />
+            android:src="@drawable/common_icon_back"
+            tools:ignore="ImageContrastCheck,SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center|start"
-            android:text="TITLE"
+            android:text="@string/title"
             android:textColor="@color/actionbar_title"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:ignore="TextContrastCheck,TextContrastCheck" />
 
     </LinearLayout>
 

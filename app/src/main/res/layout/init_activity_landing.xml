@@ -60,8 +60,9 @@
             android:layout_marginStart="51dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="51dp"
+            android:background="@drawable/button_login"
             android:text="@string/log_in"
-            android:background="@drawable/button_login" />
+            tools:ignore="TextContrastCheck,VisualLintButtonSize" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,7 +86,7 @@
                 android:gravity="center"
                 android:padding="6dp"
                 android:fontFamily="@font/raleway"
-                android:text="or"
+                android:text="@string/or"
                 android:textSize="15sp" />
 
             <View
@@ -97,17 +98,18 @@
         </LinearLayout>
 
         <Button
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:id="@+id/signup"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="51dp"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="51dp"
+            android:background="@drawable/button_signup"
             android:text="@string/sign_up"
             android:textColor="?attr/colorPrimary"
-            android:background="@drawable/button_signup" />
+            tools:ignore="TextContrastCheck,VisualLintButtonSize" />
 
     </LinearLayout>
 

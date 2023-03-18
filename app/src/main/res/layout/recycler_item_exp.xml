@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@drawable/background_recyclersitems"
@@ -32,10 +33,11 @@
             android:id="@+id/itemTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Rent"
             android:fontFamily="@font/raleway_semibold"
+            android:text="Rent"
             android:textColor="@color/h1_light"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:ignore="HardcodedText,TextContrastCheck" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -46,29 +48,31 @@
                 android:id="@+id/itemTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="12:07 pm"
                 android:layout_marginStart="0dp"
                 android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
                 android:layout_marginEnd="6dp"
-                android:textSize="12sp"
+                android:layout_marginBottom="2dp"
                 android:fontFamily="@font/work_sans_semibold"
-                android:textColor="@color/white" />
+                android:gravity="center"
+                android:text="12:07 pm"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                tools:ignore="HardcodedText,TextContrastCheck" />
 
             <TextView
                 android:id="@+id/itemDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:gravity="center"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
                 android:layout_marginEnd="0dp"
-                android:text="16/03/2023"
+                android:layout_marginBottom="2dp"
                 android:fontFamily="@font/work_sans_semibold"
-                android:textSize="12sp" />
+                android:gravity="center"
+                android:text="16/03/2023"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                tools:ignore="HardcodedText,TextContrastCheck" />
         </LinearLayout>
     </LinearLayout>
 

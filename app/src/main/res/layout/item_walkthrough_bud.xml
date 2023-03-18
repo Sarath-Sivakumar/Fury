@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,7 +18,8 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/walk_icon_bud"/>
+            android:src="@drawable/walk_icon_bud"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 
@@ -30,7 +32,7 @@
             android:id="@+id/item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Budget Smart"
+            android:text="@string/budget_smart"
             android:textColor="@color/h1_dark"
             android:fontFamily="@font/raleway_bold"
             android:layout_marginTop="?attr/actionBarSize"
@@ -48,7 +50,8 @@
             android:text="Create and manage your budgets for different time periods,such as weekly or monthly. We also provides notifications and alerts to help you stay on track with your budget goals."
             android:textSize="20sp"
             android:layout_marginStart="12dp"
-            android:gravity="start|center"/>
+            android:gravity="start|center"
+            tools:ignore="HardcodedText,VisualLintLongText" />
 
         <View
             android:layout_width="match_parent"
@@ -66,15 +69,16 @@
             android:orientation="horizontal">
 
             <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
                 android:id="@+id/previous"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="Previous"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:layout_gravity="center"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="HardcodedText,TextContrastCheck" />
 
             <View
                 android:layout_width="0dp"
@@ -89,8 +93,9 @@
                 android:layout_gravity="end"
                 android:background="@drawable/button_circle"
                 android:contentDescription="@null"
+                android:src="@drawable/common_icon_next"
                 app:tint="@color/theme_green"
-                android:src="@drawable/common_icon_next"/>
+                tools:ignore="SpeakableTextPresentCheck" />
 
         </LinearLayout>
     </LinearLayout>

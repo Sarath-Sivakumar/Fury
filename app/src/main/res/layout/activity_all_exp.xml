@@ -19,7 +19,8 @@
             android:src="@drawable/common_icon_close"
             android:layout_marginStart="-12dp"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:contentDescription="@string/back" />
+            android:contentDescription="@string/back"
+            tools:ignore="VisualLintBounds" />
 
         <TextView
             android:id="@+id/title"

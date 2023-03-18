@@ -20,7 +20,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_popup"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="24dp"
+                tools:ignore="UselessParent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -43,7 +44,9 @@
                     android:layout_height="wrap_content"
                     android:padding="12dp"
                     android:singleLine="true"
-                    android:hint="@string/due_name" />
+                    android:hint="@string/due_name"
+                    android:inputType="text"
+                    tools:ignore="Autofill,VisualLintTextFieldSize" />
 
                 <EditText
                     android:id="@+id/D_amt"
@@ -53,16 +56,17 @@
                     android:hint="₹ Amount"
                     android:inputType="number"
                     android:padding="12dp"
-                    tools:ignore="HardcodedText" />
+                    tools:ignore="Autofill,HardcodedText,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
                 <TextView
                     android:id="@+id/Due_"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/work_sans_medium"
                     android:padding="12dp"
                     android:text="@string/select_date"
-                    android:fontFamily="@font/work_sans_medium"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    tools:ignore="TextContrastCheck" />
 
                 <CalendarView
                     android:id="@+id/D_date"
@@ -91,25 +95,27 @@
                         android:id="@+id/due_add"
                         style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="0dp"
-                        android:layout_weight=".5"
-                        android:layout_margin="4dp"
                         android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_weight=".5"
                         android:background="@drawable/background_borderonly"
                         android:fontFamily="@font/raleway_bold"
                         android:text="Add"
-                        android:textAllCaps="false" />
+                        android:textAllCaps="false"
+                        tools:ignore="HardcodedText,TextContrastCheck,VisualLintButtonSize" />
 
                     <Button
-                        style="@style/Widget.AppCompat.Button.Borderless"
                         android:id="@+id/due_c"
+                        style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="0dp"
-                        android:layout_weight=".5"
-                        android:layout_margin="4dp"
                         android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_weight=".5"
                         android:background="@drawable/background_borderonly"
                         android:fontFamily="@font/raleway_bold"
                         android:text="Cancel"
-                        android:textAllCaps="false" />
+                        android:textAllCaps="false"
+                        tools:ignore="ButtonOrder,HardcodedText,TextContrastCheck,VisualLintButtonSize" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_popupshade"
@@ -29,7 +30,7 @@
             android:gravity="center"
             android:padding="10dp"
             android:fontFamily="@font/source_sans_pro_semibold"
-            android:text="This will result in "
+            android:text="@string/this_will_result_in"
             android:textSize="19sp" />
 
         <LinearLayout
@@ -43,25 +44,27 @@
                 android:id="@+id/dyes_btn"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_margin="4dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight=".5"
                 android:background="@drawable/background_borderonly"
                 android:fontFamily="@font/raleway_bold"
-                android:text="Ok"
-                android:textAllCaps="false" />
+                android:text="@string/ok"
+                android:textAllCaps="false"
+                tools:ignore="TextContrastCheck,VisualLintButtonSize" />
 
             <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
                 android:id="@+id/dno_btn"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_margin="4dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight=".5"
                 android:background="@drawable/background_borderonly"
                 android:fontFamily="@font/raleway_bold"
-                android:text="Cancel"
-                android:textAllCaps="false" />
+                android:text="@string/cancel"
+                android:textAllCaps="false"
+                tools:ignore="TextContrastCheck,VisualLintButtonSize" />
 
         </LinearLayout>
     </LinearLayout>

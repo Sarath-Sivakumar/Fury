@@ -70,7 +70,7 @@
                         android:layout_marginStart="14dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="5dp"
-                        android:text="Fury Monitor/Expense"
+                        android:text="@string/fury_monitor_expense"
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -114,7 +114,8 @@
                                         android:padding="6dp"
                                         android:textSize="16sp"
                                         android:fontFamily="@font/raleway_bold"
-                                        android:text="@string/total" />
+                                        android:text="@string/total"
+                                        tools:ignore="TooDeepLayout" />
 
                                     <View
                                         android:layout_width="0dp"
@@ -237,7 +238,7 @@
                                         android:layout_weight=".9"
                                         android:padding="6dp"
                                         android:textSize="18sp"
-                                        android:text="999999" />
+                                        android:text="" />
 
                                     <TextView
                                         android:id="@+id/account_count"
@@ -246,7 +247,7 @@
                                         android:fontFamily="@font/work_sans_semibold"
                                         android:padding="6dp"
                                         android:textSize="18sp"
-                                        android:text="1" />
+                                        android:text="" />
                                 </LinearLayout>
 
                             </LinearLayout>
@@ -352,7 +353,7 @@
                                 android:layout_marginEnd="12dp"
                                 android:layout_marginBottom="8dp"
                                 android:gravity="end"
-                                android:text="Daily Average"
+                                android:text="@string/daily_average"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -387,7 +388,7 @@
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="6dp"
                     android:gravity="start"
-                    android:text="Today's expenses"
+                    android:text="@string/today_s_expenses"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -418,7 +419,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
-                        android:text="Ad" />
+                        android:text="@string/ad" />
 
                     <View
                         android:layout_width="match_parent"
@@ -458,5 +459,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="12dp"
         android:contentDescription="@null"
-        android:src="@drawable/common_icon_add" />
+        android:src="@drawable/common_icon_add"
+        tools:ignore="ImageContrastCheck,SpeakableTextPresentCheck" />
 </FrameLayout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,7 +18,8 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/walk_icon_due"/>
+            android:src="@drawable/walk_icon_due"
+            tools:ignore="ContentDescription,ImageContrastCheck" />
 
     </LinearLayout>
 
@@ -30,7 +32,7 @@
             android:id="@+id/item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dues &amp; debts"
+            android:text="@string/dues_amp_debts"
             android:layout_marginStart="12dp"
             android:padding="12dp"
             android:fontFamily="@font/raleway_bold"
@@ -43,12 +45,13 @@
             android:id="@+id/detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
             android:layout_marginStart="12dp"
+            android:gravity="start|center"
+            android:padding="12dp"
+            android:text="@string/you_can_easily_keep_track_of_your_dues_and_debt_and_set_reminders_for_upcoming_payments_fury_also_alert_you_before_due_date_so_you_won_t_miss_any_payments_in_accident"
             android:textColor="@color/full_white"
-            android:text="You can easily keep track of your dues and debt, and set reminders for upcoming payments. Fury also alert you before due-date so you won't miss any payments in accident."
             android:textSize="20sp"
-            android:gravity="start|center"/>
+            tools:ignore="TextContrastCheck,VisualLintLongText" />
 
         <View
             android:layout_width="match_parent"
@@ -70,7 +73,7 @@
                 android:id="@+id/previous"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Previous"
+                android:text="@string/previous"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:layout_gravity="center"
@@ -90,8 +93,9 @@
                 android:layout_gravity="end"
                 android:background="@drawable/button_circle"
                 android:contentDescription="@null"
+                android:src="@drawable/common_icon_next"
                 app:tint="@color/theme_green"
-                android:src="@drawable/common_icon_next"/>
+                tools:ignore="SpeakableTextPresentCheck" />
 
         </LinearLayout>
 

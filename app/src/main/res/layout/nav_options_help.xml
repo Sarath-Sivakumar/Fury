@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="0dp"
@@ -15,42 +16,45 @@
         android:textSize="18sp" />
 
     <Button
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:background="@drawable/button_settings"
         android:id="@+id/Contact_us"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/contact_us"
+        android:layout_margin="6dp"
+        android:background="@drawable/button_settings"
         android:drawableLeft="@drawable/common_icon_contactus"
         android:gravity="start|center"
+        android:text="@string/contact_us"
         android:textAllCaps="false"
         android:textSize="14sp"
-        android:layout_margin="6dp"/>
+        tools:ignore="RtlHardcoded,TextContrastCheck,VisualLintButtonSize" />
 
     <Button
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:background="@drawable/button_settings"
         android:id="@+id/faq"
-        android:gravity="start|center"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:background="@drawable/button_settings"
         android:drawableLeft="@drawable/common_icon_faq"
+        android:gravity="start|center"
         android:text="@string/faq"
         android:textAllCaps="false"
         android:textSize="12sp"
-        android:layout_margin="6dp"/>
+        tools:ignore="RtlHardcoded,TextContrastCheck,VisualLintButtonSize" />
 
     <Button
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:background="@drawable/button_settings"
         android:id="@+id/feedback"
-        android:gravity="start|center"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
-        android:drawableLeft="@drawable/common_icon_bug"
         android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:background="@drawable/button_settings"
+        android:drawableLeft="@drawable/common_icon_bug"
+        android:gravity="start|center"
         android:text="@string/report_a_problem"
         android:textAllCaps="false"
         android:textSize="14sp"
-        android:layout_margin="6dp"/>
+        tools:ignore="RtlHardcoded,TextContrastCheck,VisualLintButtonSize" />
 
 </LinearLayout>

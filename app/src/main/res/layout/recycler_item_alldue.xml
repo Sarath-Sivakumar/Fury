@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="start"
-        android:layout_marginStart="9dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="9dp"
         android:layout_marginEnd="9dp"
         android:layout_marginBottom="6dp"
@@ -90,6 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
+            android:layout_marginStart="4dp"
             android:orientation="horizontal">
 
             <TextView
@@ -124,14 +125,14 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="3dp"
-                android:fontFamily="@font/raleway_bold"
-                android:text="@string/status"
-                android:textColor="@color/h1_dark"
-                android:textSize="16sp" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:textColor="@color/h1_dark"-->
+<!--                android:layout_marginEnd="3dp"-->
+<!--                android:fontFamily="@font/raleway_bold"-->
+<!--                android:textSize="16sp"-->
+<!--                android:text="Status" />-->
 
             <TextView
                 android:id="@+id/dStatus"

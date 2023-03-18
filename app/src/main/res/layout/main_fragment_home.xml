@@ -9,7 +9,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,7 +76,8 @@
                                 android:fontFamily="@font/source_sans_pro_bold"
                                 android:gravity="center"
                                 android:textColor="@color/progress_text"
-                                android:textSize="30sp" />
+                                android:textSize="30sp"
+                                tools:ignore="VisualLintOverlap" />
                         </FrameLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -88,7 +90,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:baselineAligned="false">
 
                             <LinearLayout
                                 android:layout_width="0dp"
@@ -123,8 +126,9 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/raleway_bold"
-                                    android:text="Budget"
-                                    android:textSize="14sp" />
+                                    android:text="@string/budget"
+                                    android:textSize="14sp"
+                                    tools:ignore="HardcodedText" />
 
                                 <TextView
                                     android:id="@+id/budgetText"
@@ -142,7 +146,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:baselineAligned="false">
 
                             <LinearLayout
                                 android:layout_width="0dp"
@@ -216,9 +221,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center"
                     android:fontFamily="@font/source_sans_pro_semibold"
-                    android:text="View All"
+                    android:text="@string/view_all"
                     android:textAllCaps="false"
-                    android:textColor="@color/theme_green" />
+                    android:textColor="@color/theme_green"
+                    tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck" />
             </LinearLayout>
 
             <LinearLayout
@@ -275,7 +281,8 @@
                     android:id="@+id/infoGraphics_vp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:minHeight="200dp" />
+                    android:minHeight="200dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/infoGraphics_tab"
@@ -285,7 +292,8 @@
                     android:background="@android:color/transparent"
                     app:tabBackground="@drawable/tab_selector"
                     app:tabGravity="center"
-                    app:tabIndicatorHeight="0dp" />
+                    app:tabIndicatorHeight="0dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </FrameLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -307,14 +315,14 @@
                 <Switch
                     android:id="@+id/stat_switch"
                     android:layout_width="0dp"
-                    android:layout_weight=".2"
-                    android:text=""
-                    android:fontFamily="@font/source_sans_pro_semibold"
-                    android:textSize="12sp"
-                    android:textAlignment="textEnd"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center"
-                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+                    android:layout_weight=".2"
+                    android:fontFamily="@font/source_sans_pro_semibold"
+                    android:text=""
+                    android:textAlignment="textEnd"
+                    android:textSize="12sp"
+                    tools:ignore="UseSwitchCompatOrMaterialXml,TouchTargetSizeCheck,VisualLintButtonSize" />
 
             </LinearLayout>
             <LinearLayout
@@ -382,7 +390,7 @@
                         android:layout_margin="3dp"
                         android:layout_weight=".25"
                         android:gravity="center"
-                        android:text="Earnings"
+                        android:text="@string/earnings"
                         android:textColor="@color/l1"
                         android:textSize="14sp" />
 
@@ -393,7 +401,7 @@
                         android:layout_margin="3dp"
                         android:layout_weight=".25"
                         android:gravity="center"
-                        android:text="Expense"
+                        android:text="@string/expense"
                         android:textColor="@color/l1"
                         android:textSize="14sp" />
 
@@ -404,7 +412,7 @@
                         android:layout_margin="3dp"
                         android:layout_weight=".25"
                         android:gravity="center"
-                        android:text="Balance"
+                        android:text="@string/balance"
                         android:textColor="@color/l1"
                         android:textSize="14sp" />
 
@@ -423,7 +431,7 @@
                         android:layout_gravity="center"
                         android:layout_weight=".25"
                         android:gravity="center"
-                        android:text="Cash"
+                        android:text="@string/cash"
                         android:textColor="@color/l1"
                         android:textSize="14sp" />
 
@@ -472,7 +480,7 @@
                         android:layout_gravity="center"
                         android:layout_weight=".25"
                         android:gravity="center"
-                        android:text="Bank"
+                        android:text="@string/bank"
                         android:textColor="@color/l1"
                         android:textSize="14sp" />
 
@@ -522,7 +530,7 @@
                         android:layout_gravity="center"
                         android:layout_weight=".25"
                         android:gravity="center"
-                        android:text="Total"
+                        android:text="@string/total"
                         android:textColor="@color/l1"
                         android:textSize="14sp" />
 
@@ -573,7 +581,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
-                    android:text="Ad" />
+                    android:text="@string/ad" />
 
                 <View
                     android:layout_width="match_parent"
@@ -626,9 +634,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center"
                     android:fontFamily="@font/source_sans_pro_semibold"
-                    android:text="View All"
+                    android:text="@string/view_all"
                     android:textAllCaps="false"
-                    android:textColor="@color/theme_green" />
+                    android:textColor="@color/theme_green"
+                    tools:ignore="TextContrastCheck" />
 
             </LinearLayout>
 
@@ -655,7 +664,7 @@
                         android:layout_height="60dp"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="Great! There's No Pending Dues." />
+                        android:text="@string/great_there_s_no_pending_dues" />
 
                 </LinearLayout>
 

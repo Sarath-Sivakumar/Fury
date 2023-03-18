@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_popupshade"
@@ -8,7 +9,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="false">
+        android:fillViewport="false"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,13 +27,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:padding="12dp"
-                        android:src="@drawable/common_icon_warning" />
+                        android:src="@drawable/common_icon_warning"
+                        tools:ignore="ContentDescription" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -60,23 +64,25 @@
                         android:id="@+id/due_yes"
                         style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="0dp"
-                        android:layout_weight=".5"
-                        android:layout_margin="4dp"
                         android:layout_height="match_parent"
+                        android:layout_margin="4dp"
+                        android:layout_weight=".5"
                         android:background="@drawable/background_borderonly"
-                        android:text="Yes"
-                        android:textAllCaps="false" />
+                        android:text="@string/yes"
+                        android:textAllCaps="false"
+                        tools:ignore="TextContrastCheck" />
 
                     <Button
                         android:id="@+id/due_no"
-                        android:background="@drawable/background_borderonly"
                         style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="0dp"
-                        android:layout_weight=".5"
-                        android:layout_margin="4dp"
                         android:layout_height="match_parent"
-                        android:text="No"
-                        android:textAllCaps="false" />
+                        android:layout_margin="4dp"
+                        android:layout_weight=".5"
+                        android:background="@drawable/background_borderonly"
+                        android:text="@string/no"
+                        android:textAllCaps="false"
+                        android:textColor="#455A64" />
 
                 </LinearLayout>
             </LinearLayout>

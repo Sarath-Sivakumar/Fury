@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_popupshade"
@@ -7,7 +8,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +35,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
                         android:padding="12dp"
-                        android:text="New expense"
+                        android:text="@string/new_expense"
                         android:textSize="24sp" />
 
                 </LinearLayout>
@@ -61,7 +63,7 @@
                         android:paddingTop="12dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="12dp"
-                        android:text="0"
+                        android:text=""
                         android:textSize="16sp" />
 
                     <View
@@ -86,7 +88,7 @@
                         android:paddingTop="12dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="12dp"
-                        android:text="0"
+                        android:text=""
                         android:textSize="16sp" />
 
                 </LinearLayout>
@@ -126,7 +128,9 @@
                     android:hint="@string/salary_source"
                     android:inputType="text"
                     android:padding="12dp"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:autofillHints=""
+                    tools:ignore="VisualLintTextFieldSize" />
 
                 <EditText
                     android:id="@+id/expAmt"
@@ -135,18 +139,23 @@
                     android:fontFamily="@font/work_sans_semibold"
                     android:hint="@string/amount"
                     android:inputType="number"
+                    android:minHeight="48dp"
                     android:padding="12dp"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:autofillHints=""
+                    tools:ignore="VisualLintTextFieldSize" />
 
                 <EditText
                     android:id="@+id/salDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:autofillHints=""
                     android:fontFamily="@font/work_sans_medium"
                     android:hint="Salary Date"
                     android:inputType="date"
                     android:padding="12dp"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    tools:ignore="HardcodedText,TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
                 <TextView
                     android:id="@+id/radioTitle2"
@@ -172,7 +181,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/cash"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        tools:ignore="VisualLintButtonSize" />
 
                     <RadioButton
                         android:id="@+id/account"
@@ -180,7 +190,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/bank_account"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        tools:ignore="VisualLintButtonSize" />
 
                 </RadioGroup>
 
@@ -220,7 +231,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/daily"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        tools:ignore="VisualLintButtonSize" />
 
                     <RadioButton
                         android:id="@+id/monthly"
@@ -228,7 +240,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/monthly"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        tools:ignore="VisualLintButtonSize" />
 
                     <RadioButton
                         android:id="@+id/oneTime"
@@ -236,7 +249,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/onetime"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        tools:ignore="VisualLintButtonSize" />
                 </RadioGroup>
 
 
@@ -256,8 +270,9 @@
                         android:layout_weight=".5"
                         android:background="@drawable/background_borderonly"
                         android:fontFamily="@font/raleway_bold"
-                        android:text="Add"
-                        android:textAllCaps="false" />
+                        android:text="@string/add"
+                        android:textAllCaps="false"
+                        tools:ignore="HardcodedText,TextContrastCheck,VisualLintButtonSize" />
 
                     <Button
                         android:id="@+id/add_no"
@@ -268,8 +283,9 @@
                         android:layout_weight=".5"
                         android:background="@drawable/background_borderonly"
                         android:fontFamily="@font/raleway_bold"
-                        android:text="Cancel"
-                        android:textAllCaps="false" />
+                        android:text="@string/cancel"
+                        android:textAllCaps="false"
+                        tools:ignore="ButtonOrder,TextContrastCheck,VisualLintButtonSize" />
 
                 </LinearLayout>
             </LinearLayout>

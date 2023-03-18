@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_popupshade"
@@ -17,10 +18,11 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:padding="3dp"
             android:contentDescription="@null"
+            android:padding="3dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/colored_icon_logout" />
+            android:src="@drawable/colored_icon_logout"
+            tools:ignore="ImageContrastCheck" />
 
 <!--        <TextView-->
 <!--            android:layout_width="match_parent"-->
@@ -36,7 +38,7 @@
             android:gravity="center"
             android:padding="10dp"
             android:fontFamily="@font/source_sans_pro_semibold"
-            android:text="Are you sure you want to logout?"
+            android:text="@string/are_you_sure_you_want_to_logout"
             android:textSize="18sp" />
 
         <LinearLayout
@@ -50,25 +52,27 @@
                 android:id="@+id/yes_btn"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_margin="4dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight=".5"
                 android:background="@drawable/background_borderonly"
                 android:fontFamily="@font/raleway_bold"
-                android:text="Yes"
-                android:textAllCaps="false" />
+                android:text="@string/yes"
+                android:textAllCaps="false"
+                tools:ignore="TextContrastCheck,VisualLintButtonSize" />
 
             <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
                 android:id="@+id/no_btn"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_margin="4dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight=".5"
                 android:background="@drawable/background_borderonly"
                 android:fontFamily="@font/raleway_bold"
-                android:text="No"
-                android:textAllCaps="false" />
+                android:text="@string/no"
+                android:textAllCaps="false"
+                tools:ignore="TextContrastCheck,VisualLintButtonSize" />
 
         </LinearLayout>
     </LinearLayout>
