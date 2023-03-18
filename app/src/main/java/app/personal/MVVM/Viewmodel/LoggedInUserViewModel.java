@@ -28,24 +28,35 @@ public class LoggedInUserViewModel extends AndroidViewModel {
         isLoggedOut = authRepo.getIsLoggedOutLiveData();
     }
 
-    public void LogOut(){
+    public void LogOut() {
         authRepo.logout();
     }
 
-    public MutableLiveData<FirebaseUser> getUserId(){
+    public void update(){
+        authRepo.updateListener();
+    }
+
+    public MutableLiveData<FirebaseUser> getUserId() {
         return userId;
     }
 
-    public void InsertProfilePic(Uri filePath, userEntity entity){
+    public MutableLiveData<Integer> updateListener() {
+        return authRepo.getUpdate();
+    }
+
+    public void InsertProfilePic(Uri filePath, userEntity entity) {
         authRepo.InsertProfilePic(entity, filePath);
     }
-    public void UpdateUserData(userEntity userEntity){
+
+    public void UpdateUserData(userEntity userEntity) {
         authRepo.UpdateUserData(userEntity);
     }
-    public MutableLiveData<userEntity> getUserData(){
+
+    public MutableLiveData<userEntity> getUserData() {
         return userData;
     }
-    public MutableLiveData<Boolean> getIsLoggedOut(){
+
+    public MutableLiveData<Boolean> getIsLoggedOut() {
         return isLoggedOut;
     }
 }
