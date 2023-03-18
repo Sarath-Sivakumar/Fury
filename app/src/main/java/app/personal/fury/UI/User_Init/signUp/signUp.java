@@ -100,7 +100,7 @@ public class signUp extends AppCompatActivity {
             String mail = email.getText().toString();
             String p1 = pass1.getText().toString();
             String p2 = pass2.getText().toString();
-            if (new Commons().isConnectedToInternet(this)) {
+            if (Commons.isConnectedToInternet(this)) {
                 if (!name.trim().isEmpty() && !mail.trim().isEmpty() &&
                         !p1.trim().isEmpty() && !p2.trim().isEmpty()) {
                     if (p1.trim().equals(p2.trim())) {
