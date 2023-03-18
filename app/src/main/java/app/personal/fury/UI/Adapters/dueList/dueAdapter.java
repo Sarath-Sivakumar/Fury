@@ -1,7 +1,7 @@
 package app.personal.fury.UI.Adapters.dueList;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +21,8 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     private final List<debtEntity> debt = new ArrayList<>();
     private onItemClickListener listener;
     private int totalSum = 0;
-    private int filter;
-    private Context context;
-    private int isRepeating;
-    private int size = 0, repeatSize = 0;
-//    @ColorInt
-//    private int colorGreen;
+    private final int isRepeating;
+    private int repeatSize = 0;
 
     public dueAdapter(int isRepeating){
         this.isRepeating = isRepeating;
@@ -35,12 +31,12 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     @NonNull
     @Override
     public expHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (isRepeating==1){
+        if (isRepeating==0){
             View itemView = LayoutInflater
                     .from(parent.getContext())
                     .inflate(R.layout.recycler_item_upcoming, parent, false);
             return new expHolder(itemView);
-        }else if (isRepeating==0){
+        }else if (isRepeating==1){
             View itemView = LayoutInflater
                     .from(parent.getContext())
                     .inflate(R.layout.recycler_item_repeatingdue, parent, false);
@@ -53,7 +49,6 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
         }
     }
 
-    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull expHolder holder, int position) {
         debtEntity entity = debt.get(position);
@@ -69,6 +64,9 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
             holder.dFinalDate.setText(entity.getFinalDate());
         }
         if (isRepeating>=2){
+            if (entity.getStatus().equals(Constants.DEBT_PAID)){
+                holder.dStatus.setTextColor(Color.GREEN);
+            }
             holder.dStatus.setText(entity.getStatus());
         }
         //To get first letter in source name--------------------------------------
@@ -86,15 +84,9 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
         return totalSum;
     }
 
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
     public void setDebt(List<debtEntity> debt, int filter) {
-        size = debt.size();
-        this.filter = filter;
         totalSum = 0;
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < debt.size(); i++) {
             totalSum = totalSum + debt.get(i).getAmount();
             if (filter == 1) {
                 if (debt.get(i).getStatus().equals(Constants.DEBT_NOT_PAID) &&

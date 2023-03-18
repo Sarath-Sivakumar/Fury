@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="6dp"
@@ -10,7 +11,8 @@
     android:backgroundTint="@color/white"
     android:maxHeight="60dp"
     android:minHeight="?attr/actionBarSize"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:baselineAligned="false">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -26,7 +28,8 @@
             android:layout_height="match_parent"
             android:layout_margin="6dp"
             android:elevation="6dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="35dp"
@@ -35,7 +38,8 @@
                 android:layout_marginStart="6dp"
                 android:layout_marginEnd="0dp"
                 android:backgroundTint="?attr/colorPrimaryVariant"
-                app:cardCornerRadius="35dp">
+                app:cardCornerRadius="35dp"
+                tools:ignore="TextSizeCheck">
 
                 <TextView
                     android:id="@+id/icoText"
@@ -45,7 +49,8 @@
                     android:gravity="center"
                     android:text="R"
                     android:textColor="?attr/colorOnSecondary"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    tools:ignore="HardcodedText" />
 
             </androidx.cardview.widget.CardView>
 
@@ -67,7 +72,8 @@
                     android:singleLine="true"
                     android:text="Rent"
                     android:textColor="@color/h2_dark"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:id="@+id/dAmt"
@@ -79,7 +85,8 @@
                     android:singleLine="true"
                     android:text="100000"
                     android:textColor="@color/h2_dark"
-                    android:textSize="22sp" />
+                    android:textSize="22sp"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
         </LinearLayout>
@@ -98,7 +105,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/raleway_semibold"
             android:gravity="end"
-            android:text="Due date"
+            android:text="@string/due_date"
             android:textColor="@color/h1_dark" />
 
         <TextView
@@ -108,7 +115,8 @@
             android:fontFamily="@font/work_sans_medium"
             android:gravity="end"
             android:text="31/12/2023"
-            android:textColor="@color/h2_dark" />
+            android:textColor="@color/h2_dark"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 

@@ -67,7 +67,7 @@
                     android:layout_marginStart="14dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="5dp"
-                    android:text="Fury Monitor/Earnings"
+                    android:text="@string/fury_monitor_earnings"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -141,8 +141,7 @@
                                     android:fontFamily="@font/work_sans_semibold"
                                     android:padding="6dp"
                                     android:textSize="18sp"
-                                    android:text="999999"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="" />
 
                                 <TextView
                                     android:id="@+id/inhand_count"
@@ -151,8 +150,7 @@
                                     android:fontFamily="@font/work_sans_semibold"
                                     android:padding="6dp"
                                     android:textSize="18sp"
-                                    android:text="1"
-                                    tools:ignore="HardcodedText" />
+                                    android:text="" />
                             </LinearLayout>
 
                         </LinearLayout>
@@ -187,7 +185,7 @@
                                     android:padding="6dp"
                                     android:fontFamily="@font/raleway_bold"
                                     android:textSize="15sp"
-                                    android:text="Amount" />
+                                    android:text="@string/amount" />
 
                                 <View
                                     android:layout_width="0dp"
@@ -217,7 +215,7 @@
                                     android:layout_weight=".9"
                                     android:padding="6dp"
                                     android:textSize="18sp"
-                                    android:text="999999" />
+                                    android:text="" />
 
                                 <TextView
                                     android:id="@+id/account_count"
@@ -226,7 +224,7 @@
                                     android:fontFamily="@font/work_sans_semibold"
                                     android:padding="6dp"
                                     android:textSize="18sp"
-                                    android:text="1" />
+                                    android:text="" />
                             </LinearLayout>
 
                         </LinearLayout>
@@ -337,7 +335,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="6dp"
-                        android:minHeight="300dp" />
+                        android:minHeight="300dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/infoGraphics_ear"
@@ -347,7 +346,8 @@
                         android:background="@android:color/transparent"
                         app:tabBackground="@drawable/tab_selector"
                         app:tabGravity="center"
-                        app:tabIndicatorHeight="0dp" />
+                        app:tabIndicatorHeight="0dp"
+                        tools:ignore="SpeakableTextPresentCheck" />
                 </FrameLayout>
 
             </LinearLayout>
@@ -361,6 +361,7 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="12dp"
         android:contentDescription="@null"
-        android:src="@drawable/common_icon_add" />
+        android:src="@drawable/common_icon_add"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </FrameLayout>

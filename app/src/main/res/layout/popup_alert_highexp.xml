@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_popupshade"
@@ -38,7 +39,7 @@
             android:fontFamily="@font/source_sans_pro_bold"
             android:gravity="center"
             android:padding="10dp"
-            android:text=", your current expense rate is too high!"
+            android:text="@string/your_current_expense_rate_is_too_high"
             android:textSize="18sp" />
 
         <TextView
@@ -48,18 +49,19 @@
             android:fontFamily="@font/source_sans_pro_bold"
             android:gravity="center"
             android:padding="5dp"
-            android:text="{Daily Average}"
+            android:text=""
             android:textSize="22sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="0dp"
+            android:gravity="center"
             android:paddingBottom="6dp"
             android:text="If this continues\nYour financial stability will be compromised."
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            tools:ignore="HardcodedText,TextContrastCheck" />
 
     </LinearLayout>
 

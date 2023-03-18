@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -16,13 +17,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:src="@drawable/colored_icon_update" />
+                android:src="@drawable/colored_icon_update"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -38,12 +41,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/work_sans_medium"
-            android:text="@string/to_enjoy_our_latest_features_nplease_update_the_app"
-            android:textSize="14dp"
-            android:gravity="center"
             android:layout_marginBottom="6dp"
-            android:padding="6dp" />
+            android:fontFamily="@font/work_sans_medium"
+            android:gravity="center"
+            android:padding="6dp"
+            android:text="@string/to_enjoy_our_latest_features_nplease_update_the_app"
+            android:textSize="14sp"
+            tools:ignore="TextSizeCheck,TextContrastCheck" />
 
 
 
@@ -58,25 +62,27 @@
                 android:id="@+id/ignore"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_margin="4dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight=".5"
                 android:background="@drawable/background_borderonly"
                 android:fontFamily="@font/raleway_bold"
-                android:text="Later"
-                android:textAllCaps="false" />
+                android:text="@string/later"
+                android:textAllCaps="false"
+                tools:ignore="TextContrastCheck" />
 
             <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
                 android:id="@+id/update"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_margin="4dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight=".5"
                 android:background="@drawable/background_borderonly"
                 android:fontFamily="@font/raleway_bold"
-                android:text="Update"
-                android:textAllCaps="false" />
+                android:text="@string/update"
+                android:textAllCaps="false"
+                tools:ignore="TextContrastCheck" />
 
         </LinearLayout>
     </LinearLayout>

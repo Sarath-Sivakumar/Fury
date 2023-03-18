@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_popupshade"
@@ -43,26 +44,28 @@
                 android:id="@+id/dyes_btn"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_margin="4dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight=".5"
                 android:background="@drawable/background_borderonly"
-                android:fontFamily="@font/raleway_bold"
-                android:text="Watch"
                 android:drawableEnd="@drawable/common_icon_adplay"
-                android:textAllCaps="false" />
+                android:fontFamily="@font/raleway_bold"
+                android:text="@string/watch"
+                android:textAllCaps="false"
+                tools:ignore="TextContrastCheck,VisualLintButtonSize" />
 
             <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
                 android:id="@+id/dno_btn"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="0dp"
-                android:layout_weight=".5"
-                android:layout_margin="4dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight=".5"
                 android:background="@drawable/background_borderonly"
                 android:fontFamily="@font/raleway_bold"
-                android:text="No Thanks"
-                android:textAllCaps="false" />
+                android:text="@string/no_thanks"
+                android:textAllCaps="false"
+                tools:ignore="TextContrastCheck,VisualLintButtonSize" />
 
         </LinearLayout>
     </LinearLayout>

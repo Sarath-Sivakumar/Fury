@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_popupshade"
@@ -19,14 +20,15 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="-12dp"
             android:gravity="center|start"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="VisualLintBounds">
 
             <TextView
                 style="@style/textstyle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="Expense Details"
+                android:text="@string/expense_details"
                 android:textSize="24sp" />
 
             <View
@@ -39,7 +41,8 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/common_icon_close" />
+                android:src="@drawable/common_icon_close"
+                tools:ignore="ContentDescription,ImageContrastCheck,SpeakableTextPresentCheck" />
 
         </LinearLayout>
 
@@ -69,7 +72,7 @@
                             style="@style/textstyle2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Category:  "
+                            android:text="@string/category"
                             android:textSize="16sp" />
 
                         <TextView
@@ -90,7 +93,7 @@
                             style="@style/textstyle2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Amount:  "
+                            android:text="@string/amount_"
                             android:textSize="16sp" />
 
                         <TextView
@@ -111,7 +114,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginBottom="12dp"
-                    android:text="Other details"
+                    android:text="@string/other_details"
                     android:textSize="18sp" />
 
                 <LinearLayout
@@ -120,7 +123,8 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginBottom="24dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -132,7 +136,7 @@
                         style="@style/textstyle2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Time " />
+                        android:text="@string/time" />
 
                     <TextView
                         android:id="@+id/time"
@@ -151,7 +155,7 @@
                         style="@style/textstyle2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Date " />
+                        android:text="@string/date" />
 
                     <TextView
                         android:id="@+id/date"
@@ -171,7 +175,7 @@
                         style="@style/textstyle2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Day " />
+                        android:text="@string/day" />
 
                     <TextView
                         android:id="@+id/day"

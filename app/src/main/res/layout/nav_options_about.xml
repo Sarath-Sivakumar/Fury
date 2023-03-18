@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="0dp"
@@ -8,7 +9,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
 
             <TextView
                 android:layout_width="match_parent"
@@ -18,44 +20,47 @@
                 android:textSize="18sp" />
 
             <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:background="@drawable/button_settings"
                 android:id="@+id/p_policies"
-                android:textAllCaps="false"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
-                android:drawableLeft="@drawable/common_icon_privacy"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
+                android:background="@drawable/button_settings"
+                android:drawableLeft="@drawable/common_icon_privacy"
                 android:gravity="start|center"
                 android:text="@string/privacy_policy"
-                android:textSize="14sp" />
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                tools:ignore="RtlHardcoded,TextContrastCheck,VisualLintButtonSize" />
 
 
             <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
                 android:id="@+id/t_c"
-                android:background="@drawable/button_settings"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
-                android:textAllCaps="false"
+                android:background="@drawable/button_settings"
                 android:drawableLeft="@drawable/common_icon_file"
                 android:gravity="start|center"
                 android:text="@string/terms_conditions"
-                android:textSize="14sp" />
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                tools:ignore="RtlHardcoded,TextContrastCheck,VisualLintButtonSize" />
 
             <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
                 android:id="@+id/app_info"
-                android:background="@drawable/button_settings"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
-                android:gravity="start|center"
-                android:textAllCaps="false"
-                android:text="@string/about_fury"
+                android:background="@drawable/button_settings"
                 android:drawableLeft="@drawable/common_icon_about"
-                android:textSize="14sp" />
+                android:gravity="start|center"
+                android:text="@string/about_fury"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                tools:ignore="RtlHardcoded,TextContrastCheck,VisualLintButtonSize" />
 
         </LinearLayout>
 </FrameLayout>

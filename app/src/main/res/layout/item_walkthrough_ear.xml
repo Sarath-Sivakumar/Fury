@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,7 +18,8 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/walk_icon_ear"/>
+            android:src="@drawable/walk_icon_ear"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 
@@ -30,7 +32,7 @@
             android:id="@+id/item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Earnings Tracker"
+            android:text="@string/earnings_tracker"
             android:layout_marginStart="12dp"
             android:padding="12dp"
             android:fontFamily="@font/raleway_bold"
@@ -45,10 +47,11 @@
             android:layout_height="wrap_content"
             android:padding="12dp"
             android:textColor="@color/full_white"
-            android:text="You can add your Income sources and track your earnings over time. Fury let you add earnings as In-cash or Through-bank for better tracking. "
+            android:text="@string/you_can_add_your_income_sources_and_track_your_earnings_over_time_fury_let_you_add_earnings_as_in_cash_or_through_bank_for_better_tracking"
             android:layout_marginStart="12dp"
             android:textSize="20sp"
-            android:gravity="start|center"/>
+            android:gravity="start|center"
+            tools:ignore="VisualLintLongText" />
 
         <View
             android:layout_width="match_parent"
@@ -70,7 +73,7 @@
                 android:id="@+id/previous"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Previous"
+                android:text="@string/previous"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:layout_gravity="center"
@@ -89,8 +92,9 @@
                 android:layout_gravity="end"
                 android:background="@drawable/button_circle"
                 android:contentDescription="@null"
+                android:src="@drawable/common_icon_next"
                 app:tint="@color/theme_green"
-                android:src="@drawable/common_icon_next"/>
+                tools:ignore="SpeakableTextPresentCheck" />
 
         </LinearLayout>
 

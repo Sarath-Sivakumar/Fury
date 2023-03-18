@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="6dp"
@@ -19,14 +20,16 @@
         android:layout_height="0dp"
         android:layout_weight="0.6"
         android:gravity="center|start"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/exp_icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="center"
-            android:layout_marginStart="6dp" />
+            android:layout_marginStart="6dp"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/indicatorText"

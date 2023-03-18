@@ -68,7 +68,6 @@ public class allDues extends AppCompatActivity {
 
     private void initViewModel() {
         adapter = new dueAdapter(2);
-        adapter.setContext(this);
         vm = new ViewModelProvider(this).get(mainViewModel.class);
         vm.getDebt().observe(this, entity -> {
             if (!entity.isEmpty()) {

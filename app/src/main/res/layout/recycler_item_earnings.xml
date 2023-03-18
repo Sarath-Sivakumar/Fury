@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:layout_marginStart="6dp"
-    android:layout_marginEnd="6dp"
     android:layout_marginTop="8dp"
+    android:layout_marginEnd="6dp"
     android:layout_marginBottom="0dp"
     android:background="@drawable/background_recyclersitems"
     android:backgroundTint="@color/theme_green"
     android:orientation="horizontal"
-    app:cardCornerRadius="5dp">
+    app:cardCornerRadius="5dp"
+    tools:ignore="TextSizeCheck">
 
     <androidx.cardview.widget.CardView
         android:layout_width="40dp"
@@ -39,16 +40,17 @@
         android:layout_marginStart="15dp"
         android:fontFamily="@font/raleway_semibold"
         android:gravity="center|start"
+        android:text="@string/salary"
         android:textColor="?attr/colorOnSecondary"
-        android:text="salary"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        tools:ignore="TextContrastCheck" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
         android:layout_weight="1"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
@@ -57,16 +59,18 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="6dp"
             android:fontFamily="@font/work_sans_semibold"
-            android:textColor="@color/h2_dark"
             android:gravity="end"
-            android:text="894258"
-            android:textSize="20sp" />
+            android:text=""
+            android:textColor="@color/h2_dark"
+            android:textSize="20sp"
+            tools:ignore="VisualLintBounds" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="6dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="VisualLintBounds">
 
             <TextView
                 android:id="@+id/salMod"
@@ -76,9 +80,10 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/raleway_medium"
                 android:gravity="center|end"
-                android:text="Cash"
+                android:text="@string/cash"
                 android:textColor="?attr/colorOnSecondary"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:ignore="TextContrastCheck" />
 
             <TextView
                 android:id="@+id/salTyp"
@@ -86,9 +91,10 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/raleway_medium"
                 android:gravity="end"
-                android:text="Monthly"
+                android:text="@string/monthly"
                 android:textColor="?attr/colorOnSecondary"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:ignore="TextContrastCheck" />
         </LinearLayout>
 
 
