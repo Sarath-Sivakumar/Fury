@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -233,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initAd() {
         MobileAds.initialize(this);
-        String TestAdId = "ca-app-pub-3940256099942544/1033173712";
+        String TestAdId = "ca-app-pub-8620335196955785/6964591880";
         AdRequest adRequest = new AdRequest.Builder().build();
         InterstitialAd.load(
                 this,

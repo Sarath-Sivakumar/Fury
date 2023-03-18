@@ -76,8 +76,7 @@
                                 android:fontFamily="@font/source_sans_pro_bold"
                                 android:gravity="center"
                                 android:textColor="@color/progress_text"
-                                android:textSize="30sp"
-                                tools:ignore="VisualLintOverlap" />
+                                android:textSize="30sp" />
                         </FrameLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -322,7 +321,7 @@
                     android:text=""
                     android:textAlignment="textEnd"
                     android:textSize="12sp"
-                    tools:ignore="UseSwitchCompatOrMaterialXml,TouchTargetSizeCheck,VisualLintButtonSize" />
+                    tools:ignore="UseSwitchCompatOrMaterialXml,TouchTargetSizeCheck" />
 
             </LinearLayout>
             <LinearLayout
@@ -599,7 +598,7 @@
                 android:minWidth="320dp"
                 android:minHeight="50dp"
                 ads:adSize="BANNER"
-                ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+                ads:adUnitId="ca-app-pub-8620335196955785/7897280043" />
             <!--Test ID ca-app-pub-3940256099942544/6300978111-->
             <View
                 android:layout_width="match_parent"

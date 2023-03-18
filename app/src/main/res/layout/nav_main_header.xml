@@ -43,7 +43,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="6dp"
             android:fontFamily="@font/raleway_bold"
-            android:text=""
+            android:text="@string/hello_user"
             android:textSize="16sp"
             tools:ignore="SpeakableTextPresentCheck" />
 
