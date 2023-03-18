@@ -35,12 +35,12 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     @NonNull
     @Override
     public expHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (isRepeating==1){
+        if (isRepeating==0){
             View itemView = LayoutInflater
                     .from(parent.getContext())
                     .inflate(R.layout.recycler_item_upcoming, parent, false);
             return new expHolder(itemView);
-        }else if (isRepeating==0){
+        }else if (isRepeating==1){
             View itemView = LayoutInflater
                     .from(parent.getContext())
                     .inflate(R.layout.recycler_item_repeatingdue, parent, false);
