@@ -75,6 +75,7 @@ public class fragment_main extends Fragment {
     private int progress = 0;
     private AdView ad;
     private AdRequest adRequest;
+    private LinearLayout adLayout;
     private RecyclerView dueList;
     private LinearLayout noDues, statview, statdisabled;
     private int filter = 0;
@@ -92,14 +93,14 @@ public class fragment_main extends Fragment {
             @Override
             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                 super.onAdFailedToLoad(loadAdError);
-                ad.setVisibility(View.GONE);
+                adLayout.setVisibility(View.GONE);
                 ad.loadAd(adRequest);
             }
 
             @Override
             public void onAdLoaded() {
                 super.onAdLoaded();
-                ad.setVisibility(View.VISIBLE);
+                adLayout.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -115,6 +116,7 @@ public class fragment_main extends Fragment {
         mainProgressBar.setMax(Constants.LIMITER_MAX);
         ad = v.findViewById(R.id.adView);
         dueList = v.findViewById(R.id.dueList);
+        adLayout = v.findViewById(R.id.adLayout);
         Switch statButton = v.findViewById(R.id.stat_switch);
 //        statButton.setText("Inactive");
 
@@ -353,10 +355,7 @@ public class fragment_main extends Fragment {
         expense = 0;
         initViewModel();
         MobileAds.initialize(requireContext());
-        if (savedInstanceState != null) {
-            adRequest = new AdRequest.Builder().build();
-            requestAd();
-        }
+        adRequest = new AdRequest.Builder().build();
     }
 
     @Override
@@ -370,6 +369,9 @@ public class fragment_main extends Fragment {
             setMain(progress);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if (savedInstanceState==null){
+            requestAd();
         }
         return v;
     }

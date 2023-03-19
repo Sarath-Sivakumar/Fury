@@ -80,10 +80,7 @@ public class Dues_Debt extends Fragment {
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
         MobileAds.initialize(requireContext());
-        if (savedInstanceState != null) {
-            adRequest = new AdRequest.Builder().build();
-            requestAd();
-        }
+        adRequest = new AdRequest.Builder().build();
     }
 
     @Override
@@ -92,6 +89,9 @@ public class Dues_Debt extends Fragment {
         View v = inflater.inflate(R.layout.main_fragment_dues, container, false);
         find(v);
         initViewModel();
+        if (savedInstanceState != null) {
+            requestAd();
+        }
         return v;
     }
 
