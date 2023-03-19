@@ -140,7 +140,6 @@ public class BudgetFragment extends Fragment {
 
         ad = v.findViewById(R.id.adView2);
         addBudget.setOnClickListener(v1 -> callAddBudgetPopup());
-        requestAd();
     }
 
     private void initItems() {

@@ -103,7 +103,6 @@ public class Exp_Tracker extends Fragment {
         String s1 = Constants.RUPEE + (getBalance() + getInHandBalance());
         balanceView.setText(s1);
         ad = v.findViewById(R.id.adView3);
-        requestAd();
     }
 
     private void initViewModel() {

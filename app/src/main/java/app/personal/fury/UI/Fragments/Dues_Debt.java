@@ -128,7 +128,6 @@ public class Dues_Debt extends Fragment {
         repeatList.setLayoutManager(new LinearLayoutManager(requireContext()));
         repeatList.setHasFixedSize(true);
         repeatList.setAdapter(repeatDue);
-        requestAd();
     }
 
     @SuppressLint({"UseCompatLoadingForDrawables"})
