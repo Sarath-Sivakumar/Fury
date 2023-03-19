@@ -93,6 +93,7 @@ public class fragment_main extends Fragment {
             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                 super.onAdFailedToLoad(loadAdError);
                 ad.setVisibility(View.GONE);
+                ad.loadAd(adRequest);
             }
 
             @Override
