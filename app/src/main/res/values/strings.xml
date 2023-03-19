@@ -201,7 +201,7 @@
     <string name="no">No</string>
     <string name="this_expense_will_be_deleted">This expense will be deleted!</string>
     <string name="set_profile_picture">Set Profile picture</string>
-    <string name="your_current_expense_rate_is_too_high">, your current expense rate is too high!</string>
+    <string name="your_current_expense_rate_is_too_high">Your current expense rate is too high!</string>
     <string name="expense_details">Expense Details</string>
     <string name="category">Category:</string>
     <string name="amount_">Amount:</string>
