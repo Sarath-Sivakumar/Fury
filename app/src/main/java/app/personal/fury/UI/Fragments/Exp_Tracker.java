@@ -288,7 +288,7 @@ public class Exp_Tracker extends Fragment {
         warningTitle1 = view.findViewById(R.id.expWarning);
         if (userName != null) {
             if (!userName.trim().equals("")) {
-                String war = "\nHigh expense rate noticed ";
+                String war = "\nHigh expense rate noticed";
                 String title1;
                 if (Commons.isConnectedToInternet(requireContext())){
                     title1 = "Attention," + userName + "!" + war;
