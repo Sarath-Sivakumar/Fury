@@ -242,7 +242,7 @@ public class Commons {
         return matcher.find();
     }
 
-    public boolean isConnectedToInternet(Context c) {
+    public static boolean isConnectedToInternet(Context c) {
         return checkNet(c);
     }
 
@@ -254,7 +254,7 @@ public class Commons {
         }
     }
 
-    private boolean checkNet(Context c) {
+    private static boolean checkNet(Context c) {
         //To check internet connectivity.
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);

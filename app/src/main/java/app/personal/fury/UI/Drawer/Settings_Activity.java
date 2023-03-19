@@ -30,10 +30,11 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
-import app.personal.MVVM.Entity.balanceEntity;
-import app.personal.MVVM.Entity.inHandBalEntity;
 import app.personal.MVVM.Entity.userEntity;
 import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
 import app.personal.MVVM.Viewmodel.mainViewModel;
@@ -74,10 +75,12 @@ public class Settings_Activity extends AppCompatActivity {
         findView();
         getUserData();
         OnClick();
-        initAd();
+        if (Commons.isConnectedToInternet(this)){
+            initAd();
+        }
     }
 
-    private void initAd(){
+    private void initAd() {
         MobileAds.initialize(this);
         String TestAdId = "ca-app-pub-8620335196955785/4549061972";
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -255,10 +258,11 @@ public class Settings_Activity extends AppCompatActivity {
     private void fakeLoadingScreen() {
         new CountDownTimer(2000, 1000) {
             final PopupWindow popupWindow = new PopupWindow(Settings_Activity.this);
+
             @Override
             public void onTick(long millisUntilFinished) {
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                assert inflater !=null;
+                assert inflater != null;
                 View view = inflater.inflate(R.layout.popup_budget_fake_loading, null);
                 TextView t = view.findViewById(R.id.loadingText);
                 String s = "Clearing your data, please wait..";

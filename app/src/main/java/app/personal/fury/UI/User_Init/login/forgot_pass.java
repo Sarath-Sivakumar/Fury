@@ -39,7 +39,7 @@ public class forgot_pass extends AppCompatActivity {
     private void resetpassword(){
         String email = email_add.getText().toString().trim();
 
-        if (new Commons().isConnectedToInternet(this)) {
+        if (Commons.isConnectedToInternet(this)) {
             if (email.isEmpty()) {
                 email_add.setError("Provide an email address!");
                 email_add.requestFocus();
