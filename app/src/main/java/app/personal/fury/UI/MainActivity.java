@@ -21,7 +21,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -273,6 +272,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                         interstitial = null;
+                        Commons.SnackBar(tb, loadAdError.getMessage());
                     }
                 });
     }
@@ -539,8 +539,8 @@ public class MainActivity extends AppCompatActivity {
             public void onTabUnselected(TabLayout.Tab tab) {
                 //for removing the color of tab icon when switched to next tab (.clearColorFilter() instead of setColorFilter.)
                 for (int i = 0; i <= 4; i++) {
-                        Objects.requireNonNull(Objects.requireNonNull(tl.getTabAt(i)).getIcon())
-                                .setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+                    Objects.requireNonNull(Objects.requireNonNull(tl.getTabAt(i)).getIcon())
+                            .setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
                 }
             }
 
