@@ -27,6 +27,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -62,6 +67,9 @@ public class Ear_Tracker extends Fragment {
     private final ArrayList<String> SecondaryTexts = new ArrayList<>();
     private TextView SalAmt, inHandAmt, accountAmt, inHandCount, accountCount;
     private int oldBal = 0, budType;
+    private AdView ad;
+    private LinearLayout adLayout;
+    private AdRequest adRequest;
     private String budDate;
     private final int[] FragmentList =
             new int[]{R.drawable.info_h1, R.drawable.info_h2,
@@ -81,6 +89,8 @@ public class Ear_Tracker extends Fragment {
             vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
             appVm = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
             adapter = new salaryAdapter();
+            MobileAds.initialize(requireContext());
+            adRequest = new AdRequest.Builder().build();
         }
         //Comes before onCreateView
         //initialise methods that don't require activity or context
@@ -98,8 +108,29 @@ public class Ear_Tracker extends Fragment {
         adapter = new salaryAdapter();
         View v = inflater.inflate(R.layout.main_fragment_earningstracker, container, false);
         initAd();
+        if (savedInstanceState != null) {
+            requestAd();
+        }
         findView(v);
         return v;
+    }
+
+    private void requestAd() {
+        ad.loadAd(adRequest);
+        ad.setAdListener(new AdListener() {
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                super.onAdFailedToLoad(loadAdError);
+                adLayout.setVisibility(View.GONE);
+                ad.loadAd(adRequest);
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                adLayout.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -131,6 +162,8 @@ public class Ear_Tracker extends Fragment {
         addSal.setOnClickListener(v1 -> callPopUpWindow(false, null));
         salSplitList.setLayoutManager(new LinearLayoutManager(requireContext()));
         salSplitList.setHasFixedSize(true);
+        ad = v.findViewById(R.id.adView4);
+        adLayout = v.findViewById(R.id.adLayoutEar);
         salSplitList.setAdapter(adapter);
         inHandAmt = v.findViewById(R.id.inhand_Amt);
         inHandCount = v.findViewById(R.id.inhand_count);

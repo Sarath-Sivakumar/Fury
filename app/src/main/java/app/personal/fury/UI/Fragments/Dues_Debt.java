@@ -18,6 +18,7 @@ import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -66,6 +67,7 @@ public class Dues_Debt extends Fragment {
     private dueAdapter mainDueAdapter, repeatDue;
     private int finalTotalDue = 0;
     private AdView ad;
+    private LinearLayout adLayout;
     private AdRequest adRequest;
     private FloatingActionButton fltBtn;
 
@@ -101,14 +103,14 @@ public class Dues_Debt extends Fragment {
             @Override
             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                 super.onAdFailedToLoad(loadAdError);
-                ad.setVisibility(View.GONE);
+                adLayout.setVisibility(View.GONE);
                 ad.loadAd(adRequest);
             }
 
             @Override
             public void onAdLoaded() {
                 super.onAdLoaded();
-                ad.setVisibility(View.VISIBLE);
+                adLayout.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -117,6 +119,7 @@ public class Dues_Debt extends Fragment {
         dueList = v.findViewById(R.id.dueList);
         fltBtn = v.findViewById(R.id.addDue);
         ad = v.findViewById(R.id.adView3);
+        adLayout = v.findViewById(R.id.adLayoutDue);
         fltBtn.setOnClickListener(v1 -> callPopupWindow(Constants.itemAdd));
         totalDueDisplay = v.findViewById(R.id.dueTotalText);
         noDues = v.findViewById(R.id.dueTotalNo);
