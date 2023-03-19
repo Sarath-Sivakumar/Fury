@@ -138,7 +138,9 @@ public class Settings_Activity extends AppCompatActivity {
         userVM.getUserData().observe(this, userEntity -> {
             if (userEntity != null) {
                 userData = userEntity;
-                profileName.setText(userData.getName());
+                if (Commons.isConnectedToInternet(this)){
+                    profileName.setText(userData.getName());
+                }
                 if (!userEntity.getImgUrl().equals(Constants.DEFAULT_DP)) {
                     Glide.with(this)
                             .load(userData.getImgUrl())
@@ -166,20 +168,31 @@ public class Settings_Activity extends AppCompatActivity {
         profilePic = findViewById(R.id.profilePic);
         profileName = findViewById(R.id.profileName);
         profileNameEdit = findViewById(R.id.profileNameEdit);
+        profileName.setText("-");
         save = findViewById(R.id.save);
         discard = findViewById(R.id.cancel);
         profileName.setOnClickListener(v -> {
-            profileNameEdit.setVisibility(View.VISIBLE);
-            save.setVisibility(View.VISIBLE);
-            discard.setVisibility(View.VISIBLE);
-            profileNameEdit.setText(profileName.getText().toString());
-            profileName.setVisibility(View.GONE);
+            if (Commons.isConnectedToInternet(this)){
+                profileNameEdit.setVisibility(View.VISIBLE);
+                save.setVisibility(View.VISIBLE);
+                discard.setVisibility(View.VISIBLE);
+                profileNameEdit.setText(profileName.getText().toString());
+                profileName.setVisibility(View.GONE);
+            }else{
+                Commons.SnackBar(profileName, "No Internet connection available");
+            }
         });
         clearData.setOnClickListener(v -> callPopupWindow());
     }
 
     private void OnClick() {
-        uploadPic.setOnClickListener(v -> callPopupWindow(uploadPic));
+        uploadPic.setOnClickListener(v -> {
+            if (Commons.isConnectedToInternet(this)){
+                callPopupWindow(uploadPic);
+            }else{
+                Commons.SnackBar(profileName, "No Internet connection available");
+            }
+        });
 
         contact.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_SENDTO);
