@@ -31,8 +31,10 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -64,6 +66,7 @@ public class Dues_Debt extends Fragment {
     private dueAdapter mainDueAdapter, repeatDue;
     private int finalTotalDue = 0;
     private AdView ad;
+    private AdRequest adRequest;
     private FloatingActionButton fltBtn;
 
     public Dues_Debt() {
@@ -77,6 +80,10 @@ public class Dues_Debt extends Fragment {
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
         MobileAds.initialize(requireContext());
+        if (savedInstanceState != null) {
+            adRequest = new AdRequest.Builder().build();
+            requestAd();
+        }
     }
 
     @Override
@@ -89,8 +96,20 @@ public class Dues_Debt extends Fragment {
     }
 
     private void requestAd() {
-        AdRequest adRequest = new AdRequest.Builder().build();
         ad.loadAd(adRequest);
+        ad.setAdListener(new AdListener() {
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                super.onAdFailedToLoad(loadAdError);
+                ad.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                ad.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private void find(View v) {
@@ -188,7 +207,7 @@ public class Dues_Debt extends Fragment {
                         appVM.getCheckerData().observe(requireActivity(), launchChecker -> {
                             if (launchChecker.getTimesLaunched() == 0) {
                                 clearDataAfterTutorial();
-                            }else{
+                            } else {
                                 appVM.getCheckerData().removeObservers(requireActivity());
                             }
                         });
