@@ -347,9 +347,28 @@
                     android:background="?attr/colorPrimary" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/textstyle2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_weight=".8"
+                    android:text="@string/learn_with_fury"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
+                android:layout_height="300dp"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
@@ -357,7 +376,6 @@
                     android:id="@+id/infoGraphics_vp2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="6dp"
                     android:minHeight="300dp"
                     tools:ignore="SpeakableTextPresentCheck" />
 
