@@ -79,10 +79,7 @@ public class Exp_Tracker extends Fragment {
         accBal = getBalance();
         inHandBal = getInHandBalance();
         appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
-        if (savedInstanceState != null) {
-            adRequest = new AdRequest.Builder().build();
-            requestAd();
-        }
+        adRequest = new AdRequest.Builder().build();
     }
 
     private void init(View v) {
@@ -545,6 +542,9 @@ public class Exp_Tracker extends Fragment {
         init(v);
         getBalance();
         getExp();
+        if (savedInstanceState != null) {
+            requestAd();
+        }
         return v;
     }
 

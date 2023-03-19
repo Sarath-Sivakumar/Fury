@@ -89,8 +89,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:baselineAligned="false">
+                            android:baselineAligned="false"
+                            android:orientation="horizontal">
 
                             <LinearLayout
                                 android:layout_width="0dp"
@@ -145,8 +145,8 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:baselineAligned="false">
+                            android:baselineAligned="false"
+                            android:orientation="horizontal">
 
                             <LinearLayout
                                 android:layout_width="0dp"
@@ -252,6 +252,7 @@
                     android:layout_width="0.3dp"
                     android:layout_height="match_parent" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -294,12 +295,13 @@
                     app:tabIndicatorHeight="0dp"
                     tools:ignore="SpeakableTextPresentCheck" />
             </FrameLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
                 android:layout_marginTop="12dp"
+                android:layout_marginEnd="6dp"
                 android:layout_marginBottom="12dp"
                 android:orientation="horizontal">
 
@@ -324,6 +326,7 @@
                     tools:ignore="UseSwitchCompatOrMaterialXml,TouchTargetSizeCheck" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/stat_disable"
                 android:layout_width="match_parent"
@@ -336,23 +339,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/activate_to_see_daily_statitics"/>
+                    android:text="@string/activate_to_see_daily_statitics" />
 
             </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/stat_layout"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_margin="4dp"
-            android:backgroundTint="@color/d2"
-            android:background="@drawable/background_borderonly"
-            android:orientation="vertical" >
-
             <LinearLayout
+                android:id="@+id/stat_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -360,255 +352,271 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/background_borderonly"
                 android:backgroundTint="@color/d2"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/background_borderonly"
+                    android:backgroundTint="@color/d2"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_marginBottom="0dp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+                        <!--If textview is not used then use view-->
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
+                            android:layout_weight=".25"
+                            android:fontFamily="@font/work_sans_bold"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:layout_weight=".25"
+                            android:gravity="center"
+                            android:text="@string/earnings"
+                            android:textColor="@color/l1"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:layout_weight=".25"
+                            android:gravity="center"
+                            android:text="@string/expense"
+                            android:textColor="@color/l1"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="3dp"
+                            android:layout_weight=".25"
+                            android:gravity="center"
+                            android:text="@string/balance"
+                            android:textColor="@color/l1"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="6dp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight=".25"
+                            android:gravity="center"
+                            android:text="@string/cash"
+                            android:textColor="@color/l1"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/cashEarnings"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".25"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/cashExpense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".25"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/cashBalance"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".25"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="6dp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight=".25"
+                            android:gravity="center"
+                            android:text="@string/bank"
+                            android:textColor="@color/l1"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/bankEarnings"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".25"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/bankExpense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".25"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/bankBalance"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".25"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_marginBottom="16dp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight=".25"
+                            android:gravity="center"
+                            android:text="@string/total"
+                            android:textColor="@color/l1"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/totalEarnings"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".25"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/totalExpense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".25"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/totalBalance"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".25"
+                            android:fontFamily="@font/source_sans_pro_semibold"
+                            android:gravity="center"
+                            android:textColor="@color/theme_green_dark"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/adLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginEnd="6dp"
-                    android:layout_marginBottom="0dp"
-                    android:baselineAligned="false"
+                    android:layout_margin="6dp"
                     android:orientation="horizontal">
-                    <!--If textview is not used then use view-->
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ad"
+                        android:textSize="12sp" />
+
                     <View
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="3dp"
-                        android:layout_weight=".25"
-                        android:fontFamily="@font/work_sans_bold"
-                        android:gravity="center"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
                         android:layout_gravity="center"
-                        android:layout_margin="3dp"
-                        android:layout_weight=".25"
-                        android:gravity="center"
-                        android:text="@string/earnings"
-                        android:textColor="@color/l1"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="3dp"
-                        android:layout_weight=".25"
-                        android:gravity="center"
-                        android:text="@string/expense"
-                        android:textColor="@color/l1"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="3dp"
-                        android:layout_weight=".25"
-                        android:gravity="center"
-                        android:text="@string/balance"
-                        android:textColor="@color/l1"
-                        android:textSize="14sp" />
-
+                        android:layout_marginStart="2dp"
+                        android:background="?attr/colorPrimary" />
                 </LinearLayout>
 
-                <LinearLayout
+
+                <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/adView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight=".25"
-                        android:gravity="center"
-                        android:text="@string/cash"
-                        android:textColor="@color/l1"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/cashEarnings"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".25"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:gravity="center"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/cashExpense"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".25"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:gravity="center"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/cashBalance"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".25"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:gravity="center"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight=".25"
-                        android:gravity="center"
-                        android:text="@string/bank"
-                        android:textColor="@color/l1"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/bankEarnings"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".25"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:gravity="center"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/bankExpense"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".25"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:gravity="center"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/bankBalance"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".25"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:gravity="center"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginEnd="6dp"
-                    android:layout_marginBottom="16dp"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight=".25"
-                        android:gravity="center"
-                        android:text="@string/total"
-                        android:textColor="@color/l1"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/totalEarnings"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".25"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:gravity="center"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/totalExpense"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".25"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:gravity="center"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/totalBalance"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".25"
-                        android:fontFamily="@font/source_sans_pro_semibold"
-                        android:gravity="center"
-                        android:textColor="@color/theme_green_dark"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-
-
-
-
-            <LinearLayout
-                android:layout_margin="6dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:text="@string/ad" />
+                    android:minWidth="320dp"
+                    android:minHeight="50dp"
+                    ads:adSize="BANNER"
+                    ads:adUnitId="ca-app-pub-8620335196955785/7897280043" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.1dp"
                     android:layout_gravity="center"
-                    android:layout_marginStart="2dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginBottom="0dp"
                     android:background="?attr/colorPrimary" />
             </LinearLayout>
-
-
-            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/adView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minWidth="320dp"
-                android:minHeight="50dp"
-                ads:adSize="BANNER"
-                ads:adUnitId="ca-app-pub-8620335196955785/7897280043" />
-            <!--Test ID ca-app-pub-3940256099942544/6300978111-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="6dp"
-                android:layout_marginEnd="6dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="0dp"
-                android:background="?attr/colorPrimary" />
 
             <LinearLayout
                 android:layout_width="match_parent"

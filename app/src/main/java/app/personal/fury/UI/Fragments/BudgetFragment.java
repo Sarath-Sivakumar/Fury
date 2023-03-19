@@ -76,10 +76,7 @@ public class BudgetFragment extends Fragment {
         adapter = new budgetAdapter();
         util = new TutorialUtil(requireActivity(), requireContext(), requireActivity(), requireActivity());
         MobileAds.initialize(requireContext());
-        if (savedInstanceState != null) {
-            adRequest = new AdRequest.Builder().build();
-            requestAd();
-        }
+        adRequest = new AdRequest.Builder().build();
     }
 
     private void init() {
@@ -92,6 +89,9 @@ public class BudgetFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.main_fragment_budget, container, false);
         findView(v);
+        if (savedInstanceState != null) {
+            requestAd();
+        }
         return v;
     }
 
