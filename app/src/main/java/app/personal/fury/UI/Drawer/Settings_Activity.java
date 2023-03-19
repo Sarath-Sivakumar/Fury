@@ -99,7 +99,6 @@ public class Settings_Activity extends AppCompatActivity {
                                         // Make sure to set your reference to null so you don't
                                         // show it a second time.
                                         interstitial = null;
-                                        finish();
                                     }
 
                                     @Override
@@ -108,7 +107,6 @@ public class Settings_Activity extends AppCompatActivity {
                                         // Make sure to set your reference to null so you don't
                                         // show it a second time.
                                         interstitial = null;
-                                        finish();
                                     }
 
                                     @Override
@@ -120,7 +118,6 @@ public class Settings_Activity extends AppCompatActivity {
                     @Override
                     public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                         interstitial = null;
-                        finish();
                     }
                 });
     }
