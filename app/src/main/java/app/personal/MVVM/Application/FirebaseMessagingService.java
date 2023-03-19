@@ -10,7 +10,6 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.google.firebase.messaging.RemoteMessage;
 
-import java.util.Objects;
 
 import app.personal.fury.R;
 

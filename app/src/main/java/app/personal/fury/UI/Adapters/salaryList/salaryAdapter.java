@@ -1,6 +1,5 @@
 package app.personal.fury.UI.Adapters.salaryList;
 
-import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,27 +28,35 @@ public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.salHolder>
         return new salHolder(itemView);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull salHolder holder, int position) {
         salaryEntity entity = salList.get(position);
-        holder.incAmt.setText("+" +Constants.RUPEE+ entity.getSalary());
+        String s1 = "+" +Constants.RUPEE+ entity.getSalary();
+        holder.incAmt.setText(s1);
         holder.incName.setText(entity.getIncName());
+        String s2;
         if (entity.getSalMode()==Constants.SAL_MODE_ACC){
-            holder.salMod.setText("Bank");
+            s2 = "Bank";
+            holder.salMod.setText(s2);
         }else{
-            holder.salMod.setText("Cash");
+            s2 = "Cash";
+            holder.salMod.setText(s2);
 
         }        String ico = String.valueOf(entity.getIncName().charAt(0)).toUpperCase();
         holder.icoText.setText(ico);
+        String s3;
         if (entity.getIncType()==Constants.monthly){
-            holder.incTyp.setText("Monthly");
+            s3 = "Monthly";
+            holder.incTyp.setText(s3);
         }else if (entity.getIncType()==Constants.daily){
-            holder.incTyp.setText("Daily");
+            s3 = "Daily";
+            holder.incTyp.setText(s3);
         }else if (entity.getIncType()==Constants.hourly){
-            holder.incTyp.setText("Hourly");
+            s3 = "Hourly";
+            holder.incTyp.setText(s3);
         }else if (entity.getIncType()==Constants.oneTime){
-            holder.incTyp.setText("One Time");
+            s3 = "One Time";
+            holder.incTyp.setText(s3);
         }
     }
 
@@ -58,7 +65,6 @@ public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.salHolder>
         return salList.size();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     public void setSal(List<salaryEntity> exp) {
         clear();
         this.salList.addAll(exp);

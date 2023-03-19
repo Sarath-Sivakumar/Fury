@@ -154,8 +154,6 @@ public class MainActivity extends AppCompatActivity {
                             vm.InsertBalance(new balanceEntity(bal + sal.getSalary()));
                             sal.setCreationDate(Commons.getDate());
                             vm.UpdateSalary(sal);
-                        } else {
-                            Log.e("App", "Huh?! Please stop! uwwu!");
                         }
                     }
                 }
@@ -420,8 +418,6 @@ public class MainActivity extends AppCompatActivity {
                 donate(navView);
             } else if (item.getItemId() == R.id.invite) {
                 share(MainActivity.this);
-            } else {
-                Log.e("App", "Daddy stop! Please aaaah!");
             }
 
             dl.closeDrawer(GravityCompat.START);
@@ -593,7 +589,6 @@ public class MainActivity extends AppCompatActivity {
             vp.setCurrentItem(i);
         } catch (Exception e) {
             vp.setCurrentItem(item);
-            Log.e("App", "Stop it daddy! uwwu!");
         }
     }
 

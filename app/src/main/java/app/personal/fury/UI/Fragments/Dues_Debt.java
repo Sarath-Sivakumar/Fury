@@ -1,12 +1,10 @@
 package app.personal.fury.UI.Fragments;
 
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -225,7 +223,6 @@ public class Dues_Debt extends Fragment {
             cancel.setOnClickListener(v -> popupWindow.dismiss());
 
         } else if (Layout == Constants.itemPaid) {
-            Log.e("onSwipe", "called");
             View view = inflater.inflate(R.layout.popup_action_duepaid, null);
             popupWindow.setContentView(view);
 
@@ -331,8 +328,6 @@ public class Dues_Debt extends Fragment {
                         entity.setDate(Commons.getDate());
                         vm.DeleteDebt(mainDueAdapter.getDebtAt(viewHolder.getAdapterPosition()));
                         vm.InsertDebt(entity);
-
-//                        Commons.SnackBar(recyclerView, "Debt marked as paid.");
 
                         callPopupWindow(Constants.itemPaid);
                         mainDueAdapter.notifyDataSetChanged();

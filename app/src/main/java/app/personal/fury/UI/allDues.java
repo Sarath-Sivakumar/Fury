@@ -21,7 +21,6 @@ import app.personal.Utls.Commons;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.dueList.dueAdapter;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
-
 public class allDues extends AppCompatActivity {
 
     private TextView emptyMsg;

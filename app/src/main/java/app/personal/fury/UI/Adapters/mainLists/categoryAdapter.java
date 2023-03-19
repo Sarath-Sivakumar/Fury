@@ -1,6 +1,5 @@
 package app.personal.fury.UI.Adapters.mainLists;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,9 +125,6 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         this.salary = salary;
         this.filter = filter;
         orgExp.addAll(exp);
-        Log.e("setExp", "Array size: " + exp.size());
-        Log.e("setExp", "Salary: " + salary);
-        Log.e("setExp", "Filter: " + filter);
         Thread t = new Thread(() -> {
             for (int i = 0; i < exp.size(); i++) {
 //            Checks if exp date = current date
@@ -391,7 +387,6 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
 
                 break;
             default:
-                Log.e("Merge", "WTF");
                 break;
         }
     }
@@ -419,7 +414,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
 //            });
         }
     }
-//
+
 //    public interface onItemClickListener {
 //        void onItemClick(expEntity exp);
 //    }

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -121,7 +120,6 @@ public class allExp extends AppCompatActivity {
         vm.getBalance().observe(this, entity -> {
             if (entity != null) {
                 Balance.set(entity.getBalance());
-                Log.e("Bal", String.valueOf(entity.getBalance()));
             }
         });
         return Balance.get();
