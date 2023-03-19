@@ -91,7 +91,7 @@ public class Dues_Debt extends Fragment {
         View v = inflater.inflate(R.layout.main_fragment_dues, container, false);
         find(v);
         initViewModel();
-        if (savedInstanceState != null) {
+        if (savedInstanceState == null) {
             requestAd();
         }
         return v;
@@ -118,7 +118,7 @@ public class Dues_Debt extends Fragment {
     private void find(View v) {
         dueList = v.findViewById(R.id.dueList);
         fltBtn = v.findViewById(R.id.addDue);
-        ad = v.findViewById(R.id.adView3);
+        ad = v.findViewById(R.id.adView);
         adLayout = v.findViewById(R.id.adLayout);
         fltBtn.setOnClickListener(v1 -> callPopupWindow(Constants.itemAdd));
         totalDueDisplay = v.findViewById(R.id.dueTotalText);
