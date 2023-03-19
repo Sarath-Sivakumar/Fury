@@ -163,7 +163,7 @@ public class Ear_Tracker extends Fragment {
         salSplitList.setLayoutManager(new LinearLayoutManager(requireContext()));
         salSplitList.setHasFixedSize(true);
         ad = v.findViewById(R.id.adView4);
-        adLayout = v.findViewById(R.id.adLayoutEar);
+        adLayout = v.findViewById(R.id.adLayout);
         salSplitList.setAdapter(adapter);
         inHandAmt = v.findViewById(R.id.inhand_Amt);
         inHandCount = v.findViewById(R.id.inhand_count);

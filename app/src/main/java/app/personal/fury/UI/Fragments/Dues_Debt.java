@@ -119,7 +119,7 @@ public class Dues_Debt extends Fragment {
         dueList = v.findViewById(R.id.dueList);
         fltBtn = v.findViewById(R.id.addDue);
         ad = v.findViewById(R.id.adView3);
-        adLayout = v.findViewById(R.id.adLayoutDue);
+        adLayout = v.findViewById(R.id.adLayout);
         fltBtn.setOnClickListener(v1 -> callPopupWindow(Constants.itemAdd));
         totalDueDisplay = v.findViewById(R.id.dueTotalText);
         noDues = v.findViewById(R.id.dueTotalNo);

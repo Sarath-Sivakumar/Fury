@@ -77,12 +77,13 @@ public class fragment_main extends Fragment {
     private AdRequest adRequest;
     private LinearLayout adLayout;
     private RecyclerView dueList;
-    private LinearLayout noDues, statview, statdisabled;
+    private LinearLayout noDues, statView, statDisabled;
     private int filter = 0;
     private boolean isViewed = false, isVisible = false, updateIsViewed = false;
     private final ArrayList<debtEntity> debtList = new ArrayList<>();
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-    private final int[] FragmentList = new int[]{R.drawable.infos1, R.drawable.infos2, R.drawable.infos3, R.drawable.infos4, R.drawable.infos5, R.drawable.infos6};
+    private final int[] FragmentList = new int[]{R.drawable.infos1, R.drawable.infos2,
+            R.drawable.infos3, R.drawable.infos4, R.drawable.infos5, R.drawable.infos6};
 
     public fragment_main() {
     }
@@ -120,17 +121,17 @@ public class fragment_main extends Fragment {
         Switch statButton = v.findViewById(R.id.stat_switch);
 //        statButton.setText("Inactive");
 
-        statview = v.findViewById(R.id.stat_layout);
-        statdisabled = v.findViewById(R.id.stat_disable);
+        statView = v.findViewById(R.id.stat_layout);
+        statDisabled = v.findViewById(R.id.stat_disable);
 
         statButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                statview.setVisibility(View.VISIBLE);
-                statdisabled.setVisibility(View.GONE);
+                statView.setVisibility(View.VISIBLE);
+                statDisabled.setVisibility(View.GONE);
 //                statButton.setText("Active");
             } else {
-                statview.setVisibility(View.GONE);
-                statdisabled.setVisibility(View.VISIBLE);
+                statView.setVisibility(View.GONE);
+                statDisabled.setVisibility(View.VISIBLE);
 //                statButton.setText("Inactive");
             }
         });

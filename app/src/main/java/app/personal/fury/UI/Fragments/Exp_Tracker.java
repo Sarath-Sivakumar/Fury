@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -67,6 +68,7 @@ public class Exp_Tracker extends Fragment {
     private AppUtilViewModel appVM;
     private AdView ad;
     private AdRequest adRequest;
+    private LinearLayout adLayout;
     private boolean isViewed = false;
 
     public Exp_Tracker() {
@@ -75,11 +77,11 @@ public class Exp_Tracker extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initViewModel();
+        if (savedInstanceState==null){
+            initViewModel();
+        }
         accBal = getBalance();
         inHandBal = getInHandBalance();
-        appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
-        adRequest = new AdRequest.Builder().build();
     }
 
     private void init(View v) {
@@ -92,6 +94,7 @@ public class Exp_Tracker extends Fragment {
         accountCount = v.findViewById(R.id.account_count);
         dLimit = v.findViewById(R.id.dLimit);
         expView = v.findViewById(R.id.todayExp);
+        adLayout = v.findViewById(R.id.adLayout);
         touchHelper();
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setHasFixedSize(true);
@@ -109,6 +112,8 @@ public class Exp_Tracker extends Fragment {
             userName = String.valueOf(c[0]);
         });
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+        appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
+        adRequest = new AdRequest.Builder().build();
     }
 
     private void getExp() {
@@ -166,14 +171,14 @@ public class Exp_Tracker extends Fragment {
             @Override
             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                 super.onAdFailedToLoad(loadAdError);
-                ad.setVisibility(View.GONE);
+                adLayout.setVisibility(View.GONE);
                 ad.loadAd(adRequest);
             }
 
             @Override
             public void onAdLoaded() {
                 super.onAdLoaded();
-                ad.setVisibility(View.VISIBLE);
+                adLayout.setVisibility(View.VISIBLE);
             }
         });
     }
