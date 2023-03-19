@@ -289,7 +289,12 @@ public class Exp_Tracker extends Fragment {
         if (userName != null) {
             if (!userName.trim().equals("")) {
                 String war = "\nYou are spending too much";
-                String title1 = "Attention," + userName + "!" + war;
+                String title1;
+                if (Commons.isConnectedToInternet(requireContext())){
+                    title1 = "Attention," + userName + "!" + war;
+                }else{
+                    title1 = "Attention!" + war;
+                }
                 warningTitle1.setText(title1);
             }
         } else {
