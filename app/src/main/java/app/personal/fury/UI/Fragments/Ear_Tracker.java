@@ -85,15 +85,12 @@ public class Ear_Tracker extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState == null) {
-            vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-            appVm = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
-            adapter = new salaryAdapter();
-            MobileAds.initialize(requireContext());
-            adRequest = new AdRequest.Builder().build();
-        }
-        //Comes before onCreateView
-        //initialise methods that don't require activity or context
+
+        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+        appVm = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
+        adapter = new salaryAdapter();
+        MobileAds.initialize(requireContext());
+        adRequest = new AdRequest.Builder().build();
     }
 
     private void initAd() {
@@ -109,7 +106,7 @@ public class Ear_Tracker extends Fragment {
         View v = inflater.inflate(R.layout.main_fragment_earningstracker, container, false);
         initAd();
         findView(v);
-        if (savedInstanceState != null) {
+        if (savedInstanceState == null) {
             requestAd();
         }
         return v;
@@ -357,7 +354,7 @@ public class Ear_Tracker extends Fragment {
                         int oldBal = salary.getSalary();
                         if (bal != null) {
                             oldBal = oldBal - bal.getBalance();
-                            bal.setBalance(oldBal+sal.getSalary());
+                            bal.setBalance(oldBal + sal.getSalary());
                         } else {
                             bal.setBalance(0);
                         }
@@ -368,7 +365,7 @@ public class Ear_Tracker extends Fragment {
                         int oldBal = salary.getSalary();
                         if (bal != null) {
                             oldBal = oldBal - bal.getBalance();
-                            bal.setBalance(oldBal+sal.getSalary());
+                            bal.setBalance(oldBal + sal.getSalary());
                         } else {
                             bal.setBalance(0);
                         }
@@ -446,7 +443,7 @@ public class Ear_Tracker extends Fragment {
                         vm.InsertInHandBalance(new inHandBalEntity(curBal - salary));
                     }
                     popupWindow.dismiss();
-                    if (budType == Constants.BUDGET_MONTHLY || budType == Constants.BUDGET_WEEKLY){
+                    if (budType == Constants.BUDGET_MONTHLY || budType == Constants.BUDGET_WEEKLY) {
                         callOnDeletePopup(salaryEntity, "0");
                     }
 
