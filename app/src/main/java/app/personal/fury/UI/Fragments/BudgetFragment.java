@@ -109,6 +109,7 @@ public class BudgetFragment extends Fragment {
             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                 super.onAdFailedToLoad(loadAdError);
                 ad.setVisibility(View.GONE);
+                ad.loadAd(adRequest);
             }
 
             @Override
