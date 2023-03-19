@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.content.pm.PackageManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -503,7 +502,6 @@ public class fragment_main extends Fragment {
                                 debtList.add(debtEntities.get(i));
                             }
                         } catch (Exception ignored) {
-                            Log.e("App", "Daddy!! Noo stop!");
                         }
                     }
                 }
@@ -620,7 +618,6 @@ public class fragment_main extends Fragment {
             warningPopup.dismiss();
         } catch (Exception ignored) {
         }
-        Log.e("onStop", "onStop");
     }
 
     @Override

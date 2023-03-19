@@ -56,7 +56,6 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 public class Ear_Tracker extends Fragment {
     //Daily = 1, Monthly = 0, Hourly = -1, oneTime = ?(To be implemented in a future update).
-
     private RecyclerView salSplitList;
     private FloatingActionButton addSal;
     private mainViewModel vm;

@@ -15,7 +15,6 @@ import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Entity.inHandBalEntity;
 import app.personal.MVVM.Entity.salaryEntity;
-
 public class localRepository {
     private final localDao dao;
     private final LiveData<balanceEntity> getBalance;
