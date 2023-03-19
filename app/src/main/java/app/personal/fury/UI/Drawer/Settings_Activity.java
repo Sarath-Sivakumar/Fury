@@ -252,11 +252,9 @@ public class Settings_Activity extends AppCompatActivity {
                     discard.setVisibility(View.GONE);
                     profileNameEdit.setVisibility(View.GONE);
                     profileName.setVisibility(View.VISIBLE);
-                } else {
-                    Commons.SnackBar(save, "That's the same name -_-");
                 }
             } else {
-                Commons.SnackBar(save, "Hello NoName human, field cannot be empty. Try again!");
+                Commons.SnackBar(save, "Try again!");
             }
         });
         discard.setOnClickListener(v -> {
