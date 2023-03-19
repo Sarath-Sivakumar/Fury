@@ -66,6 +66,7 @@ public class fragment_main extends Fragment {
     private int totalEr = 0;
     private int totalEx = 0;
     private int totalBa = 0;
+    private Switch statButton;
     private PopupWindow warningPopup, updatePopup;
     private mainViewModel vm;
     private LoggedInUserViewModel userVM;
@@ -118,7 +119,7 @@ public class fragment_main extends Fragment {
         ad = v.findViewById(R.id.adView);
         dueList = v.findViewById(R.id.dueList);
         adLayout = v.findViewById(R.id.adLayout);
-        Switch statButton = v.findViewById(R.id.stat_switch);
+        statButton = v.findViewById(R.id.stat_switch);
 //        statButton.setText("Inactive");
 
         statView = v.findViewById(R.id.stat_layout);
@@ -373,6 +374,7 @@ public class fragment_main extends Fragment {
         }
         if (savedInstanceState==null){
             requestAd();
+            statButton.setChecked(true);
         }
         return v;
     }

@@ -79,8 +79,8 @@ public class Constants {
             UpdateNotAvailable = 0,
     //    -----------------------------------------------------------
     //    DueWarning-------------------------------------------------
-    SHOW_WARNING_BY_IN_APP = 4,
-            SHOW_WARNING_BY_PUSH_NOTIFICATIONS = 7;
+    SHOW_WARNING_BY_IN_APP = 3,
+            SHOW_WARNING_BY_PUSH_NOTIFICATIONS = 5;
     //    -----------------------------------------------------------
     public static final String DB_INSTANCE = "https://fury-d3622-default-rtdb.asia-southeast1.firebasedatabase.app";
 }
