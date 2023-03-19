@@ -24,8 +24,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.tabs.TabLayout;
@@ -72,6 +74,7 @@ public class fragment_main extends Fragment {
     private int salary = 0, expense = 0, budgetTotalAmount = 0;
     private int progress = 0;
     private AdView ad;
+    private AdRequest adRequest;
     private RecyclerView dueList;
     private LinearLayout noDues, statview, statdisabled;
     private int filter = 0;
@@ -84,8 +87,20 @@ public class fragment_main extends Fragment {
     }
 
     private void requestAd() {
-        AdRequest adRequest = new AdRequest.Builder().build();
         ad.loadAd(adRequest);
+        ad.setAdListener(new AdListener() {
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                super.onAdFailedToLoad(loadAdError);
+                ad.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                ad.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @SuppressLint("SetTextI18n")
@@ -136,7 +151,6 @@ public class fragment_main extends Fragment {
         noDues = v.findViewById(R.id.noDues);
         catList.setHasFixedSize(true);
         catList.setAdapter(cAdapter);
-        requestAd();
         catFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             //            Total 3 pos available , 0-today, 1-month, 2-year.
             @Override
@@ -239,7 +253,7 @@ public class fragment_main extends Fragment {
     }
 
     private void initViewModel() {
-        if (!updateIsViewed){
+        if (!updateIsViewed) {
             update();
             updateIsViewed = true;
         }
@@ -338,6 +352,10 @@ public class fragment_main extends Fragment {
         expense = 0;
         initViewModel();
         MobileAds.initialize(requireContext());
+        if (savedInstanceState != null) {
+            adRequest = new AdRequest.Builder().build();
+            requestAd();
+        }
     }
 
     @Override
@@ -490,10 +508,10 @@ public class fragment_main extends Fragment {
         });
     }
 
-    private void update(){
+    private void update() {
         userVM.updateListener().observe(requireActivity(), integer -> {
-            if (integer==Constants.UpdateAvailable){
-             callUpdatePopup();
+            if (integer == Constants.UpdateAvailable) {
+                callUpdatePopup();
             }
         });
     }

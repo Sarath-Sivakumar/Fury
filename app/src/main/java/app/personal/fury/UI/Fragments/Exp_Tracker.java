@@ -30,8 +30,10 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -64,6 +66,7 @@ public class Exp_Tracker extends Fragment {
     private String userName = "";
     private AppUtilViewModel appVM;
     private AdView ad;
+    private AdRequest adRequest;
     private boolean isViewed = false;
 
     public Exp_Tracker() {
@@ -76,6 +79,10 @@ public class Exp_Tracker extends Fragment {
         accBal = getBalance();
         inHandBal = getInHandBalance();
         appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
+        if (savedInstanceState != null) {
+            adRequest = new AdRequest.Builder().build();
+            requestAd();
+        }
     }
 
     private void init(View v) {
@@ -96,7 +103,6 @@ public class Exp_Tracker extends Fragment {
         String s1 = Constants.RUPEE + (getBalance() + getInHandBalance());
         balanceView.setText(s1);
         ad = v.findViewById(R.id.adView3);
-        requestAd();
     }
 
     private void initViewModel() {
@@ -121,12 +127,12 @@ public class Exp_Tracker extends Fragment {
                 if (e != null) {
                     if (!e.isEmpty()) {
                         String s = Commons.getAvg(e, true);
-                        if (s.equals("Collecting data!")){
+                        if (s.equals("Collecting data!")) {
                             dLimit.setTextSize(12);
                         }
                         dLimit.setText(s);
                         cDAvg = Integer.parseInt(Commons.getAvg(e, false));
-                        Log.e("Daily avg", "Value: "+Commons.getAvg(e, false));
+                        Log.e("Daily avg", "Value: " + Commons.getAvg(e, false));
                     } else {
                         String s = "No data to process";
                         dLimit.setTextSize(14);
@@ -148,7 +154,8 @@ public class Exp_Tracker extends Fragment {
                         accountExp.setText(s2);
                         inHandCount.setText(String.valueOf(cashCount));
                         accountCount.setText(String.valueOf(accCount));
-                    } catch (Exception ignored) {}
+                    } catch (Exception ignored) {
+                    }
                 }
             } catch (Exception e1) {
                 e1.printStackTrace();
@@ -157,8 +164,20 @@ public class Exp_Tracker extends Fragment {
     }
 
     private void requestAd() {
-        AdRequest adRequest = new AdRequest.Builder().build();
         ad.loadAd(adRequest);
+        ad.setAdListener(new AdListener() {
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                super.onAdFailedToLoad(loadAdError);
+                ad.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                ad.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private budgetEntity getBudget() {
@@ -187,7 +206,7 @@ public class Exp_Tracker extends Fragment {
                 }
                 if (cDAvg > s2 && !isViewed) {
                     showWarningPopup();
-                    isViewed=true;
+                    isViewed = true;
                 }
             }
         } catch (Exception e) {
@@ -267,7 +286,7 @@ public class Exp_Tracker extends Fragment {
         if (userName != null) {
             if (!userName.trim().equals("")) {
                 String war = "\nYou are spending too much";
-                String title1 = "Attention,"+userName +"!"+ war;
+                String title1 = "Attention," + userName + "!" + war;
                 warningTitle1.setText(title1);
             }
         } else {
@@ -285,7 +304,7 @@ public class Exp_Tracker extends Fragment {
             };
         }
         dAvg = view.findViewById(R.id.expDAvg);
-        String s = Constants.RUPEE+cDAvg + " /Day";
+        String s = Constants.RUPEE + cDAvg + " /Day";
         dAvg.setText(s);
 
         popupWindow.setFocusable(true);
@@ -330,14 +349,15 @@ public class Exp_Tracker extends Fragment {
                 }
 
                 try {
-                    if (Commons.isAfterDate(getBudget().getCreationDate())){
+                    if (Commons.isAfterDate(getBudget().getCreationDate())) {
                         budgetEntity oldBudget = getBudget();
                         budgetEntity bud = oldBudget;
                         vm.DeleteBudget();
                         bud.setBal(oldBudget.getBal() + amt);
                         vm.InsertBudget(bud);
                     }
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) {
+                }
 
                 vm.DeleteExp(entity);
                 adapter.clear();
@@ -507,7 +527,8 @@ public class Exp_Tracker extends Fragment {
                 bud.setBal(oldBudget.getBal() - Integer.parseInt(expAmt.getText().toString()));
                 vm.InsertBudget(bud);
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
 
         expView.setText(adapter.getTotalExpStr());
         String s = Constants.RUPEE + (accBal + inHandBal);

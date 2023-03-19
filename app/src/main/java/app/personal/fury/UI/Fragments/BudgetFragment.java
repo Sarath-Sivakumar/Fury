@@ -23,8 +23,10 @@ import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -58,6 +60,7 @@ public class BudgetFragment extends Fragment {
     private boolean isView = false, deletedOnce = false;
     private final int[] FragmentList = new int[]{R.drawable.info_1, R.drawable.info_2, R.drawable.info_3};
     private AdView ad;
+    private AdRequest adRequest;
     private int prevType = 3, prevAmt = 0;
     private String prevDate = "0";
     private TutorialUtil util;
@@ -73,6 +76,10 @@ public class BudgetFragment extends Fragment {
         adapter = new budgetAdapter();
         util = new TutorialUtil(requireActivity(), requireContext(), requireActivity(), requireActivity());
         MobileAds.initialize(requireContext());
+        if (savedInstanceState != null) {
+            adRequest = new AdRequest.Builder().build();
+            requestAd();
+        }
     }
 
     private void init() {
@@ -96,8 +103,20 @@ public class BudgetFragment extends Fragment {
     }
 
     private void requestAd() {
-        AdRequest adRequest = new AdRequest.Builder().build();
         ad.loadAd(adRequest);
+        ad.setAdListener(new AdListener() {
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                super.onAdFailedToLoad(loadAdError);
+                ad.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                ad.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private void findView(View v) {
@@ -121,7 +140,6 @@ public class BudgetFragment extends Fragment {
 
         ad = v.findViewById(R.id.adView2);
         addBudget.setOnClickListener(v1 -> callAddBudgetPopup());
-        requestAd();
     }
 
     private void initItems() {
@@ -143,9 +161,9 @@ public class BudgetFragment extends Fragment {
                 }
                 if (prevType == Constants.BUDGET_MONTHLY) {
                     s2 = Constants.RUPEE + (budgetEntities.getAmount() / Commons.getDays(Calendar.MONTH)) + " /day";
-                } else if (prevType == Constants.BUDGET_WEEKLY){
+                } else if (prevType == Constants.BUDGET_WEEKLY) {
                     s2 = Constants.RUPEE + (budgetEntities.getAmount() / 7) + " /day";
-                }else{
+                } else {
                     s2 = "-";
                 }
                 DailyLimitAllowed.setText(s2);
@@ -222,7 +240,7 @@ public class BudgetFragment extends Fragment {
         cal.setOnDateChangeListener((view1, year, month, dayOfMonth) -> {
             startDate.set(dayOfMonth + "/" + (month + 1) + "/" + year);
         });
-        if (prevDate!=null){
+        if (prevDate != null) {
             if (!prevDate.equals("0")) {
                 try {
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
@@ -381,7 +399,7 @@ public class BudgetFragment extends Fragment {
         Targets.add(addBudget);
         PrimaryTexts.add("Budgeting");
         SecondaryTexts.add("1. Fury automates your budget with some special sets of calculations considering your earings.Manual budgeting is also available for those who wants to create their own budget\n\n2. Ideal daily limit shows the maximum amount you can spend in a day as per your budget and current average shows your current spending rate\n\n3. Weekly or monthly budget can be created as per user and they repeat after previous budget period ends\n\nUSE THIS PEN TO CREATE A SAMPLE");
-                                                      //write about ideal and current
+        //write about ideal and current
 //      ----
         util.TutorialPhase4(Targets, PrimaryTexts, SecondaryTexts);
     }
