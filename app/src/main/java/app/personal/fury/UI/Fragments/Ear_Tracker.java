@@ -108,10 +108,10 @@ public class Ear_Tracker extends Fragment {
         adapter = new salaryAdapter();
         View v = inflater.inflate(R.layout.main_fragment_earningstracker, container, false);
         initAd();
+        findView(v);
         if (savedInstanceState != null) {
             requestAd();
         }
-        findView(v);
         return v;
     }
 
@@ -162,7 +162,7 @@ public class Ear_Tracker extends Fragment {
         addSal.setOnClickListener(v1 -> callPopUpWindow(false, null));
         salSplitList.setLayoutManager(new LinearLayoutManager(requireContext()));
         salSplitList.setHasFixedSize(true);
-        ad = v.findViewById(R.id.adView4);
+        ad = v.findViewById(R.id.adView);
         adLayout = v.findViewById(R.id.adLayout);
         salSplitList.setAdapter(adapter);
         inHandAmt = v.findViewById(R.id.inhand_Amt);

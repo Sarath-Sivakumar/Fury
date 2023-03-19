@@ -95,6 +95,7 @@ public class Exp_Tracker extends Fragment {
         dLimit = v.findViewById(R.id.dLimit);
         expView = v.findViewById(R.id.todayExp);
         adLayout = v.findViewById(R.id.adLayout);
+        ad = v.findViewById(R.id.adView);
         touchHelper();
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setHasFixedSize(true);
@@ -102,7 +103,6 @@ public class Exp_Tracker extends Fragment {
         fltBtn.setOnClickListener(v1 -> callPopupWindow(Constants.itemAdd));
         String s1 = Constants.RUPEE + (getBalance() + getInHandBalance());
         balanceView.setText(s1);
-        ad = v.findViewById(R.id.adView3);
     }
 
     private void initViewModel() {
@@ -547,7 +547,7 @@ public class Exp_Tracker extends Fragment {
         init(v);
         getBalance();
         getExp();
-        if (savedInstanceState != null) {
+        if (savedInstanceState == null) {
             requestAd();
         }
         return v;

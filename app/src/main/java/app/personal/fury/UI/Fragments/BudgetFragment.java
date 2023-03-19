@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -60,6 +61,7 @@ public class BudgetFragment extends Fragment {
     private boolean isView = false, deletedOnce = false;
     private final int[] FragmentList = new int[]{R.drawable.info_1, R.drawable.info_2, R.drawable.info_3};
     private AdView ad;
+    private LinearLayout adLayout;
     private AdRequest adRequest;
     private int prevType = 3, prevAmt = 0;
     private String prevDate = "0";
@@ -89,7 +91,7 @@ public class BudgetFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.main_fragment_budget, container, false);
         findView(v);
-        if (savedInstanceState != null) {
+        if (savedInstanceState == null) {
             requestAd();
         }
         return v;
@@ -108,14 +110,14 @@ public class BudgetFragment extends Fragment {
             @Override
             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                 super.onAdFailedToLoad(loadAdError);
-                ad.setVisibility(View.GONE);
+                adLayout.setVisibility(View.GONE);
                 ad.loadAd(adRequest);
             }
 
             @Override
             public void onAdLoaded() {
                 super.onAdLoaded();
-                ad.setVisibility(View.VISIBLE);
+                adLayout.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -125,6 +127,8 @@ public class BudgetFragment extends Fragment {
         BudgetAmt = v.findViewById(R.id.bgtAmt);
         Balance = v.findViewById(R.id.B_Balance);
         Expense = v.findViewById(R.id.T_exp);
+        ad = v.findViewById(R.id.adView);
+        adLayout = v.findViewById(R.id.adLayout);
         RecyclerView topExp = v.findViewById(R.id.top_exp);
         topExp.setLayoutManager(new LinearLayoutManager(requireContext()));
         topExp.setHasFixedSize(true);
@@ -139,7 +143,6 @@ public class BudgetFragment extends Fragment {
         ig_tl.setupWithViewPager(ig_vp, true);
         Commons.timedSliderInit(ig_vp, FragmentList, 5);
 
-        ad = v.findViewById(R.id.adView2);
         addBudget.setOnClickListener(v1 -> callAddBudgetPopup());
     }
 
