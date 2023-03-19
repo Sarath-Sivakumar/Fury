@@ -51,6 +51,7 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     @Override
     public void onBindViewHolder(@NonNull expHolder holder, int position) {
         debtEntity entity = debt.get(position);
+        int custom_paid = Color.parseColor("#23a05a");
         String amt = Constants.RUPEE + entity.getAmount();
         holder.dAmt.setText(amt);
         String uname = entity.getSource();
@@ -64,7 +65,9 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
         }
         if (isRepeating>=2){
             if (entity.getStatus().equals(Constants.DEBT_PAID)){
-                holder.dStatus.setTextColor(Color.GREEN);
+                holder.dStatus.setTextColor(custom_paid);
+                holder.dStatus.setVisibility(View.VISIBLE);
+                holder.dFinalDate.setVisibility(View.GONE);
             }
             holder.dStatus.setText(entity.getStatus());
         }
