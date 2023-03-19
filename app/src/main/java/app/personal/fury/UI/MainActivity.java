@@ -272,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                         interstitial = null;
-                        Commons.SnackBar(tb, loadAdError.getMessage());
+                        Commons.SnackBar(tb, "No Internet connection available");
                     }
                 });
     }
