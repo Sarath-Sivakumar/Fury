@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.ImageButton;
-import android.widget.ListView;
 
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.notificationAdapter.notificationAdapter;
