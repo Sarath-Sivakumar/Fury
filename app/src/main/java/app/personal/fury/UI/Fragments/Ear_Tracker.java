@@ -209,18 +209,23 @@ public class Ear_Tracker extends Fragment {
         no = v.findViewById(R.id.add_no);
         no.setOnClickListener(v1 -> popupWindow.dismiss());
         salModeTitle = v.findViewById(R.id.radioTitle2);
-//vm.DeleteBalance();
-//vm.DeleteInHandBalance();
+        TextView unwanted = v.findViewById(R.id.expAmtDisp);
+
 //        ----------------------------------------------------------------
         if (!isEdit) {
             salDate.setVisibility(View.GONE);
+            unwanted.setVisibility(View.GONE);
             date = Commons.getDate();
         } else {
             assert salary != null;
+            unwanted.setVisibility(View.VISIBLE);
+            String s = Constants.RUPEE + salary.getSalary();
+            unwanted.setText(s);
+
             rdGrp2.setVisibility(View.GONE);
             salModeTitle.setVisibility(View.GONE);
             salSource.setText(salary.getIncName());
-            salAmt.setText(String.valueOf(salary.getSalary()));
+            salAmt.setVisibility(View.GONE);
             date = salary.getCreationDate();
             salDate.setText(date);
             switch (salary.getSalMode()) {

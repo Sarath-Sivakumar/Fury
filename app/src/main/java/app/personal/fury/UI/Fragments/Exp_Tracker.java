@@ -391,6 +391,8 @@ public class Exp_Tracker extends Fragment {
             TextView expMode = view.findViewById(R.id.radioTitle2);
             TextView cashAmt = view.findViewById(R.id.cashAmt);
             TextView accAmt = view.findViewById(R.id.accAmt);
+            TextView unwanted = view.findViewById(R.id.expAmtDisp);
+            unwanted.setVisibility(View.GONE);
 
             String s1 = Constants.RUPEE + inHandBal;
             cashAmt.setText(s1);
