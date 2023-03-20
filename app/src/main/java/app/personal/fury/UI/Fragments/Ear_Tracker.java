@@ -249,6 +249,8 @@ public class Ear_Tracker extends Fragment {
         }
 
         yes.setOnClickListener(v1 -> {
+            inHandBal = getInHandBal();
+            balanceEntity = getBal();
             if (isEdit) {
                 onClickYesPopup(true, salary, salSource, salAmt, salDate.getText().toString(), rdGrp1, rdGrp2);
             } else {
