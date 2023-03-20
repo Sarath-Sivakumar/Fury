@@ -65,7 +65,9 @@ public class Ear_Tracker extends Fragment {
     private final ArrayList<String> PrimaryTexts = new ArrayList<>();
     private final ArrayList<String> SecondaryTexts = new ArrayList<>();
     private TextView SalAmt, inHandAmt, accountAmt, inHandCount, accountCount;
-    private int oldBal = 0, budType;
+    private int budType;
+    private inHandBalEntity inHandBal = new inHandBalEntity();
+    private balanceEntity balanceEntity = new balanceEntity();
     private AdView ad;
     private LinearLayout adLayout;
     private AdRequest adRequest;
@@ -320,57 +322,30 @@ public class Ear_Tracker extends Fragment {
                 if (!isEdit) {
                     vm.InsertSalary(sal);
                     if (sal.getSalMode() == Constants.SAL_MODE_ACC) {
-                        balanceEntity bal = getBal();
                         int oldBal = sal.getSalary();
-                        if (bal != null) {
-                            oldBal = oldBal + bal.getBalance();
-                            bal.setBalance(oldBal);
+                        if (balanceEntity != null) {
+                            oldBal = oldBal + balanceEntity.getBalance();
+                            balanceEntity.setBalance(oldBal);
                         } else {
-                            bal.setBalance(0);
+                            balanceEntity.setBalance(0);
                         }
                         vm.DeleteBalance();
-                        vm.InsertBalance(bal);
+                        vm.InsertBalance(balanceEntity);
                     } else {
-                        inHandBalEntity bal = getInHandBal();
                         int oldBal = sal.getSalary();
-                        if (bal != null) {
-                            oldBal = oldBal + bal.getBalance();
-                            bal.setBalance(oldBal);
+                        if (inHandBal != null) {
+                            oldBal = oldBal + inHandBal.getBalance();
+                            inHandBal.setBalance(oldBal);
                         } else {
-                            bal.setBalance(0);
+                            inHandBal.setBalance(0);
                         }
                         vm.DeleteInHandBalance();
-                        vm.InsertInHandBalance(bal);
+                        vm.InsertInHandBalance(inHandBal);
                     }
                     if (getBudType() != 3) {
                         Commons.setDefaultBudget(vm, totalSalary, totalExp, budType, budDate);
                     }
                 } else {
-                    sal.setId(salary.getId());
-                    vm.UpdateSalary(sal);
-                    if (sal.getSalMode() == Constants.SAL_MODE_ACC) {
-                        balanceEntity bal = getBal();
-                        int oldBal = salary.getSalary();
-                        if (bal != null) {
-                            oldBal = oldBal - bal.getBalance();
-                            bal.setBalance(oldBal + sal.getSalary());
-                        } else {
-                            bal.setBalance(0);
-                        }
-                        vm.DeleteBalance();
-                        vm.InsertBalance(bal);
-                    } else {
-                        inHandBalEntity bal = getInHandBal();
-                        int oldBal = salary.getSalary();
-                        if (bal != null) {
-                            oldBal = oldBal - bal.getBalance();
-                            bal.setBalance(oldBal + sal.getSalary());
-                        } else {
-                            bal.setBalance(0);
-                        }
-                        vm.DeleteInHandBalance();
-                        vm.InsertInHandBalance(bal);
-                    }
                     if (getBudType() != 3) {
                         Commons.setDefaultBudget(vm, totalSalary, totalExp, budType, budDate);
                     }
@@ -482,7 +457,6 @@ public class Ear_Tracker extends Fragment {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 budDate = getBudDate();
                 budType = getBudType();
-                oldBal = adapter.getSalaryEntity(viewHolder.getPosition()).getSalary();
                 callOnDeletePopup(adapter.getSalaryEntity(viewHolder.getPosition()), null);
                 adapter.notifyDataSetChanged();
             }
@@ -506,7 +480,11 @@ public class Ear_Tracker extends Fragment {
             }
         }).attachToRecyclerView(salSplitList);
 
-        adapter.setOnItemClickListener(exp -> callPopUpWindow(true, exp));
+        adapter.setOnItemClickListener(exp -> {
+            inHandBal = getInHandBal();
+            balanceEntity = getBal();
+            callPopUpWindow(true, exp);
+        });
     }
 
     private void TutorialPhase2() {
