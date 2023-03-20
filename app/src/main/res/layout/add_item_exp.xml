@@ -145,6 +145,17 @@
                     android:autofillHints=""
                     tools:ignore="VisualLintTextFieldSize" />
 
+                <TextView
+                    android:id="@+id/expAmtdisp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/work_sans_semibold"
+                    android:text="120000"
+                    android:padding="12dp"
+                    android:textSize="18sp"
+                    android:singleLine="true"
+                    tools:ignore="HardcodedText,VisualLintTextFieldSize" />
+
                 <EditText
                     android:id="@+id/salDate"
                     android:layout_width="match_parent"
