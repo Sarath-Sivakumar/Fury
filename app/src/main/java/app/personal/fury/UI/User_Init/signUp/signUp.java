@@ -22,6 +22,7 @@ import app.personal.MVVM.Viewmodel.userInitViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
+import app.personal.fury.UI.Drawer.WebViewActivity;
 import app.personal.fury.UI.MainActivity;
 import app.personal.fury.UI.User_Init.login.Login;
 
@@ -56,11 +57,19 @@ public class signUp extends AppCompatActivity {
     private void init(){
         ImageButton back = findViewById(R.id.cBack);
         back.setOnClickListener(view -> finish());
-        TextView toLogin = findViewById(R.id.to_login);
-        toLogin.setOnClickListener(view -> {
-            startActivity(new Intent(this, Login.class));
-            finish();
+//        TextView toLogin = findViewById(R.id.to_login);
+//        toLogin.setOnClickListener(view -> {
+//            startActivity(new Intent(this, Login.class));
+//            finish();
+//        });
+        TextView terms = findViewById(R.id.terms);
+        terms.setOnClickListener(v -> {
+            Intent i = new Intent(this, WebViewActivity.class);
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "Terms and Conditions");
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL, "file:///android_asset/web_resources/t_c.html");
+            startActivity(i);
         });
+
         Name = findViewById(R.id.u_name);
         email = findViewById(R.id.u_mail);
         pass1 = findViewById(R.id.u_pass1);

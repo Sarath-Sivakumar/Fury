@@ -100,6 +100,14 @@
                 android:textSize="16sp"
                 tools:ignore="Autofill" />
 
+<!--            <TextView-->
+<!--                android:id="@+id/to_login"-->
+<!--                style="@style/linkcolor"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="3dp"-->
+<!--                android:text="@string/login_frm_signup" />-->
+
             <Button
                 android:id="@+id/s_btn"
                 android:layout_width="300dp"
@@ -111,13 +119,15 @@
                 android:textSize="16sp"
                 tools:ignore="TextContrastCheck" />
 
+
             <TextView
-                android:id="@+id/to_login"
+                android:id="@+id/terms"
                 style="@style/linkcolor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/login_frm_signup" />
+                android:layout_marginTop="12sp"
+                android:textSize="12sp"
+                android:text="@string/agree_terms" />
 
         </LinearLayout>
     </ScrollView>
