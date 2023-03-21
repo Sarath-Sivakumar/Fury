@@ -1,7 +1,16 @@
 package app.personal.Utls;
 
+import java.util.Currency;
+import java.util.Locale;
+
 //Use only for global constants
 public class Constants {
+
+    private static String getRupee(){
+        Locale defaultLocale = Locale.getDefault();
+        Currency currency= Currency.getInstance(defaultLocale);
+        return currency.getSymbol();
+    }
 
     //Architecture Constants do not change-------------------------
     public static final String balanceTable = "Balance_Table",
@@ -23,7 +32,8 @@ public class Constants {
             Earnings = "Earnings Tracker",
             main = "Dashboard",
             Budget = "Budgets",
-            RUPEE = "₹",
+            RUPEE = getRupee(),
+//            "₹"
             DEBT_PAID = "Paid",
             DEBT_NOT_PAID = "Not Paid",
             dAvgNoData = "Collecting data!",
