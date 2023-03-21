@@ -203,8 +203,8 @@
     <string name="set_profile_picture">Set Profile picture</string>
     <string name="your_current_expense_rate_is_too_high">Your current expense rate is too high!</string>
     <string name="expense_details">Expense Details</string>
-    <string name="category">Category:</string>
-    <string name="amount_">Amount:</string>
+    <string name="category">Category</string>
+    <string name="amount_">Amount</string>
     <string name="other_details">Other details</string>
     <string name="time">Time</string>
     <string name="date">Date</string>

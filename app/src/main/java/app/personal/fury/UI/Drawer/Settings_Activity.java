@@ -202,10 +202,10 @@ public class Settings_Activity extends AppCompatActivity {
         });
 
         faq.setOnClickListener(v -> {
-//            Intent i = new Intent(this, WebViewActivity.class);
-//            i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "FAQ");
-//            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "URL here");
-//            startActivity(i);
+            Intent i = new Intent(this, WebViewActivity.class);
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "FAQ");
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "file:///android_asset/web_resources/faq.html");
+            startActivity(i);
         });
 
         feedback.setOnClickListener(v -> {

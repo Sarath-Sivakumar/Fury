@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>App Name - FAQ</title>
+    <script>
+      function searchFAQ() {
+        // Get the input value and convert to lowercase
+        var input = document.getElementById("search-input").value.toLowerCase();
+
+        // Get all the questions
+        var questions = document.getElementsByClassName("question");
+
+        // Loop through the questions and show/hide them based on the search term
+        for (var i = 0; i < questions.length; i++) {
+          var question = questions[i];
+
+          if (question.innerHTML.toLowerCase().indexOf(input) > -1) {
+            question.style.display = "";
+          } else {
+            question.style.display = "none";
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Basic styles */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 10px;
+        background-color: #f2f2f2; /* Set background color */
+      }
+      .container {
+        max-width: 800px;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+      }
+      h1 {
+        text-align: left;
+        font-size: 30px;
+        color: #000000;
+      }
+       h2 {
+        text-align: left;
+        margin-left: 30px;
+        color: #110bf0;
+      }
+       h3 {
+        text-align: left;
+        color: #1e3a3a;
+      }
+       h4 {
+        text-align: left;
+        margin-left: 30px;
+      }
+      p {
+        text-align: left;
+      }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Frequently Asked Questions</h1>
+    <input type="text" placeholder="Search..." id="search-input" onkeyup="searchFAQ()">
+</header>
+<nav>
+    <ul>
+        <li><a href="#common">Common Questions</a></li>
+        <li><a href="#expense">Expense Tracker</a></li>
+        <li><a href="#earnings">Earnings Tracker</a></li>
+        <li><a href="#budget">Budgets</a></li>
+        <li><a href="#dues">Dues & Debt</a></li>
+
+    </ul>
+</nav>
+<main>
+    <section id="common">
+        <h2>Common Questions</h2>
+        <ul>
+            <li class="question">
+                <h3>Is setting a budget mandatory?</h3>
+                <p>No, but we always recommend you to set a budget and track it inorder to ensure financial stability.</p>
+            </li>
+            <li class="question">
+                <h3>How can I clear all data & create new?</h3>
+                <p>Clear all data option can be accessed from utilities section of the settings.</p>
+            </li>
+        </ul>
+    </section>
+    <section id="expense">
+        <h2>Expense Tracker</h2>
+        <ul>
+            <li class="question">
+                <h3>Where can I see my previous expenses?</h3>
+                <p>All your expenses can be accessed from the 'View All' option available on the right side of top categories in dashboard.</p>
+            </li>
+            <li class="question">
+                <h3>How can I see detailed info of my expenses?</h3>
+                <p>On clicking on each item from expense list you can see the details of that expense item.</p>
+            </li>
+            <li class="question">
+                <h3>How can I delete a wrongly added expense?</h3>
+                <p>Swiping on either side of the expense item will delete them.</p>
+            </li>
+            <li class="question">
+                <h3>Why does my current average not showing?</h3>
+                <p>Current average is calculated after necessary data has been collected for 7 consecutive days.</p>
+            </li>
+        </ul>
+    </section>
+    <section id="earnings">
+        <h2>Earnings Tracker</h2>
+        <ul>
+            <li class="question">
+                <h3>Can I edit already added earnings amount?</h3>
+                <p>Sorry, as of now we don't support editing amount.But you can still edit the source name and other of information previously provided by clicking on the item.</p>
+            </li>
+            <li class="question">
+                <h3>What does the pay period mean?</h3>
+                <p>pay period means the frequency at which the earnings is repeated.It is basically for recurring earnings like Salary and others.
+                    For non-recurring earnings you can chose onetime option</p>
+            </li>
+            <li class="question">
+                <h3>What does the credit mode means?</h3>
+                <p>It is the way that you received the earnings.It cash be either in cash or bank</p>
+            </li>
+            <li class="question">
+            <h3>Why does my daily average not showing?</h3>
+            <p>Daily average is calculated after necessary data has been collected for 7 consecutive days.</p>
+            </li>
+        </ul>
+    </section>
+    <section id="budgets">
+        <h2>Budget</h2>
+        <ul>
+            <li class="question">
+                <h3>How can I manually create a budget?</h3>
+                <p>On budget creating popup, under the continue option manual budgeting option is available.</p>
+            </li>
+            <li class="question">
+                <h3>What does the ideal limit mean?</h3>
+                <p>It the highest amount you can spend in a day according to your budget.</p>
+            </li>
+            <li class="question">
+                <h3>What does the credit mode means?</h3>
+                <p>It is the way that you collected the earnings.It cash be either in cash or bank</p>
+            </li>
+            <li class="question">
+                <h3>What does current average mean?</h3>
+                <p>Current average is your current daily average expense.It may fluctuate in many cases.</p>
+            </li>
+        </ul>
+    </section>
+    <section id="dues">
+        <h2>Dues & Debt</h2>
+        <ul>
+            <li class="question">
+                <h3>How can I mark a due as paid?</h3>
+                <p>Swipe left on the due to mark it as paid</p>
+            </li>
+            <li class="question">
+                <h3>How can I add repeating dues?</h3>
+                <p>Select the 'repeat on this day' option while adding a due.</p>
+            </li>
+            <li class="question">
+                <h3>Where can I access all dues including paid?</h3>
+                <p>All your dues can be viewed by the 'View All' option available on the right side of Dues Overview in dashboard.</p>
+            </li>
+        </ul>
+    </section>
+    <section id="support">
+    <h2>Support Team</h2>
+    <h4>Don't hesitate to contact our customer service if you have any questions.</h4>
+    <ul><li>Via Email:  <a href="https://mail.google.com/mail/u/0/#inbox?compose=new">[shoptourhome@gmail.com]</a></li>
+    </ul><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    </section>
+</main>
+</body>
+</html>
+
