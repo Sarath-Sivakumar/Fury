@@ -56,20 +56,6 @@
 
     <string name="reset_txt">Please enter your registered mail ID.</string>
 
-
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="terms_conditions"><![CDATA[Terms & Conditions]]></string>
     <string name="forgot_password">Forgot password?</string>
@@ -143,11 +129,7 @@
     <string name="activate_to_see_daily_statitics">Activate to see daily statitics</string>
     <string name="support_video_ad">Support our devolopers by watching a short video ad!</string>
     <string name="title_activity_splash">splash</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title">TITLE</string>
+
     <string name="new_expense">New expense</string>
     <string name="add">Add</string>
     <string name="let_fury_create_your_ideal_budget">Let fury create your ideal budget</string>
@@ -216,7 +198,7 @@
     <string name="r">R</string>
     <string name="rent">Rent</string>
     <string name="welcome_to_fury">Welcome to fury</string>
-    <string name="noti_ex">Hey you! we heartly welcome you to the fury family.</string>
+    <string name="noti_ex">Hey you! we heartily welcome you to the fury family.</string>
     <string name="hello_user">Hello User</string>
     <string name="agree_terms">By signing up you agree to our <u>Terms &amp; conditions</u></string>
 
