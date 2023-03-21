@@ -349,13 +349,6 @@ public class Ear_Tracker extends Fragment {
                         vm.DeleteInHandBalance();
                         vm.InsertInHandBalance(inHandBal);
                     }
-                    if (budType != 3) {
-                        Commons.setDefaultBudget(vm, totalSalary, totalExp, budType, budDate);
-                    }
-                } else {
-                    if (budType != 3) {
-                        Commons.setDefaultBudget(vm, totalSalary, totalExp, budType, budDate);
-                    }
                 }
                 appChecker();
             }
@@ -490,7 +483,6 @@ public class Ear_Tracker extends Fragment {
         adapter.setOnItemClickListener(exp -> {
             inHandBal = getInHandBal();
             balanceEntity = getBal();
-            budType = getBudType();
             callPopUpWindow(true, exp);
         });
     }
