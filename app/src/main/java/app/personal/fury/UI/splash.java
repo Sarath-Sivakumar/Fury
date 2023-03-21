@@ -27,7 +27,7 @@ public class splash extends AppCompatActivity {
     private boolean animationStarted = false;
     private userInitViewModel uvm;
     private AppUtilViewModel appVm;
-    //----Anim variables-----------------------------
+    //----Anim variables----------------------------
     private final int animScale = 2, delay = 1000, duration = 100;
 
     //-----------------------------------------------

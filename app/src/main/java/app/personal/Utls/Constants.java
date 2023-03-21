@@ -15,7 +15,7 @@ public class Constants {
             launchChecker = "Launch_Checker",
             CustomCategory = "custom_Category",
             APP_VERSION = "1.0.0";
-    //DO NOT CHANGE----------------------------------------------------
+    //DO NOT CHANGE------------------------------------------------
     public static final int DB_VERSION = 14;
     //-------------------------------------------------------------
     public static final String Dues = "Dues And Debt",
