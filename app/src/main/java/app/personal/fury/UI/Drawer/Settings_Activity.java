@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -38,6 +39,7 @@ import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
+import app.personal.fury.UI.User_Init.Landing;
 
 public class Settings_Activity extends AppCompatActivity {
 
@@ -72,6 +74,12 @@ public class Settings_Activity extends AppCompatActivity {
         findView();
         getUserData();
         OnClick();
+        userVM.getError().observe(this, String->{
+            if (!String.equals("Null")){
+                Commons.SnackBar(about, String);
+                userVM.setDefaultError();
+            }
+        });
         if (Commons.isConnectedToInternet(this)){
             initAd();
         }
@@ -103,7 +111,7 @@ public class Settings_Activity extends AppCompatActivity {
                                     }
 
                                     @Override
-                                    public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
                                         // Called when fullscreen content failed to show.
                                         // Make sure to set your reference to null so you don't
                                         // show it a second time.
@@ -150,6 +158,55 @@ public class Settings_Activity extends AppCompatActivity {
         });
     }
 
+    private void initAccDelete(){
+        PopupWindow popupWindow = new PopupWindow(this);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
+        View view = inflater.inflate(R.layout.popup_action_reauth, null);
+        popupWindow.setContentView(view);
+        popupWindow.setFocusable(true);
+
+        TextView title = view.findViewById(R.id.title);
+        EditText email = view.findViewById(R.id.rEmail);
+        LinearLayout reAuthView = view.findViewById(R.id.reAuthView);
+        LinearLayout loadingView = view.findViewById(R.id.loadingView);
+        EditText pass = view.findViewById(R.id.rPass);
+        Button yes = view.findViewById(R.id.dSign);
+        Button no = view.findViewById(R.id.dCancel);
+
+        no.setOnClickListener(v -> popupWindow.dismiss());
+        yes.setOnClickListener(v -> {
+            if (Commons.isEmail(email.getText().toString().trim())&&
+                    Commons.isValidPass(pass.getText().toString().trim())){
+                String s = "Please wait!";
+                reAuthView.setVisibility(View.GONE);
+                loadingView.setVisibility(View.VISIBLE);
+                title.setText(s);
+
+                AccDelete(email.getText().toString().trim(), pass.getText().toString().trim(), popupWindow);
+            }
+        });
+
+        popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+        popupWindow.setBackgroundDrawable(null);
+        popupWindow.setElevation(6);
+        popupWindow.setOverlapAnchor(true);
+        popupWindow.showAsDropDown(uploadPic);
+    }
+
+    private void AccDelete(String Email, String Pass, PopupWindow popupWindow){
+        userVM.DeleteAccount(Email, Pass);
+        Commons.clearData(mainVM);
+        userVM.getIsLoggedOut().observe(this, Boolean -> {
+            if (Boolean){
+                popupWindow.dismiss();
+                startActivity(new Intent(this, Landing.class));
+                finishAffinity();
+            }
+        });
+    }
+
     private void findView() {
         ImageButton back = findViewById(R.id.nBack);
         back.setOnClickListener(v -> finish());
@@ -160,6 +217,7 @@ public class Settings_Activity extends AppCompatActivity {
         terms = findViewById(R.id.t_c);
         about = findViewById(R.id.app_info);
         Button clearData = findViewById(R.id.u_clearData);
+        Button deleteAccount = findViewById(R.id.dlt_user);
 
         uploadPic = findViewById(R.id.uploadPic);
         profilePic = findViewById(R.id.profilePic);
@@ -168,6 +226,18 @@ public class Settings_Activity extends AppCompatActivity {
         profileName.setText("-");
         save = findViewById(R.id.save);
         discard = findViewById(R.id.cancel);
+
+        deleteAccount.setOnClickListener(v -> {
+            if (Commons.isConnectedToInternet(this)){
+                initAccDelete();
+            }else{
+                Commons.SnackBar(about, "No Internet connection available");
+            }
+        });
+        clearData.setOnClickListener(v -> callPopupWindow());
+    }
+
+    private void OnClick() {
         profileName.setOnClickListener(v -> {
             if (Commons.isConnectedToInternet(this)){
                 profileNameEdit.setVisibility(View.VISIBLE);
@@ -179,10 +249,7 @@ public class Settings_Activity extends AppCompatActivity {
                 Commons.SnackBar(profileName, "No Internet connection available");
             }
         });
-        clearData.setOnClickListener(v -> callPopupWindow());
-    }
 
-    private void OnClick() {
         uploadPic.setOnClickListener(v -> {
             if (Commons.isConnectedToInternet(this)){
                 callPopupWindow(uploadPic);

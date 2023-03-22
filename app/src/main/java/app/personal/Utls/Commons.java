@@ -237,8 +237,12 @@ public class Commons {
     }
 
     public static boolean isEmail(String Email) {
-        Matcher matcher = EMAIL_REGEX.matcher(Email);
-        return matcher.find();
+        if (!Email.isEmpty()){
+            Matcher matcher = EMAIL_REGEX.matcher(Email);
+            return matcher.find();
+        }else {
+            return false;
+        }
     }
 
     public static boolean isConnectedToInternet(Context c) {
