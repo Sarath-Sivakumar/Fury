@@ -244,10 +244,13 @@ public class AuthRepository {
         AuthCredential credential = EmailAuthProvider.getCredential(email, password);
         if (user != null) {
             user.reauthenticate(credential).addOnCompleteListener(task -> {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
+                    Log.e("Account Termination", "ReAuth Complete");
                     deleteStorageData();
-                }else{
+                } else {
                     FirebaseAuthError.postValue(Objects.requireNonNull(task.getException()).getMessage());
+                    Log.e("Account Termination", "ReAuth Error: "
+                            + Objects.requireNonNull(task.getException()).getMessage());
                 }
             });
         }
@@ -255,15 +258,22 @@ public class AuthRepository {
 
     private void deleteStorageData() {
         userEntity entity = userData.getValue();
-        if (entity!=null){
-            StorageReference photoRef = storage.getReferenceFromUrl(entity.getImgUrl());
-            photoRef.delete().addOnSuccessListener(aVoid -> {
-                // File deleted successfully
+        if (entity != null) {
+            if (!entity.getImgUrl().equals(Constants.DEFAULT_DP)) {
+                StorageReference photoRef = storage.getReferenceFromUrl(entity.getImgUrl());
+                photoRef.delete().addOnSuccessListener(aVoid -> {
+                    // File deleted successfully
+                    Log.e("Account Termination", "User DP deleted.");
+                    deleteDatabaseData();
+                }).addOnFailureListener(exception -> {
+                    // Uh-oh, an error occurred!
+                    FirebaseAuthError.postValue(exception.getMessage());
+                    Log.e("Account Termination", "DP Error: " + exception.getMessage());
+                });
+            } else {
+                Log.e("Account Termination", "No DP to delete");
                 deleteDatabaseData();
-            }).addOnFailureListener(exception -> {
-                // Uh-oh, an error occurred!
-                FirebaseAuthError.postValue(exception.getMessage());
-            });
+            }
         }
     }
 
@@ -271,9 +281,13 @@ public class AuthRepository {
         userDataRef.child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid()).setValue(null,
                 (error, ref) -> {
                     if (error == null) {
-                        deleteAccount(firebaseAuth.getCurrentUser());
+                        Log.e("Account Termination", "User data deleted.");
+                        FirebaseUser user = firebaseAuth.getCurrentUser();
+                        logout();
+                        deleteAccount(user);
                     } else {
 //                    Do some shit later
+                        Log.e("Account Termination", "DB Error: " + error.getMessage());
                         FirebaseAuthError.postValue(error.getMessage());
                     }
                 });
@@ -282,11 +296,12 @@ public class AuthRepository {
     private void deleteAccount(FirebaseUser user) {
         user.delete().addOnCompleteListener(task1 -> {
             if (task1.isSuccessful()) {
-                Log.d("TAG", "User account deleted.");
+                Log.e("Account Termination", "User account deleted.");
                 //Account Deletes here..
             } else {
                 deleteAccount(user);
-                FirebaseAuthError.postValue(task1.toString());
+                Log.e("Account Termination", "Account Error: " + Objects.requireNonNull(task1.getException()).getMessage());
+                FirebaseAuthError.postValue(Objects.requireNonNull(task1.getException()).getMessage());
             }
         });
     }

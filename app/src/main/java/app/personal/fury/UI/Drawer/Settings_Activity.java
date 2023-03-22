@@ -198,8 +198,8 @@ public class Settings_Activity extends AppCompatActivity {
     private void AccDelete(String Email, String Pass, PopupWindow popupWindow){
         userVM.DeleteAccount(Email, Pass);
         Commons.clearData(mainVM);
-        userVM.getUserId().observe(this, firebaseUser -> {
-            if (firebaseUser==null){
+        userVM.getIsLoggedOut().observe(this, Boolean -> {
+            if (Boolean){
                 popupWindow.dismiss();
                 startActivity(new Intent(this, Landing.class));
                 finishAffinity();
