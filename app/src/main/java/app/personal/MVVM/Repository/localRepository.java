@@ -4,8 +4,11 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 
 import app.personal.MVVM.DB.localDB;
 import app.personal.MVVM.Dao.localDao;
@@ -23,6 +26,7 @@ public class localRepository {
     private final LiveData<inHandBalEntity> getInHandBal;
     private final LiveData<List<expEntity>> getExp;
     private final LiveData<List<salaryEntity>> getSalary;
+    private final MutableLiveData<String> getRupee;
 
     public localRepository(Application application) {
         localDB db = localDB.getInstance(application);
@@ -33,6 +37,20 @@ public class localRepository {
         getSalary = dao.getSalData();
         getBudget = dao.getBudgetData();
         getInHandBal = dao.getInHandBalData();
+        getRupee = new MutableLiveData<>();
+        Rupee();
+    }
+
+    public MutableLiveData<String> getRupee(){
+        Rupee();
+        return getRupee;
+    }
+
+    private void Rupee(){
+        getRupee.postValue("₹");
+//        Locale defaultLocale = Locale.getDefault();
+//        Currency currency= Currency.getInstance(defaultLocale);
+//        getRupee.postValue(currency.getSymbol());
     }
 
     //----------------------------------------------------------------------------------------------

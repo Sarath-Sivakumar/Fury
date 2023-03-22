@@ -287,12 +287,15 @@ public class Ear_Tracker extends Fragment {
                                  EditText salSrc, EditText salAmt, String salDate,
                                  RadioGroup rdGrp1, RadioGroup rdGrp2) {
 //            Insert new value.
-        if (!salSrc.getText().toString().trim().isEmpty()
-                && !salAmt.getText().toString().trim().isEmpty()) {
+        if (!salSrc.getText().toString().trim().isEmpty()) {
             salaryEntity sal = new salaryEntity();
             sal.setCreationDate(salDate);
             sal.setIncName(salSrc.getText().toString());
-            sal.setSalary(Integer.parseInt(salAmt.getText().toString()));
+            if (!isEdit){
+                sal.setSalary(Integer.parseInt(salAmt.getText().toString()));
+            }else{
+                sal.setSalary(salary.getSalary());
+            }
 //                Credit Mode.
             switch (rdGrp2.getCheckedRadioButtonId()) {
                 case R.id.account:
@@ -327,28 +330,35 @@ public class Ear_Tracker extends Fragment {
             }
             if (sal != null) {
                 if (!isEdit) {
-                    vm.InsertSalary(sal);
-                    if (sal.getSalMode() == Constants.SAL_MODE_ACC) {
-                        int oldBal = sal.getSalary();
-                        if (balanceEntity != null) {
-                            oldBal = oldBal + balanceEntity.getBalance();
-                            balanceEntity.setBalance(oldBal);
+                    if (!salAmt.getText().toString().trim().isEmpty()) {
+                        vm.InsertSalary(sal);
+                        if (sal.getSalMode() == Constants.SAL_MODE_ACC) {
+                            int oldBal = sal.getSalary();
+                            if (balanceEntity != null) {
+                                oldBal = oldBal + balanceEntity.getBalance();
+                                balanceEntity.setBalance(oldBal);
+                            } else {
+                                balanceEntity.setBalance(0);
+                            }
+                            vm.DeleteBalance();
+                            vm.InsertBalance(balanceEntity);
                         } else {
-                            balanceEntity.setBalance(0);
+                            int oldBal = sal.getSalary();
+                            if (inHandBal != null) {
+                                oldBal = oldBal + inHandBal.getBalance();
+                                inHandBal.setBalance(oldBal);
+                            } else {
+                                inHandBal.setBalance(0);
+                            }
+                            vm.DeleteInHandBalance();
+                            vm.InsertInHandBalance(inHandBal);
                         }
-                        vm.DeleteBalance();
-                        vm.InsertBalance(balanceEntity);
-                    } else {
-                        int oldBal = sal.getSalary();
-                        if (inHandBal != null) {
-                            oldBal = oldBal + inHandBal.getBalance();
-                            inHandBal.setBalance(oldBal);
-                        } else {
-                            inHandBal.setBalance(0);
-                        }
-                        vm.DeleteInHandBalance();
-                        vm.InsertInHandBalance(inHandBal);
+                    }else{
+                        Commons.SnackBar(getView(), "Field(s) may be empty");
                     }
+                }else{
+                    sal.setId(salary.getId());
+                    vm.UpdateSalary(sal);
                 }
                 appChecker();
             }
