@@ -7,6 +7,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,6 +40,8 @@ public class AuthRepository {
     private final MutableLiveData<String> FirebaseAuthError;
     private final MutableLiveData<Integer> Update;
     private final String default_Error = "Null";
+    private final FirebaseStorage storage;
+    private final StorageReference storageReference;
 
     public AuthRepository(Application application) {
         this.application = application;
@@ -57,6 +61,8 @@ public class AuthRepository {
         } else {
             isLoggedOutLiveData.postValue(true);
         }
+        this.storage = FirebaseStorage.getInstance();
+        this.storageReference = storage.getReference();
     }
 
     public void login(String Email, String Password) {
@@ -72,12 +78,7 @@ public class AuthRepository {
                 });
     }
 
-    FirebaseStorage storage;
-    StorageReference storageReference;
-
     public void InsertProfilePic(userEntity entity, Uri filePath) {
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
         StorageReference ref = storageReference.child(firebaseAuth.getCurrentUser()
                 + "images/" + UUID.randomUUID().toString());
         if (!entity.getImgUrl().equals(Constants.DEFAULT_DP)) {
@@ -236,6 +237,58 @@ public class AuthRepository {
             e.printStackTrace();
         }
         return userData;
+    }
+
+    public void deleteUserData(String email, String password) {
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
+        AuthCredential credential = EmailAuthProvider.getCredential(email, password);
+        if (user != null) {
+            user.reauthenticate(credential).addOnCompleteListener(task -> {
+                if (task.isSuccessful()){
+                    deleteStorageData();
+                }else{
+                    FirebaseAuthError.postValue(Objects.requireNonNull(task.getException()).getMessage());
+                }
+            });
+        }
+    }
+
+    private void deleteStorageData() {
+        userEntity entity = userData.getValue();
+        if (entity!=null){
+            StorageReference photoRef = storage.getReferenceFromUrl(entity.getImgUrl());
+            photoRef.delete().addOnSuccessListener(aVoid -> {
+                // File deleted successfully
+                deleteDatabaseData();
+            }).addOnFailureListener(exception -> {
+                // Uh-oh, an error occurred!
+                FirebaseAuthError.postValue(exception.getMessage());
+            });
+        }
+    }
+
+    private void deleteDatabaseData() {
+        userDataRef.child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid()).setValue(null,
+                (error, ref) -> {
+                    if (error == null) {
+                        deleteAccount(firebaseAuth.getCurrentUser());
+                    } else {
+//                    Do some shit later
+                        FirebaseAuthError.postValue(error.getMessage());
+                    }
+                });
+    }
+
+    private void deleteAccount(FirebaseUser user) {
+        user.delete().addOnCompleteListener(task1 -> {
+            if (task1.isSuccessful()) {
+                Log.d("TAG", "User account deleted.");
+                //Account Deletes here..
+            } else {
+                deleteAccount(user);
+                FirebaseAuthError.postValue(task1.toString());
+            }
+        });
     }
 
     public MutableLiveData<String> getFirebaseError() {

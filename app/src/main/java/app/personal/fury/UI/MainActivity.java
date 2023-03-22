@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             tb.setTitle(Constants.main);
             vp.setCurrentItem(2, true);
+            initAd();
         }
         vm.getRupee().observe(this, String->{
             Log.e("Symbol", String);
@@ -231,7 +232,6 @@ public class MainActivity extends AppCompatActivity {
         initViewPager();
         isStoragePermissionGranted();
         initTutorialPhase1();
-        initAd();
     }
 
     private void initAd() {
@@ -259,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
                                     }
 
                                     @Override
-                                    public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
                                         // Called when fullscreen content failed to show.
                                         // Make sure to set your reference to null so you don't
                                         // show it a second time.

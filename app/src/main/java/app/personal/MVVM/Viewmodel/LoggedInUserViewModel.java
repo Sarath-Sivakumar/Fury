@@ -19,6 +19,7 @@ public class LoggedInUserViewModel extends AndroidViewModel {
     private final MutableLiveData<FirebaseUser> userId;
     private final MutableLiveData<Boolean> isLoggedOut;
     private final MutableLiveData<userEntity> userData;
+    private final MutableLiveData<String> error;
 
     public LoggedInUserViewModel(@NonNull Application application) {
         super(application);
@@ -26,14 +27,19 @@ public class LoggedInUserViewModel extends AndroidViewModel {
         userId = authRepo.getUserId();
         userData = authRepo.getUserData();
         isLoggedOut = authRepo.getIsLoggedOutLiveData();
+        error = authRepo.getFirebaseError();
     }
 
     public void LogOut() {
         authRepo.logout();
     }
 
-    public void update(){
+    public void update() {
         authRepo.updateListener();
+    }
+
+    public void DeleteAccount(String Email, String Password) {
+        authRepo.deleteUserData(Email, Password);
     }
 
     public MutableLiveData<FirebaseUser> getUserId() {
@@ -58,5 +64,13 @@ public class LoggedInUserViewModel extends AndroidViewModel {
 
     public MutableLiveData<Boolean> getIsLoggedOut() {
         return isLoggedOut;
+    }
+
+    public MutableLiveData<String> getError() {
+        return error;
+    }
+
+    public void setDefaultError() {
+        authRepo.setDefaultError();
     }
 }
