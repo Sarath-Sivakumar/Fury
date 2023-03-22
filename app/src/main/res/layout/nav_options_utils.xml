@@ -33,5 +33,19 @@
             android:textSize="14sp"
             tools:ignore="RtlHardcoded,TextContrastCheck,VisualLintButtonSize" />
 
+        <Button
+            android:id="@+id/dlt_user"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:background="@drawable/button_settings"
+            android:drawableLeft="@drawable/common_icon_account"
+            android:gravity="start|center"
+            android:text="@string/delete_account"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            tools:ignore="RtlHardcoded,TextContrastCheck,VisualLintButtonSize" />
+
     </LinearLayout>
 </FrameLayout>

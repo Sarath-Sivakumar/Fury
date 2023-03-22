@@ -201,6 +201,8 @@
     <string name="noti_ex">Hey you! we heartily welcome you to the fury family.</string>
     <string name="hello_user">Hello User</string>
     <string name="agree_terms">By signing up you agree to our <u>Terms &amp; conditions</u></string>
+    <string name="delete_account">Delete Account</string>
+    <string name="note_this_action_cannot_be_undone_nall_user_data_will_be_cleared">This action cannot be undone.\nAll your data will be deleted permanently.</string>
 
 
 </resources>
