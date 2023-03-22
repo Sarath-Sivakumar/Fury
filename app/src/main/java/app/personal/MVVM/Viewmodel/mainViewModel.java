@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -28,6 +29,7 @@ public class mainViewModel extends AndroidViewModel {
     private final LiveData<budgetEntity> getBudget;
     private final LiveData<List<expEntity>> getExp;
     private final LiveData<List<salaryEntity>> getSalary;
+    private final MutableLiveData<String> getRupee;
 
     public mainViewModel(@NonNull Application application) {
         super(application);
@@ -38,11 +40,16 @@ public class mainViewModel extends AndroidViewModel {
         getBalance = repo.getBalance();
         getInHandBalance = repo.getInHandBal();
         getBudget = repo.getBudget();
+        getRupee = repo.getRupee();
     }
 
     public void initFirebaseMessagingService(String  Topic) {
         //push notification
         serviceInit(Topic);
+    }
+
+    public MutableLiveData<String> getRupee(){
+        return getRupee;
     }
 
     private void serviceInit(String topic){

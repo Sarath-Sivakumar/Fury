@@ -60,6 +60,7 @@ import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.MVVM.Viewmodel.userInitViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
+import app.personal.Utls.Currency;
 import app.personal.Utls.TutorialUtil;
 import app.personal.Utls.ViewPager.viewPager;
 
@@ -111,6 +112,10 @@ public class MainActivity extends AppCompatActivity {
             tb.setTitle(Constants.main);
             vp.setCurrentItem(2, true);
         }
+        vm.getRupee().observe(this, String->{
+            Log.e("Symbol", String);
+            new Currency().setCurrency(String);
+        });
     }
 
     private void processSalary(@NonNull List<salaryEntity> salList) {
