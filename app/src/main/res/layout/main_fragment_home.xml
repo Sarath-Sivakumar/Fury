@@ -76,7 +76,8 @@
                                 android:fontFamily="@font/source_sans_pro_bold"
                                 android:gravity="center"
                                 android:textColor="@color/progress_text"
-                                android:textSize="30sp" />
+                                android:textSize="30sp"
+                                tools:ignore="VisualLintOverlap" />
                         </FrameLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -371,7 +372,7 @@
                     android:text=""
                     android:textAlignment="textEnd"
                     android:textSize="12sp"
-                    tools:ignore="UseSwitchCompatOrMaterialXml,TouchTargetSizeCheck" />
+                    tools:ignore="UseSwitchCompatOrMaterialXml,TouchTargetSizeCheck,VisualLintButtonSize" />
 
             </LinearLayout>
 
