@@ -453,6 +453,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
+        android:minHeight="48dp"
+        android:minWidth="48dp"
         android:layout_margin="12dp"
         android:contentDescription="@null"
         android:src="@drawable/common_icon_add"
