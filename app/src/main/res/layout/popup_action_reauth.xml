@@ -24,6 +24,17 @@
             android:text="@string/please_sign_in_again_to_continue"
             android:textSize="16sp" />
 
+        <TextView
+            android:id="@+id/titlesemi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:padding="2dp"
+            android:text="@string/authentication_is_required_to_continue_this_action"
+            android:textSize="11sp"
+            tools:ignore="TextContrastCheck" />
+
         <LinearLayout
             android:id="@+id/reAuthView"
             android:layout_width="match_parent"
