@@ -286,7 +286,6 @@ public class AuthRepository {
                         logout();
                         deleteAccount(user);
                     } else {
-//                    Do some shit later
                         Log.e("Account Termination", "DB Error: " + error.getMessage());
                         FirebaseAuthError.postValue(error.getMessage());
                     }
