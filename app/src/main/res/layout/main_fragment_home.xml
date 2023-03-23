@@ -231,26 +231,17 @@
                 android:layout_height="75dp"
                 android:orientation="horizontal">
 
-                <View
-                    android:layout_width="0.3dp"
-                    android:layout_height="match_parent" />
-
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/catList"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="75dp"
                     android:layout_marginEnd="6dp"
-                    android:layout_weight="1"
                     android:divider="@null"
                     android:isScrollContainer="true"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/recycler_item_category" />
 
-                <View
-                    android:layout_width="0.3dp"
-                    android:layout_height="match_parent" />
             </LinearLayout>
 
             <LinearLayout
@@ -677,26 +668,17 @@
 
                 </LinearLayout>
 
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/dueList"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center"
                     android:background="@android:color/transparent"
-                    android:divider="@null"
                     android:isScrollContainer="true"
-                    android:minHeight="65dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:reverseLayout="true"
                     tools:listitem="@layout/recycler_item_maindue" />
-
-                <!--                <View-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="0.1dp"-->
-                <!--                    android:layout_gravity="center"-->
-                <!--                    android:background="@android:color/darker_gray" />-->
 
             </LinearLayout>
         </LinearLayout>
