@@ -648,12 +648,6 @@
                 android:layout_marginBottom="12dp"
                 android:orientation="vertical">
 
-                <!--                <View-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="0.4dp"-->
-                <!--                    android:layout_gravity="center"-->
-                <!--                    android:background="@android:color/darker_gray" />-->
-
                 <LinearLayout
                     android:id="@+id/noDues"
                     android:layout_width="match_parent"
@@ -671,13 +665,8 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/dueList"
-<<<<<<< HEAD
-                    android:layout_width="wrap_content"
-                    android:layout_height="80dp"
-=======
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
->>>>>>> 8a63b3fcdd79bcc1b1e2c501486f294e6a52322e
+                    android:layout_height="80dp"
                     android:layout_gravity="start|center"
                     android:background="@android:color/transparent"
                     android:isScrollContainer="true"
