@@ -113,10 +113,10 @@ public class MainActivity extends AppCompatActivity {
             vp.setCurrentItem(2, true);
             initAd();
         }
-        vm.getRupee().observe(this, String->{
-            Log.e("Symbol", String);
-            new Currency().setCurrency(String);
-        });
+//        vm.getRupee().observe(this, String->{
+//            Log.e("Symbol", String);
+//            new Currency().setCurrency(String);
+//        });
     }
 
     private void processSalary(@NonNull List<salaryEntity> salList) {

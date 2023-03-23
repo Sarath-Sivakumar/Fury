@@ -16,20 +16,20 @@ import app.personal.fury.UI.User_Init.signUp.signUp;
 
 public class Landing extends AppCompatActivity {
 
-    private mainViewModel vm;
+//    private mainViewModel vm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.init_activity_landing);
         init();
-        vm.getRupee().observe(this, String->{
-            Log.e("Symbol", String);
-            new Currency().setCurrency(String);
-        });
+//        vm.getRupee().observe(this, String->{
+//            Log.e("Symbol", String);
+//            new Currency().setCurrency(String);
+//        });
     }
 
     private void init() {
-        vm = new ViewModelProvider(this).get(mainViewModel.class);
+//        vm = new ViewModelProvider(this).get(mainViewModel.class);
         Button login = findViewById(R.id.login);
         Button signup = findViewById(R.id.signup);
         login.setOnClickListener(v -> startActivity(new Intent(this, Login.class)));

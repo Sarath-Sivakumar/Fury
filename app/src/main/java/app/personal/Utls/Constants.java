@@ -23,7 +23,7 @@ public class Constants {
             Earnings = "Earnings Tracker",
             main = "Dashboard",
             Budget = "Budgets",
-            RUPEE = Currency.getCur(),
+            RUPEE = "₹",
             DEBT_PAID = "Paid",
             DEBT_NOT_PAID = "Not Paid",
             dAvgNoData = "Collecting data!",

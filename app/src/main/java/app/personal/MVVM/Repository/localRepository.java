@@ -6,9 +6,7 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import java.util.Currency;
 import java.util.List;
-import java.util.Locale;
 
 import app.personal.MVVM.DB.localDB;
 import app.personal.MVVM.Dao.localDao;
