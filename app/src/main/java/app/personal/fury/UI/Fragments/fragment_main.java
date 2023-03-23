@@ -1,6 +1,5 @@
 package app.personal.fury.UI.Fragments;
 
-import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -109,7 +108,6 @@ public class fragment_main extends Fragment {
         });
     }
 
-    @SuppressLint("SetTextI18n")
     public void findView(View v) {
         initStat(v);
         mainProgressBar = v.findViewById(R.id.indicator);
@@ -332,7 +330,6 @@ public class fragment_main extends Fragment {
         yes = v.findViewById(R.id.update);
 
         yes.setOnClickListener(v1 -> {
-            //Some Intent Shit here...
             up();
             updatePopup.dismiss();
         });
