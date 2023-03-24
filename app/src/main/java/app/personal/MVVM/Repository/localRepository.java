@@ -54,14 +54,13 @@ public class localRepository {
 
     public void initCurrency() {
         countryCode.observeForever(String -> {
-            final String simCountry = String;
-            if (simCountry != null && simCountry.length() == 2) {
-                String country_code = simCountry.toLowerCase(Locale.US);
+            if (String != null && String.length() == 2) {
+                String country_code = String.toLowerCase(Locale.US);
                 Log.e("Currency", "code: " + country_code);
                 String currency = Currency.getInstance(new Locale("", country_code)).getSymbol();
                 getRupee.postValue(currency);
             } else {
-                Log.e("Currency", "code: Default :" + simCountry);
+                Log.e("Currency", "code: Default :" + String);
 //            getRupee.postValue("₹");
                 new CountDownTimer(1000, 1000) {
 
