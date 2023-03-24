@@ -2,16 +2,15 @@ package app.personal.Utls;
 
 public class Currency {
 
-    private static String Currency;
+    private String Currency;
 
-    public Currency() {
-    }
+    public Currency(){}
 
     public void setCurrency(String currency) {
         Currency = currency;
     }
 
-    public static String getCur(){
+    public String getCurrency(){
         return Currency;
     }
 }

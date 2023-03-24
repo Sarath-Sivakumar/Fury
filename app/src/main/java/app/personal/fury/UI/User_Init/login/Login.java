@@ -99,7 +99,7 @@ public class Login extends AppCompatActivity {
                     uvm.getUserId().observe(this, firebaseUser -> {
                         if (Objects.equals(firebaseUser.getEmail(), email)){
                             appVM.getCheckerData().observe(this, launchChecker1 -> {
-                                if (launchChecker1.getTimesLaunched()>0){
+                                if (launchChecker1.getTimesLaunched()==0){
                                     appVM.UpdateLaunchChecker(new LaunchChecker(launchChecker1.getId(),
                                             launchChecker1.getTimesLaunched()+1));
                                     finishAffinity();
