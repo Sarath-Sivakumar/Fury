@@ -40,7 +40,6 @@
         <item>Health Care</item>
         <item>Bills</item>
         <item>Others</item>
-
     </string-array>
 
     <string name="fury_desc">Money management made easy</string>

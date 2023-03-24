@@ -12,6 +12,7 @@ import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -60,7 +61,6 @@ import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.MVVM.Viewmodel.userInitViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
-import app.personal.Utls.Currency;
 import app.personal.Utls.TutorialUtil;
 import app.personal.Utls.ViewPager.viewPager;
 
@@ -97,6 +97,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
+        final TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        String code;
+        if (!tm.getSimCountryIso().isEmpty()) {
+            code = tm.getSimCountryIso();
+            Log.e("Currency", "Sim code: " + code);
+            vm.setCountryCode(code);
+            vm.initCurrency();
+            vm.getRupee().observe(this, String -> {
+//                new Currency().setCurrency(String);
+                Constants.setRUPEE(String);
+                Log.e("Currency", "Symbol code: "+Constants.getRUPEE());
+            });
+        } else {
+            code = tm.getNetworkCountryIso();
+            vm.setCountryCode(code);
+            Log.e("Currency", "Network code: " + code);
+            vm.initCurrency();
+            vm.getRupee().observe(this, String -> {
+//                new Currency().setCurrency(String);
+                Constants.setRUPEE(String);
+                Log.e("Currency", "Symbol code: "+Constants.getRUPEE());
+            });
+        }
         setNav();
         setUserViewModel();
         try {
@@ -105,18 +128,12 @@ public class MainActivity extends AppCompatActivity {
                     processSalary(salaryEntityList);
                 }
             });
-        } catch (Exception e) {
-            Log.e("Main", "onCreateError: " + e.getMessage());
-        }
+        } catch (Exception ignored) {}
         if (savedInstanceState == null) {
             tb.setTitle(Constants.main);
             vp.setCurrentItem(2, true);
             initAd();
         }
-        vm.getRupee().observe(this, String->{
-            Log.e("Symbol", String);
-            new Currency().setCurrency(String);
-        });
     }
 
     private void processSalary(@NonNull List<salaryEntity> salList) {
@@ -275,7 +292,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                         interstitial = null;
-                        Commons.SnackBar(tb, "No Internet connection available");
+                        if (Commons.isConnectedToInternet(MainActivity.this)){
+                            Commons.SnackBar(tb, "No Internet connection available");
+                        }
                     }
                 });
     }
@@ -610,7 +629,6 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
     }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

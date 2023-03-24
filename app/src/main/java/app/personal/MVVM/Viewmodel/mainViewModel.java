@@ -48,8 +48,16 @@ public class mainViewModel extends AndroidViewModel {
         serviceInit(Topic);
     }
 
+    public void initCurrency(){
+        repo.initCurrency();
+    }
+
     public MutableLiveData<String> getRupee(){
         return getRupee;
+    }
+
+    public void setCountryCode(String code){
+        repo.setCountryCode(code);
     }
 
     private void serviceInit(String topic){

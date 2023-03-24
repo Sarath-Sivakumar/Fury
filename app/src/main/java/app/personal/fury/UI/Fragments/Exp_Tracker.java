@@ -66,9 +66,9 @@ public class Exp_Tracker extends Fragment {
     private int accBal = 0, inHandBal = 0, cashAmt, cashCount, accAmt, accCount, cDAvg, s2;
     private String userName = "";
     private AppUtilViewModel appVM;
-    private AdView ad;
-    private AdRequest adRequest;
-    private LinearLayout adLayout;
+//    private AdView ad;
+//    private AdRequest adRequest;
+//    private LinearLayout adLayout;
     private boolean isViewed = false;
 
     public Exp_Tracker() {
@@ -94,8 +94,8 @@ public class Exp_Tracker extends Fragment {
         accountCount = v.findViewById(R.id.account_count);
         dLimit = v.findViewById(R.id.dLimit);
         expView = v.findViewById(R.id.todayExp);
-        adLayout = v.findViewById(R.id.adLayout);
-        ad = v.findViewById(R.id.adView);
+//        adLayout = v.findViewById(R.id.adLayout);
+//        ad = v.findViewById(R.id.adView);
         touchHelper();
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setHasFixedSize(true);
@@ -113,7 +113,7 @@ public class Exp_Tracker extends Fragment {
         });
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
-        adRequest = new AdRequest.Builder().build();
+//        adRequest = new AdRequest.Builder().build();
     }
 
     private void getExp() {
@@ -165,23 +165,23 @@ public class Exp_Tracker extends Fragment {
         });
     }
 
-    private void requestAd() {
-        ad.loadAd(adRequest);
-        ad.setAdListener(new AdListener() {
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                super.onAdFailedToLoad(loadAdError);
-                adLayout.setVisibility(View.GONE);
-                ad.loadAd(adRequest);
-            }
-
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                adLayout.setVisibility(View.VISIBLE);
-            }
-        });
-    }
+//    private void requestAd() {
+//        ad.loadAd(adRequest);
+//        ad.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+//                super.onAdFailedToLoad(loadAdError);
+//                adLayout.setVisibility(View.GONE);
+//                ad.loadAd(adRequest);
+//            }
+//
+//            @Override
+//            public void onAdLoaded() {
+//                super.onAdLoaded();
+//                adLayout.setVisibility(View.VISIBLE);
+//            }
+//        });
+//    }
 
     private budgetEntity getBudget() {
         AtomicReference<budgetEntity> entity = new AtomicReference<>(new budgetEntity());
@@ -555,7 +555,7 @@ public class Exp_Tracker extends Fragment {
         getBalance();
         getExp();
         if (savedInstanceState == null) {
-            requestAd();
+//            requestAd();
         }
         return v;
     }

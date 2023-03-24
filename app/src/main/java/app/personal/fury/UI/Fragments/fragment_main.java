@@ -75,9 +75,9 @@ public class fragment_main extends Fragment {
     private categoryAdapter cAdapter;
     private int salary = 0, expense = 0, budgetTotalAmount = 0;
     private int progress = 0;
-    private AdView ad;
-    private AdRequest adRequest;
-    private LinearLayout adLayout;
+//    private AdView ad;
+//    private AdRequest adRequest;
+//    private LinearLayout adLayout;
     private RecyclerView dueList;
     private LinearLayout noDues, statView, statDisabled;
     private int filter = 0;
@@ -90,23 +90,23 @@ public class fragment_main extends Fragment {
     public fragment_main() {
     }
 
-    private void requestAd() {
-        ad.loadAd(adRequest);
-        ad.setAdListener(new AdListener() {
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                super.onAdFailedToLoad(loadAdError);
-                adLayout.setVisibility(View.GONE);
-                ad.loadAd(adRequest);
-            }
-
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                adLayout.setVisibility(View.VISIBLE);
-            }
-        });
-    }
+//    private void requestAd() {
+//        ad.loadAd(adRequest);
+//        ad.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+//                super.onAdFailedToLoad(loadAdError);
+//                adLayout.setVisibility(View.GONE);
+//                ad.loadAd(adRequest);
+//            }
+//
+//            @Override
+//            public void onAdLoaded() {
+//                super.onAdLoaded();
+//                adLayout.setVisibility(View.VISIBLE);
+//            }
+//        });
+//    }
 
     public void findView(View v) {
         initStat(v);
@@ -116,9 +116,9 @@ public class fragment_main extends Fragment {
         dAvg = v.findViewById(R.id.daily_avg);
         budgetView = v.findViewById(R.id.budgetText);
         mainProgressBar.setMax(Constants.LIMITER_MAX);
-        ad = v.findViewById(R.id.adView);
+//        ad = v.findViewById(R.id.adView);
         dueList = v.findViewById(R.id.dueList);
-        adLayout = v.findViewById(R.id.adLayout);
+//        adLayout = v.findViewById(R.id.adLayout);
         statButton = v.findViewById(R.id.stat_switch);
 //        statButton.setText("Inactive");
 
@@ -365,8 +365,8 @@ public class fragment_main extends Fragment {
         salary = 0;
         expense = 0;
         initViewModel();
-        MobileAds.initialize(requireContext());
-        adRequest = new AdRequest.Builder().build();
+//        MobileAds.initialize(requireContext());
+//        adRequest = new AdRequest.Builder().build();
     }
 
     @Override
@@ -382,7 +382,7 @@ public class fragment_main extends Fragment {
             e.printStackTrace();
         }
         if (savedInstanceState==null){
-            requestAd();
+//            requestAd();
             statButton.setChecked(true);
         }
         return v;

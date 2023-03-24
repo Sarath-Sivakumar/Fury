@@ -60,9 +60,9 @@ public class BudgetFragment extends Fragment {
     private budgetAdapter adapter;
     private boolean isView = false, deletedOnce = false;
     private final int[] FragmentList = new int[]{R.drawable.info_1, R.drawable.info_2, R.drawable.info_3};
-    private AdView ad;
-    private LinearLayout adLayout;
-    private AdRequest adRequest;
+//    private AdView ad;
+//    private LinearLayout adLayout;
+//    private AdRequest adRequest;
     private int prevType = 3, prevAmt = 0;
     private String prevDate = "0";
     private TutorialUtil util;
@@ -77,8 +77,8 @@ public class BudgetFragment extends Fragment {
         init();
         adapter = new budgetAdapter();
         util = new TutorialUtil(requireActivity(), requireContext(), requireActivity(), requireActivity());
-        MobileAds.initialize(requireContext());
-        adRequest = new AdRequest.Builder().build();
+//        MobileAds.initialize(requireContext());
+//        adRequest = new AdRequest.Builder().build();
     }
 
     private void init() {
@@ -92,7 +92,7 @@ public class BudgetFragment extends Fragment {
         View v = inflater.inflate(R.layout.main_fragment_budget, container, false);
         findView(v);
         if (savedInstanceState == null) {
-            requestAd();
+//            requestAd();
         }
         return v;
     }
@@ -104,31 +104,31 @@ public class BudgetFragment extends Fragment {
         isView = true;
     }
 
-    private void requestAd() {
-        ad.loadAd(adRequest);
-        ad.setAdListener(new AdListener() {
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                super.onAdFailedToLoad(loadAdError);
-                adLayout.setVisibility(View.GONE);
-                ad.loadAd(adRequest);
-            }
-
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                adLayout.setVisibility(View.VISIBLE);
-            }
-        });
-    }
+//    private void requestAd() {
+//        ad.loadAd(adRequest);
+//        ad.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+//                super.onAdFailedToLoad(loadAdError);
+//                adLayout.setVisibility(View.GONE);
+//                ad.loadAd(adRequest);
+//            }
+//
+//            @Override
+//            public void onAdLoaded() {
+//                super.onAdLoaded();
+//                adLayout.setVisibility(View.VISIBLE);
+//            }
+//        });
+//    }
 
     private void findView(View v) {
         addBudget = v.findViewById(R.id.setBud);
         BudgetAmt = v.findViewById(R.id.bgtAmt);
         Balance = v.findViewById(R.id.B_Balance);
         Expense = v.findViewById(R.id.T_exp);
-        ad = v.findViewById(R.id.adView);
-        adLayout = v.findViewById(R.id.adLayout);
+//        ad = v.findViewById(R.id.adView);
+//        adLayout = v.findViewById(R.id.adLayout);
         RecyclerView topExp = v.findViewById(R.id.top_exp);
         topExp.setLayoutManager(new LinearLayoutManager(requireContext()));
         topExp.setHasFixedSize(true);
