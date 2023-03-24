@@ -101,24 +101,14 @@ public class MainActivity extends AppCompatActivity {
         String code;
         if (!tm.getSimCountryIso().isEmpty()) {
             code = tm.getSimCountryIso();
-            Log.e("Currency", "Sim code: " + code);
             vm.setCountryCode(code);
             vm.initCurrency();
-            vm.getRupee().observe(this, String -> {
-//                new Currency().setCurrency(String);
-                Constants.setRUPEE(String);
-                Log.e("Currency", "Symbol code: "+Constants.getRUPEE());
-            });
+            vm.getRupee().observe(this, Constants::setRUPEE);
         } else {
             code = tm.getNetworkCountryIso();
             vm.setCountryCode(code);
-            Log.e("Currency", "Network code: " + code);
             vm.initCurrency();
-            vm.getRupee().observe(this, String -> {
-//                new Currency().setCurrency(String);
-                Constants.setRUPEE(String);
-                Log.e("Currency", "Symbol code: "+Constants.getRUPEE());
-            });
+            vm.getRupee().observe(this, Constants::setRUPEE);
         }
         setNav();
         setUserViewModel();
@@ -128,7 +118,8 @@ public class MainActivity extends AppCompatActivity {
                     processSalary(salaryEntityList);
                 }
             });
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
         if (savedInstanceState == null) {
             tb.setTitle(Constants.main);
             vp.setCurrentItem(2, true);
@@ -292,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                         interstitial = null;
-                        if (Commons.isConnectedToInternet(MainActivity.this)){
+                        if (Commons.isConnectedToInternet(MainActivity.this)) {
                             Commons.SnackBar(tb, "No Internet connection available");
                         }
                     }
@@ -629,6 +620,7 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
