@@ -86,12 +86,15 @@ public class Ear_Tracker extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         appVm = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
         adapter = new salaryAdapter();
-        MobileAds.initialize(requireContext());
-        adRequest = new AdRequest.Builder().build();
+        if (savedInstanceState == null) {
+            MobileAds.initialize(requireContext());
+            adRequest = new AdRequest.Builder().build();
+        }
+        inHandBal = getInHandBal();
+        balanceEntity = getBal();
     }
 
     private void initAd() {
@@ -157,7 +160,11 @@ public class Ear_Tracker extends Fragment {
         SalAmt = v.findViewById(R.id.salAmt);
         salSplitList = v.findViewById(R.id.salList);
         addSal = v.findViewById(R.id.addSal);
-        addSal.setOnClickListener(v1 -> callPopUpWindow(false, null));
+        addSal.setOnClickListener(v1 -> {
+            inHandBal = getInHandBal();
+            balanceEntity = getBal();
+            callPopUpWindow(false, null);
+        });
         salSplitList.setLayoutManager(new LinearLayoutManager(requireContext()));
         salSplitList.setHasFixedSize(true);
         ad = v.findViewById(R.id.adView);
@@ -254,8 +261,6 @@ public class Ear_Tracker extends Fragment {
         }
 
         yes.setOnClickListener(v1 -> {
-            inHandBal = getInHandBal();
-            balanceEntity = getBal();
             if (isEdit) {
                 onClickYesPopup(true, salary, salSource, salAmt, salDate.getText().toString(), rdGrp1, rdGrp2);
             } else {
@@ -291,9 +296,9 @@ public class Ear_Tracker extends Fragment {
             salaryEntity sal = new salaryEntity();
             sal.setCreationDate(salDate);
             sal.setIncName(salSrc.getText().toString());
-            if (!isEdit){
+            if (!isEdit) {
                 sal.setSalary(Integer.parseInt(salAmt.getText().toString()));
-            }else{
+            } else {
                 sal.setSalary(salary.getSalary());
             }
 //                Credit Mode.
@@ -353,10 +358,10 @@ public class Ear_Tracker extends Fragment {
                             vm.DeleteInHandBalance();
                             vm.InsertInHandBalance(inHandBal);
                         }
-                    }else{
+                    } else {
                         Commons.SnackBar(getView(), "Field(s) may be empty");
                     }
-                }else{
+                } else {
                     sal.setId(salary.getId());
                     vm.UpdateSalary(sal);
                 }
