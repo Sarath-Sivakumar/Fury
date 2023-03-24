@@ -81,63 +81,63 @@ public class Settings_Activity extends AppCompatActivity {
             }
         });
         if (Commons.isConnectedToInternet(this)){
-            initAd();
+//            initAd();
         }
     }
 
-    private void initAd() {
-        MobileAds.initialize(this);
-        String TestAdId = "ca-app-pub-8620335196955785/4549061972";
-        AdRequest adRequest = new AdRequest.Builder().build();
-        InterstitialAd.load(
-                this,
-                TestAdId,
-                adRequest,
-                new InterstitialAdLoadCallback() {
-                    @Override
-                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                        // The mInterstitialAd reference will be null until
-                        // an ad is loaded.
-                        interstitial = interstitialAd;
-                        interstitialAd.setFullScreenContentCallback(
-                                new FullScreenContentCallback() {
-                                    @Override
-                                    public void onAdDismissedFullScreenContent() {
-                                        // Called when fullscreen content is dismissed.
-                                        // Make sure to set your reference to null so you don't
-                                        // show it a second time.
-                                        interstitial = null;
-                                        finish();
-                                    }
+//    private void initAd() {
+//        MobileAds.initialize(this);
+//        String TestAdId = "ca-app-pub-8620335196955785/4549061972";
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        InterstitialAd.load(
+//                this,
+//                TestAdId,
+//                adRequest,
+//                new InterstitialAdLoadCallback() {
+//                    @Override
+//                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+//                        // The mInterstitialAd reference will be null until
+//                        // an ad is loaded.
+//                        interstitial = interstitialAd;
+//                        interstitialAd.setFullScreenContentCallback(
+//                                new FullScreenContentCallback() {
+//                                    @Override
+//                                    public void onAdDismissedFullScreenContent() {
+//                                        // Called when fullscreen content is dismissed.
+//                                        // Make sure to set your reference to null so you don't
+//                                        // show it a second time.
+//                                        interstitial = null;
+//                                        finish();
+//                                    }
+//
+//                                    @Override
+//                                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+//                                        // Called when fullscreen content failed to show.
+//                                        // Make sure to set your reference to null so you don't
+//                                        // show it a second time.
+//                                        interstitial = null;
+//                                        finish();
+//                                    }
+//
+//                                    @Override
+//                                    public void onAdShowedFullScreenContent() {
+//                                    }
+//                                });
+//                    }
+//
+//                    @Override
+//                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+//                        interstitial = null;
+//                    }
+//                });
+//    }
 
-                                    @Override
-                                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
-                                        // Called when fullscreen content failed to show.
-                                        // Make sure to set your reference to null so you don't
-                                        // show it a second time.
-                                        interstitial = null;
-                                        finish();
-                                    }
-
-                                    @Override
-                                    public void onAdShowedFullScreenContent() {
-                                    }
-                                });
-                    }
-
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        interstitial = null;
-                    }
-                });
-    }
-
-    private void showInterstitial() {
-        // Show the ad if it's ready. Otherwise toast and restart the game.
-        if (interstitial != null) {
-            interstitial.show(this);
-        }
-    }
+//    private void showInterstitial() {
+//        // Show the ad if it's ready. Otherwise toast and restart the game.
+//        if (interstitial != null) {
+//            interstitial.show(this);
+//        }
+//    }
 
     private void getUserData() {
         userVM.getUserData().observe(this, userEntity -> {
@@ -379,7 +379,7 @@ public class Settings_Activity extends AppCompatActivity {
         no.setOnClickListener(v -> popupWindow.dismiss());
         yes.setOnClickListener(v -> {
             fakeLoadingScreen();
-            showInterstitial();
+//            showInterstitial();
             popupWindow.dismiss();
         });
 
