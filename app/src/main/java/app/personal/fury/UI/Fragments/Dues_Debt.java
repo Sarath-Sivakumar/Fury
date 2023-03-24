@@ -64,9 +64,9 @@ public class Dues_Debt extends Fragment {
     private TutorialUtil util;
     private dueAdapter mainDueAdapter, repeatDue;
     private int finalTotalDue = 0;
-    private AdView ad;
-    private LinearLayout adLayout;
-    private AdRequest adRequest;
+//    private AdView ad;
+//    private LinearLayout adLayout;
+//    private AdRequest adRequest;
     private FloatingActionButton fltBtn;
 
     public Dues_Debt() {
@@ -79,8 +79,8 @@ public class Dues_Debt extends Fragment {
         repeatDue = new dueAdapter(1);
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
-        MobileAds.initialize(requireContext());
-        adRequest = new AdRequest.Builder().build();
+//        MobileAds.initialize(requireContext());
+//        adRequest = new AdRequest.Builder().build();
     }
 
     @Override
@@ -90,34 +90,34 @@ public class Dues_Debt extends Fragment {
         find(v);
         initViewModel();
         if (savedInstanceState == null) {
-            requestAd();
+//            requestAd();
         }
         return v;
     }
 
-    private void requestAd() {
-        ad.loadAd(adRequest);
-        ad.setAdListener(new AdListener() {
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                super.onAdFailedToLoad(loadAdError);
-                adLayout.setVisibility(View.GONE);
-                ad.loadAd(adRequest);
-            }
-
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                adLayout.setVisibility(View.VISIBLE);
-            }
-        });
-    }
+//    private void requestAd() {
+//        ad.loadAd(adRequest);
+//        ad.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+//                super.onAdFailedToLoad(loadAdError);
+//                adLayout.setVisibility(View.GONE);
+//                ad.loadAd(adRequest);
+//            }
+//
+//            @Override
+//            public void onAdLoaded() {
+//                super.onAdLoaded();
+//                adLayout.setVisibility(View.VISIBLE);
+//            }
+//        });
+//    }
 
     private void find(View v) {
         dueList = v.findViewById(R.id.dueList);
         fltBtn = v.findViewById(R.id.addDue);
-        ad = v.findViewById(R.id.adView);
-        adLayout = v.findViewById(R.id.adLayout);
+//        ad = v.findViewById(R.id.adView);
+//        adLayout = v.findViewById(R.id.adLayout);
         fltBtn.setOnClickListener(v1 -> callPopupWindow(Constants.itemAdd));
         totalDueDisplay = v.findViewById(R.id.dueTotalText);
         noDues = v.findViewById(R.id.dueTotalNo);
