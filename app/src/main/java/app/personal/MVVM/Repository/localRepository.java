@@ -61,7 +61,6 @@ public class localRepository {
                 getRupee.postValue(currency);
             } else {
                 Log.e("Currency", "code: Default :" + String);
-//            getRupee.postValue("₹");
                 new CountDownTimer(1000, 1000) {
 
                     @Override
