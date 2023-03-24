@@ -61,7 +61,6 @@ import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.MVVM.Viewmodel.userInitViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
-import app.personal.Utls.Currency;
 import app.personal.Utls.TutorialUtil;
 import app.personal.Utls.ViewPager.viewPager;
 
@@ -106,8 +105,9 @@ public class MainActivity extends AppCompatActivity {
             vm.setCountryCode(code);
             vm.initCurrency();
             vm.getRupee().observe(this, String -> {
-                new Currency().setCurrency(String);
-                Log.e("Currency", "Symbol code: "+new Currency().getCurrency());
+//                new Currency().setCurrency(String);
+                Constants.setRUPEE(String);
+                Log.e("Currency", "Symbol code: "+Constants.getRUPEE());
             });
         } else {
             code = tm.getNetworkCountryIso();
@@ -115,8 +115,9 @@ public class MainActivity extends AppCompatActivity {
             Log.e("Currency", "Network code: " + code);
             vm.initCurrency();
             vm.getRupee().observe(this, String -> {
-                new Currency().setCurrency(String);
-                Log.e("Currency", "Symbol code: "+new Currency().getCurrency());
+//                new Currency().setCurrency(String);
+                Constants.setRUPEE(String);
+                Log.e("Currency", "Symbol code: "+Constants.getRUPEE());
             });
         }
         setNav();

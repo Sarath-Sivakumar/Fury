@@ -45,7 +45,6 @@ public class localRepository {
     }
 
     public MutableLiveData<String> getRupee() {
-
         return getRupee;
     }
 
@@ -59,7 +58,7 @@ public class localRepository {
             if (simCountry != null && simCountry.length() == 2) {
                 String country_code = simCountry.toLowerCase(Locale.US);
                 Log.e("Currency", "code: " + country_code);
-                String currency = Currency.getInstance(new Locale("", country_code)).getCurrencyCode();
+                String currency = Currency.getInstance(new Locale("", country_code)).getSymbol();
                 getRupee.postValue(currency);
             } else {
                 Log.e("Currency", "code: Default :" + simCountry);

@@ -1,15 +1,11 @@
 package app.personal.fury.UI.User_Init;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 
-import app.personal.MVVM.Viewmodel.mainViewModel;
-import app.personal.Utls.Currency;
 import app.personal.fury.R;
 import app.personal.fury.UI.User_Init.login.Login;
 import app.personal.fury.UI.User_Init.signUp.signUp;
