@@ -1,6 +1,5 @@
 package app.personal.fury.UI.Drawer;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -23,13 +22,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.ads.AdError;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import java.io.IOException;
 
@@ -59,7 +51,7 @@ public class Settings_Activity extends AppCompatActivity {
     private userEntity userData = new userEntity();
     // request code
     private final int PICK_IMAGE_REQUEST = 22;
-    private InterstitialAd interstitial;
+//    private InterstitialAd interstitial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +72,9 @@ public class Settings_Activity extends AppCompatActivity {
                 userVM.setDefaultError();
             }
         });
-        if (Commons.isConnectedToInternet(this)){
+//        if (Commons.isConnectedToInternet(this)){
 //            initAd();
-        }
+//        }
     }
 
 //    private void initAd() {
@@ -350,7 +342,7 @@ public class Settings_Activity extends AppCompatActivity {
                 popupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
                 popupWindow.setBackgroundDrawable(null);
                 popupWindow.setElevation(6);
-                popupWindow.showAsDropDown(about);
+                popupWindow.showAsDropDown(profileName);
             }
 
             @Override
