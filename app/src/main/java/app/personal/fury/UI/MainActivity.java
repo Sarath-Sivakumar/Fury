@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             tb.setTitle(Constants.main);
             vp.setCurrentItem(2, true);
-            initAd();
+//            initAd();
         }
     }
 
@@ -242,60 +242,60 @@ public class MainActivity extends AppCompatActivity {
         initTutorialPhase1();
     }
 
-    private void initAd() {
-        MobileAds.initialize(this);
-        String TestAdId = "ca-app-pub-8620335196955785/6964591880";
-        AdRequest adRequest = new AdRequest.Builder().build();
-        InterstitialAd.load(
-                this,
-                TestAdId,
-                adRequest,
-                new InterstitialAdLoadCallback() {
-                    @Override
-                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                        // The mInterstitialAd reference will be null until
-                        // an ad is loaded.
-                        interstitial = interstitialAd;
-                        interstitialAd.setFullScreenContentCallback(
-                                new FullScreenContentCallback() {
-                                    @Override
-                                    public void onAdDismissedFullScreenContent() {
-                                        // Called when fullscreen content is dismissed.
-                                        // Make sure to set your reference to null so you don't
-                                        // show it a second time.
-                                        interstitial = null;
-                                    }
+//    private void initAd() {
+//        MobileAds.initialize(this);
+//        String TestAdId = "ca-app-pub-8620335196955785/6964591880";
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        InterstitialAd.load(
+//                this,
+//                TestAdId,
+//                adRequest,
+//                new InterstitialAdLoadCallback() {
+//                    @Override
+//                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+//                        // The mInterstitialAd reference will be null until
+//                        // an ad is loaded.
+//                        interstitial = interstitialAd;
+//                        interstitialAd.setFullScreenContentCallback(
+//                                new FullScreenContentCallback() {
+//                                    @Override
+//                                    public void onAdDismissedFullScreenContent() {
+//                                        // Called when fullscreen content is dismissed.
+//                                        // Make sure to set your reference to null so you don't
+//                                        // show it a second time.
+//                                        interstitial = null;
+//                                    }
+//
+//                                    @Override
+//                                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+//                                        // Called when fullscreen content failed to show.
+//                                        // Make sure to set your reference to null so you don't
+//                                        // show it a second time.
+//                                        interstitial = null;
+//                                    }
+//
+//                                    @Override
+//                                    public void onAdShowedFullScreenContent() {
+//                                    }
+//                                });
+//                    }
+//
+//                    @Override
+//                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+//                        interstitial = null;
+//                        if (Commons.isConnectedToInternet(MainActivity.this)){
+//                            Commons.SnackBar(tb, "No Internet connection available");
+//                        }
+//                    }
+//                });
+//    }
 
-                                    @Override
-                                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
-                                        // Called when fullscreen content failed to show.
-                                        // Make sure to set your reference to null so you don't
-                                        // show it a second time.
-                                        interstitial = null;
-                                    }
-
-                                    @Override
-                                    public void onAdShowedFullScreenContent() {
-                                    }
-                                });
-                    }
-
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        interstitial = null;
-                        if (!Commons.isConnectedToInternet(MainActivity.this)) {
-                            Commons.SnackBar(tb, "No Internet connection available");
-                        }
-                    }
-                });
-    }
-
-    private void showInterstitial() {
-        // Show the ad if it's ready. Otherwise toast and restart the game.
-        if (interstitial != null) {
-            interstitial.show(this);
-        }
-    }
+//    private void showInterstitial() {
+//        // Show the ad if it's ready. Otherwise toast and restart the game.
+//        if (interstitial != null) {
+//            interstitial.show(this);
+//        }
+//    }
 
     public static void initTutorialPhase3() {
         ArrayList<View> Targets = new ArrayList<>();
@@ -470,7 +470,7 @@ public class MainActivity extends AppCompatActivity {
         Button no = view.findViewById(R.id.dno_btn);
         no.setOnClickListener(v -> popupWindow.dismiss());
         yes.setOnClickListener(v -> {
-            showInterstitial();
+//            showInterstitial();
             popupWindow.dismiss();
         });
 

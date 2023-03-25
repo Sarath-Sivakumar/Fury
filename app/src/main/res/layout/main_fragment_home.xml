@@ -109,8 +109,9 @@
                                 <TextView
                                     android:id="@+id/expText"
                                     style="@style/overviewtxtamt"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center|start"
                                     android:layout_marginTop="4dp"
                                     android:textSize="21sp" />
                             </LinearLayout>
@@ -136,7 +137,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_marginTop="4dp"
-                                    android:gravity="start|center"
+                                    android:gravity="center|start"
                                     android:textSize="21sp" />
 
                             </LinearLayout>

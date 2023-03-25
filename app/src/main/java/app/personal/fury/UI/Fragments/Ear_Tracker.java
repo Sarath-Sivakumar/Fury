@@ -68,9 +68,9 @@ public class Ear_Tracker extends Fragment {
     private int budType;
     private inHandBalEntity inHandBal = new inHandBalEntity();
     private balanceEntity balanceEntity = new balanceEntity();
-    private AdView ad;
-    private LinearLayout adLayout;
-    private AdRequest adRequest;
+//    private AdView ad;
+//    private LinearLayout adLayout;
+//    private AdRequest adRequest;
     private String budDate;
     private final int[] FragmentList =
             new int[]{R.drawable.info_h1, R.drawable.info_h2,
@@ -89,10 +89,10 @@ public class Ear_Tracker extends Fragment {
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         appVm = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
         adapter = new salaryAdapter();
-        if (savedInstanceState == null) {
-            MobileAds.initialize(requireContext());
-            adRequest = new AdRequest.Builder().build();
-        }
+//        if (savedInstanceState == null) {
+//            MobileAds.initialize(requireContext());
+//            adRequest = new AdRequest.Builder().build();
+//        }
         inHandBal = getInHandBal();
         balanceEntity = getBal();
     }
@@ -110,31 +110,31 @@ public class Ear_Tracker extends Fragment {
         View v = inflater.inflate(R.layout.main_fragment_earningstracker, container, false);
         initAd();
         findView(v);
-        if (savedInstanceState == null) {
-            requestAd();
-        }
+//        if (savedInstanceState == null) {
+//            requestAd();
+//        }
         return v;
     }
 
-    private void requestAd() {
-        try{
-            ad.loadAd(adRequest);
-            ad.setAdListener(new AdListener() {
-                @Override
-                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                    super.onAdFailedToLoad(loadAdError);
-                    adLayout.setVisibility(View.GONE);
-                    ad.loadAd(adRequest);
-                }
-
-                @Override
-                public void onAdLoaded() {
-                    super.onAdLoaded();
-                    adLayout.setVisibility(View.VISIBLE);
-                }
-            });
-        }catch (Exception ignored){}
-    }
+//    private void requestAd() {
+//        try{
+//          ad.loadAd(adRequest);
+//        ad.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+//                super.onAdFailedToLoad(loadAdError);
+//                adLayout.setVisibility(View.GONE);
+//                ad.loadAd(adRequest);
+//            }
+//
+//            @Override
+//            public void onAdLoaded() {
+//                super.onAdLoaded();
+//                adLayout.setVisibility(View.VISIBLE);
+//            }
+//        });
+//        }catch(Exception ignored){}
+//    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -169,8 +169,8 @@ public class Ear_Tracker extends Fragment {
         });
         salSplitList.setLayoutManager(new LinearLayoutManager(requireContext()));
         salSplitList.setHasFixedSize(true);
-        ad = v.findViewById(R.id.adView);
-        adLayout = v.findViewById(R.id.adLayout);
+//        ad = v.findViewById(R.id.adView);
+//        adLayout = v.findViewById(R.id.adLayout);
         salSplitList.setAdapter(adapter);
         inHandAmt = v.findViewById(R.id.inhand_Amt);
         inHandCount = v.findViewById(R.id.inhand_count);
