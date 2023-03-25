@@ -7,11 +7,11 @@
     android:layout_height="match_parent"
     android:gravity="center">
 
-    <ImageView
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:src="@drawable/colored_icon_timer"
-        tools:ignore="ContentDescription,ImageContrastCheck" />
+<!--    <ImageView-->
+<!--        android:layout_width="64dp"-->
+<!--        android:layout_height="64dp"-->
+<!--        android:src="@drawable/colored_icon_timer"-->
+<!--        tools:ignore="ContentDescription,ImageContrastCheck" />-->
 
     <LinearLayout
         android:layout_width="wrap_content"

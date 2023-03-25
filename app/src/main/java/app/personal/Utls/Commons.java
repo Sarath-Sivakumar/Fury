@@ -335,7 +335,7 @@ public class Commons {
                         LayoutInflater inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                         View view = inflater.inflate(R.layout.popup_budget_fake_loading, null);
                         TextView t = view.findViewById(R.id.loadingText);
-                        String s = "Crafting a ideal budget..";
+                        String s = "Crafting an ideal budget..";
                         t.setText(s);
                         fakeScrn.setContentView(view);
                         fakeScrn.setFocusable(true);
