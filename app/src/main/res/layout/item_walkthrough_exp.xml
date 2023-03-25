@@ -48,7 +48,7 @@
             android:layout_marginStart="12dp"
             android:gravity="start"
             android:padding="12dp"
-            android:text="@string/you_can_easily_log_your_daily_expenses_and_categorize_them_for_better_organization_and_management_of_your_finances_with_a_simplified_user_interface"
+            android:text="@string/log_exp"
             android:textColor="@color/full_white"
             android:textSize="20sp"
             tools:ignore="TextContrastCheck" />
