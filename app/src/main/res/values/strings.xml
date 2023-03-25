@@ -125,14 +125,14 @@
     <string name="fury_monitor_dues_debt">Fury Monitor/Dues</string>
     <string name="checkbox_text">Repeat on this day</string>
     <string name="fury_statistics">Fury Monitor/Daily Report</string>
-    <string name="activate_to_see_daily_statitics">Activate to see daily statitics</string>
-    <string name="support_video_ad">Support our devolopers by watching a short video ad!</string>
+    <string name="activate_to_see_daily_statitics">Activate to see daily statistics</string>
+    <string name="support_video_ad">Support our developers by watching a short video ad!</string>
     <string name="title_activity_splash">splash</string>
 
     <string name="new_expense">New expense</string>
     <string name="add">Add</string>
     <string name="let_fury_create_your_ideal_budget">Let fury create your ideal budget</string>
-    <string name="reccurence">Reccurence</string>
+    <string name="recurrence">Recurrence</string>
     <string name="weekly">Weekly</string>
     <string name="starts_on">Starts on</string>
     <string name="no_thanks_i_will_do_it_myself">No thanks, I will do it myself</string>
@@ -144,12 +144,12 @@
     <string name="status">Status</string>
     <string name="due_date">Due date</string>
     <string name="dues_amp_debts"><![CDATA[Dues & debts]]></string>
-    <string name="you_can_easily_keep_track_of_your_dues_and_debt_and_set_reminders_for_upcoming_payments_fury_also_alert_you_before_due_date_so_you_won_t_miss_any_payments_in_accident">You can easily keep track of your dues and debt, and set reminders for upcoming payments. Fury also alert you before due-date so you won\'t miss any payments in accident.</string>
+    <string name="upcoming_alert">You can easily keep track of your dues and debt, and set reminders for upcoming payments. Fury also alert you before due-date so you won\'t miss any payments in accident.</string>
     <string name="previous">Previous</string>
-    <string name="you_can_add_your_income_sources_and_track_your_earnings_over_time_fury_let_you_add_earnings_as_in_cash_or_through_bank_for_better_tracking">You can add your Income sources and track your earnings over time. Fury let you add earnings as In-cash or Through-bank for better tracking.</string>
+    <string name="track_income">You can add your Income sources and track your earnings over time. Fury let you add earnings as In-cash or Through-bank for better tracking.</string>
     <string name="earnings_tracker">Earnings Tracker</string>
     <string name="expense_tracker">Expense Tracker</string>
-    <string name="you_can_easily_log_your_daily_expenses_and_categorize_them_for_better_organization_and_management_of_your_finances_with_a_simplified_user_interface">You can easily log your daily expenses and categorize them for better organization and management of your finances. With a simplified user interface</string>
+    <string name="log_exp">You can easily log your daily expenses and categorize them for better organization and management of your finances. With a simplified user interface</string>
     <string name="skip">Skip</string>
     <string name="fury_monitor_budget">Fury Monitor/Budget</string>
     <string name="ideal_daily_limit">Ideal daily Limit</string>

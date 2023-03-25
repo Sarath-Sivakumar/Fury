@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:padding="12dp"
             android:textColor="@color/full_white"
-            android:text="@string/you_can_add_your_income_sources_and_track_your_earnings_over_time_fury_let_you_add_earnings_as_in_cash_or_through_bank_for_better_tracking"
+            android:text="@string/track_income"
             android:layout_marginStart="12dp"
             android:textSize="20sp"
             android:gravity="start|center"

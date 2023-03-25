@@ -259,8 +259,10 @@ public class fragment_main extends Fragment {
 
     private void initViewModel() {
         if (!updateIsViewed) {
-            update();
-            updateIsViewed = true;
+            try{
+                update();
+                updateIsViewed = true;
+            }catch (Exception ignored){}
         }
         getSal();
         getExp(filter);
