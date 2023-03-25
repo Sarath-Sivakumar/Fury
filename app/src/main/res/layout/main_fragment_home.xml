@@ -671,7 +671,7 @@
                     android:isScrollContainer="true"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:reverseLayout="true"
+                    app:reverseLayout="false"
                     tools:listitem="@layout/recycler_item_maindue" />
 
             </LinearLayout>
