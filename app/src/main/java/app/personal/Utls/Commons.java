@@ -315,7 +315,7 @@ public class Commons {
                 LayoutInflater inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 View view = inflater.inflate(R.layout.popup_budget_fake_loading, null);
                 TextView t = view.findViewById(R.id.loadingText);
-                String s = "Analyzing Your Earnings..";
+                String s = "Analyzing Your Earnings";
                 t.setText(s);
                 fakeScrn.setContentView(view);
                 fakeScrn.setFocusable(true);
@@ -335,7 +335,7 @@ public class Commons {
                         LayoutInflater inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                         View view = inflater.inflate(R.layout.popup_budget_fake_loading, null);
                         TextView t = view.findViewById(R.id.loadingText);
-                        String s = "Crafting an ideal budget..";
+                        String s = "Crafting an ideal budget";
                         t.setText(s);
                         fakeScrn.setContentView(view);
                         fakeScrn.setFocusable(true);
