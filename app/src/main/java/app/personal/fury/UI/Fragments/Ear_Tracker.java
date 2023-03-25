@@ -117,21 +117,23 @@ public class Ear_Tracker extends Fragment {
     }
 
     private void requestAd() {
-        ad.loadAd(adRequest);
-        ad.setAdListener(new AdListener() {
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                super.onAdFailedToLoad(loadAdError);
-                adLayout.setVisibility(View.GONE);
-                ad.loadAd(adRequest);
-            }
+        try{
+            ad.loadAd(adRequest);
+            ad.setAdListener(new AdListener() {
+                @Override
+                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                    super.onAdFailedToLoad(loadAdError);
+                    adLayout.setVisibility(View.GONE);
+                    ad.loadAd(adRequest);
+                }
 
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-                adLayout.setVisibility(View.VISIBLE);
-            }
-        });
+                @Override
+                public void onAdLoaded() {
+                    super.onAdLoaded();
+                    adLayout.setVisibility(View.VISIBLE);
+                }
+            });
+        }catch (Exception ignored){}
     }
 
     @Override
