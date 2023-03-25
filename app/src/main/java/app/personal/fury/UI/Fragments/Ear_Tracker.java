@@ -117,7 +117,8 @@ public class Ear_Tracker extends Fragment {
     }
 
 //    private void requestAd() {
-//        ad.loadAd(adRequest);
+//        try{
+//          ad.loadAd(adRequest);
 //        ad.setAdListener(new AdListener() {
 //            @Override
 //            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
@@ -132,6 +133,7 @@ public class Ear_Tracker extends Fragment {
 //                adLayout.setVisibility(View.VISIBLE);
 //            }
 //        });
+//        }catch(Exception ignored){}
 //    }
 
     @Override

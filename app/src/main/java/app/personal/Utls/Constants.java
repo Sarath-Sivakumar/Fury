@@ -20,13 +20,15 @@ public class Constants {
     //-------------------------------------------------------------
 
     public static String RUPEE;
-    public static void setRUPEE(String symbol){
+
+    public static void setRUPEE(String symbol) {
         RUPEE = symbol;
     }
 
     public static String getRUPEE() {
         return RUPEE;
     }
+
     public static final String Dues = "Dues And Debt",
             Exp = "Expense Tracker",
             Earnings = "Earnings Tracker",
@@ -53,12 +55,12 @@ public class Constants {
     DEFAULT_DP = "Default_DP",
             Users = "USERS",
             AppVersion = "VERSION",
-            Metadata = "METADATA",
-            ExpensesData = "EXPENSES",
-            DuesData = "DUES",
-            EarningsData = "EARNINGS",
-            BudgetData = "BUDGET",
-            ExpFirebaseService = "expense",
+    //            Metadata = "METADATA",
+//            ExpensesData = "EXPENSES",
+//            DuesData = "DUES",
+//            EarningsData = "EARNINGS",
+//            BudgetData = "BUDGET",
+    ExpFirebaseService = "expense",
             PromoFirebaseService = "promotion",
             UpdateFirebaseService = "update";
 
@@ -87,8 +89,8 @@ public class Constants {
             UpdateNotAvailable = 0,
     //    -----------------------------------------------------------
     //    DueWarning-------------------------------------------------
-    SHOW_WARNING_BY_IN_APP = 3,
-            SHOW_WARNING_BY_PUSH_NOTIFICATIONS = 5;
+//    SHOW_WARNING_BY_PUSH_NOTIFICATIONS = 5,
+            SHOW_WARNING_BY_IN_APP = 3;
     //    -----------------------------------------------------------
     public static final String DB_INSTANCE = "https://fury-d3622-default-rtdb.asia-southeast1.firebasedatabase.app";
 }
