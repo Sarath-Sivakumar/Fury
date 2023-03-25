@@ -74,7 +74,7 @@
                         android:layout_marginTop="6dp"
                         android:layout_marginBottom="6dp"
                         android:textSize="14sp"
-                        android:text="@string/reccurence"/>
+                        android:text="@string/recurrence"/>
 
                     <RadioGroup
                         android:id="@+id/budType"

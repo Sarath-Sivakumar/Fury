@@ -48,7 +48,7 @@
             android:layout_marginStart="12dp"
             android:gravity="start|center"
             android:padding="12dp"
-            android:text="@string/you_can_easily_keep_track_of_your_dues_and_debt_and_set_reminders_for_upcoming_payments_fury_also_alert_you_before_due_date_so_you_won_t_miss_any_payments_in_accident"
+            android:text="@string/upcoming_alert"
             android:textColor="@color/full_white"
             android:textSize="20sp"
             tools:ignore="TextContrastCheck,VisualLintLongText" />
