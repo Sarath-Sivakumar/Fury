@@ -413,7 +413,7 @@ public class fragment_main extends Fragment {
                 try {
                     String s = "Set a budget.";
                     budgetView.setText(s);
-                    budgetView.setTextSize(13);
+                    budgetView.setTextSize(14);
                     budgetView.setElegantTextHeight(true);
                 } catch (Exception ignored) {
                 }
@@ -469,7 +469,7 @@ public class fragment_main extends Fragment {
                 if (expEntities != null && !expEntities.isEmpty()) {
                     dAvg.setText(Commons.getAvg(expEntities, true));
                 } else {
-                    String s = "No data to process.";
+                    String s = "No data to display";
                     dAvg.setText(s);
                 }
                 if (dAvg.getText().equals(Constants.dAvgNoData)) {

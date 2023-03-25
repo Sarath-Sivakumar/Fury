@@ -129,14 +129,14 @@ public class Exp_Tracker extends Fragment {
                 if (e != null) {
                     if (!e.isEmpty()) {
                         String s = Commons.getAvg(e, true);
-                        if (s.equals("Collecting data!")) {
-                            dLimit.setTextSize(12);
+                        if (s.equals("Processing")) {
+                            dLimit.setTextSize(14);
                         }
                         dLimit.setText(s);
                         cDAvg = Integer.parseInt(Commons.getAvg(e, false));
                         Log.e("Daily avg", "Value: " + Commons.getAvg(e, false));
                     } else {
-                        String s = "No data to process";
+                        String s = "No data";
                         dLimit.setTextSize(14);
                         dLimit.setText(s);
                         cDAvg = 0;

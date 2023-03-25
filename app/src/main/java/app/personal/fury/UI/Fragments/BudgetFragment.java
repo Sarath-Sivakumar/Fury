@@ -1,6 +1,7 @@
 package app.personal.fury.UI.Fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 
@@ -206,9 +207,9 @@ public class BudgetFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             } else {
                 try {
-                    String s = "No data to process";
+                    String s = "No data";
                     CurrentDailyLimit.setText(s);
-                    CurrentDailyLimit.setTextSize(12);
+                    CurrentDailyLimit.setTextSize(14);
                     String s1 = Constants.RUPEE + total;
                     Expense.setText(s1);
                 } catch (Exception ignored) {
