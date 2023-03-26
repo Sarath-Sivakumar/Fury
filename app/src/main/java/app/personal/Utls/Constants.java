@@ -14,7 +14,7 @@ public class Constants {
             userTable = "User_Table",
             launchChecker = "Launch_Checker",
             CustomCategory = "custom_Category",
-            APP_VERSION = "1.0.0";
+            APP_VERSION = "1.0.1";
     //DO NOT CHANGE------------------------------------------------
     public static final int DB_VERSION = 14;
     //-------------------------------------------------------------

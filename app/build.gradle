@@ -5,9 +5,9 @@ plugins {
 
 android {
     compileSdk 33
-    def version = "1.0.0"
+    def version = "1.0.1"
     //Increment before every update
-    def code = 2
+    def code = 3
     defaultConfig {
         applicationId "app.personal.fury"
         minSdk 28
