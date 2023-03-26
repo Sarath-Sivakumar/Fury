@@ -34,13 +34,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.ads.AdError;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -87,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView userDp;
     private TextView userName;
     private static TutorialUtil util;
-    private InterstitialAd interstitial;
+//    private InterstitialAd interstitial;
     @ColorInt
     private int accent;
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
@@ -96,20 +89,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        vm = new ViewModelProvider(this).get(mainViewModel.class);
+        setCurrency();
         init();
-        final TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        String code;
-        if (!tm.getSimCountryIso().isEmpty()) {
-            code = tm.getSimCountryIso();
-            vm.setCountryCode(code);
-            vm.initCurrency();
-            vm.getRupee().observe(this, Constants::setRUPEE);
-        } else {
-            code = tm.getNetworkCountryIso();
-            vm.setCountryCode(code);
-            vm.initCurrency();
-            vm.getRupee().observe(this, Constants::setRUPEE);
-        }
         setNav();
         setUserViewModel();
         try {
@@ -124,6 +106,22 @@ public class MainActivity extends AppCompatActivity {
             tb.setTitle(Constants.main);
             vp.setCurrentItem(2, true);
 //            initAd();
+        }
+    }
+
+    private void setCurrency(){
+        final TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        String code;
+        if (!tm.getSimCountryIso().isEmpty()) {
+            code = tm.getSimCountryIso();
+            vm.setCountryCode(code);
+            vm.initCurrency();
+            vm.getRupee().observe(this, Constants::setRUPEE);
+        } else {
+            code = tm.getNetworkCountryIso();
+            vm.setCountryCode(code);
+            vm.initCurrency();
+            vm.getRupee().observe(this, Constants::setRUPEE);
         }
     }
 
@@ -228,7 +226,6 @@ public class MainActivity extends AppCompatActivity {
         //init AD here..
         uvm = new ViewModelProvider(this).get(userInitViewModel.class);
         userVM = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
-        vm = new ViewModelProvider(this).get(mainViewModel.class);
 
         //Firebase Topics to be implemented here..
         vm.initFirebaseMessagingService(Constants.ExpFirebaseService);
