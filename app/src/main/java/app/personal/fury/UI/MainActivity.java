@@ -604,10 +604,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public static int getTab() {
-        return vp.getCurrentItem();
-    }
-
     public void isStoragePermissionGranted() {
         if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED) {
