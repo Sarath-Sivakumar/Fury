@@ -19,6 +19,8 @@ public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.salHolder>
     private final List<salaryEntity> salList = new ArrayList<>();
     private onItemClickListener listener;
 
+    private String Currency;
+
     @NonNull
     @Override
     public salHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -31,7 +33,7 @@ public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.salHolder>
     @Override
     public void onBindViewHolder(@NonNull salHolder holder, int position) {
         salaryEntity entity = salList.get(position);
-        String s1 = "+" +Constants.RUPEE+ entity.getSalary();
+        String s1 = "+" + Currency + entity.getSalary();
         holder.incAmt.setText(s1);
         holder.incName.setText(entity.getIncName());
         String s2;
@@ -65,7 +67,8 @@ public class salaryAdapter extends RecyclerView.Adapter<salaryAdapter.salHolder>
         return salList.size();
     }
 
-    public void setSal(List<salaryEntity> exp) {
+    public void setSal(List<salaryEntity> exp, String Currency) {
+        this.Currency = Currency;
         clear();
         this.salList.addAll(exp);
         notifyDataSetChanged();

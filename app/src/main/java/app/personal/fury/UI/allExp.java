@@ -40,6 +40,7 @@ public class allExp extends AppCompatActivity {
     private mainViewModel vm;
     private RecyclerView.ViewHolder ViewHolder;
     private LinearLayout empty;
+    private String Currency = "";
 //    Button clearAll;
 
     @Override
@@ -165,10 +166,15 @@ public class allExp extends AppCompatActivity {
         vm.getExp().observe(this, entity -> {
             if (!entity.isEmpty()) {
                 adapter.clear();
-                adapter.setExp(entity, false);
+                adapter.setExp(entity, false, Currency);
                 showRecyclerView();
             } else {
                 showEmpty();
+            }
+        });
+        vm.getRupee().observe(this, String->{
+            if (!String.equals("null")){
+                Currency = String;
             }
         });
     }
@@ -190,7 +196,7 @@ public class allExp extends AppCompatActivity {
         time = view.findViewById(R.id.time);
 
         cat.setText(exp.getExpenseName());
-        String s = Constants.RUPEE + exp.getExpenseAmt();
+        String s = Currency + exp.getExpenseAmt();
         amt.setText(s);
         date.setText(exp.getDate());
         day.setText(Commons.getDisplayDay(exp.getDay()));

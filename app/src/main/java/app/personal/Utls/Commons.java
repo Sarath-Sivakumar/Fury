@@ -112,7 +112,7 @@ public class Commons {
         }
     }
 
-    public static String getAvg(List<expEntity> listData, boolean AvgDisplay) {
+    public static String getAvg(List<expEntity> listData, boolean AvgDisplay, String Currency) {
         ArrayList<Integer> byDayTotal = new ArrayList<>(), daily = new ArrayList<>();
         int mainListSize = listData.size();
         String lastDate = "";
@@ -169,7 +169,7 @@ public class Commons {
             }
         }
         if (AvgDisplay) {
-            return findAvg(byDayTotal);
+            return findAvg(byDayTotal, Currency);
         } else {
             return limiterAvg(byDayTotal);
         }
@@ -189,14 +189,14 @@ public class Commons {
         }
     }
 
-    private static String findAvg(ArrayList<Integer> totalExp) {
+    private static String findAvg(ArrayList<Integer> totalExp, String Currency) {
 
         if (totalExp.size() >= DAYS_LIMIT) {
             int total = 0;
             for (int i = 0; i < totalExp.size(); i++) {
                 total = total + totalExp.get(i);
             }
-            return Constants.RUPEE + total / totalExp.size() + "/Day";
+            return Currency + total / totalExp.size() + "/Day";
         } else {
             return Constants.dAvgNoData;
         }

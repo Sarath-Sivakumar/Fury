@@ -22,7 +22,7 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     private int totalSum = 0;
     private final int isRepeating;
     private int repeatSize = 0;
-
+    private String Currency = "";
     public dueAdapter(int isRepeating){
         this.isRepeating = isRepeating;
     }
@@ -52,7 +52,7 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
     public void onBindViewHolder(@NonNull expHolder holder, int position) {
         debtEntity entity = debt.get(position);
         int custom_paid = Color.parseColor("#23a05a");
-        String amt = Constants.RUPEE + entity.getAmount();
+        String amt = Currency + entity.getAmount();
         holder.dAmt.setText(amt);
         String uname = entity.getSource();
         String[] arr = uname.split(" ");
@@ -86,7 +86,8 @@ public class dueAdapter extends RecyclerView.Adapter<dueAdapter.expHolder> {
         return totalSum;
     }
 
-    public void setDebt(List<debtEntity> debt, int filter) {
+    public void setDebt(List<debtEntity> debt, int filter, String Currency) {
+        this.Currency = Currency;
         totalSum = 0;
         for (int i = 0; i < debt.size(); i++) {
             if (debt.get(i).getStatus().equals(Constants.DEBT_NOT_PAID)){

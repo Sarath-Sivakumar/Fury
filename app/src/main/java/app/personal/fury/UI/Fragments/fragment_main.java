@@ -84,6 +84,7 @@ public class fragment_main extends Fragment {
     private boolean isViewed = false, isVisible = false, updateIsViewed = false;
     private final ArrayList<debtEntity> debtList = new ArrayList<>();
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+    private String Currency = "";
     private final int[] FragmentList = new int[]{R.drawable.infos1, R.drawable.infos2,
             R.drawable.infos3, R.drawable.infos4, R.drawable.infos5, R.drawable.infos6};
 
@@ -234,24 +235,24 @@ public class fragment_main extends Fragment {
         totalBa = bankBa[0] + cashBa[0];
 
         try {
-            String cea = Constants.RUPEE + cashEr[0];
+            String cea = Currency + cashEr[0];
             cashEarn.setText(cea);
-            String cex = Constants.RUPEE + cashEx[0];
+            String cex = Currency + cashEx[0];
             cashExp.setText(cex);
-            String cba = Constants.RUPEE + cashBa[0];
+            String cba = Currency + cashBa[0];
             cashBal.setText(cba);
-            String bea = Constants.RUPEE + bankEr[0];
+            String bea = Currency + bankEr[0];
             bankEarn.setText(bea);
-            String bex = Constants.RUPEE + bankEx[0];
+            String bex = Currency + bankEx[0];
             bankExp.setText(bex);
-            String bba = Constants.RUPEE + bankBa[0];
+            String bba = Currency + bankBa[0];
             bankBal.setText(bba);
 
-            String ter = Constants.RUPEE + totalEr;
+            String ter = Currency + totalEr;
             totalEarn.setText(ter);
-            String tex = Constants.RUPEE + totalEx;
+            String tex = Currency + totalEx;
             totalExp.setText(tex);
-            String tba = Constants.RUPEE + totalBa;
+            String tba = Currency + totalBa;
             totalBal.setText(tba);
         } catch (Exception ignored) {
         }
@@ -287,7 +288,7 @@ public class fragment_main extends Fragment {
         yes = v.findViewById(R.id.yes_btn);
         no = v.findViewById(R.id.no_btn);
 
-        String s1 = "The below due of " + Constants.RUPEE + debt.getAmount() + "\nis close to it's deadline";
+        String s1 = "The below due of " + Currency + debt.getAmount() + "\nis close to it's deadline";
 
         mainBody.setText(s1);
         String s2 = debt.getSource();
@@ -366,6 +367,11 @@ public class fragment_main extends Fragment {
         progress = 0;
         salary = 0;
         expense = 0;
+        vm.getRupee().observe(requireActivity(), String->{
+            if (!String.equals("null")){
+                Currency = String;
+            }
+        });
         initViewModel();
 //        MobileAds.initialize(requireContext());
 //        adRequest = new AdRequest.Builder().build();
@@ -407,7 +413,7 @@ public class fragment_main extends Fragment {
     private void getBud() {
         vm.getBudget().observe(requireActivity(), budgetEntities -> {
             try {
-                String s = Constants.RUPEE + budgetEntities.getAmount();
+                String s = Currency + budgetEntities.getAmount();
                 budgetView.setText(s);
                 budgetTotalAmount = budgetEntities.getAmount();
             } catch (Exception e) {
@@ -463,13 +469,13 @@ public class fragment_main extends Fragment {
                 expense = expense + expEntities.get(i).getExpenseAmt();
             }
             try {
-                String p = Constants.RUPEE + expense;
+                String p = Currency + expense;
                 expView.setText(p);
-                if (Commons.getAvg(expEntities, true).equals(Constants.dAvgNoData)) {
+                if (Commons.getAvg(expEntities, true, Currency).equals(Constants.dAvgNoData)) {
                     dAvg.setTextSize(12);
                 }
                 if (expEntities != null && !expEntities.isEmpty()) {
-                    dAvg.setText(Commons.getAvg(expEntities, true));
+                    dAvg.setText(Commons.getAvg(expEntities, true, Currency));
                 } else {
                     String s = "No data to display";
                     dAvg.setText(s);
@@ -557,7 +563,7 @@ public class fragment_main extends Fragment {
                 setStat();
                 dAdapter.clear();
                 if (debtEntities != null) {
-                    dAdapter.setDues(debtEntities);
+                    dAdapter.setDues(debtEntities, Currency);
                     if (dAdapter.getItemCount() <= 0) {
                         dueList.setVisibility(View.GONE);
                         noDues.setVisibility(View.VISIBLE);
@@ -585,7 +591,7 @@ public class fragment_main extends Fragment {
         }
         setStat();
         mainProgressText.setText(prg);
-        String p = Constants.RUPEE + expense;
+        String p = Currency + expense;
         expView.setText(p);
     }
 

@@ -18,8 +18,9 @@ import app.personal.Utls.Constants;
 import app.personal.fury.R;
 
 public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
-    private final List<expEntity> exp = new ArrayList<>(), budProg = new ArrayList<>();
+    private final List<expEntity> exp = new ArrayList<>();
     private onItemClickListener listener;
+    private String Currency;
 
     @NonNull
     @Override
@@ -33,7 +34,7 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
     @Override
     public void onBindViewHolder(@NonNull expHolder holder, int position) {
         expEntity currentExp = exp.get(position);
-        String DisplayAmt = "-"+Constants.RUPEE + currentExp.getExpenseAmt();
+        String DisplayAmt = "-"+ Currency + currentExp.getExpenseAmt();
         holder.expAmt.setText(DisplayAmt);
         holder.expName.setText(currentExp.getExpenseName());
         holder.expDate.setText(currentExp.getDate());
@@ -96,12 +97,12 @@ public class expAdapter extends RecyclerView.Adapter<expAdapter.expHolder> {
     }
 
     public String getTotalExpStr() {
-        return Constants.RUPEE + getTotalExpInt();
+        return Currency + getTotalExpInt();
     }
 
-    public void setExp(List<expEntity> exp, boolean filter) {
+    public void setExp(List<expEntity> exp, boolean filter, String Currency) {
+        this.Currency = Currency;
         clear();
-        budProg.addAll(exp);
         if (filter) {
             int size = exp.size();
             for (int i = 0; i < size; i++) {

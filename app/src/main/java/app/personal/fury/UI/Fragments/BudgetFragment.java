@@ -1,7 +1,6 @@
 package app.personal.fury.UI.Fragments;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 
@@ -20,16 +19,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -65,7 +58,7 @@ public class BudgetFragment extends Fragment {
 //    private LinearLayout adLayout;
 //    private AdRequest adRequest;
     private int prevType = 3, prevAmt = 0;
-    private String prevDate = "0";
+    private String prevDate = "0", Currency = "";
     private TutorialUtil util;
 
     public BudgetFragment() {
@@ -84,6 +77,11 @@ public class BudgetFragment extends Fragment {
 
     private void init() {
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+        vm.getRupee().observe(requireActivity(), String->{
+            if (!String.equals("null")){
+                Currency = String;
+            }
+        });
     }
 
     @Override
@@ -153,9 +151,9 @@ public class BudgetFragment extends Fragment {
                 prevType = budgetEntities.getRefreshPeriod();
                 prevDate = budgetEntities.getCreationDate();
                 prevAmt = budgetEntities.getAmount();
-                String s = Constants.RUPEE + budgetEntities.getAmount();
+                String s = Currency + budgetEntities.getAmount();
                 BudgetAmt.setText(s);
-                String s1 = Constants.RUPEE + budgetEntities.getBal();
+                String s1 = Currency + budgetEntities.getBal();
                 Balance.setText(s1);
                 String s2;
                 adapter.setBudgetInfo(budgetEntities.getCreationDate(), budgetEntities.getRefreshPeriod());
@@ -165,9 +163,9 @@ public class BudgetFragment extends Fragment {
                     deletedOnce = true;
                 }
                 if (prevType == Constants.BUDGET_MONTHLY) {
-                    s2 = Constants.RUPEE + (budgetEntities.getAmount() / Commons.getDays(Calendar.MONTH)) + " /day";
+                    s2 = Currency + (budgetEntities.getAmount() / Commons.getDays(Calendar.MONTH)) + " /day";
                 } else if (prevType == Constants.BUDGET_WEEKLY) {
-                    s2 = Constants.RUPEE + (budgetEntities.getAmount() / 7) + " /day";
+                    s2 = Currency + (budgetEntities.getAmount() / 7) + " /day";
                 } else {
                     s2 = "-";
                 }
@@ -175,9 +173,9 @@ public class BudgetFragment extends Fragment {
 
             } catch (Exception e) {
                 try {
-                    String s = Constants.RUPEE + "0";
+                    String s = Currency + "0";
                     BudgetAmt.setText(s);
-                    String s1 = Constants.RUPEE + "0";
+                    String s1 = Currency + "0";
                     Balance.setText(s1);
                     String s2 = "-";
                     DailyLimitAllowed.setText(s2);
@@ -190,17 +188,17 @@ public class BudgetFragment extends Fragment {
             int total = 0;
             adapter.clear();
             if (expEntities != null && !expEntities.isEmpty()) {
-                adapter.setExp(expEntities);
+                adapter.setExp(expEntities, Currency);
                 for (int i = 0; i < expEntities.size(); i++) {
                     total = total + expEntities.get(i).getExpenseAmt();
                 }
                 try {
-                    String s = Commons.getAvg(expEntities, true);
+                    String s = Commons.getAvg(expEntities, true, Currency);
                     CurrentDailyLimit.setText(s);
                     if (Objects.equals(s, "Collecting data!")) {
                         CurrentDailyLimit.setTextSize(12);
                     }
-                    String s1 = Constants.RUPEE + total;
+                    String s1 = Currency + total;
                     Expense.setText(s1);
                 } catch (Exception ignored) {
                 }
@@ -210,7 +208,7 @@ public class BudgetFragment extends Fragment {
                     String s = "No data";
                     CurrentDailyLimit.setText(s);
                     CurrentDailyLimit.setTextSize(14);
-                    String s1 = Constants.RUPEE + total;
+                    String s1 = Currency + total;
                     Expense.setText(s1);
                 } catch (Exception ignored) {
                 }
@@ -340,7 +338,7 @@ public class BudgetFragment extends Fragment {
             grp.check(R.id.weekly);
         }
 
-        String s = Constants.RUPEE + totalSalary;
+        String s = Currency + totalSalary;
         income.setText(s);
 
         yes.setOnClickListener(v -> {

@@ -64,7 +64,7 @@ public class Exp_Tracker extends Fragment {
     private TextView balanceView, expView, inHandExp, accountExp, inHandCount, accountCount, dLimit;
     private RecyclerView.ViewHolder ViewHolder;
     private int accBal = 0, inHandBal = 0, cashAmt, cashCount, accAmt, accCount, cDAvg, s2;
-    private String userName = "";
+    private String userName = "", Currency = "";
     private AppUtilViewModel appVM;
 //    private AdView ad;
 //    private AdRequest adRequest;
@@ -101,7 +101,7 @@ public class Exp_Tracker extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         fltBtn.setOnClickListener(v1 -> callPopupWindow(Constants.itemAdd));
-        String s1 = Constants.RUPEE + (getBalance() + getInHandBalance());
+        String s1 = Currency + (getBalance() + getInHandBalance());
         balanceView.setText(s1);
     }
 
@@ -112,6 +112,11 @@ public class Exp_Tracker extends Fragment {
             userName = String.valueOf(c[0]);
         });
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
+        vm.getRupee().observe(requireActivity(), String->{
+            if (!String.equals("null")){
+                Currency = String;
+            }
+        });
         appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
 //        adRequest = new AdRequest.Builder().build();
     }
@@ -119,7 +124,7 @@ public class Exp_Tracker extends Fragment {
     private void getExp() {
         vm.getExp().observe(requireActivity(), e -> {
             adapter.clear();
-            adapter.setExp(e, true);
+            adapter.setExp(e, true, Currency);
             try {
                 expView.setText(adapter.getTotalExpStr());
                 cashAmt = 0;
@@ -128,13 +133,13 @@ public class Exp_Tracker extends Fragment {
                 accCount = 0;
                 if (e != null) {
                     if (!e.isEmpty()) {
-                        String s = Commons.getAvg(e, true);
+                        String s = Commons.getAvg(e, true, Currency);
                         if (s.equals("Processing")) {
                             dLimit.setTextSize(14);
                         }
                         dLimit.setText(s);
-                        cDAvg = Integer.parseInt(Commons.getAvg(e, false));
-                        Log.e("Daily avg", "Value: " + Commons.getAvg(e, false));
+                        cDAvg = Integer.parseInt(Commons.getAvg(e, false, Currency));
+                        Log.e("Daily avg", "Value: " + Commons.getAvg(e, false, Currency));
                     } else {
                         String s = "No data";
                         dLimit.setTextSize(14);
@@ -151,7 +156,7 @@ public class Exp_Tracker extends Fragment {
                         }
                     }
                     try {
-                        String s1 = Constants.RUPEE + cashAmt, s2 = Constants.RUPEE + accAmt;
+                        String s1 = Currency + cashAmt, s2 = Currency + accAmt;
                         inHandExp.setText(s1);
                         accountExp.setText(s2);
                         inHandCount.setText(String.valueOf(cashCount));
@@ -247,7 +252,7 @@ public class Exp_Tracker extends Fragment {
                 accBal = entity.getBalance();
             }
             try {
-                String s = Constants.RUPEE + (accBal + inHandBal);
+                String s = Currency + (accBal + inHandBal);
                 balanceView.setText(s);
             } catch (Exception ignored) {
             }
@@ -263,7 +268,7 @@ public class Exp_Tracker extends Fragment {
                 inHandBal = entity.getBalance();
             }
             try {
-                String s = Constants.RUPEE + (accBal + inHandBal);
+                String s = Currency + (accBal + inHandBal);
                 balanceView.setText(s);
             } catch (Exception ignored) {
             }
@@ -312,7 +317,7 @@ public class Exp_Tracker extends Fragment {
             };
         }
         dAvg = view.findViewById(R.id.expDAvg);
-        String s = Constants.RUPEE + cDAvg + " /Day";
+        String s = Currency + cDAvg + " /Day";
         dAvg.setText(s);
 
         popupWindow.setFocusable(true);
@@ -370,7 +375,7 @@ public class Exp_Tracker extends Fragment {
                 vm.DeleteExp(entity);
                 adapter.clear();
                 expView.setText(adapter.getTotalExpStr());
-                String s = Constants.RUPEE + (accBal + inHandBal);
+                String s = Currency + (accBal + inHandBal);
                 balanceView.setText(s);
                 adapter.notifyDataSetChanged();
                 popupWindow.dismiss();
@@ -394,9 +399,9 @@ public class Exp_Tracker extends Fragment {
             TextView unwanted = view.findViewById(R.id.expAmtDisp);
             unwanted.setVisibility(View.GONE);
 
-            String s1 = Constants.RUPEE + inHandBal;
+            String s1 = Currency + inHandBal;
             cashAmt.setText(s1);
-            String s2 = Constants.RUPEE + accBal;
+            String s2 = Currency + accBal;
             accAmt.setText(s2);
 
             String s = "Debit mode";
@@ -541,7 +546,7 @@ public class Exp_Tracker extends Fragment {
         }
 
         expView.setText(adapter.getTotalExpStr());
-        String s = Constants.RUPEE + (accBal + inHandBal);
+        String s = Currency + (accBal + inHandBal);
         balanceView.setText(s);
     }
 
@@ -614,7 +619,7 @@ public class Exp_Tracker extends Fragment {
         time = view.findViewById(R.id.time);
 
         cat.setText(exp.getExpenseName());
-        String s = Constants.RUPEE + exp.getExpenseAmt();
+        String s = Currency + exp.getExpenseAmt();
         amt.setText(s);
         date.setText(exp.getDate());
         day.setText(Commons.getDisplayDay(exp.getDay()));
