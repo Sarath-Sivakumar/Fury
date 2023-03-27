@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,6 @@ import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -30,11 +30,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -62,9 +57,10 @@ public class Dues_Debt extends Fragment {
     private mainViewModel vm;
     private AppUtilViewModel appVM;
     private TutorialUtil util;
+    private String Currency = "";
     private dueAdapter mainDueAdapter, repeatDue;
     private int finalTotalDue = 0;
-//    private AdView ad;
+    //    private AdView ad;
 //    private LinearLayout adLayout;
 //    private AdRequest adRequest;
     private FloatingActionButton fltBtn;
@@ -79,6 +75,11 @@ public class Dues_Debt extends Fragment {
         repeatDue = new dueAdapter(1);
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
+        vm.getRupee().observe(requireActivity(), String -> {
+            if (!String.equals("null")) {
+                Currency = String;
+            }
+        });
 //        MobileAds.initialize(requireContext());
 //        adRequest = new AdRequest.Builder().build();
     }
@@ -290,17 +291,25 @@ public class Dues_Debt extends Fragment {
             if (entity != null) {
                 mainDueAdapter.clear();
                 repeatDue.clear();
-                repeatDue.setDebt(entity, 3);
-                mainDueAdapter.setDebt(entity, 1);
+                repeatDue.setDebt(entity, 3, Currency);
+                mainDueAdapter.setDebt(entity, 1, Currency);
                 finalTotalDue = 0;
                 finalTotalDue = mainDueAdapter.getTotalDebt();
-                String totalDues = "0" + mainDueAdapter.getItemCount();
-                noDues.setText(totalDues);
-                String totalRepeatingDue = "0" + repeatDue.getItemCount();
-                totalRepeatingDues.setText(totalRepeatingDue);
+                try {
+                    String totalDues = "0" + mainDueAdapter.getItemCount();
+                    noDues.setText(totalDues);
+                    String totalRepeatingDue = "0" + repeatDue.getItemCount();
+                    totalRepeatingDues.setText(totalRepeatingDue);
+                } catch (Exception e) {
+                    Log.e("Due", "inside if error: " + e.getMessage());
+                }
             }
-            String s = Constants.RUPEE + finalTotalDue;
-            totalDueDisplay.setText(s);
+            try {
+                String s = Currency + finalTotalDue;
+                totalDueDisplay.setText(s);
+            } catch (Exception e) {
+                Log.e("Due", "outside if error: " + e.getMessage());
+            }
         });
     }
 

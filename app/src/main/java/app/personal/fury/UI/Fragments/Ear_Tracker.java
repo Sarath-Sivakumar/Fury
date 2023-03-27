@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,11 +28,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -71,7 +67,7 @@ public class Ear_Tracker extends Fragment {
 //    private AdView ad;
 //    private LinearLayout adLayout;
 //    private AdRequest adRequest;
-    private String budDate;
+    private String budDate, Currency="";
     private final int[] FragmentList =
             new int[]{R.drawable.info_h1, R.drawable.info_h2,
                     R.drawable.info_h3, R.drawable.info_h4,
@@ -89,6 +85,11 @@ public class Ear_Tracker extends Fragment {
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         appVm = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
         adapter = new salaryAdapter();
+        vm.getRupee().observe(requireActivity(), String->{
+            if (!String.equals("null")){
+                Currency = String;
+            }
+        });
 //        if (savedInstanceState == null) {
 //            MobileAds.initialize(requireContext());
 //            adRequest = new AdRequest.Builder().build();
@@ -97,18 +98,11 @@ public class Ear_Tracker extends Fragment {
         balanceEntity = getBal();
     }
 
-    private void initAd() {
-//        Init ad here if necessary else delete method.
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-        adapter = new salaryAdapter();
         View v = inflater.inflate(R.layout.main_fragment_earningstracker, container, false);
-        initAd();
         findView(v);
 //        if (savedInstanceState == null) {
 //            requestAd();
@@ -139,7 +133,7 @@ public class Ear_Tracker extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        String s = Constants.RUPEE + getSalary();
+        String s = Currency + getSalary();
         SalAmt.setText(s);
         getExp();
         util = new TutorialUtil(requireActivity(), requireContext(), requireActivity(), requireActivity());
@@ -228,7 +222,7 @@ public class Ear_Tracker extends Fragment {
         } else {
             assert salary != null;
             unwanted.setVisibility(View.VISIBLE);
-            String s = Constants.RUPEE + salary.getSalary();
+            String s = Currency + salary.getSalary();
             unwanted.setText(s);
 
             rdGrp2.setVisibility(View.GONE);
@@ -544,7 +538,7 @@ public class Ear_Tracker extends Fragment {
         vm.getSalary().observe(requireActivity(), entity -> {
             int total = 0;
             if (entity != null) {
-                adapter.setSal(entity);
+                adapter.setSal(entity, Currency);
                 accAmt = 0;
                 accCount = 0;
                 cashAmt = 0;
@@ -561,13 +555,13 @@ public class Ear_Tracker extends Fragment {
                 }
                 finalTotalSalary.set(total);
                 try {
-                    String s1 = Constants.RUPEE + "" + total;
+                    String s1 = Currency + "" + total;
                     SalAmt.setText(s1);
                     inHandCount.setText(String.valueOf(cashCount));
                     accountCount.setText(String.valueOf(accCount));
-                    String s2 = Constants.RUPEE + "" + accAmt;
+                    String s2 = Currency + "" + accAmt;
                     accountAmt.setText(s2);
-                    String s3 = Constants.RUPEE + "" + cashAmt;
+                    String s3 = Currency + "" + cashAmt;
                     inHandAmt.setText(s3);
 
                 } catch (Exception e) {

@@ -18,17 +18,6 @@ public class Constants {
     //DO NOT CHANGE------------------------------------------------
     public static final int DB_VERSION = 14;
     //-------------------------------------------------------------
-
-    public static String RUPEE;
-
-    public static void setRUPEE(String symbol) {
-        RUPEE = symbol;
-    }
-
-    public static String getRUPEE() {
-        return RUPEE;
-    }
-
     public static final String Dues = "Dues And Debt",
             Exp = "Expense Tracker",
             Earnings = "Earnings Tracker",

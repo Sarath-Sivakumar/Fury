@@ -28,6 +28,7 @@ public class allDues extends AppCompatActivity {
     private dueAdapter adapter;
     private mainViewModel vm;
     private LinearLayout empty;
+    private String Currency = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +69,15 @@ public class allDues extends AppCompatActivity {
     private void initViewModel() {
         adapter = new dueAdapter(2);
         vm = new ViewModelProvider(this).get(mainViewModel.class);
+        vm.getRupee().observe(this, String->{
+            if (!String.equals("null")){
+                Currency = String;
+            }
+        });
         vm.getDebt().observe(this, entity -> {
             if (!entity.isEmpty()) {
                 adapter.clear();
-                adapter.setDebt(entity, 0);
+                adapter.setDebt(entity, 0, Currency);
                 showRecyclerView();
             } else {
                 showEmpty();

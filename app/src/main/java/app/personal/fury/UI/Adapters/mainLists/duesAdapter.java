@@ -26,6 +26,7 @@ public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
 
 //    private onItemClickListener listener;
     private final List<debtEntity> debt = new ArrayList<>();
+    private String Currency;
 
     @NonNull
     @Override
@@ -49,7 +50,7 @@ public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
             long daysDiff = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
             if ((int)daysDiff >= 1 && entity.getStatus().equals(Constants.DEBT_NOT_PAID)){
                 holder.day.setText(String.valueOf((int) daysDiff));
-                String s = Constants.RUPEE+entity.getAmount();
+                String s = Currency +entity.getAmount();
                 holder.dueAmt.setText(s);
                 String dueName = entity.getSource();
                 String[] arr = dueName.split(" ");
@@ -70,7 +71,8 @@ public class duesAdapter extends RecyclerView.Adapter<duesAdapter.dueHolder>{
         debt.clear();
     }
 
-    public void setDues(List<debtEntity> debt){
+    public void setDues(List<debtEntity> debt, String Currency){
+        this.Currency = Currency;
         clear();
         int size = debt.size();
         for (int i = 0;i<size;i++){

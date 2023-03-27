@@ -25,7 +25,7 @@ public class budgetAdapter extends RecyclerView.Adapter<budgetAdapter.topCatHold
             electricity = new ArrayList<>(), recharge = new ArrayList<>(), fees = new ArrayList<>(),
             subscriptions = new ArrayList<>(), health = new ArrayList<>(), bills = new ArrayList<>(),
             others = new ArrayList<>();
-    private String CreationDate;
+    private String CreationDate, RUPEE;
     private int BudgetType;
 
     @NonNull
@@ -40,7 +40,7 @@ public class budgetAdapter extends RecyclerView.Adapter<budgetAdapter.topCatHold
     @Override
     public void onBindViewHolder(@NonNull topCatHolder holder, int position) {
         expEntity currentExp = toDisplay.get(position);
-        String DisplayAmt = Constants.RUPEE + currentExp.getExpenseAmt();
+        String DisplayAmt = RUPEE + currentExp.getExpenseAmt();
         holder.amt.setText(DisplayAmt);
         holder.name.setText(currentExp.getExpenseName());
 
@@ -113,7 +113,8 @@ public class budgetAdapter extends RecyclerView.Adapter<budgetAdapter.topCatHold
         this.CreationDate = CreationDate;
         this.BudgetType = BudgetType;
     }
-    public void setExp(List<expEntity> allExp) {
+    public void setExp(List<expEntity> allExp, String Currency) {
+        this.RUPEE = Currency;
         for (int i = 0; i < allExp.size(); i++) {
             if (Commons.isAfterDate(allExp.get(i).getDate())){
                 listSplitter(allExp, i);

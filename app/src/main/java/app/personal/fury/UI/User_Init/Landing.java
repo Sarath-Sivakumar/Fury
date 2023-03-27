@@ -31,12 +31,10 @@ public class Landing extends AppCompatActivity {
             code = tm.getSimCountryIso();
             vm.setCountryCode(code);
             vm.initCurrency();
-            vm.getRupee().observe(this, Constants::setRUPEE);
         } else {
             code = tm.getNetworkCountryIso();
             vm.setCountryCode(code);
             vm.initCurrency();
-            vm.getRupee().observe(this, Constants::setRUPEE);
         }
     }
 
