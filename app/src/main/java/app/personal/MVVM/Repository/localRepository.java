@@ -58,7 +58,23 @@ public class localRepository {
                 String country_code = String.toLowerCase(Locale.US);
                 Log.e("Currency", "code: " + country_code);
                 String currency = Currency.getInstance(new Locale("", country_code)).getSymbol();
-                getRupee.postValue(currency);
+                if (!currency.equals("null")){
+                    getRupee.postValue(currency);
+                }else{
+                    Log.e("Currency", "code: " + currency);
+                    new CountDownTimer(500, 1000) {
+
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            initCurrency();
+                        }
+                    };
+                }
             } else {
                 Log.e("Currency", "code: Default :" + String);
                 new CountDownTimer(1000, 1000) {
