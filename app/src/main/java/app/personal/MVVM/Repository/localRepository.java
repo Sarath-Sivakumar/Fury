@@ -62,7 +62,7 @@ public class localRepository {
                     getRupee.postValue(currency);
                 }else{
                     Log.e("Currency", "code: " + currency);
-                    new CountDownTimer(500, 1000) {
+                    new CountDownTimer(500, 500) {
 
                         @Override
                         public void onTick(long millisUntilFinished) {
@@ -77,7 +77,7 @@ public class localRepository {
                 }
             } else {
                 Log.e("Currency", "code: Default :" + String);
-                new CountDownTimer(1000, 1000) {
+                new CountDownTimer(500, 500) {
 
                     @Override
                     public void onTick(long millisUntilFinished) {
