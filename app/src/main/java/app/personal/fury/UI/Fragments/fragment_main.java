@@ -235,7 +235,7 @@ public class fragment_main extends Fragment {
         totalBa = bankBa[0] + cashBa[0];
 
         try {
-            String cea = Currency + cashEr[0];
+            String cea = vm.getRupee().getValue() + cashEr[0];
             cashEarn.setText(cea);
             String cex = Currency + cashEx[0];
             cashExp.setText(cex);
