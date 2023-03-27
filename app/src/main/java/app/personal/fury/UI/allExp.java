@@ -174,7 +174,7 @@ public class allExp extends AppCompatActivity {
         });
         vm.getRupee().observe(this, String->{
             if (!String.equals("null")){
-                Currency = String;
+                Currency = String.getCurrency();
             }
         });
     }

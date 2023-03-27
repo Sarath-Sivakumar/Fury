@@ -14,6 +14,7 @@ import java.util.List;
 
 import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.budgetEntity;
+import app.personal.MVVM.Entity.currencyEntity;
 import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Entity.inHandBalEntity;
@@ -29,7 +30,7 @@ public class mainViewModel extends AndroidViewModel {
     private final LiveData<budgetEntity> getBudget;
     private final LiveData<List<expEntity>> getExp;
     private final LiveData<List<salaryEntity>> getSalary;
-    private final MutableLiveData<String> getRupee;
+    private final MutableLiveData<currencyEntity> getRupee;
 
     public mainViewModel(@NonNull Application application) {
         super(application);
@@ -52,7 +53,7 @@ public class mainViewModel extends AndroidViewModel {
         repo.initCurrency();
     }
 
-    public MutableLiveData<String> getRupee(){
+    public MutableLiveData<currencyEntity> getRupee(){
         return getRupee;
     }
 
