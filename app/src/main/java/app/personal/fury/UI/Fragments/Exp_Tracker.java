@@ -113,7 +113,7 @@ public class Exp_Tracker extends Fragment {
         });
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         vm.getRupee().observe(requireActivity(), String->{
-            if (!String.equals("null")){
+            if (String!=null||!String.getCurrency().equals("")){
                 Currency = String.getCurrency();
             }
         });

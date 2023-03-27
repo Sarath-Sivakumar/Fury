@@ -85,7 +85,7 @@ public class Ear_Tracker extends Fragment {
         super.onCreate(savedInstanceState);
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         vm.getRupee().observe(requireActivity(), String->{
-            if (String!=null||!String.getCurrency().trim().equals("")){
+            if (String!=null||!String.getCurrency().equals("")){
                 Currency = String.getCurrency();
             }else{
                 vm.initCurrency();

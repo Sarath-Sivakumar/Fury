@@ -76,7 +76,7 @@ public class Dues_Debt extends Fragment {
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
         vm.getRupee().observe(requireActivity(), String -> {
-            if (!String.equals("null")) {
+            if (String!=null||!String.getCurrency().equals("")) {
                 Currency = String.getCurrency();
             }
         });

@@ -363,7 +363,7 @@ public class fragment_main extends Fragment {
         salary = 0;
         expense = 0;
         vm.getRupee().observe(requireActivity(), String->{
-            if (String!=null||!String.equals("")){
+            if (String!=null||!String.getCurrency().equals("")){
                 Currency = String.getCurrency();
             }else{
                 vm.initCurrency();
