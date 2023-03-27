@@ -79,7 +79,7 @@ public class BudgetFragment extends Fragment {
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
         vm.getRupee().observe(requireActivity(), String->{
             if (!String.equals("null")){
-                Currency = String;
+                Currency = String.getCurrency();
             }
         });
     }

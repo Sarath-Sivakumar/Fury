@@ -77,7 +77,7 @@ public class Dues_Debt extends Fragment {
         appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
         vm.getRupee().observe(requireActivity(), String -> {
             if (!String.equals("null")) {
-                Currency = String;
+                Currency = String.getCurrency();
             }
         });
 //        MobileAds.initialize(requireContext());

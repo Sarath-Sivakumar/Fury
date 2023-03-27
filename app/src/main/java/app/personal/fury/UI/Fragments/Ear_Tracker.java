@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,13 +84,15 @@ public class Ear_Tracker extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-        appVm = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
-        adapter = new salaryAdapter();
         vm.getRupee().observe(requireActivity(), String->{
-            if (!String.equals("null")){
-                Currency = String;
+            if (String!=null||!String.getCurrency().trim().equals("")){
+                Currency = String.getCurrency();
+            }else{
+                vm.initCurrency();
             }
         });
+        appVm = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
+        adapter = new salaryAdapter();
 //        if (savedInstanceState == null) {
 //            MobileAds.initialize(requireContext());
 //            adRequest = new AdRequest.Builder().build();

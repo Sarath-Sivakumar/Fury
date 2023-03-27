@@ -16,6 +16,7 @@ import app.personal.MVVM.DB.localDB;
 import app.personal.MVVM.Dao.localDao;
 import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.budgetEntity;
+import app.personal.MVVM.Entity.currencyEntity;
 import app.personal.MVVM.Entity.debtEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Entity.inHandBalEntity;
@@ -29,8 +30,9 @@ public class localRepository {
     private final LiveData<inHandBalEntity> getInHandBal;
     private final LiveData<List<expEntity>> getExp;
     private final LiveData<List<salaryEntity>> getSalary;
-    private final MutableLiveData<String> getRupee, countryCode;
-    private String currency;
+    private final MutableLiveData<currencyEntity> getRupee;
+    private final MutableLiveData<String> countryCode;
+    private final currencyEntity currency = new currencyEntity("");
 
     public localRepository(Application application) {
         localDB db = localDB.getInstance(application);
@@ -43,10 +45,10 @@ public class localRepository {
         getInHandBal = dao.getInHandBalData();
         getRupee = new MutableLiveData<>();
         countryCode = new MutableLiveData<>();
-        currency = "";
+        getRupee.postValue(currency);
     }
 
-    public MutableLiveData<String> getRupee() {
+    public MutableLiveData<currencyEntity> getRupee() {
         return getRupee;
     }
 
@@ -58,12 +60,10 @@ public class localRepository {
         countryCode.observeForever(String -> {
             if (String != null && String.length() == 2) {
                 String country_code = String.toLowerCase(Locale.US);
-                Log.e("Currency", "code: " + country_code);
                 String currency = Currency.getInstance(new Locale("", country_code)).getSymbol();
-                if (!currency.equals("null")){
-                    this.currency = currency;
+                if (!currency.equals("")){
+                    this.currency.setCurrency(currency);
                 }else{
-                    Log.e("Currency", "code: " + currency);
                     new CountDownTimer(500, 500) {
 
                         @Override

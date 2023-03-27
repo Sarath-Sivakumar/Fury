@@ -25,11 +25,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.tabs.TabLayout;
 
@@ -368,8 +363,10 @@ public class fragment_main extends Fragment {
         salary = 0;
         expense = 0;
         vm.getRupee().observe(requireActivity(), String->{
-            if (!String.equals("null")){
-                Currency = String;
+            if (String!=null||!String.equals("")){
+                Currency = String.getCurrency();
+            }else{
+                vm.initCurrency();
             }
         });
         initViewModel();

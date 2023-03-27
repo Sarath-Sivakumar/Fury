@@ -71,7 +71,7 @@ public class allDues extends AppCompatActivity {
         vm = new ViewModelProvider(this).get(mainViewModel.class);
         vm.getRupee().observe(this, String->{
             if (!String.equals("null")){
-                Currency = String;
+                Currency = String.getCurrency();
             }
         });
         vm.getDebt().observe(this, entity -> {

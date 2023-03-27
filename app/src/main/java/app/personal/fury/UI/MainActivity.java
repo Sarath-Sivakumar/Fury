@@ -90,37 +90,42 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         vm = new ViewModelProvider(this).get(mainViewModel.class);
-        setCurrency();
-        init();
-        setNav();
-        setUserViewModel();
-        try {
-            vm.getSalary().observe(this, salaryEntityList -> {
-                if (salaryEntityList != null) {
-                    processSalary(salaryEntityList);
-                }
-            });
-        } catch (Exception ignored) {
-        }
-        if (savedInstanceState == null) {
-            tb.setTitle(Constants.main);
-            vp.setCurrentItem(2, true);
-//            initAd();
-        }
+        setCurrency(savedInstanceState);
     }
 
-    private void setCurrency(){
-        final TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        String code;
-        if (!tm.getSimCountryIso().isEmpty()) {
-            code = tm.getSimCountryIso();
-            vm.setCountryCode(code);
-            vm.initCurrency();
-        } else {
-            code = tm.getNetworkCountryIso();
-            vm.setCountryCode(code);
-            vm.initCurrency();
-        }
+    private void setCurrency(Bundle savedInstanceState){
+        vm.getRupee().observe(this, String->{
+            if (String==null||String.getCurrency().equals("")||String.getCurrency().equals("null")){
+                final TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                String code;
+                if (!tm.getSimCountryIso().isEmpty()) {
+                    code = tm.getSimCountryIso();
+                    vm.setCountryCode(code);
+                    vm.initCurrency();
+                } else {
+                    code = tm.getNetworkCountryIso();
+                    vm.setCountryCode(code);
+                    vm.initCurrency();
+                }
+            }else{
+                init();
+                setNav();
+                setUserViewModel();
+                try {
+                    vm.getSalary().observe(this, salaryEntityList -> {
+                        if (salaryEntityList != null) {
+                            processSalary(salaryEntityList);
+                        }
+                    });
+                } catch (Exception ignored) {
+                }
+                if (savedInstanceState == null) {
+//            tb.setTitle(Constants.main);
+                    vp.setCurrentItem(2, true);
+//            initAd();
+                }
+            }
+        });
     }
 
     private void processSalary(@NonNull List<salaryEntity> salList) {
