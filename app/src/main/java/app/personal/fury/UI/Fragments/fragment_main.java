@@ -529,7 +529,7 @@ public class fragment_main extends Fragment {
 
     private void update() {
         userVM.updateListener().observe(requireActivity(), integer -> {
-            if (integer == Constants.UpdateAvailable) {
+            if (integer!=null&&integer == Constants.UpdateAvailable) {
                 callUpdatePopup();
             }
         });
