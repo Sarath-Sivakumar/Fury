@@ -94,29 +94,37 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         vm = new ViewModelProvider(this).get(mainViewModel.class);
         setCurrency();
-        isLoadComplete.observe(this, Boolean->{
-            if (!isViewLoaded&&Boolean) {
-                Log.e("Main", "onCreate");
-                init();
-                setNav();
-                setUserViewModel();
-                try {
-                    vm.getSalary().observe(this, salaryEntityList -> {
-                        if (salaryEntityList != null) {
-                            processSalary(salaryEntityList);
-                        }
-                    });
-                } catch (Exception ignored) {
+        try{
+            isLoadComplete.observe(this, Boolean -> {
+                if (!isViewLoaded && Boolean) {
+                    OnCreate(savedInstanceState);
+                    isViewLoaded = true;
                 }
-                if (savedInstanceState == null) {
-//            tb.setTitle(Constants.main);
-                    vp.setCurrentItem(2, true);
-//            initAd();
-                }
+            });
+        }catch (Exception e){
+            Log.e("Main", "Dumb phone error :X");
+            OnCreate(savedInstanceState);
+        }
+    }
 
-                isViewLoaded = true;
-            }
-        });
+    private void OnCreate(Bundle savedInstanceState){
+        Log.e("Main", "onCreate");
+        init();
+        setNav();
+        setUserViewModel();
+        try {
+            vm.getSalary().observe(this, salaryEntityList -> {
+                if (salaryEntityList != null) {
+                    processSalary(salaryEntityList);
+                }
+            });
+        } catch (Exception ignored) {
+        }
+        if (savedInstanceState == null) {
+//            tb.setTitle(Constants.main);
+            vp.setCurrentItem(2, true);
+//            initAd();
+        }
     }
 
     private void setCurrency() {
