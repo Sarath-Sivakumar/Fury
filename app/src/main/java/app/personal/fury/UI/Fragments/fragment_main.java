@@ -149,6 +149,7 @@ public class fragment_main extends Fragment {
         allDues.setOnClickListener(v1 -> startActivity(new Intent(getContext(), app.personal.fury.UI.allDues.class)));
         Spinner catFilter = v.findViewById(R.id.catFilter);
         RecyclerView catList = v.findViewById(R.id.catList);
+        dueList.setLayoutManager(new linearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         dueList.setHasFixedSize(true);
         dueList.setAdapter(dAdapter);
         noDues = v.findViewById(R.id.noDues);
