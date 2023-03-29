@@ -1,5 +1,6 @@
 package app.personal.fury.UI.Adapters.mainLists;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,6 +126,8 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         this.salary = salary;
         this.filter = filter;
         orgExp.addAll(exp);
+        Log.e("org","size: "+ orgExp.size());
+        Log.e("exp","size: "+ exp.size());
         Thread t = new Thread(() -> {
             for (int i = 0; i < exp.size(); i++) {
 //            Checks if exp date = current date

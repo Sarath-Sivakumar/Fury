@@ -91,6 +91,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         vm = new ViewModelProvider(this).get(mainViewModel.class);
         setCurrency(savedInstanceState);
+            init();
+            setNav();
+            setUserViewModel();
+            try {
+                vm.getSalary().observe(this, salaryEntityList -> {
+                    if (salaryEntityList != null) {
+                        processSalary(salaryEntityList);
+                    }
+                });
+            } catch (Exception ignored) {
+            }
+        if (savedInstanceState == null) {
+//            tb.setTitle(Constants.main);
+            vp.setCurrentItem(2, true);
+//            initAd();
+        }
     }
 
     private void setCurrency(Bundle savedInstanceState){
@@ -108,22 +124,6 @@ public class MainActivity extends AppCompatActivity {
                     vm.initCurrency();
                 }
             }else{
-                init();
-                setNav();
-                setUserViewModel();
-                try {
-                    vm.getSalary().observe(this, salaryEntityList -> {
-                        if (salaryEntityList != null) {
-                            processSalary(salaryEntityList);
-                        }
-                    });
-                } catch (Exception ignored) {
-                }
-                if (savedInstanceState == null) {
-//            tb.setTitle(Constants.main);
-                    vp.setCurrentItem(2, true);
-//            initAd();
-                }
             }
         });
     }
