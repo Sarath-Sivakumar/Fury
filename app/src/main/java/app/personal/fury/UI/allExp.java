@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -29,7 +28,6 @@ import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
-import app.personal.Utls.Constants;
 import app.personal.Utls.linearLayoutManager;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.expList.expAdapter;
@@ -73,7 +71,6 @@ public class allExp extends AppCompatActivity {
     }
 
     private void setCurrency() {
-//        isLoadComplete.postValue(false);
         vm.getRupee().observe(this, String -> {
             if (String == null || String.getCurrency().equals("") || String.getCurrency().equals("null")) {
                 final TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
@@ -83,13 +80,11 @@ public class allExp extends AppCompatActivity {
                     vm.setCountryCode(code);
                     vm.initCurrency();
                     Log.e("Main", "Currency loaded");
-//                    isLoadComplete.postValue(true);
                 } else {
                     code = tm.getNetworkCountryIso();
                     vm.setCountryCode(code);
                     vm.initCurrency();
                     Log.e("Main", "Currency loaded");
-//                    isLoadComplete.postValue(true);
                 }
             } else {
                 setUi();

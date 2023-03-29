@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -71,7 +70,6 @@ public class allDues extends AppCompatActivity {
     }
 
     private void setCurrency() {
-//        isLoadComplete.postValue(false);
         vm.getRupee().observe(this, String -> {
             if (String == null || String.getCurrency().equals("") || String.getCurrency().equals("null")) {
                 final TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
@@ -81,13 +79,11 @@ public class allDues extends AppCompatActivity {
                     vm.setCountryCode(code);
                     vm.initCurrency();
                     Log.e("Main", "Currency loaded");
-//                    isLoadComplete.postValue(true);
                 } else {
                     code = tm.getNetworkCountryIso();
                     vm.setCountryCode(code);
                     vm.initCurrency();
                     Log.e("Main", "Currency loaded");
-//                    isLoadComplete.postValue(true);
                 }
             }else{
                 initViewModel();

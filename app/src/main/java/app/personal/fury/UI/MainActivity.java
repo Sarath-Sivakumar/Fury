@@ -31,7 +31,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
@@ -84,8 +83,6 @@ public class MainActivity extends AppCompatActivity {
     //    private InterstitialAd interstitial;
     @ColorInt
     private int accent;
-    private boolean isViewLoaded = false;
-//    private MutableLiveData<Boolean> isLoadComplete = new MutableLiveData<Boolean>();
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 
     @Override
@@ -94,12 +91,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         vm = new ViewModelProvider(this).get(mainViewModel.class);
         setCurrency(savedInstanceState);
-//        isLoadComplete.observe(this, Boolean -> {
-//            if (!isViewLoaded && Boolean) {
-//                OnCreate(savedInstanceState);
-//                isViewLoaded = true;
-//            }
-//        });
     }
 
     private void OnCreate(Bundle savedInstanceState) {
@@ -116,14 +107,12 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception ignored) {
         }
         if (savedInstanceState == null) {
-//            tb.setTitle(Constants.main);
             vp.setCurrentItem(2, true);
 //            initAd();
         }
     }
 
     private void setCurrency(Bundle savedInstanceState) {
-//        isLoadComplete.postValue(false);
         vm.getRupee().observe(this, String -> {
             if (String == null || String.getCurrency().equals("") || String.getCurrency().equals("null")) {
                 final TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
@@ -133,13 +122,11 @@ public class MainActivity extends AppCompatActivity {
                     vm.setCountryCode(code);
                     vm.initCurrency();
                     Log.e("Main", "Currency loaded");
-//                    isLoadComplete.postValue(true);
                 } else {
                     code = tm.getNetworkCountryIso();
                     vm.setCountryCode(code);
                     vm.initCurrency();
                     Log.e("Main", "Currency loaded");
-//                    isLoadComplete.postValue(true);
                 }
             }else{
                 OnCreate(savedInstanceState);

@@ -118,7 +118,6 @@ public class fragment_main extends Fragment {
         dueList = v.findViewById(R.id.dueList);
 //        adLayout = v.findViewById(R.id.adLayout);
         statButton = v.findViewById(R.id.stat_switch);
-//        statButton.setText("Inactive");
 
         statView = v.findViewById(R.id.stat_layout);
         statDisabled = v.findViewById(R.id.stat_disable);
@@ -127,11 +126,9 @@ public class fragment_main extends Fragment {
             if (isChecked) {
                 statView.setVisibility(View.VISIBLE);
                 statDisabled.setVisibility(View.GONE);
-//                statButton.setText("Active");
             } else {
                 statView.setVisibility(View.GONE);
                 statDisabled.setVisibility(View.VISIBLE);
-//                statButton.setText("Inactive");
             }
         });
 
