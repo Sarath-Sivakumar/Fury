@@ -126,6 +126,8 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.catHol
         this.salary = salary;
         this.filter = filter;
         orgExp.addAll(exp);
+        Log.e("org","size: "+ orgExp.size());
+        Log.e("exp","size: "+ exp.size());
         Thread t = new Thread(() -> {
             for (int i = 0; i < exp.size(); i++) {
 //            Checks if exp date = current date
