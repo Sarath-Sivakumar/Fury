@@ -94,20 +94,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         vm = new ViewModelProvider(this).get(mainViewModel.class);
         setCurrency();
-//        try{
-            isLoadComplete.observe(this, Boolean -> {
-                if (!isViewLoaded && Boolean) {
-                    OnCreate(savedInstanceState);
-                    isViewLoaded = true;
-                }
-            });
-//        }catch (Exception e){
-//            Log.e("Main", "Dumb phone error :X");
-//            OnCreate(savedInstanceState);
-//        }
+        isLoadComplete.observe(this, Boolean -> {
+            if (!isViewLoaded && Boolean) {
+                OnCreate(savedInstanceState);
+                isViewLoaded = true;
+            }
+        });
     }
 
-    private void OnCreate(Bundle savedInstanceState){
+    private void OnCreate(Bundle savedInstanceState) {
         Log.e("Main", "onCreate");
         init();
         setNav();
@@ -143,8 +138,8 @@ public class MainActivity extends AppCompatActivity {
                     code = tm.getNetworkCountryIso();
                     vm.setCountryCode(code);
                     vm.initCurrency();
-                    isLoadComplete.postValue(true);
                     Log.e("Main", "Currency loaded");
+                    isLoadComplete.postValue(true);
                 }
             }
         });
