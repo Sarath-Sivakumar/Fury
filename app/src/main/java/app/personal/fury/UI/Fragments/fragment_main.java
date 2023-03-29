@@ -623,6 +623,10 @@ public class fragment_main extends Fragment {
             warningPopup.dismiss();
         } catch (Exception ignored) {
         }
+        try {
+            updatePopup.dismiss();
+        } catch (Exception ignored) {
+        }
     }
 
     @Override
@@ -630,6 +634,10 @@ public class fragment_main extends Fragment {
         super.onPause();
         try {
             warningPopup.dismiss();
+        } catch (Exception ignored) {
+        }
+        try {
+            updatePopup.dismiss();
         } catch (Exception ignored) {
         }
     }
