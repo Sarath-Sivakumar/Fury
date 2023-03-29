@@ -163,20 +163,20 @@ public class allExp extends AppCompatActivity {
     }
 
     private void getExp() {
-        vm.getExp().observe(this, entity -> {
-            if (!entity.isEmpty()) {
-                adapter.clear();
-                adapter.setExp(entity, false, Currency);
-                showRecyclerView();
-            } else {
-                showEmpty();
-            }
-        });
         vm.getRupee().observe(this, String->{
-            if (!String.equals("null")){
-                Currency = String.getCurrency();
-            }
-        });
+        if (String==null||String.getCurrency().equals("")||String.getCurrency().equals("null")){
+            Currency = String.getCurrency();
+            vm.getExp().observe(this, entity -> {
+                if (!entity.isEmpty()) {
+                    adapter.clear();
+                    adapter.setExp(entity, false, Currency);
+                    showRecyclerView();
+                } else {
+                    showEmpty();
+                }
+            });
+        }
+    });
     }
 
     private void expDetailPopup(expEntity exp) {

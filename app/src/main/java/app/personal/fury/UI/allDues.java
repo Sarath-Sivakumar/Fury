@@ -21,6 +21,7 @@ import app.personal.Utls.Commons;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.dueList.dueAdapter;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
+
 public class allDues extends AppCompatActivity {
 
     private TextView emptyMsg;
@@ -69,18 +70,18 @@ public class allDues extends AppCompatActivity {
     private void initViewModel() {
         adapter = new dueAdapter(2);
         vm = new ViewModelProvider(this).get(mainViewModel.class);
-        vm.getRupee().observe(this, String->{
-            if (!String.equals("null")){
+        vm.getRupee().observe(this, String -> {
+            if (String==null||String.getCurrency().equals("")||String.getCurrency().equals("null")) {
                 Currency = String.getCurrency();
-            }
-        });
-        vm.getDebt().observe(this, entity -> {
-            if (!entity.isEmpty()) {
-                adapter.clear();
-                adapter.setDebt(entity, 0, Currency);
-                showRecyclerView();
-            } else {
-                showEmpty();
+                vm.getDebt().observe(this, entity -> {
+                    if (!entity.isEmpty()) {
+                        adapter.clear();
+                        adapter.setDebt(entity, 0, Currency);
+                        showRecyclerView();
+                    } else {
+                        showEmpty();
+                    }
+                });
             }
         });
     }
@@ -97,11 +98,12 @@ public class allDues extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                    vm.DeleteDebt(adapter.getDebtAt(viewHolder.getAdapterPosition()));
-                    Commons.SnackBar(recyclerView, "Debt deleted.");
-                    adapter.clear();
-                    adapter.notifyDataSetChanged();
+                vm.DeleteDebt(adapter.getDebtAt(viewHolder.getAdapterPosition()));
+                Commons.SnackBar(recyclerView, "Debt deleted.");
+                adapter.clear();
+                adapter.notifyDataSetChanged();
             }
+
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
                         .addSwipeLeftBackgroundColor(ContextCompat.getColor(allDues.this, R.color.theme_red))
@@ -121,7 +123,7 @@ public class allDues extends AppCompatActivity {
                         .decorate();
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             }
-    }).attachToRecyclerView(recyclerView);
+        }).attachToRecyclerView(recyclerView);
 
 //        adapter.setOnItemClickListener(Due -> {});
     }
