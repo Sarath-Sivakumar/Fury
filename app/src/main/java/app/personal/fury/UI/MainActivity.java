@@ -94,17 +94,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         vm = new ViewModelProvider(this).get(mainViewModel.class);
         setCurrency();
-        try{
+//        try{
             isLoadComplete.observe(this, Boolean -> {
                 if (!isViewLoaded && Boolean) {
                     OnCreate(savedInstanceState);
                     isViewLoaded = true;
                 }
             });
-        }catch (Exception e){
-            Log.e("Main", "Dumb phone error :X");
-            OnCreate(savedInstanceState);
-        }
+//        }catch (Exception e){
+//            Log.e("Main", "Dumb phone error :X");
+//            OnCreate(savedInstanceState);
+//        }
     }
 
     private void OnCreate(Bundle savedInstanceState){

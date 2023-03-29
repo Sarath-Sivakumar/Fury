@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -40,6 +41,7 @@ import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
+import app.personal.Utls.linearLayoutManager;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.mainLists.categoryAdapter;
 import app.personal.fury.UI.Adapters.mainLists.duesAdapter;
@@ -150,6 +152,7 @@ public class fragment_main extends Fragment {
         dueList.setHasFixedSize(true);
         dueList.setAdapter(dAdapter);
         noDues = v.findViewById(R.id.noDues);
+        catList.setLayoutManager(new linearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         catList.setHasFixedSize(true);
         catList.setAdapter(cAdapter);
         catFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
