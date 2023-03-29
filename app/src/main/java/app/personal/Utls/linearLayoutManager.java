@@ -7,10 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class linearLayoutManager extends LinearLayoutManager {
-    public linearLayoutManager(Context context) {
-        super(context);
-    }
-
     public linearLayoutManager(Context context, int orientation, boolean reverseLayout) {
         super(context, orientation, reverseLayout);
     }
@@ -20,7 +16,7 @@ public class linearLayoutManager extends LinearLayoutManager {
         try {
             super.onLayoutChildren(recycler, state);
         } catch (IndexOutOfBoundsException e) {
-            Log.e("RecyclerView", "meet a IOOBE in RecyclerView");
+            Log.e("RecyclerView", "Looks like memory management on this phone is great(Just a joke -_-).");
         }
     }
 }
