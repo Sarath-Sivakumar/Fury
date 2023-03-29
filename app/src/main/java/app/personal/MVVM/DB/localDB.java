@@ -137,4 +137,10 @@ public abstract class localDB extends RoomDatabase {
             database.execSQL("ALTER TABLE 'Budget_Table' ADD COLUMN 'CreationDate' VARCHAR(15) DEFAULT 'Not Set'");
         }
     };
+    static final Migration MIGRATION_15_16 = new Migration(15, 16) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE 'Salary_Table' ALTER COLUMN 'salary' VARCHAR(12) NOT NULL");
+        }
+    };
 }

@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView userDp;
     private TextView userName;
     private static TutorialUtil util;
-//    private InterstitialAd interstitial;
+    //    private InterstitialAd interstitial;
     @ColorInt
     private int accent;
     private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
@@ -90,18 +90,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         vm = new ViewModelProvider(this).get(mainViewModel.class);
-        setCurrency(savedInstanceState);
-            init();
-            setNav();
-            setUserViewModel();
-            try {
-                vm.getSalary().observe(this, salaryEntityList -> {
-                    if (salaryEntityList != null) {
-                        processSalary(salaryEntityList);
-                    }
-                });
-            } catch (Exception ignored) {
-            }
+        setCurrency();
+        init();
+        setNav();
+        setUserViewModel();
+        try {
+            vm.getSalary().observe(this, salaryEntityList -> {
+                if (salaryEntityList != null) {
+                    processSalary(salaryEntityList);
+                }
+            });
+        } catch (Exception ignored) {
+        }
         if (savedInstanceState == null) {
 //            tb.setTitle(Constants.main);
             vp.setCurrentItem(2, true);
@@ -109,9 +109,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setCurrency(Bundle savedInstanceState){
-        vm.getRupee().observe(this, String->{
-            if (String==null||String.getCurrency().equals("")||String.getCurrency().equals("null")){
+    private void setCurrency() {
+        vm.getRupee().observe(this, String -> {
+            if (String == null || String.getCurrency().equals("") || String.getCurrency().equals("null")) {
                 final TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
                 String code;
                 if (!tm.getSimCountryIso().isEmpty()) {
@@ -123,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
                     vm.setCountryCode(code);
                     vm.initCurrency();
                 }
-            }else{
             }
         });
     }
