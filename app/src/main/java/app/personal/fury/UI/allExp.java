@@ -71,7 +71,6 @@ public class allExp extends AppCompatActivity {
     }
 
     private void setCurrency() {
-//        isLoadComplete.postValue(false);
         vm.getRupee().observe(this, String -> {
             if (String == null || String.getCurrency().equals("") || String.getCurrency().equals("null")) {
                 final TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
@@ -81,13 +80,11 @@ public class allExp extends AppCompatActivity {
                     vm.setCountryCode(code);
                     vm.initCurrency();
                     Log.e("Main", "Currency loaded");
-//                    isLoadComplete.postValue(true);
                 } else {
                     code = tm.getNetworkCountryIso();
                     vm.setCountryCode(code);
                     vm.initCurrency();
                     Log.e("Main", "Currency loaded");
-//                    isLoadComplete.postValue(true);
                 }
             } else {
                 setUi();
