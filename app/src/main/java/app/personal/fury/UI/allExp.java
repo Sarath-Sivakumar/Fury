@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -29,7 +28,6 @@ import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
-import app.personal.Utls.Constants;
 import app.personal.Utls.linearLayoutManager;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.expList.expAdapter;
