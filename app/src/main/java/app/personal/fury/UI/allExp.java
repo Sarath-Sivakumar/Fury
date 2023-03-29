@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +30,7 @@ import app.personal.MVVM.Entity.expEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
+import app.personal.Utls.linearLayoutManager;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.expList.expAdapter;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
@@ -47,7 +50,8 @@ public class allExp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_exp);
-        setUi();
+        vm = new ViewModelProvider(this).get(mainViewModel.class);
+        setCurrency();
     }
 
     private void setUi() {
@@ -55,18 +59,43 @@ public class allExp extends AppCompatActivity {
         String s = "All Expenses";
         title.setText(s);
         adapter = new expAdapter();
-        vm = new ViewModelProvider(this).get(mainViewModel.class);
         ImageButton back = findViewById(R.id.back);
         back.setOnClickListener(v -> finish());
         empty = findViewById(R.id.empty);
         emptyMsg = findViewById(R.id.emptyMsg);
         recyclerView = findViewById(R.id.exp_list);
         showEmpty();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new linearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         touchHelper();
         getExp();
+    }
+
+    private void setCurrency() {
+//        isLoadComplete.postValue(false);
+        vm.getRupee().observe(this, String -> {
+            if (String == null || String.getCurrency().equals("") || String.getCurrency().equals("null")) {
+                final TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                String code;
+                if (!tm.getSimCountryIso().isEmpty()) {
+                    code = tm.getSimCountryIso();
+                    vm.setCountryCode(code);
+                    vm.initCurrency();
+                    Log.e("Main", "Currency loaded");
+//                    isLoadComplete.postValue(true);
+                } else {
+                    code = tm.getNetworkCountryIso();
+                    vm.setCountryCode(code);
+                    vm.initCurrency();
+                    Log.e("Main", "Currency loaded");
+//                    isLoadComplete.postValue(true);
+                }
+            } else {
+                setUi();
+                showEmpty();
+            }
+        });
     }
 
     private void showRecyclerView() {
@@ -141,6 +170,7 @@ public class allExp extends AppCompatActivity {
                 ViewHolder = viewHolder;
                 itemDeletePopUp();
             }
+
             @Override
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
@@ -163,20 +193,22 @@ public class allExp extends AppCompatActivity {
     }
 
     private void getExp() {
-        vm.getRupee().observe(this, String->{
-        if (String==null||String.getCurrency().equals("")||String.getCurrency().equals("null")){
-            Currency = String.getCurrency();
-            vm.getExp().observe(this, entity -> {
-                if (!entity.isEmpty()) {
-                    adapter.clear();
-                    adapter.setExp(entity, false, Currency);
-                    showRecyclerView();
-                } else {
-                    showEmpty();
-                }
-            });
-        }
-    });
+        vm.getRupee().observe(this, String -> {
+            if (String != null || !String.getCurrency().equals("")) {
+                Currency = String.getCurrency();
+                vm.getExp().observe(this, entity -> {
+                    if (!entity.isEmpty()) {
+                        adapter.clear();
+                        adapter.setExp(entity, false, Currency);
+                        showRecyclerView();
+                    } else {
+                        showEmpty();
+                    }
+                });
+            } else {
+                adapter.clear();
+            }
+        });
     }
 
     private void expDetailPopup(expEntity exp) {

@@ -8,8 +8,11 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageButton;
@@ -18,6 +21,7 @@ import android.widget.TextView;
 
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
+import app.personal.Utls.linearLayoutManager;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.dueList.dueAdapter;
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
@@ -35,9 +39,8 @@ public class allDues extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_exp);
-        initViewModel();
-        initUi();
-        showEmpty();
+        vm = new ViewModelProvider(this).get(mainViewModel.class);
+        setCurrency();
     }
 
     private void initUi() {
@@ -49,7 +52,7 @@ public class allDues extends AppCompatActivity {
         empty = findViewById(R.id.empty);
         emptyMsg = findViewById(R.id.emptyMsg);
         recyclerView = findViewById(R.id.exp_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new linearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         touchHelper();
@@ -67,12 +70,39 @@ public class allDues extends AppCompatActivity {
         emptyMsg.setText(s);
     }
 
+    private void setCurrency() {
+//        isLoadComplete.postValue(false);
+        vm.getRupee().observe(this, String -> {
+            if (String == null || String.getCurrency().equals("") || String.getCurrency().equals("null")) {
+                final TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                String code;
+                if (!tm.getSimCountryIso().isEmpty()) {
+                    code = tm.getSimCountryIso();
+                    vm.setCountryCode(code);
+                    vm.initCurrency();
+                    Log.e("Main", "Currency loaded");
+//                    isLoadComplete.postValue(true);
+                } else {
+                    code = tm.getNetworkCountryIso();
+                    vm.setCountryCode(code);
+                    vm.initCurrency();
+                    Log.e("Main", "Currency loaded");
+//                    isLoadComplete.postValue(true);
+                }
+            }else{
+                initViewModel();
+                initUi();
+                showEmpty();
+            }
+        });
+    }
+
     private void initViewModel() {
         adapter = new dueAdapter(2);
-        vm = new ViewModelProvider(this).get(mainViewModel.class);
         vm.getRupee().observe(this, String -> {
-            if (String==null||String.getCurrency().equals("")||String.getCurrency().equals("null")) {
+            if (String!=null||!String.getCurrency().equals("")) {
                 Currency = String.getCurrency();
+                Log.e("AllDues", "Symbol: "+Currency);
                 vm.getDebt().observe(this, entity -> {
                     if (!entity.isEmpty()) {
                         adapter.clear();

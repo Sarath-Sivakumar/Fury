@@ -258,12 +258,6 @@ public class fragment_main extends Fragment {
     }
 
     private void initViewModel() {
-        if (!updateIsViewed) {
-            try{
-                update();
-                updateIsViewed = true;
-            }catch (Exception ignored){}
-        }
         getSal();
         getExp(filter);
         getDebt();
@@ -272,78 +266,82 @@ public class fragment_main extends Fragment {
     }
 
     private void callWarningPopup(debtEntity debt) {
-        warningPopup = new PopupWindow(getContext());
-        LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        assert inflater != null;
-        View v = inflater.inflate(R.layout.popup_due_warning, null);
-        warningPopup.setContentView(v);
+        try{
+            warningPopup = new PopupWindow(getContext());
+            LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            assert inflater != null;
+            View v = inflater.inflate(R.layout.popup_due_warning, null);
+            warningPopup.setContentView(v);
 
-        TextView mainBody, name, date;
-        Button yes, no;
+            TextView mainBody, name, date;
+            Button yes, no;
 
-        mainBody = v.findViewById(R.id.warning);
-        name = v.findViewById(R.id.NameDue);
-        date = v.findViewById(R.id.DateDue);
-        yes = v.findViewById(R.id.yes_btn);
-        no = v.findViewById(R.id.no_btn);
+            mainBody = v.findViewById(R.id.warning);
+            name = v.findViewById(R.id.NameDue);
+            date = v.findViewById(R.id.DateDue);
+            yes = v.findViewById(R.id.yes_btn);
+            no = v.findViewById(R.id.no_btn);
 
-        String s1 = "The below due of " + Currency + debt.getAmount() + "\nis close to it's deadline";
+            String s1 = "The below due of " + Currency + debt.getAmount() + "\nis close to it's deadline";
 
-        mainBody.setText(s1);
-        String s2 = debt.getSource();
-        name.setText(s2);
-        String s4 = debt.getFinalDate();
-        date.setText(s4);
-        yes.setOnClickListener(v1 -> {
-            if (debt.getIsRepeat() == Constants.NON_REPEATING_DUE) {
-                debt.setStatus(Constants.DEBT_PAID);
-                vm.UpdateDebt(debt);
-            } else {
-                debt.setStatus(Constants.DEBT_NOT_PAID);
-                debt.setDate(Commons.getDate());
-                String[] Date = debt.getFinalDate().split("/");
-                String month = String.valueOf(Integer.parseInt(Date[1]) + 1);
-                String[] curDate = Commons.getDate().split("/");
-                String year = curDate[2];
-                debt.setFinalDate(Date[0] + "/" + month + "/" + year);
-                vm.UpdateDebt(debt);
-            }
-            warningPopup.dismiss();
-        });
-        no.setOnClickListener(v1 -> warningPopup.dismiss());
+            mainBody.setText(s1);
+            String s2 = debt.getSource();
+            name.setText(s2);
+            String s4 = debt.getFinalDate();
+            date.setText(s4);
+            yes.setOnClickListener(v1 -> {
+                if (debt.getIsRepeat() == Constants.NON_REPEATING_DUE) {
+                    debt.setStatus(Constants.DEBT_PAID);
+                    vm.UpdateDebt(debt);
+                } else {
+                    debt.setStatus(Constants.DEBT_NOT_PAID);
+                    debt.setDate(Commons.getDate());
+                    String[] Date = debt.getFinalDate().split("/");
+                    String month = String.valueOf(Integer.parseInt(Date[1]) + 1);
+                    String[] curDate = Commons.getDate().split("/");
+                    String year = curDate[2];
+                    debt.setFinalDate(Date[0] + "/" + month + "/" + year);
+                    vm.UpdateDebt(debt);
+                }
+                warningPopup.dismiss();
+            });
+            no.setOnClickListener(v1 -> warningPopup.dismiss());
 
-        warningPopup.setFocusable(true);
-        warningPopup.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
-        warningPopup.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
-        warningPopup.setBackgroundDrawable(null);
-        warningPopup.setElevation(6);
-        warningPopup.showAsDropDown(mainProgressText);
+            warningPopup.setFocusable(true);
+            warningPopup.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+            warningPopup.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+            warningPopup.setBackgroundDrawable(null);
+            warningPopup.setElevation(6);
+            warningPopup.showAsDropDown(mainProgressText);
+        }catch(Exception ignored){}
     }
 
     private void callUpdatePopup() {
-        updatePopup = new PopupWindow(getContext());
-        LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        assert inflater != null;
-        View v = inflater.inflate(R.layout.popup_app_update, null);
-        updatePopup.setContentView(v);
+        try{
+            updatePopup = new PopupWindow(getContext());
+            LayoutInflater inflater = (LayoutInflater) requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            assert inflater != null;
+            View v = inflater.inflate(R.layout.popup_app_update, null);
+            updatePopup.setContentView(v);
 
-        Button yes, no;
-        no = v.findViewById(R.id.ignore);
-        yes = v.findViewById(R.id.update);
+            Button yes, no;
+            no = v.findViewById(R.id.ignore);
+            yes = v.findViewById(R.id.update);
 
-        yes.setOnClickListener(v1 -> {
-            up();
-            updatePopup.dismiss();
-        });
+            yes.setOnClickListener(v1 -> {
+                up();
+                updatePopup.dismiss();
+            });
 
-        no.setOnClickListener(v1 -> updatePopup.dismiss());
+            no.setOnClickListener(v1 -> updatePopup.dismiss());
 
-        updatePopup.setFocusable(true);
-        updatePopup.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
-        updatePopup.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
-        updatePopup.setBackgroundDrawable(null);
-        updatePopup.setElevation(6);
-        updatePopup.showAsDropDown(mainProgressText);
+            updatePopup.setFocusable(true);
+            updatePopup.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+            updatePopup.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+            updatePopup.setBackgroundDrawable(null);
+            updatePopup.setElevation(6);
+            updatePopup.showAsDropDown(mainProgressText);
+        }catch (Exception ignored){}
     }
 
     private void up() {
@@ -400,6 +398,12 @@ public class fragment_main extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViewModel();
+        if (!updateIsViewed) {
+            try{
+                update();
+                updateIsViewed = true;
+            }catch (Exception ignored){}
+        }
         if (budgetTotalAmount > 0) {
             progress = Commons.setProgress(expense, budgetTotalAmount);
             setMain(progress);

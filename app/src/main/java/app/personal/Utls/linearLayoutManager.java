@@ -7,6 +7,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class linearLayoutManager extends LinearLayoutManager {
+    public linearLayoutManager(Context context) {
+        super(context);
+    }
+
     public linearLayoutManager(Context context, int orientation, boolean reverseLayout) {
         super(context, orientation, reverseLayout);
     }
