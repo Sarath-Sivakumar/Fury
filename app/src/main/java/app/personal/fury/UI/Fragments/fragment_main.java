@@ -361,8 +361,12 @@ public class fragment_main extends Fragment {
         salary = 0;
         expense = 0;
         vm.getRupee().observe(requireActivity(), String->{
-            if (String!=null||!String.getCurrency().equals("")){
-                Currency = String.getCurrency();
+            if (String!=null){
+                if (!String.getCurrency().equals("")) {
+                    Currency = String.getCurrency();
+                } else {
+                    vm.initCurrency();
+                }
             }else{
                 vm.initCurrency();
             }
@@ -395,7 +399,7 @@ public class fragment_main extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViewModel();
-        if (!updateIsViewed) {
+        if (!updateIsViewed&&savedInstanceState==null&&isVisible) {
             try{
                 update();
                 updateIsViewed = true;
