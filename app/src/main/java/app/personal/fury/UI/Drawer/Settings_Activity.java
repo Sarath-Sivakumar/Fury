@@ -1,5 +1,6 @@
 package app.personal.fury.UI.Drawer;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -22,6 +23,13 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import java.io.IOException;
 
@@ -51,7 +59,7 @@ public class Settings_Activity extends AppCompatActivity {
     private userEntity userData = new userEntity();
     // request code
     private final int PICK_IMAGE_REQUEST = 22;
-//    private InterstitialAd interstitial;
+    private InterstitialAd interstitial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,82 +68,82 @@ public class Settings_Activity extends AppCompatActivity {
         userVM = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
         mainVM = new ViewModelProvider(this).get(mainViewModel.class);
         init();
+        if (savedInstanceState == null && Commons.isConnectedToInternet(this)) {
+            initAd();
+        }
     }
 
     private void init() {
         findView();
         getUserData();
         OnClick();
-        userVM.getError().observe(this, String->{
-            if (!String.equals("Null")){
+        userVM.getError().observe(this, String -> {
+            if (!String.equals("Null")) {
                 Commons.SnackBar(about, String);
                 userVM.setDefaultError();
             }
         });
-//        if (Commons.isConnectedToInternet(this)){
-//            initAd();
-//        }
     }
 
-//    private void initAd() {
-//        MobileAds.initialize(this);
-//        String TestAdId = "ca-app-pub-8620335196955785/4549061972";
-//        AdRequest adRequest = new AdRequest.Builder().build();
-//        InterstitialAd.load(
-//                this,
-//                TestAdId,
-//                adRequest,
-//                new InterstitialAdLoadCallback() {
-//                    @Override
-//                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-//                        // The mInterstitialAd reference will be null until
-//                        // an ad is loaded.
-//                        interstitial = interstitialAd;
-//                        interstitialAd.setFullScreenContentCallback(
-//                                new FullScreenContentCallback() {
-//                                    @Override
-//                                    public void onAdDismissedFullScreenContent() {
-//                                        // Called when fullscreen content is dismissed.
-//                                        // Make sure to set your reference to null so you don't
-//                                        // show it a second time.
-//                                        interstitial = null;
-//                                        finish();
-//                                    }
-//
-//                                    @Override
-//                                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
-//                                        // Called when fullscreen content failed to show.
-//                                        // Make sure to set your reference to null so you don't
-//                                        // show it a second time.
-//                                        interstitial = null;
-//                                        finish();
-//                                    }
-//
-//                                    @Override
-//                                    public void onAdShowedFullScreenContent() {
-//                                    }
-//                                });
-//                    }
-//
-//                    @Override
-//                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-//                        interstitial = null;
-//                    }
-//                });
-//    }
+    private void initAd() {
+        MobileAds.initialize(this);
+        String TestAdId = "ca-app-pub-8620335196955785/4549061972";
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(
+                this,
+                TestAdId,
+                adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        interstitial = interstitialAd;
+                        interstitialAd.setFullScreenContentCallback(
+                                new FullScreenContentCallback() {
+                                    @Override
+                                    public void onAdDismissedFullScreenContent() {
+                                        // Called when fullscreen content is dismissed.
+                                        // Make sure to set your reference to null so you don't
+                                        // show it a second time.
+                                        interstitial = null;
+                                        finish();
+                                    }
 
-//    private void showInterstitial() {
-//        // Show the ad if it's ready. Otherwise toast and restart the game.
-//        if (interstitial != null) {
-//            interstitial.show(this);
-//        }
-//    }
+                                    @Override
+                                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                                        // Called when fullscreen content failed to show.
+                                        // Make sure to set your reference to null so you don't
+                                        // show it a second time.
+                                        interstitial = null;
+                                        finish();
+                                    }
+
+                                    @Override
+                                    public void onAdShowedFullScreenContent() {
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        interstitial = null;
+                    }
+                });
+    }
+
+    private void showInterstitial() {
+        // Show the ad if it's ready. Otherwise toast and restart the game.
+        if (interstitial != null) {
+            interstitial.show(this);
+        }
+    }
 
     private void getUserData() {
         userVM.getUserData().observe(this, userEntity -> {
             if (userEntity != null) {
                 userData = userEntity;
-                if (Commons.isConnectedToInternet(this)){
+                if (Commons.isConnectedToInternet(this)) {
                     profileName.setText(userData.getName());
                 }
                 if (!userEntity.getImgUrl().equals(Constants.DEFAULT_DP)) {
@@ -150,7 +158,7 @@ public class Settings_Activity extends AppCompatActivity {
         });
     }
 
-    private void initAccDelete(){
+    private void initAccDelete() {
         PopupWindow popupWindow = new PopupWindow(this);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
@@ -168,8 +176,8 @@ public class Settings_Activity extends AppCompatActivity {
 
         no.setOnClickListener(v -> popupWindow.dismiss());
         yes.setOnClickListener(v -> {
-            if (Commons.isEmail(email.getText().toString().trim())&&
-                    Commons.isValidPass(pass.getText().toString().trim())){
+            if (Commons.isEmail(email.getText().toString().trim()) &&
+                    Commons.isValidPass(pass.getText().toString().trim())) {
                 String s = "Please wait!";
                 reAuthView.setVisibility(View.GONE);
                 loadingView.setVisibility(View.VISIBLE);
@@ -187,11 +195,11 @@ public class Settings_Activity extends AppCompatActivity {
         popupWindow.showAsDropDown(uploadPic);
     }
 
-    private void AccDelete(String Email, String Pass, PopupWindow popupWindow){
+    private void AccDelete(String Email, String Pass, PopupWindow popupWindow) {
         userVM.DeleteAccount(Email, Pass);
         Commons.clearData(mainVM);
         userVM.getIsLoggedOut().observe(this, Boolean -> {
-            if (Boolean){
+            if (Boolean) {
                 popupWindow.dismiss();
                 startActivity(new Intent(this, Landing.class));
                 finishAffinity();
@@ -220,9 +228,9 @@ public class Settings_Activity extends AppCompatActivity {
         discard = findViewById(R.id.cancel);
 
         deleteAccount.setOnClickListener(v -> {
-            if (Commons.isConnectedToInternet(this)){
+            if (Commons.isConnectedToInternet(this)) {
                 initAccDelete();
-            }else{
+            } else {
                 Commons.SnackBar(about, "No Internet connection available");
             }
         });
@@ -231,21 +239,21 @@ public class Settings_Activity extends AppCompatActivity {
 
     private void OnClick() {
         profileName.setOnClickListener(v -> {
-            if (Commons.isConnectedToInternet(this)){
+            if (Commons.isConnectedToInternet(this)) {
                 profileNameEdit.setVisibility(View.VISIBLE);
                 save.setVisibility(View.VISIBLE);
                 discard.setVisibility(View.VISIBLE);
                 profileNameEdit.setText(profileName.getText().toString());
                 profileName.setVisibility(View.GONE);
-            }else{
+            } else {
                 Commons.SnackBar(profileName, "No Internet connection available");
             }
         });
 
         uploadPic.setOnClickListener(v -> {
-            if (Commons.isConnectedToInternet(this)){
+            if (Commons.isConnectedToInternet(this)) {
                 callPopupWindow(uploadPic);
-            }else{
+            } else {
                 Commons.SnackBar(profileName, "No Internet connection available");
             }
         });
@@ -263,7 +271,7 @@ public class Settings_Activity extends AppCompatActivity {
         faq.setOnClickListener(v -> {
             Intent i = new Intent(this, WebViewActivity.class);
             i.putExtra(Constants.WEB_VIEW_ACTIVITY_TITLE, "FAQ");
-            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL,  "file:///android_asset/web_resources/faq.html");
+            i.putExtra(Constants.WEB_VIEW_ACTIVITY_URL, "file:///android_asset/web_resources/faq.html");
             startActivity(i);
         });
 
@@ -371,7 +379,7 @@ public class Settings_Activity extends AppCompatActivity {
         no.setOnClickListener(v -> popupWindow.dismiss());
         yes.setOnClickListener(v -> {
             fakeLoadingScreen();
-//            showInterstitial();
+            showInterstitial();
             popupWindow.dismiss();
         });
 
