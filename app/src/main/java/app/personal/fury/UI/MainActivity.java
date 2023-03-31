@@ -115,7 +115,11 @@ public class MainActivity extends AppCompatActivity {
         }
         if (savedInstanceState == null) {
             vp.setCurrentItem(2, true);
-            initAd();
+            if (Commons.isConnectedToInternet(this)){
+                initAd();
+            }else{
+                Commons.SnackBar(tb, "No Internet connection available");
+            }
         }
     }
 
@@ -296,9 +300,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                         interstitial = null;
-                        if (Commons.isConnectedToInternet(MainActivity.this)) {
-                            Commons.SnackBar(tb, "No Internet connection available");
-                        }
                     }
                 });
     }
