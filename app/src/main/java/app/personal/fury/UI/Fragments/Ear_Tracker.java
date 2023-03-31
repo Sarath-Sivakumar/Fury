@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -23,12 +23,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -65,10 +71,10 @@ public class Ear_Tracker extends Fragment {
     private int budType;
     private inHandBalEntity inHandBal = new inHandBalEntity();
     private balanceEntity balanceEntity = new balanceEntity();
-//    private AdView ad;
-//    private LinearLayout adLayout;
-//    private AdRequest adRequest;
-    private String budDate, Currency="";
+    private AdView ad;
+    private LinearLayout adLayout;
+    private AdRequest adRequest;
+    private String budDate, Currency = "";
     private final int[] FragmentList =
             new int[]{R.drawable.info_h1, R.drawable.info_h2,
                     R.drawable.info_h3, R.drawable.info_h4,
@@ -76,6 +82,8 @@ public class Ear_Tracker extends Fragment {
     private int cashAmt, cashCount, accAmt, accCount, totalExp, totalSalary;
     private TutorialUtil util;
     private AppUtilViewModel appVm;
+    private boolean loaded = false;
+    private final MutableLiveData<Boolean> isVisible = new MutableLiveData<>();
 
     public Ear_Tracker() {
     }
@@ -84,19 +92,19 @@ public class Ear_Tracker extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-        vm.getRupee().observe(requireActivity(), String->{
-            if (String!=null||!String.getCurrency().equals("")){
+        vm.getRupee().observe(requireActivity(), String -> {
+            if (String != null || !String.getCurrency().equals("")) {
                 Currency = String.getCurrency();
-            }else{
+            } else {
                 vm.initCurrency();
             }
         });
+        if (savedInstanceState == null) {
+            MobileAds.initialize(requireContext());
+            adRequest = new AdRequest.Builder().build();
+        }
         appVm = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
         adapter = new salaryAdapter();
-//        if (savedInstanceState == null) {
-//            MobileAds.initialize(requireContext());
-//            adRequest = new AdRequest.Builder().build();
-//        }
         inHandBal = getInHandBal();
         balanceEntity = getBal();
     }
@@ -107,31 +115,51 @@ public class Ear_Tracker extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.main_fragment_earningstracker, container, false);
         findView(v);
-//        if (savedInstanceState == null) {
-//            requestAd();
-//        }
         return v;
     }
 
-//    private void requestAd() {
-//        try{
-//          ad.loadAd(adRequest);
-//        ad.setAdListener(new AdListener() {
-//            @Override
-//            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-//                super.onAdFailedToLoad(loadAdError);
-//                adLayout.setVisibility(View.GONE);
-//                ad.loadAd(adRequest);
-//            }
-//
-//            @Override
-//            public void onAdLoaded() {
-//                super.onAdLoaded();
-//                adLayout.setVisibility(View.VISIBLE);
-//            }
-//        });
-//        }catch(Exception ignored){}
-//    }
+    private void requestAd() {
+        try {
+            ad.setAdListener(new AdListener() {
+                @Override
+                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                    super.onAdFailedToLoad(loadAdError);
+                    adLayout.setVisibility(View.GONE);
+                    new CountDownTimer(5000, 1000) {
+
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            isVisible.observe(requireActivity(), Boolean -> {
+                                if (Boolean) {
+                                    loadAd();
+                                }
+                            });
+                        }
+                    };
+                }
+
+                @Override
+                public void onAdLoaded() {
+                    super.onAdLoaded();
+                    adLayout.setVisibility(View.VISIBLE);
+                }
+            });
+        } catch (Exception ignored) {
+        }
+    }
+
+    private void loadAd() {
+        if (!loaded){
+            ad.loadAd(adRequest);
+            adLayout.setVisibility(View.GONE);
+            loaded = true;
+        }
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -139,12 +167,26 @@ public class Ear_Tracker extends Fragment {
         String s = Currency + getSalary();
         SalAmt.setText(s);
         getExp();
+        isVisible.observe(requireActivity(), Boolean -> {
+            if (Boolean) {
+                if (savedInstanceState == null) {
+                    loadAd();
+                    requestAd();
+                }
+            }
+        });
         util = new TutorialUtil(requireActivity(), requireContext(), requireActivity(), requireActivity());
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        loaded = false;
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        isVisible.postValue(isVisibleToUser);
         if (isVisibleToUser) {
             if (getUserVisibleHint()) {
                 try {
@@ -166,8 +208,8 @@ public class Ear_Tracker extends Fragment {
         });
         salSplitList.setLayoutManager(new LinearLayoutManager(requireContext()));
         salSplitList.setHasFixedSize(true);
-//        ad = v.findViewById(R.id.adView);
-//        adLayout = v.findViewById(R.id.adLayout);
+        ad = v.findViewById(R.id.adView);
+        adLayout = v.findViewById(R.id.adLayout);
         salSplitList.setAdapter(adapter);
         inHandAmt = v.findViewById(R.id.inhand_Amt);
         inHandCount = v.findViewById(R.id.inhand_count);

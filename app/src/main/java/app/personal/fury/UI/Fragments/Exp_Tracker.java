@@ -26,6 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,6 +36,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -66,9 +68,11 @@ public class Exp_Tracker extends Fragment {
     private int accBal = 0, inHandBal = 0, cashAmt, cashCount, accAmt, accCount, cDAvg, s2;
     private String userName = "", Currency = "";
     private AppUtilViewModel appVM;
-//    private AdView ad;
-//    private AdRequest adRequest;
-//    private LinearLayout adLayout;
+    private AdView ad;
+    private AdRequest adRequest;
+    private LinearLayout adLayout;
+    private boolean loaded = false;
+    private final MutableLiveData<Boolean> isVisible = new MutableLiveData<>();
     private boolean isViewed = false;
 
     public Exp_Tracker() {
@@ -77,8 +81,10 @@ public class Exp_Tracker extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (savedInstanceState==null){
+        if (savedInstanceState == null) {
             initViewModel();
+            MobileAds.initialize(requireContext());
+            adRequest = new AdRequest.Builder().build();
         }
         accBal = getBalance();
         inHandBal = getInHandBalance();
@@ -94,8 +100,8 @@ public class Exp_Tracker extends Fragment {
         accountCount = v.findViewById(R.id.account_count);
         dLimit = v.findViewById(R.id.dLimit);
         expView = v.findViewById(R.id.todayExp);
-//        adLayout = v.findViewById(R.id.adLayout);
-//        ad = v.findViewById(R.id.adView);
+        adLayout = v.findViewById(R.id.adLayout);
+        ad = v.findViewById(R.id.adView);
         touchHelper();
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setHasFixedSize(true);
@@ -112,13 +118,12 @@ public class Exp_Tracker extends Fragment {
             userName = String.valueOf(c[0]);
         });
         vm = new ViewModelProvider(requireActivity()).get(mainViewModel.class);
-        vm.getRupee().observe(requireActivity(), String->{
-            if (String!=null||!String.getCurrency().equals("")){
+        vm.getRupee().observe(requireActivity(), String -> {
+            if (String != null || !String.getCurrency().equals("")) {
                 Currency = String.getCurrency();
             }
         });
         appVM = new ViewModelProvider(requireActivity()).get(AppUtilViewModel.class);
-//        adRequest = new AdRequest.Builder().build();
     }
 
     private void getExp() {
@@ -170,23 +175,49 @@ public class Exp_Tracker extends Fragment {
         });
     }
 
-//    private void requestAd() {
-//        ad.loadAd(adRequest);
-//        ad.setAdListener(new AdListener() {
-//            @Override
-//            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-//                super.onAdFailedToLoad(loadAdError);
-//                adLayout.setVisibility(View.GONE);
-//                ad.loadAd(adRequest);
-//            }
-//
-//            @Override
-//            public void onAdLoaded() {
-//                super.onAdLoaded();
-//                adLayout.setVisibility(View.VISIBLE);
-//            }
-//        });
-//    }
+    private void requestAd() {
+        try {
+            ad.setAdListener(new AdListener() {
+                @Override
+                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                    super.onAdFailedToLoad(loadAdError);
+                    adLayout.setVisibility(View.GONE);
+                    new CountDownTimer(5000, 1000) {
+
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            isVisible.observe(requireActivity(), Boolean -> {
+                                if (Boolean) {
+                                    loadAd();
+                                }
+                            });
+                        }
+                    };
+                }
+
+                @Override
+                public void onAdLoaded() {
+                    super.onAdLoaded();
+                    adLayout.setVisibility(View.VISIBLE);
+                }
+            });
+        } catch (Exception ignored) {
+        }
+    }
+
+    private void loadAd() {
+        if (!loaded){
+            ad.loadAd(adRequest);
+            adLayout.setVisibility(View.GONE);
+            loaded = true;
+        }
+    }
+
 
     private budgetEntity getBudget() {
         AtomicReference<budgetEntity> entity = new AtomicReference<>(new budgetEntity());
@@ -226,6 +257,7 @@ public class Exp_Tracker extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        isVisible.postValue(isVisibleToUser);
         if (isVisibleToUser) {
             try {
                 ExpTutorial();
@@ -295,9 +327,9 @@ public class Exp_Tracker extends Fragment {
             if (!userName.trim().equals("")) {
                 String war = "\nHigh expense rate noticed";
                 String title1;
-                if (Commons.isConnectedToInternet(requireContext())){
+                if (Commons.isConnectedToInternet(requireContext())) {
                     title1 = "Attention," + userName + "!" + war;
-                }else{
+                } else {
                     title1 = "Attention!" + war;
                 }
                 warningTitle1.setText(title1);
@@ -559,9 +591,6 @@ public class Exp_Tracker extends Fragment {
         init(v);
         getBalance();
         getExp();
-        if (savedInstanceState == null) {
-//            requestAd();
-        }
         return v;
     }
 
@@ -653,6 +682,20 @@ public class Exp_Tracker extends Fragment {
         getExp();
         accBal = getBalance();
         inHandBal = getInHandBalance();
+        isVisible.observe(requireActivity(), Boolean -> {
+            if (Boolean) {
+                if (savedInstanceState == null) {
+                    loadAd();
+                    requestAd();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        loaded = false;
     }
 
     @Override
