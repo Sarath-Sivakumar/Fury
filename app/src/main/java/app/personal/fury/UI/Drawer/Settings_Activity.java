@@ -87,7 +87,7 @@ public class Settings_Activity extends AppCompatActivity {
 
     private void initAd() {
         MobileAds.initialize(this);
-        String TestAdId = "ca-app-pub-8620335196955785/4549061972";
+        String TestAdId = "ca-app-pub-8620335196955785/3261261966";
         AdRequest adRequest = new AdRequest.Builder().build();
         InterstitialAd.load(
                 this,
