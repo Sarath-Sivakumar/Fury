@@ -261,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initAd() {
         MobileAds.initialize(this);
-        String TestAdId = "ca-app-pub-8620335196955785/6964591880";
+        String TestAdId = "ca-app-pub-8620335196955785/1187678682";
         AdRequest adRequest = new AdRequest.Builder().build();
         InterstitialAd.load(
                 this,

@@ -365,6 +365,57 @@
 
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/adLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginBottom="12dp"
+                            android:layout_marginStart="18dp"
+                            android:layout_marginEnd="18dp">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:text="@string/ad" />
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0.1dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="2dp"
+                                    android:background="?attr/colorPrimary" />
+                            </LinearLayout>
+
+                            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/adView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="50dp"
+                                android:minWidth="320dp"
+                                android:layout_marginTop="6dp"
+                                ads:adSize="BANNER"
+                                ads:adUnitId="ca-app-pub-8620335196955785/6550889848" />
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.1dp"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="6dp"
+                                android:layout_marginEnd="6dp"
+                                android:layout_marginTop="12dp"
+                                android:layout_marginBottom="0dp"
+                                android:background="?attr/colorPrimary" />
+
+                        </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -397,54 +448,7 @@
                 android:background="@drawable/background_borderonly"
                 tools:listitem="@layout/recycler_item_exp" />
 
-<!--            <LinearLayout-->
-<!--                android:id="@+id/adLayout"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="vertical"-->
-<!--                android:layout_margin="12dp">-->
 
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:orientation="horizontal">-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:textSize="12sp"-->
-<!--                        android:text="@string/ad" />-->
-
-<!--                    <View-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="0.1dp"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:layout_marginStart="2dp"-->
-<!--                        android:background="?attr/colorPrimary" />-->
-<!--                </LinearLayout>-->
-
-<!--                <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"-->
-<!--                    android:id="@+id/adView"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:minHeight="50dp"-->
-<!--                    android:minWidth="320dp"-->
-<!--                    android:layout_marginTop="6dp"-->
-<!--                    ads:adSize="BANNER"-->
-<!--                    ads:adUnitId="ca-app-pub-8620335196955785/9040354214" />-->
-<!--                <View-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="0.1dp"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:layout_marginStart="6dp"-->
-<!--                    android:layout_marginEnd="6dp"-->
-<!--                    android:layout_marginTop="12dp"-->
-<!--                    android:layout_marginBottom="0dp"-->
-<!--                    android:background="?attr/colorPrimary" />-->
-
-<!--            </LinearLayout>-->
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
