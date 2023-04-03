@@ -204,6 +204,8 @@
     <string name="note_this_action_cannot_be_undone_nall_user_data_will_be_cleared">This action cannot be undone.\nAll your data will be deleted permanently.</string>
     <string name="please_sign_in_again_to_continue">Authentication Required</string>
     <string name="authentication_is_required_to_continue_this_action">Authentication is required to continue this action.</string>
+    <string name="articles">Articles</string>
+    <string name="show_more">see more</string>
 
 
 </resources>

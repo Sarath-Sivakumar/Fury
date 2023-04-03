@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -170,6 +172,62 @@ public class fragment_main extends Fragment {
                 MainActivity.redirectTo(1);
             }
         });
+    }
+
+    private void initcard(View v){
+        CardView card1 = v.findViewById(R.id.card1);
+        CardView card2 = v.findViewById(R.id.card2);
+        CardView card3 = v.findViewById(R.id.card3);
+        TextView card1txt = v.findViewById(R.id.card1txt);
+        TextView card2txt = v.findViewById(R.id.card2txt);
+        TextView card3txt = v.findViewById(R.id.card3txt);
+        ImageView card1share = v.findViewById(R.id.card1share);
+        ImageView card2share = v.findViewById(R.id.card2share);
+        ImageView card3share = v.findViewById(R.id.card3share);
+        Button showmore = v.findViewById(R.id.explore);
+        showmore.setOnClickListener(v1 ->{
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://furyfinance.blogspot.com/")));
+        });
+
+        String c1 = "What is credit score and why it is important to maintain a good score?'";
+        String c2 = "Tips to achieve financial freedom as early as possible";
+        String c3 = "Why passive income is said to be the key to financial stability?";
+        card1txt.setText(c1);
+        card2txt.setText(c2);
+        card3txt.setText(c3);
+
+        card1.setOnClickListener(v1 -> {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://furyfinance.blogspot.com/2023/04/what-is-credit-score-and-why-is-it.html")));
+        });
+        card2.setOnClickListener(v1 -> {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://furyfinance.blogspot.com/2023/04/blog-post.html")));
+        });
+        card3.setOnClickListener(v1 -> {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://furyfinance.blogspot.com/2023/04/why-should-you-build-passive-income.html")));
+        });
+
+        card1share.setOnClickListener(v12 -> {
+            Intent sentIntent = new Intent();
+            sentIntent.setAction(Intent.ACTION_SEND);
+            sentIntent.putExtra(Intent.EXTRA_TEXT, c1 + "https://furyfinance.blogspot.com/2023/04/what-is-credit-score-and-why-is-it.html");
+            sentIntent.setType("text/plain");
+            requireContext().startActivity(sentIntent);
+        });
+        card2share.setOnClickListener(v12 -> {
+            Intent sentIntent = new Intent();
+            sentIntent.setAction(Intent.ACTION_SEND);
+            sentIntent.putExtra(Intent.EXTRA_TEXT, c2 + "https://furyfinance.blogspot.com/2023/04/blog-post.html");
+            sentIntent.setType("text/plain");
+            requireContext().startActivity(sentIntent);
+        });
+        card3share.setOnClickListener(v12 -> {
+            Intent sentIntent = new Intent();
+            sentIntent.setAction(Intent.ACTION_SEND);
+            sentIntent.putExtra(Intent.EXTRA_TEXT, c3 + "https://furyfinance.blogspot.com/2023/04/why-should-you-build-passive-income.html");
+            sentIntent.setType("text/plain");
+            requireContext().startActivity(sentIntent);
+        });
+
     }
 
     private void initStat(View v) {
@@ -382,6 +440,7 @@ public class fragment_main extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.main_fragment_home, container, false);
         findView(v);
+        initcard(v);
         initViewModel();
         try {
             setMain(progress);
