@@ -379,22 +379,22 @@ public class Ear_Tracker extends Fragment {
                     if (!salAmt.getText().toString().trim().isEmpty()) {
                         vm.InsertSalary(sal);
                         if (sal.getSalMode() == Constants.SAL_MODE_ACC) {
-                            int oldBal = sal.getSalary();
+                            float oldBal = sal.getSalary();
                             if (balanceEntity != null) {
-                                oldBal = oldBal + balanceEntity.getBalance();
-                                balanceEntity.setBalance(oldBal);
+                                oldBal = oldBal + Float.parseFloat(balanceEntity.getBalance());
+                                balanceEntity.setBalance(String.valueOf(oldBal));
                             } else {
-                                balanceEntity.setBalance(0);
+                                balanceEntity.setBalance(String.valueOf(0));
                             }
                             vm.DeleteBalance();
                             vm.InsertBalance(balanceEntity);
                         } else {
-                            int oldBal = sal.getSalary();
+                            float oldBal = sal.getSalary();
                             if (inHandBal != null) {
-                                oldBal = oldBal + inHandBal.getBalance();
-                                inHandBal.setBalance(oldBal);
+                                oldBal = oldBal + Float.parseFloat(inHandBal.getBalance());
+                                inHandBal.setBalance(String.valueOf(oldBal));
                             } else {
-                                inHandBal.setBalance(0);
+                                inHandBal.setBalance("0");
                             }
                             vm.DeleteInHandBalance();
                             vm.InsertInHandBalance(inHandBal);
@@ -463,14 +463,14 @@ public class Ear_Tracker extends Fragment {
                     int salary = salaryEntity.getSalary();
                     if (type == Constants.SAL_MODE_ACC) {
                         balanceEntity bal = getBal();
-                        int curBal = bal.getBalance();
+                        float curBal = Float.parseFloat(bal.getBalance());
                         vm.DeleteBalance();
-                        vm.InsertBalance(new balanceEntity(curBal - salary));
+                        vm.InsertBalance(new balanceEntity(String.valueOf(curBal - salary)));
                     } else {
                         inHandBalEntity bal = getInHandBal();
-                        int curBal = bal.getBalance();
+                        float curBal = Float.parseFloat(bal.getBalance());
                         vm.DeleteInHandBalance();
-                        vm.InsertInHandBalance(new inHandBalEntity(curBal - salary));
+                        vm.InsertInHandBalance(new inHandBalEntity(String.valueOf(curBal - salary)));
                     }
                     popupWindow.dismiss();
                     if (budType == Constants.BUDGET_MONTHLY || budType == Constants.BUDGET_WEEKLY) {
@@ -560,7 +560,7 @@ public class Ear_Tracker extends Fragment {
             if (balanceEntity != null) {
                 bal.set(balanceEntity);
             } else {
-                bal.set(new balanceEntity(0));
+                bal.set(new balanceEntity("0"));
             }
         });
         return bal.get();
@@ -572,7 +572,7 @@ public class Ear_Tracker extends Fragment {
             if (inHandBalEntity != null) {
                 bal.set(inHandBalEntity);
             } else {
-                bal.set(new inHandBalEntity(0));
+                bal.set(new inHandBalEntity("0"));
             }
         });
         return bal.get();

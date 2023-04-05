@@ -4,19 +4,19 @@ package app.personal.Utls;
 public class Constants {
 
     //Architecture Constants do not change-------------------------
-    public static final String balanceTable = "Balance_Table",
-            expTable = "Exp_Table",
-            salaryTable = "Salary_Table",
-            debtTable = "Debt_Table",
-            budgetTable = "Budget_Table",
-            inHandBalTable = "In_Hand_Bal_Table",
+    public static final String balanceTable = "Balance_Table", //Balance_Table
+            expTable = "Exp_Table", //Expense_Table
+            salaryTable = "Salary_Table", //Sal_Table
+            debtTable = "Debt_Table", //Debts_Table
+            budgetTable = "Budget_Table", //Bud_Table
+            inHandBalTable = "In_Hand_Bal_Table", //In_Hand_Bal_Table
             dbName = "Fury_Database",
             userTable = "User_Table",
             launchChecker = "Launch_Checker",
             CustomCategory = "custom_Category",
             APP_VERSION = "1.0.3";
     //DO NOT CHANGE------------------------------------------------
-    public static final int DB_VERSION = 14;
+    public static final int DB_VERSION = 18;
     //-------------------------------------------------------------
     public static final String Dues = "Dues And Debt",
             Exp = "Expense Tracker",
