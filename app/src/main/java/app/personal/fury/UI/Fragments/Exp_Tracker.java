@@ -65,7 +65,8 @@ public class Exp_Tracker extends Fragment {
     private expAdapter adapter;
     private TextView balanceView, expView, inHandExp, accountExp, inHandCount, accountCount, dLimit;
     private RecyclerView.ViewHolder ViewHolder;
-    private int accBal = 0, inHandBal = 0, cashAmt, cashCount, accAmt, accCount, cDAvg, s2;
+    private int cashAmt, cashCount, accAmt, accCount, cDAvg, s2;
+    private float accBal = 0, inHandBal = 0;
     private String userName = "", Currency = "";
     private AppUtilViewModel appVM;
     private AdView ad;
@@ -211,7 +212,7 @@ public class Exp_Tracker extends Fragment {
     }
 
     private void loadAd() {
-        if (!loaded){
+        if (!loaded) {
             ad.loadAd(adRequest);
             adLayout.setVisibility(View.GONE);
             loaded = true;
@@ -276,36 +277,42 @@ public class Exp_Tracker extends Fragment {
         util.TutorialPhase6(Targets, PrimaryTexts, SecondaryTexts);
     }
 
-    private int getBalance() {
-        AtomicReference<balanceEntity> Balance = new AtomicReference<>(new balanceEntity());
+    private float getBalance() {
+        AtomicReference<balanceEntity> Balance = new AtomicReference<>(new balanceEntity("0"));
         vm.getBalance().observe(requireActivity(), entity -> {
-            if (entity != null) {
-                Balance.set(entity);
-                accBal = entity.getBalance();
-            }
             try {
+                Balance.set(entity);
+                accBal = Float.parseFloat(entity.getBalance());
                 String s = Currency + (accBal + inHandBal);
                 balanceView.setText(s);
             } catch (Exception ignored) {
+                accBal = Float.parseFloat("0");
             }
         });
-        return Balance.get().getBalance();
+        try{
+            return Float.parseFloat(Balance.get().getBalance());
+        }catch(Exception ignored){
+            return Float.parseFloat("0");
+        }
     }
 
-    private int getInHandBalance() {
-        AtomicReference<inHandBalEntity> Balance = new AtomicReference<>(new inHandBalEntity());
+    private float getInHandBalance() {
+        AtomicReference<inHandBalEntity> Balance = new AtomicReference<>(new inHandBalEntity("0"));
         vm.getInHandBalance().observe(requireActivity(), entity -> {
-            if (entity != null) {
-                Balance.set(entity);
-                inHandBal = entity.getBalance();
-            }
             try {
+                Balance.set(entity);
+                inHandBal = Float.parseFloat(entity.getBalance());
                 String s = Currency + (accBal + inHandBal);
                 balanceView.setText(s);
             } catch (Exception ignored) {
+                inHandBal = Float.parseFloat("0");
             }
         });
-        return Balance.get().getBalance();
+        try{
+            return Float.parseFloat(Balance.get().getBalance());
+        }catch(Exception ignored){
+            return Float.parseFloat("0");
+        }
     }
 
     private void showWarningPopup() {
@@ -380,16 +387,16 @@ public class Exp_Tracker extends Fragment {
                 int amt = entity.getExpenseAmt();
 
                 if (entity.getExpMode() == Constants.SAL_MODE_ACC) {
-                    int oldBal = accBal;
+                    float oldBal = accBal;
                     vm.DeleteBalance();
                     balanceEntity entity1 = new balanceEntity();
-                    entity1.setBalance(oldBal + amt);
+                    entity1.setBalance(String.valueOf(oldBal + amt));
                     vm.InsertBalance(entity1);
                 } else {
-                    int oldBal = inHandBal;
+                    float oldBal = inHandBal;
                     vm.DeleteInHandBalance();
                     inHandBalEntity entity1 = new inHandBalEntity();
-                    entity1.setBalance(oldBal + amt);
+                    entity1.setBalance(String.valueOf(oldBal + amt));
                     vm.InsertInHandBalance(entity1);
                 }
 
@@ -551,17 +558,17 @@ public class Exp_Tracker extends Fragment {
     private void updateVals(expEntity entity, EditText expAmt) {
         if (entity.getExpMode() == Constants.SAL_MODE_ACC) {
             //Balance
-            int oldBal = accBal;
+            float oldBal = accBal;
             vm.DeleteBalance();
             balanceEntity bal = new balanceEntity();
-            int v = Integer.parseInt(expAmt.getText().toString());
-            bal.setBalance(oldBal - v);
+            float v = Float.parseFloat(expAmt.getText().toString());
+            bal.setBalance(String.valueOf(oldBal - v));
             vm.InsertBalance(bal);
         } else {
-            int oldBal = inHandBal;
+            float oldBal = inHandBal;
             vm.DeleteInHandBalance();
             inHandBalEntity bal = new inHandBalEntity();
-            bal.setBalance(oldBal - Integer.parseInt(expAmt.getText().toString()));
+            bal.setBalance(String.valueOf(oldBal - Float.parseFloat(expAmt.getText().toString())));
             vm.InsertInHandBalance(bal);
         }
 
