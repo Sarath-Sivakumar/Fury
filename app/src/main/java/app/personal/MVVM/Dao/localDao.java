@@ -41,10 +41,10 @@ public interface localDao {
     @Insert
     void InsertBal(balanceEntity entity);
 
-    @Query("DELETE FROM Bank_Bal_Table")
+    @Query("DELETE FROM Balance_Table")
     void DeleteBal();
 
-    @Query("SELECT * FROM Bank_Bal_Table ORDER BY id DESC")
+    @Query("SELECT * FROM Balance_Table ORDER BY id DESC")
     LiveData<balanceEntity> getBalData();
 
     //InHandBalance------

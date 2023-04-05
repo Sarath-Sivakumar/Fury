@@ -4,7 +4,7 @@ package app.personal.Utls;
 public class Constants {
 
     //Architecture Constants do not change-------------------------
-    public static final String balanceTable = "Bank_Bal_Table", //Balance_Table
+    public static final String balanceTable = "Balance_Table", //Balance_Table
             expTable = "Exp_Table", //Expense_Table
             salaryTable = "Salary_Table", //Sal_Table
             debtTable = "Debt_Table", //Debts_Table

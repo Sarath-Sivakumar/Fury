@@ -2,10 +2,10 @@
   "formatVersion": 1,
   "database": {
     "version": 18,
-    "identityHash": "53246648e0ba39c54ecbabef06ad8168",
+    "identityHash": "b407627751804ae457983d9f8a12fc3b",
     "entities": [
       {
-        "tableName": "Bank_Bal_Table",
+        "tableName": "Balance_Table",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `balance` TEXT)",
         "fields": [
           {
@@ -244,7 +244,7 @@
         "foreignKeys": []
       },
       {
-        "tableName": "In_Hand_Bal_Table",
+        "tableName": "in_hand_Bal_Table",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `balance` TEXT)",
         "fields": [
           {
@@ -358,7 +358,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '53246648e0ba39c54ecbabef06ad8168')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b407627751804ae457983d9f8a12fc3b')"
     ]
   }
 }
