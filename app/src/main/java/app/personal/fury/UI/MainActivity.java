@@ -52,6 +52,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.inHandBalEntity;
@@ -115,9 +116,9 @@ public class MainActivity extends AppCompatActivity {
         }
         if (savedInstanceState == null) {
             vp.setCurrentItem(2, true);
-            if (Commons.isConnectedToInternet(this)){
+            if (Commons.isConnectedToInternet(this)) {
                 initAd();
-            }else{
+            } else {
                 Commons.SnackBar(tb, "No Internet connection available");
             }
         }
@@ -175,15 +176,15 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i <= daysDiff; i++) {
                     if (!sal.getCreationDate().equals(Commons.getDate())) {
                         if (sal.getSalMode() == Constants.SAL_MODE_CASH) {
-                            int inHandBal = getInHandBal();
+                            float inHandBal = getInHandBal();
                             vm.DeleteInHandBalance();
-                            vm.InsertInHandBalance(new inHandBalEntity(inHandBal + sal.getSalary()));
+                            vm.InsertInHandBalance(new inHandBalEntity(String.valueOf(inHandBal + sal.getSalary())));
                             sal.setCreationDate(Commons.getDate());
                             vm.UpdateSalary(sal);
                         } else if (sal.getSalMode() == Constants.SAL_MODE_ACC) {
-                            int bal = getBal();
+                            float bal = getBal();
                             vm.DeleteBalance();
-                            vm.InsertBalance(new balanceEntity(bal + sal.getSalary()));
+                            vm.InsertBalance(new balanceEntity(String.valueOf(bal + sal.getSalary())));
                             sal.setCreationDate(Commons.getDate());
                             vm.UpdateSalary(sal);
                         }
@@ -210,13 +211,13 @@ public class MainActivity extends AppCompatActivity {
                     Integer.parseInt(splitCurrentDate[1]) > Integer.parseInt(splitCreationDate[1])) {
                 int mode = sal.getSalMode();
                 if (mode == Constants.SAL_MODE_CASH) {
-                    int inHandBal = getInHandBal();
+                    float inHandBal = getInHandBal();
                     vm.DeleteInHandBalance();
-                    vm.InsertInHandBalance(new inHandBalEntity(inHandBal + sal.getSalary()));
+                    vm.InsertInHandBalance(new inHandBalEntity(String.valueOf(inHandBal + sal.getSalary())));
                 } else {
-                    int bal = getBal();
+                    float bal = getBal();
                     vm.DeleteBalance();
-                    vm.InsertBalance(new balanceEntity(bal + sal.getSalary()));
+                    vm.InsertBalance(new balanceEntity(String.valueOf(bal + sal.getSalary())));
                 }
                 sal.setCreationDate(Commons.getDate());
                 vm.UpdateSalary(sal);
@@ -225,17 +226,17 @@ public class MainActivity extends AppCompatActivity {
             //Next Year.
             int mode = sal.getSalMode();
             if (mode == Constants.SAL_MODE_CASH) {
-                int inHandBal = getInHandBal();
+                float inHandBal = getInHandBal();
                 vm.DeleteInHandBalance();
-                vm.InsertInHandBalance(new inHandBalEntity(inHandBal + sal.getSalary()));
+                vm.InsertInHandBalance(new inHandBalEntity(String.valueOf(inHandBal + sal.getSalary())));
             } else {
-                int bal = 0;
+                float bal = 0;
                 try {
                     bal = getBal();
                 } catch (Exception ignored) {
                 }
                 vm.DeleteBalance();
-                vm.InsertBalance(new balanceEntity(bal + sal.getSalary()));
+                vm.InsertBalance(new balanceEntity(String.valueOf(bal + sal.getSalary())));
             }
             sal.setCreationDate(Commons.getDate());
             vm.UpdateSalary(sal);
@@ -386,25 +387,25 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private int getInHandBal() {
-        AtomicInteger bal = new AtomicInteger();
+    private float getInHandBal() {
+        AtomicReference<Float> bal = new AtomicReference<>(0f);
         vm.getInHandBalance().observe(this, inHandBalEntity -> {
             if (inHandBalEntity != null) {
-                bal.set(inHandBalEntity.getBalance());
+                bal.set(Float.valueOf(inHandBalEntity.getBalance()));
             } else {
-                bal.set(0);
+                bal.set(0f);
             }
         });
         return bal.get();
     }
 
-    private int getBal() {
-        AtomicInteger bal = new AtomicInteger();
+    private float getBal() {
+        AtomicReference<Float> bal = new AtomicReference<>(0f);
         vm.getBalance().observe(this, balanceEntity -> {
             if (balanceEntity != null) {
-                bal.set(balanceEntity.getBalance());
+                bal.set(Float.parseFloat(balanceEntity.getBalance()));
             } else {
-                bal.set(0);
+                bal.set(0f);
             }
         });
         return bal.get();

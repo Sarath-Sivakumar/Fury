@@ -23,6 +23,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.expEntity;
@@ -116,11 +117,11 @@ public class allExp extends AppCompatActivity {
 
         del.setOnClickListener(v -> {
             expEntity entity = adapter.getExpAt(ViewHolder.getAdapterPosition());
-            int amt = entity.getExpenseAmt();
-            int oldBal = getBalance();
+            float amt = entity.getExpenseAmt();
+            float oldBal = getBalance();
             vm.DeleteBalance();
             balanceEntity entity1 = new balanceEntity();
-            entity1.setBalance(oldBal + amt);
+//            entity1.setBalance(String.valueOf(oldBal + amt));
             vm.InsertBalance(entity1);
             vm.DeleteExp(adapter.getExpAt(ViewHolder.getAdapterPosition()));
             adapter.clear();
@@ -140,11 +141,11 @@ public class allExp extends AppCompatActivity {
         popupWindow.showAsDropDown(recyclerView);
     }
 
-    private int getBalance() {
-        AtomicInteger Balance = new AtomicInteger();
+    private float getBalance() {
+        AtomicReference<Float> Balance = new AtomicReference<>();
         vm.getBalance().observe(this, entity -> {
             if (entity != null) {
-                Balance.set(entity.getBalance());
+                Balance.set(Float.valueOf(entity.getBalance()));
             }
         });
         return Balance.get();

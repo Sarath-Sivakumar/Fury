@@ -400,7 +400,7 @@ public class Commons {
         mainVM.DeleteAllSalary();
         mainVM.DeleteAllExp();
         mainVM.DeleteBudget();
-        mainVM.InsertBalance(new balanceEntity(0));
-        mainVM.InsertInHandBalance(new inHandBalEntity(0));
+        mainVM.InsertBalance(new balanceEntity("0"));
+        mainVM.InsertInHandBalance(new inHandBalEntity("0"));
     }
 }

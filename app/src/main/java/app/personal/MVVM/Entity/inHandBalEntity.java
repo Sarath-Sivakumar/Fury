@@ -11,16 +11,16 @@ public class inHandBalEntity {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private int balance;
+    private String balance;
 
     @Ignore
-    public inHandBalEntity(int id, int balance) {
+    public inHandBalEntity(int id, String balance) {
         this.id = id;
         this.balance = balance;
     }
 
     @Ignore
-    public inHandBalEntity(int balance) {
+    public inHandBalEntity(String balance) {
         this.balance = balance;
     }
 
@@ -31,17 +31,16 @@ public class inHandBalEntity {
         return id;
     }
 
-    public int getBalance() {
+    public String getBalance() {
         return balance;
     }
 
 //    Setter
-
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(String balance) {
         this.balance = balance;
     }
 }
