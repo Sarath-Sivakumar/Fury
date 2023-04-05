@@ -206,6 +206,9 @@
     <string name="authentication_is_required_to_continue_this_action">Authentication is required to continue this action.</string>
     <string name="articles">Articles</string>
     <string name="show_more">see more</string>
+    <string name="expense_articles">Expense related articles</string>
+    <string name="cibil">Check your Cibil score for free</string>
+    <string name="fury_featured">Fury Featured</string>
 
 
 </resources>

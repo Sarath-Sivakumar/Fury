@@ -189,9 +189,9 @@ public class fragment_main extends Fragment {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://furyfinance.blogspot.com/")));
         });
 
-        String c1 = "What is credit score and why it is important to maintain a good score?'";
-        String c2 = "Tips to achieve financial freedom as early as possible";
-        String c3 = "Why passive income is said to be the key to financial stability?";
+        String c1 = "Why having a good credit score is important?";
+        String c2 = "How to achieve financial freedom as early as possible";
+        String c3 = "Why passive income is important to attain financial freedom?";
         card1txt.setText(c1);
         card2txt.setText(c2);
         card3txt.setText(c3);

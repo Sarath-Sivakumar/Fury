@@ -23,6 +23,13 @@ import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -60,6 +67,8 @@ public class BudgetFragment extends Fragment {
     private int prevType = 3, prevAmt = 0;
     private String prevDate = "0", Currency = "";
     private TutorialUtil util;
+    private InterstitialAd interstitial;
+
 
     public BudgetFragment() {
         // Required empty public constructor
@@ -92,6 +101,9 @@ public class BudgetFragment extends Fragment {
         findView(v);
         if (savedInstanceState == null) {
 //            requestAd();
+        }
+        if (savedInstanceState == null && Commons.isConnectedToInternet(requireContext())) {
+            initAd();
         }
         return v;
     }
@@ -272,13 +284,14 @@ public class BudgetFragment extends Fragment {
                 Commons.fakeLoadingScreen(requireContext(), totalSalary, totalExp,
                         Constants.BUDGET_MONTHLY, vm, addBudget, startDate.get());
                 onBudgetSetTutorial(getView(), "Great we've set a budget..");
-                loadNextPhase();
             }
+            showInterstitial();
         });
 
         no.setOnClickListener(v -> {
             popupWindow.dismiss();
             callManualPopup();
+            showInterstitial();
         });
 
         popupWindow.setFocusable(true);
@@ -289,6 +302,57 @@ public class BudgetFragment extends Fragment {
         popupWindow.showAsDropDown(addBudget);
 
         onBudgetSetTutorial(yes, "Select a budget refresh type and tap continue or set budget manually..");
+
+    }
+    private void initAd() {
+        MobileAds.initialize(requireContext());
+        String TestAdId = "ca-app-pub-8620335196955785/9643633645";
+        AdRequest adRequest = new AdRequest.Builder().build();
+        InterstitialAd.load(
+                requireContext(),
+                TestAdId,
+                adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        interstitial = interstitialAd;
+                        interstitialAd.setFullScreenContentCallback(
+                                new FullScreenContentCallback() {
+                                    @Override
+                                    public void onAdDismissedFullScreenContent() {
+                                        // Called when fullscreen content is dismissed.
+                                        // Make sure to set your reference to null so you don't
+                                        // show it a second time.
+                                        interstitial = null;
+                                    }
+
+                                    @Override
+                                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                                        // Called when fullscreen content failed to show.
+                                        // Make sure to set your reference to null so you don't
+                                        // show it a second time.
+                                        interstitial = null;
+                                    }
+
+                                    @Override
+                                    public void onAdShowedFullScreenContent() {
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        interstitial = null;
+                    }
+                });
+    }
+
+    private void showInterstitial() {
+        if (interstitial != null) {
+            interstitial.show(requireActivity());
+        }
     }
 
     private void loadNextPhase() {

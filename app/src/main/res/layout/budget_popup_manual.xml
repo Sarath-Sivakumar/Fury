@@ -100,7 +100,7 @@
                             android:layout_height="wrap_content"
                             android:minHeight="48dp"
                             android:gravity="center"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:singleLine="true"
                             android:fontFamily="@font/work_sans_medium"
                             android:hint="@string/rupee"
