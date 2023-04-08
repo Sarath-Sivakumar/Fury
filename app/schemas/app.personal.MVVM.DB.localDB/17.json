@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 17,
-    "identityHash": "53246648e0ba39c54ecbabef06ad8168",
+    "identityHash": "bbc1aa38769dd24a370453fd627190b8",
     "entities": [
       {
-        "tableName": "Bank_Bal_Table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `balance` TEXT)",
+        "tableName": "Balance_Table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `balance` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -17,8 +17,8 @@
           {
             "fieldPath": "balance",
             "columnName": "balance",
-            "affinity": "TEXT",
-            "notNull": false
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -245,7 +245,7 @@
       },
       {
         "tableName": "In_Hand_Bal_Table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `balance` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `balance` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -256,8 +256,8 @@
           {
             "fieldPath": "balance",
             "columnName": "balance",
-            "affinity": "TEXT",
-            "notNull": false
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -327,38 +327,12 @@
         },
         "indices": [],
         "foreignKeys": []
-      },
-      {
-        "tableName": "custom_Category",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `CategoryName` TEXT)",
-        "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "CategoryName",
-            "columnName": "CategoryName",
-            "affinity": "TEXT",
-            "notNull": false
-          }
-        ],
-        "primaryKey": {
-          "autoGenerate": true,
-          "columnNames": [
-            "id"
-          ]
-        },
-        "indices": [],
-        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '53246648e0ba39c54ecbabef06ad8168')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bbc1aa38769dd24a370453fd627190b8')"
     ]
   }
 }
