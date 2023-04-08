@@ -11,15 +11,18 @@ public class balanceEntity {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String balance;
+
+    private int balance;
+//    @ColumnInfo(defaultValue = "0")
+//    private String amt;
 
     @Ignore
-    public balanceEntity(String balance) {
+    public balanceEntity(int balance) {
         this.balance = balance;
     }
 
     @Ignore
-    public balanceEntity(int id, String balance) {
+    public balanceEntity(int id, int balance) {
         this.id = id;
         this.balance = balance;
     }
@@ -30,7 +33,11 @@ public class balanceEntity {
         return id;
     }
 
-    public String getBalance() {
+//    public String getAmt() {
+//        return amt;
+//    }
+
+    public int getBalance() {
         return balance;
     }
 
@@ -38,7 +45,11 @@ public class balanceEntity {
         this.id = id;
     }
 
-    public void setBalance(String balance) {
+    public void setBalance(int balance) {
         this.balance = balance;
     }
+//
+//    public void setAmt(String amt) {
+//        this.amt = amt;
+//    }
 }

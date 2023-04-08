@@ -50,8 +50,7 @@ public abstract class localDB extends RoomDatabase {
                     .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4,
                             MIGRATION_4_5, MIGRATION_6_7, MIGRATION_7_8,
                             MIGRATION_8_9, MIGRATION_9_10, MIGRATION_10_11,
-                            MIGRATION_11_12, MIGRATION_12_13, MIGRATION_13_14,
-                            MIGRATION_14_15)
+                            MIGRATION_11_12, MIGRATION_12_13, MIGRATION_13_14)
                     .build();
         }
         return instance;
@@ -137,26 +136,6 @@ public abstract class localDB extends RoomDatabase {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE 'Budget_Table' ADD COLUMN 'CreationDate' VARCHAR(15) DEFAULT 'Not Set'");
-        }
-    };
-
-    static final Migration MIGRATION_14_15 = new Migration(16, 17) {
-        @Override
-        public void migrate(SupportSQLiteDatabase database) {
-            database.execSQL("CREATE TABLE IF NOT EXISTS 'Bank_Bal_Table' ('id' INTEGER PRIMARY KEY NOT NULL , 'balance' VARCHAR(12))");
-            database.execSQL("INSERT INTO 'Bank_Bal_Table' ('id', 'balance') SELECT CAST(id AS INTEGER), CAST(balance AS VARCHAR(12)) FROM 'Balance_Table'");
-            database.execSQL("Drop table 'Balance_Table'");
-            database.execSQL("alter table 'Bank_Bal_Table' rename to 'Balance_Table'");
-        }
-    };
-
-    static final Migration MIGRATION_15_16 = new Migration(17, 18) {
-        @Override
-        public void migrate(SupportSQLiteDatabase database) {
-            database.execSQL("CREATE TABLE IF NOT EXISTS 'in_hand_Bal_Table' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL , 'balance' VARCHAR(12))");
-            database.execSQL("INSERT INTO 'in_hand_Bal_Table' ('id', 'balance') SELECT CAST(id AS INTEGER), CAST(balance AS VARCHAR(12)) FROM 'In_Hand_Bal_Table'");
-            database.execSQL("Drop table 'in_hand_Bal_Table'");
-            database.execSQL("alter table 'in_hand_Bal_Table' rename to 'In_Hand_Bal_Table'");
         }
     };
 }

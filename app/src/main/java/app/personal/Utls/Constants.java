@@ -16,7 +16,7 @@ public class Constants {
             CustomCategory = "custom_Category",
             APP_VERSION = "1.0.3";
     //DO NOT CHANGE------------------------------------------------
-    public static final int DB_VERSION = 18;
+    public static final int DB_VERSION = 14;
     //-------------------------------------------------------------
     public static final String Dues = "Dues And Debt",
             Exp = "Expense Tracker",

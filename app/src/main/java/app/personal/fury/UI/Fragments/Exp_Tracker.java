@@ -278,39 +278,39 @@ public class Exp_Tracker extends Fragment {
     }
 
     private float getBalance() {
-        AtomicReference<balanceEntity> Balance = new AtomicReference<>(new balanceEntity("0"));
+        AtomicReference<balanceEntity> Balance = new AtomicReference<>(new balanceEntity(0));
         vm.getBalance().observe(requireActivity(), entity -> {
             try {
                 Balance.set(entity);
-                accBal = Float.parseFloat(entity.getBalance());
+                accBal = (float) entity.getBalance();
                 String s = Currency + (accBal + inHandBal);
                 balanceView.setText(s);
             } catch (Exception ignored) {
                 accBal = Float.parseFloat("0");
             }
         });
-        try{
-            return Float.parseFloat(Balance.get().getBalance());
-        }catch(Exception ignored){
+        try {
+            return (float) Balance.get().getBalance();
+        } catch (Exception ignored) {
             return Float.parseFloat("0");
         }
     }
 
     private float getInHandBalance() {
-        AtomicReference<inHandBalEntity> Balance = new AtomicReference<>(new inHandBalEntity("0"));
+        AtomicReference<inHandBalEntity> Balance = new AtomicReference<>(new inHandBalEntity(0));
         vm.getInHandBalance().observe(requireActivity(), entity -> {
             try {
                 Balance.set(entity);
-                inHandBal = Float.parseFloat(entity.getBalance());
+                inHandBal = (float) entity.getBalance();
                 String s = Currency + (accBal + inHandBal);
                 balanceView.setText(s);
             } catch (Exception ignored) {
                 inHandBal = Float.parseFloat("0");
             }
         });
-        try{
-            return Float.parseFloat(Balance.get().getBalance());
-        }catch(Exception ignored){
+        try {
+            return (float) Balance.get().getBalance();
+        } catch (Exception ignored) {
             return Float.parseFloat("0");
         }
     }
@@ -390,13 +390,13 @@ public class Exp_Tracker extends Fragment {
                     float oldBal = accBal;
                     vm.DeleteBalance();
                     balanceEntity entity1 = new balanceEntity();
-                    entity1.setBalance(String.valueOf(oldBal + amt));
+                    entity1.setBalance((int) (oldBal + amt));
                     vm.InsertBalance(entity1);
                 } else {
                     float oldBal = inHandBal;
                     vm.DeleteInHandBalance();
                     inHandBalEntity entity1 = new inHandBalEntity();
-                    entity1.setBalance(String.valueOf(oldBal + amt));
+                    entity1.setBalance((int) (oldBal + amt));
                     vm.InsertInHandBalance(entity1);
                 }
 
@@ -562,13 +562,13 @@ public class Exp_Tracker extends Fragment {
             vm.DeleteBalance();
             balanceEntity bal = new balanceEntity();
             float v = Float.parseFloat(expAmt.getText().toString());
-            bal.setBalance(String.valueOf(oldBal - v));
+            bal.setBalance((int) (oldBal - v));
             vm.InsertBalance(bal);
         } else {
             float oldBal = inHandBal;
             vm.DeleteInHandBalance();
             inHandBalEntity bal = new inHandBalEntity();
-            bal.setBalance(String.valueOf(oldBal - Float.parseFloat(expAmt.getText().toString())));
+            bal.setBalance((int)(oldBal - Float.parseFloat(expAmt.getText().toString())));
             vm.InsertInHandBalance(bal);
         }
 

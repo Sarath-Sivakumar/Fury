@@ -11,36 +11,49 @@ public class inHandBalEntity {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String balance;
+    private int balance;
+//    @ColumnInfo(defaultValue = "0")
+//    private String amt;
 
     @Ignore
-    public inHandBalEntity(int id, String balance) {
+    public inHandBalEntity(int id, int balance) {
         this.id = id;
         this.balance = balance;
+//        this.amt = amt;
     }
 
     @Ignore
-    public inHandBalEntity(String balance) {
+    public inHandBalEntity(int balance) {
         this.balance = balance;
+//        this.amt = amt;
     }
 
-    public inHandBalEntity(){}
+    public inHandBalEntity() {
+    }
 
-//    Getter
+    //    Getter
     public int getId() {
         return id;
     }
 
-    public String getBalance() {
+//    public String getAmt() {
+//        return amt;
+//    }
+
+    public int getBalance() {
         return balance;
     }
 
-//    Setter
+    //    Setter
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setBalance(String balance) {
+    public void setBalance(int balance) {
         this.balance = balance;
     }
+
+//    public void setAmt(String amt) {
+//        this.amt = amt;
+//    }
 }

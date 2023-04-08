@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -154,7 +153,7 @@ public class Ear_Tracker extends Fragment {
     }
 
     private void loadAd() {
-        if (!loaded){
+        if (!loaded) {
             ad.loadAd(adRequest);
             adLayout.setVisibility(View.GONE);
             loaded = true;
@@ -177,6 +176,7 @@ public class Ear_Tracker extends Fragment {
         });
         util = new TutorialUtil(requireActivity(), requireContext(), requireActivity(), requireActivity());
     }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -381,20 +381,20 @@ public class Ear_Tracker extends Fragment {
                         if (sal.getSalMode() == Constants.SAL_MODE_ACC) {
                             float oldBal = sal.getSalary();
                             if (balanceEntity != null) {
-                                oldBal = oldBal + Float.parseFloat(balanceEntity.getBalance());
-                                balanceEntity.setBalance(String.valueOf(oldBal));
+                                oldBal = oldBal + (float) balanceEntity.getBalance();
+                                balanceEntity.setBalance((int) oldBal);
                             } else {
-                                balanceEntity.setBalance(String.valueOf(0));
+                                balanceEntity.setBalance(0);
                             }
                             vm.DeleteBalance();
                             vm.InsertBalance(balanceEntity);
                         } else {
                             float oldBal = sal.getSalary();
                             if (inHandBal != null) {
-                                oldBal = oldBal + Float.parseFloat(inHandBal.getBalance());
-                                inHandBal.setBalance(String.valueOf(oldBal));
+                                oldBal = oldBal + (float) inHandBal.getBalance();
+                                inHandBal.setBalance((int) oldBal);
                             } else {
-                                inHandBal.setBalance("0");
+                                inHandBal.setBalance(0);
                             }
                             vm.DeleteInHandBalance();
                             vm.InsertInHandBalance(inHandBal);
@@ -463,14 +463,14 @@ public class Ear_Tracker extends Fragment {
                     int salary = salaryEntity.getSalary();
                     if (type == Constants.SAL_MODE_ACC) {
                         balanceEntity bal = getBal();
-                        float curBal = Float.parseFloat(bal.getBalance());
+                        float curBal = (float) bal.getBalance();
                         vm.DeleteBalance();
-                        vm.InsertBalance(new balanceEntity(String.valueOf(curBal - salary)));
+                        vm.InsertBalance(new balanceEntity((int) curBal - salary));
                     } else {
                         inHandBalEntity bal = getInHandBal();
-                        float curBal = Float.parseFloat(bal.getBalance());
+                        float curBal = (float) bal.getBalance();
                         vm.DeleteInHandBalance();
-                        vm.InsertInHandBalance(new inHandBalEntity(String.valueOf(curBal - salary)));
+                        vm.InsertInHandBalance(new inHandBalEntity((int) curBal - salary));
                     }
                     popupWindow.dismiss();
                     if (budType == Constants.BUDGET_MONTHLY || budType == Constants.BUDGET_WEEKLY) {
@@ -560,7 +560,7 @@ public class Ear_Tracker extends Fragment {
             if (balanceEntity != null) {
                 bal.set(balanceEntity);
             } else {
-                bal.set(new balanceEntity("0"));
+                bal.set(new balanceEntity(0));
             }
         });
         return bal.get();
@@ -572,7 +572,7 @@ public class Ear_Tracker extends Fragment {
             if (inHandBalEntity != null) {
                 bal.set(inHandBalEntity);
             } else {
-                bal.set(new inHandBalEntity("0"));
+                bal.set(new inHandBalEntity(0));
             }
         });
         return bal.get();
