@@ -238,10 +238,10 @@ public class Commons {
     }
 
     public static boolean isEmail(String Email) {
-        if (!Email.isEmpty()){
+        if (!Email.isEmpty()) {
             Matcher matcher = EMAIL_REGEX.matcher(Email);
             return matcher.find();
-        }else {
+        } else {
             return false;
         }
     }
@@ -401,7 +401,7 @@ public class Commons {
         mainVM.DeleteAllSalary();
         mainVM.DeleteAllExp();
         mainVM.DeleteBudget();
-        mainVM.InsertBalance(new balanceEntity("0"));
-        mainVM.InsertInHandBalance(new inHandBalEntity("0"));
+        mainVM.InsertBalance(new balanceEntity(0));
+        mainVM.InsertInHandBalance(new inHandBalEntity(0));
     }
 }

@@ -3,9 +3,11 @@ package app.personal.fury.UI.Fragments;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -168,7 +170,7 @@ public class fragment_main extends Fragment {
             }
         });
         budgetView.setOnClickListener(v1 -> {
-            if (budgetView.getText().toString().equals("Set a budget.")) {
+            if (budgetView.getText().toString().equals("-Set a budget-")) {
                 MainActivity.redirectTo(1);
             }
         });
@@ -483,9 +485,9 @@ public class fragment_main extends Fragment {
             } catch (Exception e) {
                 budgetTotalAmount = 0;
                 try {
-                    String s = "Set a budget.";
+                    String s = "-Set a budget-";
+                    budgetView.setTextSize(12);
                     budgetView.setText(s);
-                    budgetView.setTextSize(14);
                     budgetView.setElegantTextHeight(true);
                 } catch (Exception ignored) {
                 }
@@ -541,7 +543,7 @@ public class fragment_main extends Fragment {
                 if (expEntities != null && !expEntities.isEmpty()) {
                     dAvg.setText(Commons.getAvg(expEntities, true, Currency));
                 } else {
-                    String s = "No data to display";
+                    String s = "-No data to display-";
                     dAvg.setText(s);
                 }
                 if (dAvg.getText().equals(Constants.dAvgNoData)) {
