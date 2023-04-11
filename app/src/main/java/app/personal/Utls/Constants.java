@@ -44,12 +44,15 @@ public class Constants {
     DEFAULT_DP = "Default_DP",
             Users = "USERS",
             AppVersion = "VERSION",
-    //            Metadata = "METADATA",
-//            ExpensesData = "EXPENSES",
-//            DuesData = "DUES",
-//            EarningsData = "EARNINGS",
-//            BudgetData = "BUDGET",
-    ExpFirebaseService = "expense",
+            Metadata = "METADATA",
+            ExpensesData = "EXPENSES",
+            DuesData = "DUES",
+            EarningsData = "EARNINGS",
+            BudgetData = "BUDGET",
+            BankBal = "BANKBALANCE",
+            InHandBal = "INHANDBALANCE",
+            LaunchChecker = "LAUNCHCHECKER",
+            ExpFirebaseService = "expense",
             PromoFirebaseService = "promotion",
             UpdateFirebaseService = "update";
 
@@ -79,7 +82,7 @@ public class Constants {
     //    -----------------------------------------------------------
     //    DueWarning-------------------------------------------------
 //    SHOW_WARNING_BY_PUSH_NOTIFICATIONS = 5,
-            SHOW_WARNING_BY_IN_APP = 3;
+    SHOW_WARNING_BY_IN_APP = 3;
     //    -----------------------------------------------------------
     public static final String DB_INSTANCE = "https://fury-d3622-default-rtdb.asia-southeast1.firebasedatabase.app";
 }

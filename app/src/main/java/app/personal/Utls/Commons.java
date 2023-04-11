@@ -41,6 +41,7 @@ public class Commons {
     private static final Pattern EMAIL_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     public static void SnackBar(View v, String Text) {
+        Log.e("Commons-SnackBar", Text);
         final Snackbar snackbar = Snackbar.make(v, "", Snackbar.LENGTH_SHORT);
         LayoutInflater inflater = (LayoutInflater) v.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View snackView = inflater.inflate(R.layout.snack_bar, null);

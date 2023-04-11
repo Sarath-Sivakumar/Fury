@@ -117,6 +117,12 @@ public class localRepository {
         new InsertDebtAsyncTask(dao).execute(debt);
     }
 
+    public void setDebtList(List<debtEntity> debtList){
+        for (int i = 0;i<debtList.size();i++){
+            InsertDebt(debtList.get(i));
+        }
+    }
+
     public void UpdateDebt(debtEntity debt) {
         new UpdateDebtAsyncTask(dao).execute(debt);
     }
@@ -133,6 +139,12 @@ public class localRepository {
         new InsertSalAsyncTask(dao).execute(salary);
     }
 
+    public void setSalaryList(List<salaryEntity> salaryList){
+        for (int i = 0;i<salaryList.size();i++){
+            InsertSalary(salaryList.get(i));
+        }
+    }
+
     public void UpdateSalary(salaryEntity salary) {
         new UpdateSalAsyncTask(dao).execute(salary);
     }
@@ -147,6 +159,12 @@ public class localRepository {
 
     public void InsertExp(expEntity exp) {
         new InsertExpAsyncTask(dao).execute(exp);
+    }
+
+    public void setExpList(List<expEntity> expList){
+        for (int i = 0;i<expList.size();i++){
+            InsertExp(expList.get(i));
+        }
     }
 
     public void UpdateExp(expEntity exp) {

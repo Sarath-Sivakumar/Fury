@@ -20,6 +20,7 @@ import java.util.Objects;
 
 import app.personal.MVVM.Entity.LaunchChecker;
 import app.personal.MVVM.Viewmodel.AppUtilViewModel;
+import app.personal.MVVM.Viewmodel.DataSyncViewModel;
 import app.personal.MVVM.Viewmodel.userInitViewModel;
 import app.personal.Utls.Commons;
 import app.personal.fury.R;
