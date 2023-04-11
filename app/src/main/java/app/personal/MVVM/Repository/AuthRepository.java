@@ -32,8 +32,8 @@ public class AuthRepository {
     private final Application application;
     private final FirebaseAuth firebaseAuth;
     private final FirebaseDatabase db = FirebaseDatabase.getInstance(Constants.DB_INSTANCE);
-    private final DatabaseReference userDataRef = db.getReference(Constants.Users);
-    private final DatabaseReference updateDataRef = db.getReference(Constants.AppVersion);
+    private final DatabaseReference userDataRef;
+    private final DatabaseReference updateDataRef;
     private final MutableLiveData<FirebaseUser> userLiveData;
     private final MutableLiveData<Boolean> isLoggedOutLiveData;
     private final MutableLiveData<userEntity> userData;
@@ -45,6 +45,10 @@ public class AuthRepository {
 
     public AuthRepository(Application application) {
         this.application = application;
+
+        userDataRef = db.getReference(Constants.Users);
+        updateDataRef = db.getReference(Constants.AppVersion);
+
         this.firebaseAuth = FirebaseAuth.getInstance();
         this.userLiveData = new MutableLiveData<>();
         this.isLoggedOutLiveData = new MutableLiveData<>();

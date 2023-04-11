@@ -1,9 +1,7 @@
 package app.personal.fury.UI;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -17,10 +15,12 @@ import androidx.core.view.ViewPropertyAnimatorCompat;
 import androidx.core.view.ViewPropertyAnimatorListener;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import app.personal.MVVM.Entity.LaunchChecker;
 import app.personal.MVVM.Viewmodel.AppUtilViewModel;
-import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.MVVM.Viewmodel.userInitViewModel;
+import app.personal.Utls.Constants;
 import app.personal.fury.R;
 import app.personal.fury.UI.User_Init.Landing;
 

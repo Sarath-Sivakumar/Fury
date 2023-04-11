@@ -75,7 +75,9 @@ public class mainViewModel extends AndroidViewModel {
     public void InsertExp(expEntity entity) {
         repo.InsertExp(entity);
     }
-
+    public void setExpList(List<expEntity> expList){
+        repo.setExpList(expList);
+    }
     public void UpdateExp(expEntity entity) {
         repo.UpdateExp(entity);
     }
@@ -107,7 +109,9 @@ public class mainViewModel extends AndroidViewModel {
     public void InsertSalary(salaryEntity entity) {
         repo.InsertSalary(entity);
     }
-
+    public void setSalaryList(List<salaryEntity> salaryList){
+        repo.setSalaryList(salaryList);
+    }
     public void UpdateSalary(salaryEntity entity) {
         repo.UpdateSalary(entity);
     }
@@ -123,7 +127,9 @@ public class mainViewModel extends AndroidViewModel {
     public void InsertDebt(debtEntity entity) {
         repo.InsertDebt(entity);
     }
-
+    public void setDebtList(List<debtEntity> debtList){
+        repo.setDebtList(debtList);
+    }
     public void UpdateDebt(debtEntity entity) {
         repo.UpdateDebt(entity);
     }

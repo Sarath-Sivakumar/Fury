@@ -18,13 +18,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import app.personal.MVVM.Entity.userEntity;
+import app.personal.MVVM.Viewmodel.DataSyncViewModel;
 import app.personal.MVVM.Viewmodel.userInitViewModel;
 import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
 import app.personal.fury.UI.Drawer.WebViewActivity;
 import app.personal.fury.UI.MainActivity;
-import app.personal.fury.UI.User_Init.login.Login;
 
 public class signUp extends AppCompatActivity {
 

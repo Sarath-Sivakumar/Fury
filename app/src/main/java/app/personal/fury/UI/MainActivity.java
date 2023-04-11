@@ -1,7 +1,6 @@
 package app.personal.fury.UI;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
@@ -51,12 +51,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.inHandBalEntity;
 import app.personal.MVVM.Entity.salaryEntity;
+import app.personal.MVVM.Viewmodel.AppUtilViewModel;
+import app.personal.MVVM.Viewmodel.DataSyncViewModel;
 import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.MVVM.Viewmodel.userInitViewModel;
@@ -81,12 +82,15 @@ public class MainActivity extends AppCompatActivity {
     private static viewPager vp;
     private userInitViewModel uvm;
     private mainViewModel vm;
+    private AppUtilViewModel appVm;
+    private DataSyncViewModel dsVm;
     private LoggedInUserViewModel userVM;
     private static TabLayout tl;
     private DrawerLayout dl;
     private Toolbar tb;
     private ImageView userDp;
     private TextView userName;
+    private ProgressBar syncProgress;
     private static TutorialUtil util;
     private InterstitialAd interstitial;
     @ColorInt
@@ -98,11 +102,193 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         vm = new ViewModelProvider(this).get(mainViewModel.class);
+        dsVm = new ViewModelProvider(this).get(DataSyncViewModel.class);
+        appVm = new ViewModelProvider(this).get(AppUtilViewModel.class);
+        initDataSync(savedInstanceState);
         setCurrency(savedInstanceState);
     }
 
+    private void initDataSync(Bundle savedInstanceState) {
+        if (savedInstanceState==null){
+            appVm.getCheckerData().observe(this, launchChecker -> {
+                if (launchChecker.getTimesLaunched()==1){
+                    dsVm.setBruteForceSync(true);
+                }else{
+                    dsVm.setBruteForceSync(false);
+                }
+            });
+        }
+        dsVm.init();
+        dsVm.getBruteForceSync().observe(this, Boolean->{
+            if (Boolean){
+                DS_NewUser();
+            }else{
+                DS_RegularLaunch();
+            }
+        });
+        dsVm.getSyncStatus().observe(this, Boolean -> {
+            try {
+                if (Boolean) {
+                    syncProgress.setVisibility(View.GONE);
+                } else {
+                    syncProgress.setVisibility(View.VISIBLE);
+                }
+            } catch (Exception ignored) {
+            }
+        });
+        dsVm.getFirebaseError().observe(this, error -> {
+            try {
+                if (!error.equals("Null")) {
+                    Commons.SnackBar(syncProgress, error);
+                    dsVm.setDefaultError();
+                }
+            } catch (Exception ignored) {
+            }
+        });
+    }
+
+    private void DS_NewUser(){
+        Log.e("DataSync-level3", "DS_NewUser: init");
+        dsVm.getLaunchLiveData().observe(this, launchChecker -> {
+            try{
+                appVm.InsertLaunchChecker(launchChecker);
+            }catch (Exception ignored){}
+        });
+        dsVm.getBankBalLiveData().observe(this, balance -> {
+            try{
+                vm.InsertBalance(balance);
+            }catch (Exception ignored){}
+        });
+        dsVm.getInHandBalLiveData().observe(this, inHandBal -> {
+            try{
+                vm.InsertInHandBalance(inHandBal);
+            }catch (Exception ignored){}
+        });
+        dsVm.getBudgetLiveData().observe(this, budget -> {
+            try{
+                vm.InsertBudget(budget);
+            }catch(Exception ignored){}
+        });
+        dsVm.getDebtLiveData().observe(this, debtEntityList -> {
+            try{
+                vm.setDebtList(debtEntityList);
+            }catch (Exception e){
+                Log.e("DataSync-level3", "DS_NewUser Debt error: "+e.getMessage());
+            }
+        });
+        dsVm.getSalaryLiveData().observe(this, salaryEntityList -> {
+            try{
+                vm.setSalaryList(salaryEntityList);
+            }catch (Exception e){
+                Log.e("DataSync-level3", "DS_NewUser Salary error: "+e.getMessage());
+            }
+        });
+        dsVm.getExpLiveData().observe(this, expEntityList -> {
+            try{
+                vm.setExpList(expEntityList);
+            }catch (Exception e){
+                Log.e("DataSync-level3", "DS_NewUser Expense error: "+e.getMessage());
+            }
+        });
+    }
+
+    private void DS_RegularLaunch(){
+        Log.e("DataSync-level3", "DS_RegularLaunch: init");
+        vm.getExp().observe(this, expEntityList -> {
+            if (!expEntityList.isEmpty()) {
+                dsVm.setLocalExp(expEntityList);
+                Log.e("DataSync-level3", "Expense not empty");
+            } else {
+                dsVm.getExpLiveData().observe(this, expEntityList1 -> {
+                    try {
+                        vm.setExpList(expEntityList1);
+                        Log.e("DataSync-level3", "setting Expense in vm");
+                    } catch (Exception ignored) {
+                        Log.e("DataSync-Level3", "No Expense to merge");
+                    }
+                });
+
+            }
+        });
+
+        vm.getBudget().observe(this, budgetEntity -> {
+            try {
+                dsVm.setLocalBudget(budgetEntity);
+            } catch (Exception ignored) {
+                dsVm.getBudgetLiveData().observe(this, budget -> {
+                    try {
+                        vm.DeleteBudget();
+                        vm.InsertBudget(budget);
+                    } catch (Exception ignored1) {
+                        Log.e("DataSync-Level3", "No Budget to merge");
+                    }
+                });
+            }
+        });
+
+        vm.getSalary().observe(this, salaryEntityList -> {
+            try {
+                dsVm.setLocalSalary(salaryEntityList);
+            } catch (Exception ignored) {
+                dsVm.getSalaryLiveData().observe(this, salaryEntityList1 -> {
+                    try {
+                        vm.setSalaryList(salaryEntityList1);
+                    } catch (Exception ignored1) {
+                        Log.e("DataSync-Level3", "No Salary to merge");
+                    }
+                });
+            }
+        });
+
+        vm.getDebt().observe(this, debtEntityList -> {
+            try {
+                dsVm.setLocalDebt(debtEntityList);
+            } catch (Exception ignored) {
+                dsVm.getDebtLiveData().observe(this, debtEntityList1 -> {
+                    try {
+                        vm.setDebtList(debtEntityList1);
+                    } catch (Exception ignored1) {
+                        Log.e("DataSync-Level3", "No Debt to merge");
+                    }
+                });
+            }
+        });
+
+        vm.getInHandBalance().observe(this, inHandBalEntity -> {
+            try {
+                dsVm.setLocalInHandBal(inHandBalEntity);
+            } catch (Exception ignored) {
+                dsVm.getInHandBalLiveData().observe(this, inHandBal -> {
+                    try {
+                        vm.DeleteInHandBalance();
+                        vm.InsertInHandBalance(inHandBal);
+                    } catch (Exception ignored1) {
+                        Log.e("DataSync-Level3", "No InHand Balance to merge");
+                    }
+                });
+            }
+        });
+
+        vm.getBalance().observe(this, balanceEntity -> {
+            try {
+                dsVm.setLocalBalance(balanceEntity);
+            } catch (Exception ignored) {
+                dsVm.getBankBalLiveData().observe(this, balance -> {
+                    try {
+                        vm.DeleteBalance();
+                        vm.InsertBalance(balance);
+                    } catch (Exception ignored1) {
+                        Log.e("DataSync-Level3", "No Bank Balance to merge");
+                    }
+                });
+            }
+        });
+        appVm.getCheckerData().observe(this, launchChecker -> {
+            dsVm.setLocalLaunchChecker(launchChecker);
+        });
+    }
+
     private void OnCreate(Bundle savedInstanceState) {
-        Log.e("Main", "onCreate");
         init();
         setNav();
         setUserViewModel();
@@ -122,6 +308,7 @@ public class MainActivity extends AppCompatActivity {
                 Commons.SnackBar(tb, "No Internet connection available");
             }
         }
+        dataSync();
     }
 
     private void setCurrency(Bundle savedInstanceState) {
@@ -411,6 +598,11 @@ public class MainActivity extends AppCompatActivity {
         return bal.get();
     }
 
+    private void dataSync() {
+        syncProgress.setVisibility(View.VISIBLE);
+
+    }
+
     private void setNav() {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
@@ -449,7 +641,6 @@ public class MainActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.invite) {
                 share(MainActivity.this);
             }
-
             dl.closeDrawer(GravityCompat.START);
             return true;
         });
@@ -461,7 +652,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (ActivityNotFoundException e) {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id" + getPackageName())));
         }
-
     }
 
     private void share(Context context) {
@@ -472,7 +662,6 @@ public class MainActivity extends AppCompatActivity {
         context.startActivity(sentIntent);
     }
 
-    @SuppressLint("SetTextI18n")
     private void donate(View navView) {
         PopupWindow popupWindow = new PopupWindow(this);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -502,6 +691,7 @@ public class MainActivity extends AppCompatActivity {
         tl = findViewById(R.id.tabLayout);
         tb = findViewById(R.id.action_bar);
         dl = findViewById(R.id.drawerLayout);
+        syncProgress = findViewById(R.id.syncProgress);
         setSupportActionBar(tb);
     }
 
