@@ -2,7 +2,9 @@ package app.personal.fury.UI.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -21,6 +23,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.ViewPropertyAnimatorCompat;
@@ -64,6 +67,7 @@ public class Dues_Debt extends Fragment {
 //    private LinearLayout adLayout;
 //    private AdRequest adRequest;
     private FloatingActionButton fltBtn;
+    private CardView cibil;
 
     public Dues_Debt() {
     }
@@ -117,6 +121,14 @@ public class Dues_Debt extends Fragment {
     private void find(View v) {
         dueList = v.findViewById(R.id.dueList);
         fltBtn = v.findViewById(R.id.addDue);
+        cibil = v.findViewById(R.id.cibilcard);
+        cibil.setOnClickListener(v1 -> {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paisabazaar.com/cibil-credit-report/")));
+        });
+        CardView podcast = v.findViewById(R.id.debtpod);
+        podcast.setOnClickListener(v1 -> {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://open.spotify.com/episode/7dv1UkVmCSDWKdxJmCt2zw?si=xSf1AVQbTDywv4tNO_fhEQ")));
+        });
 //        ad = v.findViewById(R.id.adView);
 //        adLayout = v.findViewById(R.id.adLayout);
         fltBtn.setOnClickListener(v1 -> callPopupWindow(Constants.itemAdd));

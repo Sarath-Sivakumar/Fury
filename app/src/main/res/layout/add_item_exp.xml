@@ -138,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/work_sans_semibold"
                     android:hint="@string/amount"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:minHeight="48dp"
                     android:padding="12dp"
                     android:singleLine="true"

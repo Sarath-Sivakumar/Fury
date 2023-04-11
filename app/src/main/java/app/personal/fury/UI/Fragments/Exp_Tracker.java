@@ -2,8 +2,10 @@ package app.personal.fury.UI.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.icu.util.Calendar;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -16,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioGroup;
@@ -24,6 +27,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
@@ -89,6 +93,8 @@ public class Exp_Tracker extends Fragment {
         }
         accBal = getBalance();
         inHandBal = getInHandBalance();
+
+
     }
 
     private void init(View v) {
@@ -111,6 +117,48 @@ public class Exp_Tracker extends Fragment {
         String s1 = Currency + (getBalance() + getInHandBalance());
         balanceView.setText(s1);
     }
+
+    private void initcard(View v){
+        CardView card1 = v.findViewById(R.id.card1);
+        CardView card2 = v.findViewById(R.id.card2);
+        TextView card1txt = v.findViewById(R.id.card1txt);
+        TextView card2txt = v.findViewById(R.id.card2txt);
+        ImageView card1share = v.findViewById(R.id.card1share);
+        ImageView card2share = v.findViewById(R.id.card2share);
+        Button showmore = v.findViewById(R.id.explore);
+        showmore.setOnClickListener(v1 ->{
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://furyfinance.blogspot.com/")));
+        });
+
+        String c1 = "Adopting these 14 ways will save your money";
+        String c2 = "What are the different types of expense report?";
+        card1txt.setText(c1);
+        card2txt.setText(c2);
+
+        card1.setOnClickListener(v1 -> {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://furyfinance.blogspot.com/2023/04/10-ways-you-can-manage-your-expense.html")));
+        });
+        card2.setOnClickListener(v1 -> {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://furyfinance.blogspot.com/2023/04/what-are-different-types-of-expense.html")));
+        });
+
+        card1share.setOnClickListener(v12 -> {
+            Intent sentIntent = new Intent();
+            sentIntent.setAction(Intent.ACTION_SEND);
+            sentIntent.putExtra(Intent.EXTRA_TEXT, c1 + "https://furyfinance.blogspot.com/2023/04/what-is-credit-score-and-why-is-it.html");
+            sentIntent.setType("text/plain");
+            requireContext().startActivity(sentIntent);
+        });
+        card2share.setOnClickListener(v12 -> {
+            Intent sentIntent = new Intent();
+            sentIntent.setAction(Intent.ACTION_SEND);
+            sentIntent.putExtra(Intent.EXTRA_TEXT, c2 + "https://furyfinance.blogspot.com/2023/04/blog-post.html");
+            sentIntent.setType("text/plain");
+            requireContext().startActivity(sentIntent);
+        });
+
+    }
+
 
     private void initViewModel() {
         LoggedInUserViewModel userVm = new ViewModelProvider(requireActivity()).get(LoggedInUserViewModel.class);
@@ -596,6 +644,7 @@ public class Exp_Tracker extends Fragment {
         View v = inflater.inflate(R.layout.main_fragment_expensetracker, container, false);
         adapter = new expAdapter();
         init(v);
+        initcard(v);
         getBalance();
         getExp();
         return v;
