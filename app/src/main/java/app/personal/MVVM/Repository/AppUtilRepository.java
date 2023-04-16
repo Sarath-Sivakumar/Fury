@@ -28,6 +28,10 @@ public class AppUtilRepository {
         new UpdateLaunchCheckerAsync(dao).execute(launchChecker);
     }
 
+    public void DeleteLaunchChecker(){
+        new DeleteLaunchCheckerAsync(dao).execute();
+    }
+
     public LiveData<LaunchChecker> getCheckerData(){
         return checkerData;
     }
@@ -54,6 +58,19 @@ public class AppUtilRepository {
         @Override
         protected Void doInBackground(LaunchChecker... entities) {
             dao.UpdateLaunchChecker(entities[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteLaunchCheckerAsync extends AsyncTask<Void,Void,Void> {
+        private  localDao dao;
+        private DeleteLaunchCheckerAsync(localDao dao){
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            dao.DeleteLaunchChecker();
             return null;
         }
     }

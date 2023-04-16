@@ -28,6 +28,10 @@ public class AppUtilViewModel extends AndroidViewModel {
         repo.UpdateLaunchChecker(launchChecker);
     }
 
+    public void DeleteLaunchChecker(){
+        repo.DeleteLaunchChecker();
+    }
+
     public LiveData<LaunchChecker> getCheckerData(){
         return checkerData;
     }
