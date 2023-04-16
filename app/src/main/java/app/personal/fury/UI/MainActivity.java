@@ -699,6 +699,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-//        syncHelper.SaveToCloud();
+        syncHelper.SaveToCloud();
     }
 }
