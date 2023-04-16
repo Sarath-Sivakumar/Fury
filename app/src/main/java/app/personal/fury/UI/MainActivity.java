@@ -590,7 +590,6 @@ public class MainActivity extends AppCompatActivity {
                     case 0:
                         tb.setTitle(Constants.Exp);
                         tab.getIcon().setColorFilter(accent, PorterDuff.Mode.SRC_IN);
-//                        tl.setTabTextColors();
                         break;
                     case 1:
                         tb.setTitle(Constants.Budget);
@@ -617,7 +616,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                //for removing the color of tab icon when switched to next tab (.clearColorFilter() instead of setColorFilter.)
+//          for removing the color of tab icon when switched to next tab (.clearColorFilter() instead of setColorFilter.)
                 for (int i = 0; i <= 4; i++) {
                     Objects.requireNonNull(Objects.requireNonNull(tl.getTabAt(i)).getIcon())
                             .setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
