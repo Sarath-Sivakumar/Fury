@@ -98,33 +98,33 @@ public class dataSyncRepository {
     public void CompareExp(List<expEntity> localExp) {
         SyncStatus.postValue(false);
         if (!localExp.isEmpty() && !localExp.equals(expLiveData.getValue())) {
-            Log.e("DataSync-Level(1)", "Uploading Expenses.");
+            Log.e("DataSync-Level3", "Uploading Expenses.");
             putExp(localExp);
             fetchExp();
         } else {
-            Log.e("DataSync-Level(1)", "Expense data match.");
+            Log.e("DataSync-Level3", "Expense data match.");
             setDefaultExp();
         }
     }
 
     public void CompareSalary(List<salaryEntity> localSalary) {
         if (!localSalary.isEmpty() && !localSalary.equals(salaryLiveData.getValue())) {
-            Log.e("DataSync-Level(1)", "Uploading Salary.");
+            Log.e("DataSync-Level3", "Uploading Salary.");
             putSalary(localSalary);
             fetchSalary();
         } else {
-            Log.e("DataSync-Level(1)", "Salary data match.");
+            Log.e("DataSync-Level3", "Salary data match.");
             setDefaultSalary();
         }
     }
 
     public void CompareDebt(List<debtEntity> localDebt) {
         if (!localDebt.isEmpty() && !localDebt.equals(debtLiveData.getValue())) {
-            Log.e("DataSync-Level(1)", "Uploading Debt.");
+            Log.e("DataSync-Level3", "Uploading Debt.");
             putDebt(localDebt);
             fetchDebt();
         } else {
-            Log.e("DataSync-Level(1)", "Debt data match.");
+            Log.e("DataSync-Level3", "Debt data match.");
             setDefaultDebt();
         }
     }
@@ -132,11 +132,11 @@ public class dataSyncRepository {
     public void CompareBankBalance(balanceEntity localBalance) {
         try {
             if (!localBalance.equals(bankBalLiveData.getValue())) {
-                Log.e("DataSync-Level(1)", "Uploading Bank Balance.");
+                Log.e("DataSync-Level3", "Uploading Bank Balance.");
                 putBankBalance(localBalance);
                 fetchBankBal();
             } else {
-                Log.e("DataSync-Level(1)", "Bank Balance data match.");
+                Log.e("DataSync-Level3", "Bank Balance data match.");
                 setDefaultBankBalance();
             }
         } catch (Exception ignored) {
@@ -147,11 +147,11 @@ public class dataSyncRepository {
     public void CompareInHandBal(inHandBalEntity localInHandBal) {
         try {
             if (!localInHandBal.equals(inHandBalLiveData.getValue())) {
-                Log.e("DataSync-Level(1)", "Uploading In Hand Balance.");
+                Log.e("DataSync-Level3", "Uploading In Hand Balance.");
                 putInHandBalance(localInHandBal);
                 fetchInHandBal();
             } else {
-                Log.e("DataSync-Level(1)", "In Hand Balance data match.");
+                Log.e("DataSync-Level3", "In Hand Balance data match.");
                 setDefaultInHandBalance();
             }
         } catch (Exception ignored) {
@@ -162,11 +162,11 @@ public class dataSyncRepository {
     public void CompareLaunch(LaunchChecker localLaunchChecker) {
         try {
             if (!localLaunchChecker.equals(launchLiveData.getValue())) {
-                Log.e("DataSync-Level(1)", "Uploading Launch Checker.");
+                Log.e("DataSync-Level3", "Uploading Launch Checker.");
                 putLaunch(localLaunchChecker);
                 fetchLaunch();
             } else {
-                Log.e("DataSync-Level(1)", "Launch Checker data match.");
+                Log.e("DataSync-Level3", "Launch Checker data match.");
                 setDefaultLaunch();
             }
         } catch (Exception ignored) {
@@ -177,10 +177,10 @@ public class dataSyncRepository {
     public void CompareBudget(budgetEntity localBudget) {
         try {
             if (!localBudget.equals(budgetLiveData.getValue())) {
-                Log.e("DataSync-Level(1)", "Uploading Budget.");
+                Log.e("DataSync-Level3", "Uploading Budget.");
                 putBudget(localBudget);
             } else {
-                Log.e("DataSync-Level(1)", "Budget data match.");
+                Log.e("DataSync-Level3", "Budget data match.");
                 setDefaultBudget();
             }
         } catch (Exception ignored) {
@@ -210,8 +210,6 @@ public class dataSyncRepository {
         fetchExp();
         fetchInHandBal();
         fetchLaunch();
-        SyncStatus.postValue(true);
-        Log.e("DataSync-Level3", "Fetcher terminated.");
     }
 
     //    Fetcher
@@ -222,7 +220,7 @@ public class dataSyncRepository {
                 if (snapshot.exists()) {
                     List<expEntity> expList = new ArrayList<>();
                     for (DataSnapshot ds : snapshot.getChildren()) {
-                        String id = snapshot.child(ds.getKey()).child("id")
+                        String id = snapshot.child(Objects.requireNonNull(ds.getKey())).child("id")
                                 .getValue(String.class);
                         String ExpenseAmt = snapshot.child(ds.getKey()).child("ExpenseAmt")
                                 .getValue(String.class);
@@ -238,8 +236,8 @@ public class dataSyncRepository {
                                 .getValue(String.class);
                         if (id != null && ExpenseAmt != null && day != null && expMode != null
                                 && ExpenseName != null && Date != null && Time != null) {
-                            expEntity exp = new expEntity(Integer.valueOf(id), Integer.valueOf(ExpenseAmt),
-                                    ExpenseName, Date, Time, Integer.valueOf(day), Integer.valueOf(expMode));
+                            expEntity exp = new expEntity(Integer.parseInt(id), Integer.parseInt(ExpenseAmt),
+                                    ExpenseName, Date, Time, Integer.parseInt(day), Integer.parseInt(expMode));
                             expList.add(exp);
                         } else {
                             Log.e("DataSync-Level3", "expData: null");
@@ -401,9 +399,13 @@ public class dataSyncRepository {
                         LaunchChecker launchChecker = new LaunchChecker(Integer.parseInt(id),
                                 Integer.parseInt(timesLaunched));
                         launchLiveData.postValue(launchChecker);
+                        SyncStatus.postValue(true);
+                        Log.e("DataSync-Level3", "Fetcher terminated.");
                     } else {
                         Log.e("DataSync-Level3", "launchData: null");
                     }
+                }else{
+                    SyncStatus.postValue(true);
                 }
             }
 
