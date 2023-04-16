@@ -404,6 +404,8 @@ public class dataSyncRepository {
                     } else {
                         Log.e("DataSync-Level3", "launchData: null");
                     }
+                }else{
+                    SyncStatus.postValue(true);
                 }
             }
 
