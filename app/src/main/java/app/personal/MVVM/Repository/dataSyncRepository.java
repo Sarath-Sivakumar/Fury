@@ -321,7 +321,7 @@ public class dataSyncRepository {
                                 .child("isRepeat").getValue(String.class);
                         if (id != null && Source != null && date != null && finalDate != null && status != null
                                 && Amount != null && isRepeat != null) {
-                            debtEntity debt = new debtEntity(id, date, finalDate,
+                            debtEntity debt = new debtEntity(Integer.parseInt(id), Source, date, finalDate,
                                     Integer.parseInt(Amount), status, Integer.parseInt(isRepeat));
                             debtList.add(debt);
                         } else {
