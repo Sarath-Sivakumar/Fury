@@ -1,12 +1,12 @@
 package app.personal.MVVM.Viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import app.personal.MVVM.Entity.LaunchChecker;
@@ -33,22 +33,16 @@ public class DataSyncViewModel extends AndroidViewModel {
     private final MutableLiveData<LaunchChecker> launchLiveData;
     private final MutableLiveData<List<salaryEntity>> salaryLiveData;
 
-    private final List<debtEntity> localDebt;
-    private final List<expEntity> localExp;
-    private final List<salaryEntity> localSalary;
-    private balanceEntity localBalance;
-    private budgetEntity localBudget;
-    private inHandBalEntity localInHandBal;
-    private  LaunchChecker localLaunchChecker;
-
 
     public DataSyncViewModel(@NonNull Application application) {
         super(application);
-        dsRepo = new dataSyncRepository(application);
+        this.dsRepo = new dataSyncRepository(application);
+//        Functionality
         this.FirebaseError = dsRepo.getFirebaseError();
         this.SyncStatus = dsRepo.getSyncStatus();
         this.bruteForceSync = dsRepo.getBruteForceSync();
 
+//        Returnable Live Data
         this.expLiveData = dsRepo.getExpLiveData();
         this.bankBalLiveData = dsRepo.getBankBalLiveData();
         this.inHandBalLiveData = dsRepo.getInHandBalLiveData();
@@ -56,33 +50,26 @@ public class DataSyncViewModel extends AndroidViewModel {
         this.budgetLiveData = dsRepo.getBudgetLiveData();
         this.launchLiveData = dsRepo.getLaunchLiveData();
         this.salaryLiveData = dsRepo.getSalaryLiveData();
-
-        this.localExp = new ArrayList<>();
-        this.localBudget = new budgetEntity();
-        this.localDebt = new ArrayList<>();
-        this.localSalary = new ArrayList<>();
-        this.localInHandBal = new inHandBalEntity();
-        this.localBalance = new balanceEntity();
-        this.localLaunchChecker = new LaunchChecker();
     }
 
-    public void init(){
-        dsRepo.init();
+    public void fetchAllData() {
+        Log.e("DataSync-Level2", "Data fetch init");
+        dsRepo.fetchAll();
     }
 
     public MutableLiveData<String> getFirebaseError() {
         return FirebaseError;
     }
 
-    public void setDefaultError(){
+    public void setDefaultError() {
         dsRepo.setDefaultError();
     }
 
-    public void setBruteForceSync(Boolean isBruteforce){
+    public void setBruteForceSync(Boolean isBruteforce) {
         dsRepo.setBruteForceSync(isBruteforce);
     }
 
-    public MutableLiveData<Boolean> getBruteForceSync(){
+    public MutableLiveData<Boolean> getBruteForceSync() {
         return bruteForceSync;
     }
 
@@ -118,28 +105,41 @@ public class DataSyncViewModel extends AndroidViewModel {
         return salaryLiveData;
     }
 
+//    Use for later
     public void setLocalBalance(balanceEntity localBalance) {
-        dsRepo.setLocalBalance(localBalance);
+        dsRepo.CompareBankBalance(localBalance);
     }
 
     public void setLocalBudget(budgetEntity localBudget) {
-        dsRepo.setLocalBudget(localBudget);
+        dsRepo.CompareBudget(localBudget);
     }
 
     public void setLocalInHandBal(inHandBalEntity localInHandBal) {
-        dsRepo.setLocalInHandBal(localInHandBal);
+        dsRepo.CompareInHandBal(localInHandBal);
     }
 
     public void setLocalLaunchChecker(LaunchChecker localLaunchChecker) {
-        dsRepo.setLocalLaunchChecker(localLaunchChecker);
+        dsRepo.CompareLaunch(localLaunchChecker);
     }
-    public void setLocalExp(List<expEntity> exp){
-        dsRepo.setLocalExp(exp);
+
+    public void setLocalExp(List<expEntity> exp) {
+        dsRepo.CompareExp(exp);
     }
-    public void setLocalDebt(List<debtEntity> debt){
-        dsRepo.setLocalDebt(debt);
+
+    public void setLocalDebt(List<debtEntity> debt) {
+        dsRepo.CompareDebt(debt);
     }
-    public void setLocalSalary(List<salaryEntity> salary){
-        dsRepo.setLocalSalary(salary);
+
+    public void setLocalSalary(List<salaryEntity> salary) {
+        dsRepo.CompareSalary(salary);
+    }
+
+//    Call on launch->
+    public void CompareAll(List<expEntity> localExp, List<salaryEntity> localSalary,
+                           List<debtEntity> localDebt, balanceEntity localBalance,
+                           inHandBalEntity localInHandBal, LaunchChecker localLaunchChecker,
+                           budgetEntity localBudget){
+        dsRepo.CompareAll(localExp, localSalary, localDebt, localBalance, localInHandBal,
+                localLaunchChecker, localBudget);
     }
 }

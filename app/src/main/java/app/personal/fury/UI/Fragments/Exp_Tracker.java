@@ -178,8 +178,8 @@ public class Exp_Tracker extends Fragment {
     private void getExp() {
         vm.getExp().observe(requireActivity(), e -> {
             adapter.clear();
-            adapter.setExp(e, true, Currency);
             try {
+                adapter.setExp(e, true, Currency);
                 expView.setText(adapter.getTotalExpStr());
                 cashAmt = 0;
                 cashCount = 0;
@@ -646,7 +646,9 @@ public class Exp_Tracker extends Fragment {
         init(v);
         initcard(v);
         getBalance();
-        getExp();
+        try{
+            getExp();
+        }catch (Exception ignored){}
         return v;
     }
 
@@ -735,7 +737,9 @@ public class Exp_Tracker extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getExp();
+        try{
+            getExp();
+        }catch (Exception ignored){}
         accBal = getBalance();
         inHandBal = getInHandBalance();
         isVisible.observe(requireActivity(), Boolean -> {
@@ -758,6 +762,8 @@ public class Exp_Tracker extends Fragment {
     public void onStart() {
         super.onStart();
         getBalance();
-        getExp();
+        try{
+            getExp();
+        }catch (Exception ignored){}
     }
 }

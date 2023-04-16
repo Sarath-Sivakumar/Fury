@@ -1,5 +1,8 @@
 package app.personal.MVVM.Repository;
 
+import static app.personal.Utls.Constants.default_Error;
+import static app.personal.Utls.Constants.default_int_entity;
+
 import android.app.Application;
 import android.util.Log;
 
@@ -32,10 +35,7 @@ public class dataSyncRepository {
     private final Application application;
     private final FirebaseAuth firebaseAuth;
     private final FirebaseUser firebaseUser;
-    private final String default_Error = "Null";
-    private final int ALL_PROCESS_COMPLETE = 1;
 
-    private final MutableLiveData<Integer> FetchProgress;
     private final MutableLiveData<Boolean> bruteForceSync;
 
     private final MutableLiveData<String> FirebaseError;
@@ -49,14 +49,6 @@ public class dataSyncRepository {
     private final MutableLiveData<LaunchChecker> launchLiveData;
     private final MutableLiveData<List<salaryEntity>> salaryLiveData;
 
-    private final List<debtEntity> localDebt;
-    private final List<expEntity> localExp;
-    private final List<salaryEntity> localSalary;
-    private balanceEntity localBalance;
-    private budgetEntity localBudget;
-    private inHandBalEntity localInHandBal;
-    private LaunchChecker localLaunchChecker;
-
     private final FirebaseDatabase db = FirebaseDatabase.getInstance(Constants.DB_INSTANCE);
     private final DatabaseReference metaDataRef = db.getReference(Constants.Metadata)
             .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
@@ -67,7 +59,6 @@ public class dataSyncRepository {
     private final DatabaseReference launchDataRef = metaDataRef.child(Constants.LaunchChecker);
     private final DatabaseReference salaryDataRef = metaDataRef.child(Constants.EarningsData);
     private final DatabaseReference budgetDataRef = metaDataRef.child(Constants.BudgetData);
-    private int taskStatus = 0;
 
     public dataSyncRepository(Application application) {
         this.application = application;
@@ -75,11 +66,11 @@ public class dataSyncRepository {
         this.firebaseUser = firebaseAuth.getCurrentUser();
         this.FirebaseError = new MutableLiveData<>();
         this.bruteForceSync = new MutableLiveData<>(false);
+
         setDefaultError();
+
         this.SyncStatus = new MutableLiveData<>();
         this.SyncStatus.postValue(false);
-        this.FetchProgress = new MutableLiveData<>();
-        this.FetchProgress.postValue(0);
 
         this.expLiveData = new MutableLiveData<>();
         this.bankBalLiveData = new MutableLiveData<>();
@@ -89,147 +80,138 @@ public class dataSyncRepository {
         this.budgetLiveData = new MutableLiveData<>();
         this.salaryLiveData = new MutableLiveData<>();
 
-        this.localExp = new ArrayList<>();
-        this.localBudget = new budgetEntity();
-        this.localDebt = new ArrayList<>();
-        this.localSalary = new ArrayList<>();
-        this.localInHandBal = new inHandBalEntity();
-        this.localBalance = new balanceEntity();
-        this.localLaunchChecker = new LaunchChecker();
+        setDefaultExp();
+        setDefaultSalary();
+        setDefaultDebt();
+        setDefaultBankBalance();
+        setDefaultInHandBalance();
+        setDefaultLaunch();
+        setDefaultBudget();
+
+        fetchAll();
     }
 
-    public void init() {
-        populateValues(0);
-        Log.e("DataSync-Level(1)", "Init.");
-        this.FetchProgress.observeForever(processStatus -> {
-            if (processStatus == ALL_PROCESS_COMPLETE && taskStatus == 0) {
-                boolean brute = bruteForceSync.getValue();
-                if (!brute) {
-                    Log.e("DataSync-Level(1)", "CompareTheAndis in progress.");
-                    CompareTheAndis();
-                } else {
-                    Log.e("DataSync-Level(1)", "CompareTheAndis not in progress.");
-                    expLiveData.observeForever(localExp::addAll);
-                    debtLiveData.observeForever(localDebt::addAll);
-                    salaryLiveData.observeForever(localSalary::addAll);
-                    bankBalLiveData.observeForever(balance -> localBalance = balance);
-                    inHandBalLiveData.observeForever(inHandBal -> localInHandBal = inHandBal);
-                    launchLiveData.observeForever(launchChecker -> localLaunchChecker = launchChecker);
-                    budgetLiveData.observeForever(budget -> localBudget = budget);
-                }
-                Log.e("DataSync-Level(1)", "Fetch finished.");
-                SyncStatus.postValue(true);
-                taskStatus = 1;
-            } else {
-                Log.e("DataSync-Level(1)", "Fetch in progress.");
-                SyncStatus.postValue(false);
-            }
-        });
+    public void fetchAll() {
+        allDataFetcher();
     }
 
-    private void CompareTheAndis() {
+    public void CompareExp(List<expEntity> localExp) {
+        SyncStatus.postValue(false);
         if (!localExp.isEmpty() && !localExp.equals(expLiveData.getValue())) {
             Log.e("DataSync-Level(1)", "Uploading Expenses.");
             putExp(localExp);
-        }else{
+            fetchExp();
+        } else {
             Log.e("DataSync-Level(1)", "Expense data match.");
+            setDefaultExp();
         }
+    }
 
+    public void CompareSalary(List<salaryEntity> localSalary) {
         if (!localSalary.isEmpty() && !localSalary.equals(salaryLiveData.getValue())) {
+            Log.e("DataSync-Level(1)", "Uploading Salary.");
             putSalary(localSalary);
-        }else{
+            fetchSalary();
+        } else {
             Log.e("DataSync-Level(1)", "Salary data match.");
+            setDefaultSalary();
         }
+    }
 
+    public void CompareDebt(List<debtEntity> localDebt) {
         if (!localDebt.isEmpty() && !localDebt.equals(debtLiveData.getValue())) {
+            Log.e("DataSync-Level(1)", "Uploading Debt.");
             putDebt(localDebt);
-        }else{
+            fetchDebt();
+        } else {
             Log.e("DataSync-Level(1)", "Debt data match.");
+            setDefaultDebt();
         }
+    }
 
+    public void CompareBankBalance(balanceEntity localBalance) {
         try {
             if (!localBalance.equals(bankBalLiveData.getValue())) {
+                Log.e("DataSync-Level(1)", "Uploading Bank Balance.");
                 putBankBalance(localBalance);
-            }else{
+                fetchBankBal();
+            } else {
                 Log.e("DataSync-Level(1)", "Bank Balance data match.");
+                setDefaultBankBalance();
             }
         } catch (Exception ignored) {
+            setDefaultBankBalance();
         }
+    }
 
+    public void CompareInHandBal(inHandBalEntity localInHandBal) {
         try {
             if (!localInHandBal.equals(inHandBalLiveData.getValue())) {
+                Log.e("DataSync-Level(1)", "Uploading In Hand Balance.");
                 putInHandBalance(localInHandBal);
-            }else{
+                fetchInHandBal();
+            } else {
                 Log.e("DataSync-Level(1)", "In Hand Balance data match.");
+                setDefaultInHandBalance();
             }
         } catch (Exception ignored) {
+            setDefaultInHandBalance();
         }
+    }
 
+    public void CompareLaunch(LaunchChecker localLaunchChecker) {
         try {
             if (!localLaunchChecker.equals(launchLiveData.getValue())) {
+                Log.e("DataSync-Level(1)", "Uploading Launch Checker.");
                 putLaunch(localLaunchChecker);
-            }else{
+                fetchLaunch();
+            } else {
                 Log.e("DataSync-Level(1)", "Launch Checker data match.");
+                setDefaultLaunch();
             }
         } catch (Exception ignored) {
+            setDefaultLaunch();
         }
+    }
 
+    public void CompareBudget(budgetEntity localBudget) {
         try {
             if (!localBudget.equals(budgetLiveData.getValue())) {
+                Log.e("DataSync-Level(1)", "Uploading Budget.");
                 putBudget(localBudget);
-            }else{
+            } else {
                 Log.e("DataSync-Level(1)", "Budget data match.");
+                setDefaultBudget();
             }
         } catch (Exception ignored) {
+            setDefaultBudget();
         }
         SyncStatus.postValue(true);
     }
 
-    private void populateValues(int index) {
-        if (index == 0) {
-            fetchExp();
-        } else if (index == 1) {
-            fetchDebt();
-        } else if (index == 2) {
-            fetchBankBal();
-        } else if (index == 3) {
-            fetchInHandBal();
-        } else if (index == 4) {
-            fetchLaunch();
-        } else if (index == 5) {
-            fetchSalary();
-        } else if (index == 6) {
-            fetchBudget();
-        }
+    public void CompareAll(List<expEntity> localExp, List<salaryEntity> localSalary,
+                           List<debtEntity> localDebt, balanceEntity localBalance,
+                           inHandBalEntity localInHandBal, LaunchChecker localLaunchChecker,
+                           budgetEntity localBudget) {
+        CompareExp(localExp);
+        CompareSalary(localSalary);
+        CompareDebt(localDebt);
+        CompareBankBalance(localBalance);
+        CompareInHandBal(localInHandBal);
+        CompareLaunch(localLaunchChecker);
+        CompareBudget(localBudget);
     }
 
-    //  Local data fetcher
-    public void setLocalExp(List<expEntity> expEntityList) {
-        this.localExp.addAll(expEntityList);
-    }
-
-    public void setLocalDebt(List<debtEntity> debtEntityList) {
-        this.localDebt.addAll(debtEntityList);
-    }
-
-    public void setLocalSalary(List<salaryEntity> salaryEntityList) {
-        this.localSalary.addAll(salaryEntityList);
-    }
-
-    public void setLocalBalance(balanceEntity balance) {
-        this.localBalance = balance;
-    }
-
-    public void setLocalInHandBal(inHandBalEntity inHandBal) {
-        this.localInHandBal = inHandBal;
-    }
-
-    public void setLocalBudget(budgetEntity budgetEntity) {
-        this.localBudget = budgetEntity;
-    }
-
-    public void setLocalLaunchChecker(LaunchChecker launchChecker) {
-        this.localLaunchChecker = launchChecker;
+    private void allDataFetcher() {
+        fetchBankBal();
+        fetchBudget();
+        fetchDebt();
+        fetchSalary();
+        fetchExp();
+        fetchInHandBal();
+        fetchLaunch();
+        SyncStatus.postValue(true);
+        Log.e("DataSync-Level3", "Fetcher terminated.");
     }
 
     //    Fetcher
@@ -240,59 +222,38 @@ public class dataSyncRepository {
                 if (snapshot.exists()) {
                     List<expEntity> expList = new ArrayList<>();
                     for (DataSnapshot ds : snapshot.getChildren()) {
-                        expEntity exp = ds.child(Objects.requireNonNull(ds.getKey()))
-                                .getValue(expEntity.class);
-                        if (exp != null) {
+                        String id = snapshot.child(ds.getKey()).child("id")
+                                .getValue(String.class);
+                        String ExpenseAmt = snapshot.child(ds.getKey()).child("ExpenseAmt")
+                                .getValue(String.class);
+                        String day = snapshot.child(ds.getKey()).child("day")
+                                .getValue(String.class);
+                        String expMode = snapshot.child(ds.getKey()).child("expMode")
+                                .getValue(String.class);
+                        String ExpenseName = snapshot.child(ds.getKey()).child("ExpenseName")
+                                .getValue(String.class);
+                        String Date = snapshot.child(ds.getKey()).child("Date")
+                                .getValue(String.class);
+                        String Time = snapshot.child(ds.getKey()).child("Time")
+                                .getValue(String.class);
+                        if (id != null && ExpenseAmt != null && day != null && expMode != null
+                                && ExpenseName != null && Date != null && Time != null) {
+                            expEntity exp = new expEntity(Integer.valueOf(id), Integer.valueOf(ExpenseAmt),
+                                    ExpenseName, Date, Time, Integer.valueOf(day), Integer.valueOf(expMode));
                             expList.add(exp);
-                            Log.e("DataSync", "expData: " + exp.getId() + "Date: " + exp.getDate());
+                        } else {
+                            Log.e("DataSync-Level3", "expData: null");
                         }
                     }
                     if (expList.size() > 0) {
                         expLiveData.postValue(expList);
                     }
-                    populateValues(1);
-                } else {
-                    populateValues(1);
                 }
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 FirebaseError.postValue(error.getMessage());
-                populateValues(1);
-            }
-        });
-    }
-
-    private void fetchDebt() {
-        debtDataRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    List<debtEntity> debtList = new ArrayList<>();
-                    for (DataSnapshot ds : snapshot.getChildren()) {
-                        debtEntity debt = ds.child(Objects.requireNonNull(ds.getKey()))
-                                .getValue(debtEntity.class);
-                        if (debt != null) {
-                            debtList.add(debt);
-                            Log.e("DataSync", "debtData: " + debt.getId() + "Date: " + debt.getDate());
-                        }
-                    }
-                    if (debtList.size() > 0) {
-                        debtLiveData.postValue(debtList);
-                    }
-                    populateValues(2);
-                } else {
-                    populateValues(2);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                FirebaseError.postValue(error.getMessage());
-                populateValues(2);
             }
         });
     }
@@ -317,25 +278,65 @@ public class dataSyncRepository {
                         String salMode = snapshot.child(Objects.requireNonNull(ds.getKey())).child("salMode")
                                 .getValue(String.class);
 
-                        if (id != null&&incName != null&&salary != null&&incType != null&&creationDate != null&&salMode != null) {
+                        if (id != null && incName != null && salary != null && incType != null && creationDate != null && salMode != null) {
                             salaryList.add(new salaryEntity(Integer.parseInt(id), Integer.parseInt(salary),
                                     incName, Integer.parseInt(incType), creationDate, Integer.parseInt(salMode)));
-                            Log.e("DataSync", "salaryData: " + id + "Date: " + creationDate);
+                        } else {
+                            Log.e("DataSync-Level3", "salaryData: null");
                         }
                     }
                     if (salaryList.size() > 0) {
                         salaryLiveData.postValue(salaryList);
                     }
-                    populateValues(6);
-                } else {
-                    populateValues(6);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 FirebaseError.postValue(error.getMessage());
-                populateValues(6);
+            }
+        });
+    }
+
+    private void fetchDebt() {
+        debtDataRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    List<debtEntity> debtList = new ArrayList<>();
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        String id = snapshot.child(Objects.requireNonNull(ds.getKey()))
+                                .child("id").getValue(String.class);
+                        String Source = snapshot.child(Objects.requireNonNull(ds.getKey()))
+                                .child("Source").getValue(String.class);
+                        String date = snapshot.child(Objects.requireNonNull(ds.getKey()))
+                                .child("date").getValue(String.class);
+                        String finalDate = snapshot.child(Objects.requireNonNull(ds.getKey()))
+                                .child("finalDate").getValue(String.class);
+                        String status = snapshot.child(Objects.requireNonNull(ds.getKey()))
+                                .child("status").getValue(String.class);
+                        String Amount = snapshot.child(Objects.requireNonNull(ds.getKey()))
+                                .child("Amount").getValue(String.class);
+                        String isRepeat = snapshot.child(Objects.requireNonNull(ds.getKey()))
+                                .child("isRepeat").getValue(String.class);
+                        if (id != null && Source != null && date != null && finalDate != null && status != null
+                                && Amount != null && isRepeat != null) {
+                            debtEntity debt = new debtEntity(id, date, finalDate,
+                                    Integer.parseInt(Amount), status, Integer.parseInt(isRepeat));
+                            debtList.add(debt);
+                        } else {
+                            Log.e("DataSync-Level3", "debtData: null");
+                        }
+                    }
+                    if (debtList.size() > 0) {
+                        debtLiveData.postValue(debtList);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                FirebaseError.postValue(error.getMessage());
             }
         });
     }
@@ -345,21 +346,22 @@ public class dataSyncRepository {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    balanceEntity bal = snapshot.child(Objects.requireNonNull(snapshot.getKey()))
-                            .getValue(balanceEntity.class);
-                    if (bal != null) {
+                    String id = snapshot.child("id")
+                            .getValue(String.class);
+                    String balance = snapshot.child("balance")
+                            .getValue(String.class);
+                    if (id != null && balance != null) {
+                        balanceEntity bal = new balanceEntity(Integer.parseInt(id), Integer.parseInt(balance));
                         bankBalLiveData.postValue(bal);
-                        populateValues(3);
+                    } else {
+                        Log.e("DataSync-Level3", "bankBalData: null");
                     }
-                } else {
-                    populateValues(3);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 FirebaseError.postValue(error.getMessage());
-                populateValues(3);
             }
         });
     }
@@ -369,21 +371,21 @@ public class dataSyncRepository {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    inHandBalEntity bal = snapshot.child(Objects.requireNonNull(snapshot.getKey()))
-                            .getValue(inHandBalEntity.class);
-                    if (bal != null) {
-                        inHandBalLiveData.postValue(bal);
-                        populateValues(4);
+                    String id = snapshot.child("id").getValue(String.class);
+                    String balance = snapshot.child("balance").getValue(String.class);
+                    if (id != null && balance != null) {
+                        inHandBalEntity inHandBal = new inHandBalEntity(Integer.parseInt(id),
+                                Integer.parseInt(balance));
+                        inHandBalLiveData.postValue(inHandBal);
+                    } else {
+                        Log.e("DataSync-Level3", "inHandBalData: null");
                     }
-                } else {
-                    populateValues(4);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 FirebaseError.postValue(error.getMessage());
-                populateValues(4);
             }
         });
     }
@@ -393,19 +395,21 @@ public class dataSyncRepository {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    LaunchChecker l = snapshot.child(Objects.requireNonNull(snapshot.getKey()))
-                            .getValue(LaunchChecker.class);
-                    launchLiveData.postValue(l);
-                    populateValues(5);
-                } else {
-                    populateValues(5);
+                    String id = snapshot.child("id").getValue(String.class);
+                    String timesLaunched = snapshot.child("timesLaunched").getValue(String.class);
+                    if (id != null && timesLaunched != null) {
+                        LaunchChecker launchChecker = new LaunchChecker(Integer.parseInt(id),
+                                Integer.parseInt(timesLaunched));
+                        launchLiveData.postValue(launchChecker);
+                    } else {
+                        Log.e("DataSync-Level3", "launchData: null");
+                    }
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 FirebaseError.postValue(error.getMessage());
-                populateValues(5);
             }
         });
     }
@@ -415,47 +419,95 @@ public class dataSyncRepository {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    budgetEntity bud = snapshot.child(Objects.requireNonNull(snapshot.getKey()))
-                            .getValue(budgetEntity.class);
-                    budgetLiveData.postValue(bud);
-                    FetchProgress.postValue(1);
-                } else {
-                    FetchProgress.postValue(1);
+                    String id = snapshot.child("id").getValue(String.class);
+                    String Amount = snapshot.child("Amount").getValue(String.class);
+                    String bal = snapshot.child("bal").getValue(String.class);
+                    String refreshPeriod = snapshot.child("refreshPeriod").getValue(String.class);
+                    String CreationDate = snapshot.child("CreationDate").getValue(String.class);
+                    if (id != null && Amount != null && bal != null &&
+                            refreshPeriod != null && CreationDate != null) {
+                        budgetEntity bud = new budgetEntity(Integer.parseInt(id), Integer.parseInt(Amount),
+                                Integer.parseInt(bal), Integer.parseInt(refreshPeriod), CreationDate);
+                        budgetLiveData.postValue(bud);
+                    }
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 FirebaseError.postValue(error.getMessage());
-                FetchProgress.postValue(1);
             }
         });
     }
 
     //    Uploader
-    public void putExp(List<expEntity> expEntityList) {
+    private void putExp(List<expEntity> expEntityList) {
+        removeExp();
         for (expEntity exp : expEntityList) {
-            expDataRef.push().setValue(new hashUtil(exp).getExpHashMap(), (error, ref) -> {
-                if (error != null) {
-                    FirebaseError.postValue(error.getMessage());
-                }
-            });
+            try {
+                expDataRef.push().updateChildren(new hashUtil(exp).getExpHashMap(), (error, ref) -> {
+                    if (error != null) {
+                        FirebaseError.postValue(error.getMessage());
+                    }
+                });
+            } catch (Exception ignored) {
+                expDataRef.push().setValue(new hashUtil(exp).getExpHashMap(), (error, ref) -> {
+                    if (error != null) {
+                        FirebaseError.postValue(error.getMessage());
+                    }
+                });
+            }
         }
     }
 
-    public void putDebt(List<debtEntity> debtEntityList) {
+    private void putDebt(List<debtEntity> debtEntityList) {
+        removeDebt();
         for (debtEntity debt : debtEntityList) {
-            debtDataRef.push().setValue(new hashUtil(debt).getDebtHashMap(), (error, ref) -> {
-                if (error != null) {
-                    FirebaseError.postValue(error.getMessage());
-                }
-            });
+            try {
+                debtDataRef.push().updateChildren(new hashUtil(debt).getDebtHashMap(), (error, ref) -> {
+                    if (error != null) {
+                        FirebaseError.postValue(error.getMessage());
+                    }
+                });
+            } catch (Exception ignored) {
+                debtDataRef.push().setValue(new hashUtil(debt).getDebtHashMap(), (error, ref) -> {
+                    if (error != null) {
+                        FirebaseError.postValue(error.getMessage());
+                    }
+                });
+            }
         }
     }
 
-    public void putSalary(List<salaryEntity> salaryEntityList) {
+    private void putSalary(List<salaryEntity> salaryEntityList) {
+        removeSalary();
         for (salaryEntity salary : salaryEntityList) {
-            salaryDataRef.push().setValue(new hashUtil(salary).getSalaryHashMap(), (error, ref) -> {
+            try {
+                salaryDataRef.push().updateChildren(new hashUtil(salary).getSalaryHashMap(), (error, ref) -> {
+                    if (error != null) {
+                        FirebaseError.postValue(error.getMessage());
+                    }
+                });
+            } catch (Exception ignored) {
+                salaryDataRef.push().setValue(new hashUtil(salary).getSalaryHashMap(), (error, ref) -> {
+                    if (error != null) {
+                        FirebaseError.postValue(error.getMessage());
+                    }
+                });
+            }
+        }
+    }
+
+    private void putBankBalance(balanceEntity balance) {
+        removeBankBalance();
+        try {
+            bankBalDataRef.updateChildren(new hashUtil(balance).getBankBalHashMap(), (error, ref) -> {
+                if (error != null) {
+                    FirebaseError.postValue(error.getMessage());
+                }
+            });
+        } catch (Exception ignored) {
+            bankBalDataRef.setValue(new hashUtil(balance).getBankBalHashMap(), (error, ref) -> {
                 if (error != null) {
                     FirebaseError.postValue(error.getMessage());
                 }
@@ -463,40 +515,185 @@ public class dataSyncRepository {
         }
     }
 
-    public void putBankBalance(balanceEntity balance) {
-        bankBalDataRef.setValue(balance, (error, ref) -> {
-            if (error != null) {
-                FirebaseError.postValue(error.getMessage());
-            }
-        });
+    private void putInHandBalance(inHandBalEntity inHandBal) {
+        removeInHand();
+        try {
+            inHandBalDataRef.updateChildren(new hashUtil(inHandBal).getinHandHashMap(), (error, ref) -> {
+                if (error != null) {
+                    FirebaseError.postValue(error.getMessage());
+                }
+            });
+        } catch (Exception ignored) {
+            inHandBalDataRef.setValue(new hashUtil(inHandBal).getinHandHashMap(), (error, ref) -> {
+                if (error != null) {
+                    FirebaseError.postValue(error.getMessage());
+                }
+            });
+        }
     }
 
-    public void putInHandBalance(inHandBalEntity inHandBal) {
-        inHandBalDataRef.setValue(inHandBal, (error, ref) -> {
-            if (error != null) {
-                FirebaseError.postValue(error.getMessage());
-            }
-        });
+    private void putBudget(budgetEntity budget) {
+        removeBudget();
+        try {
+            budgetDataRef.updateChildren(new hashUtil(budget).getBudgetHashMap(), (error, ref) -> {
+                if (error != null) {
+                    FirebaseError.postValue(error.getMessage());
+                }
+            });
+        } catch (Exception ignored) {
+            budgetDataRef.setValue(new hashUtil(budget).getBudgetHashMap(), (error, ref) -> {
+                if (error != null) {
+                    FirebaseError.postValue(error.getMessage());
+                }
+            });
+        }
     }
 
-    public void putBudget(budgetEntity budget) {
-        budgetDataRef.setValue(budget, (error, ref) -> {
-            if (error != null) {
-                FirebaseError.postValue(error.getMessage());
-            }
-        });
-    }
-
-    public void putLaunch(LaunchChecker launchChecker) {
-        launchDataRef.setValue(launchChecker, (error, ref) -> {
-            if (error != null) {
-                FirebaseError.postValue(error.getMessage());
-            }
-        });
+    private void putLaunch(LaunchChecker launchChecker) {
+        removeLaunch();
+        try {
+            launchDataRef.updateChildren(new hashUtil(launchChecker).getLaunchHashMap(), (error, ref) -> {
+                if (error != null) {
+                    FirebaseError.postValue(error.getMessage());
+                }
+            });
+        } catch (Exception ignored) {
+            launchDataRef.setValue(new hashUtil(launchChecker).getLaunchHashMap(), (error, ref) -> {
+                if (error != null) {
+                    FirebaseError.postValue(error.getMessage());
+                }
+            });
+        }
     }
 
     public void setDefaultError() {
         FirebaseError.postValue(default_Error);
+    }
+
+    private void removeExp() {
+        try {
+            expDataRef.removeValue((error, ref) -> {
+                if (error != null) {
+                    FirebaseError.postValue(error.getMessage());
+                }
+            });
+        } catch (Exception ignored) {
+        }
+    }
+
+    private void removeSalary() {
+        try {
+            salaryDataRef.removeValue((error, ref) -> {
+                if (error != null) {
+                    FirebaseError.postValue(error.getMessage());
+                }
+            });
+        } catch (Exception ignored) {
+        }
+    }
+
+    private void removeDebt() {
+        try {
+            debtDataRef.removeValue((error, ref) -> {
+                if (error != null) {
+                    FirebaseError.postValue(error.getMessage());
+                }
+            });
+        } catch (Exception ignored) {
+        }
+    }
+
+    private void removeBankBalance() {
+        try {
+            bankBalDataRef.removeValue((error, ref) -> {
+                if (error != null) {
+                    FirebaseError.postValue(error.getMessage());
+                }
+            });
+        } catch (Exception ignored) {
+        }
+    }
+
+    private void removeInHand() {
+        try {
+            inHandBalDataRef.removeValue((error, ref) -> {
+                if (error != null) {
+                    FirebaseError.postValue(error.getMessage());
+                }
+            });
+        } catch (Exception ignored) {
+        }
+    }
+
+    private void removeLaunch() {
+        try {
+            launchDataRef.removeValue((error, ref) -> {
+                if (error != null) {
+                    FirebaseError.postValue(error.getMessage());
+                }
+            });
+        } catch (Exception ignored) {
+        }
+    }
+
+    private void removeBudget() {
+        try {
+            budgetDataRef.removeValue((error, ref) -> {
+                if (error != null) {
+                    FirebaseError.postValue(error.getMessage());
+                }
+            });
+        } catch (Exception ignored) {
+        }
+    }
+
+    //Defaults
+    private void setDefaultExp() {
+        List<expEntity> expList = new ArrayList<>();
+        expEntity exp = new expEntity();
+        exp.setDate(default_Error);
+        expList.add(0, exp);
+        expLiveData.postValue(expList);
+    }
+
+    private void setDefaultSalary() {
+        List<salaryEntity> salaryList = new ArrayList<>();
+        salaryEntity salary = new salaryEntity();
+        salary.setCreationDate(default_Error);
+        salaryList.add(0, salary);
+        salaryLiveData.postValue(salaryList);
+    }
+
+    private void setDefaultDebt() {
+        List<debtEntity> debtList = new ArrayList<>();
+        debtEntity debt = new debtEntity();
+        debt.setDate(default_Error);
+        debtList.add(0, debt);
+        debtLiveData.postValue(debtList);
+    }
+
+    private void setDefaultBankBalance() {
+        balanceEntity balance = new balanceEntity();
+        balance.setId(default_int_entity);
+        bankBalLiveData.postValue(balance);
+    }
+
+    private void setDefaultInHandBalance() {
+        inHandBalEntity balance = new inHandBalEntity();
+        balance.setId(default_int_entity);
+        inHandBalLiveData.postValue(balance);
+    }
+
+    private void setDefaultBudget() {
+        budgetEntity bud = new budgetEntity();
+        bud.setCreationDate(default_Error);
+        budgetLiveData.postValue(bud);
+    }
+
+    private void setDefaultLaunch() {
+        LaunchChecker launchChecker = new LaunchChecker();
+        launchChecker.setId(default_int_entity);
+        launchLiveData.postValue(launchChecker);
     }
 
     public MutableLiveData<String> getFirebaseError() {

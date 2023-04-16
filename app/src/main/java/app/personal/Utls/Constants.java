@@ -15,6 +15,8 @@ public class Constants {
             launchChecker = "Launch_Checker",
             CustomCategory = "custom_Category",
             APP_VERSION = "1.0.3";
+    public static final String default_Error = "Null";
+    public static final int default_int_entity = -999999999;
     //DO NOT CHANGE------------------------------------------------
     public static final int DB_VERSION = 14;
     //-------------------------------------------------------------

@@ -123,6 +123,8 @@ public interface localDao {
     void InsertLaunchChecker(LaunchChecker launchChecker);
     @Update
     void UpdateLaunchChecker(LaunchChecker launchChecker);
+    @Query("DELETE FROM Launch_Checker")
+    void DeleteLaunchChecker();
     @Query("SELECT * FROM Launch_Checker")
     LiveData<LaunchChecker> getChecker();
 
