@@ -444,126 +444,70 @@ public class dataSyncRepository {
     private void putExp(List<expEntity> expEntityList) {
         removeExp();
         for (expEntity exp : expEntityList) {
-            try {
-                expDataRef.push().updateChildren(new hashUtil(exp).getExpHashMap(), (error, ref) -> {
-                    if (error != null) {
-                        FirebaseError.postValue(error.getMessage());
-                    }
-                });
-            } catch (Exception ignored) {
-                expDataRef.push().setValue(new hashUtil(exp).getExpHashMap(), (error, ref) -> {
-                    if (error != null) {
-                        FirebaseError.postValue(error.getMessage());
-                    }
-                });
-            }
+            expDataRef.push().setValue(new hashUtil(exp).getExpHashMap(), (error, ref) -> {
+                if (error != null) {
+                    FirebaseError.postValue(error.getMessage());
+                }
+            });
         }
     }
 
     private void putDebt(List<debtEntity> debtEntityList) {
         removeDebt();
         for (debtEntity debt : debtEntityList) {
-            try {
-                debtDataRef.push().updateChildren(new hashUtil(debt).getDebtHashMap(), (error, ref) -> {
-                    if (error != null) {
-                        FirebaseError.postValue(error.getMessage());
-                    }
-                });
-            } catch (Exception ignored) {
-                debtDataRef.push().setValue(new hashUtil(debt).getDebtHashMap(), (error, ref) -> {
-                    if (error != null) {
-                        FirebaseError.postValue(error.getMessage());
-                    }
-                });
-            }
+            debtDataRef.push().setValue(new hashUtil(debt).getDebtHashMap(), (error, ref) -> {
+                if (error != null) {
+                    FirebaseError.postValue(error.getMessage());
+                }
+            });
         }
     }
 
     private void putSalary(List<salaryEntity> salaryEntityList) {
         removeSalary();
         for (salaryEntity salary : salaryEntityList) {
-            try {
-                salaryDataRef.push().updateChildren(new hashUtil(salary).getSalaryHashMap(), (error, ref) -> {
-                    if (error != null) {
-                        FirebaseError.postValue(error.getMessage());
-                    }
-                });
-            } catch (Exception ignored) {
-                salaryDataRef.push().setValue(new hashUtil(salary).getSalaryHashMap(), (error, ref) -> {
-                    if (error != null) {
-                        FirebaseError.postValue(error.getMessage());
-                    }
-                });
-            }
+            salaryDataRef.push().setValue(new hashUtil(salary).getSalaryHashMap(), (error, ref) -> {
+                if (error != null) {
+                    FirebaseError.postValue(error.getMessage());
+                }
+            });
         }
     }
 
     private void putBankBalance(balanceEntity balance) {
         removeBankBalance();
-        try {
-            bankBalDataRef.updateChildren(new hashUtil(balance).getBankBalHashMap(), (error, ref) -> {
-                if (error != null) {
-                    FirebaseError.postValue(error.getMessage());
-                }
-            });
-        } catch (Exception ignored) {
-            bankBalDataRef.setValue(new hashUtil(balance).getBankBalHashMap(), (error, ref) -> {
-                if (error != null) {
-                    FirebaseError.postValue(error.getMessage());
-                }
-            });
-        }
+        bankBalDataRef.setValue(new hashUtil(balance).getBankBalHashMap(), (error, ref) -> {
+            if (error != null) {
+                FirebaseError.postValue(error.getMessage());
+            }
+        });
     }
 
     private void putInHandBalance(inHandBalEntity inHandBal) {
         removeInHand();
-        try {
-            inHandBalDataRef.updateChildren(new hashUtil(inHandBal).getinHandHashMap(), (error, ref) -> {
-                if (error != null) {
-                    FirebaseError.postValue(error.getMessage());
-                }
-            });
-        } catch (Exception ignored) {
-            inHandBalDataRef.setValue(new hashUtil(inHandBal).getinHandHashMap(), (error, ref) -> {
-                if (error != null) {
-                    FirebaseError.postValue(error.getMessage());
-                }
-            });
-        }
+        inHandBalDataRef.setValue(new hashUtil(inHandBal).getinHandHashMap(), (error, ref) -> {
+            if (error != null) {
+                FirebaseError.postValue(error.getMessage());
+            }
+        });
     }
 
     private void putBudget(budgetEntity budget) {
         removeBudget();
-        try {
-            budgetDataRef.updateChildren(new hashUtil(budget).getBudgetHashMap(), (error, ref) -> {
-                if (error != null) {
-                    FirebaseError.postValue(error.getMessage());
-                }
-            });
-        } catch (Exception ignored) {
-            budgetDataRef.setValue(new hashUtil(budget).getBudgetHashMap(), (error, ref) -> {
-                if (error != null) {
-                    FirebaseError.postValue(error.getMessage());
-                }
-            });
-        }
+        budgetDataRef.setValue(new hashUtil(budget).getBudgetHashMap(), (error, ref) -> {
+            if (error != null) {
+                FirebaseError.postValue(error.getMessage());
+            }
+        });
     }
 
     private void putLaunch(LaunchChecker launchChecker) {
         removeLaunch();
-        try {
-            launchDataRef.updateChildren(new hashUtil(launchChecker).getLaunchHashMap(), (error, ref) -> {
-                if (error != null) {
-                    FirebaseError.postValue(error.getMessage());
-                }
-            });
-        } catch (Exception ignored) {
-            launchDataRef.setValue(new hashUtil(launchChecker).getLaunchHashMap(), (error, ref) -> {
-                if (error != null) {
-                    FirebaseError.postValue(error.getMessage());
-                }
-            });
-        }
+        launchDataRef.setValue(new hashUtil(launchChecker).getLaunchHashMap(), (error, ref) -> {
+            if (error != null) {
+                FirebaseError.postValue(error.getMessage());
+            }
+        });
     }
 
     public void setDefaultError() {

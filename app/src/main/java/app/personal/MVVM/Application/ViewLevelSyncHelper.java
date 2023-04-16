@@ -6,6 +6,7 @@ import static app.personal.Utls.Constants.default_int_entity;
 import android.util.Log;
 
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +38,12 @@ public class ViewLevelSyncHelper {
     private inHandBalEntity localInHandBal;
     private LaunchChecker localLaunchChecker;
 
+    private final MutableLiveData<Integer> initTask;
+
     public ViewLevelSyncHelper(mainViewModel Mvm, DataSyncViewModel Dvm,
                                AppUtilViewModel AppVm, LifecycleOwner lifecycleOwner) {
+        this.initTask = new MutableLiveData<>();
+        this.initTask.postValue(0);
         this.Mvm = Mvm;
         this.Dvm = Dvm;
         this.AppVm = AppVm;
@@ -58,25 +63,32 @@ public class ViewLevelSyncHelper {
     }
 
     private void init() {
+        Log.e("DataSync-Level(VC)", "Helper init.");
         Mvm.getBalance().observe(lifecycleOwner, balance -> {
             try {
                 localBalance = balance;
+                initTask.postValue(1);
             } catch (Exception ignored) {
                 Log.e("DataSync-Level(VC)", "No local bank balance");
+                initTask.postValue(1);
             }
         });
         Mvm.getInHandBalance().observe(lifecycleOwner, inHandBal -> {
             try {
                 localInHandBal = inHandBal;
+                initTask.postValue(2);
             } catch (Exception ignored) {
                 Log.e("DataSync-Level(VC)", "No local in hand balance");
+                initTask.postValue(2);
             }
         });
         Mvm.getBudget().observe(lifecycleOwner, budget -> {
             try {
                 localBudget = budget;
+                initTask.postValue(3);
             } catch (Exception ignored) {
                 Log.e("DataSync-Level(VC)", "No local budget");
+                initTask.postValue(3);
             }
         });
         Mvm.getExp().observe(lifecycleOwner, expEntityList -> {
@@ -86,8 +98,10 @@ public class ViewLevelSyncHelper {
                 } else {
                     Log.e("DataSync-Level(VC)", "No local expenses");
                 }
+                initTask.postValue(4);
             } catch (Exception ignored) {
                 Log.e("DataSync-Level(VC)", "No local expenses");
+                initTask.postValue(4);
             }
         });
         Mvm.getSalary().observe(lifecycleOwner, salaryEntityList -> {
@@ -97,8 +111,10 @@ public class ViewLevelSyncHelper {
                 } else {
                     Log.e("DataSync-Level(VC)", "No local salary");
                 }
+                initTask.postValue(5);
             } catch (Exception ignored) {
                 Log.e("DataSync-Level(VC)", "No local salary");
+                initTask.postValue(5);
             }
         });
         Mvm.getDebt().observe(lifecycleOwner, debtEntityList -> {
@@ -108,15 +124,19 @@ public class ViewLevelSyncHelper {
                 } else {
                     Log.e("DataSync-Level(VC)", "No local salary");
                 }
+                initTask.postValue(6);
             } catch (Exception ignored) {
                 Log.e("DataSync-Level(VC)", "No local debt");
+                initTask.postValue(6);
             }
         });
         AppVm.getCheckerData().observe(lifecycleOwner, launchChecker -> {
             try {
                 localLaunchChecker = launchChecker;
+                initTask.postValue(7);
             } catch (Exception ignored) {
                 Log.e("DataSync-Level(VC)", "Launch load error");
+                initTask.postValue(7);
             }
         });
     }
@@ -129,6 +149,7 @@ public class ViewLevelSyncHelper {
                     if (!expEntityList.equals(localExp)) {
                         Mvm.DeleteAllExp();
                         Mvm.setExpList(expEntityList);
+                        Dvm.getExpLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             }
@@ -139,6 +160,7 @@ public class ViewLevelSyncHelper {
                     if (!salaryEntityList.equals(localSalary)) {
                         Mvm.DeleteAllSalary();
                         Mvm.setSalaryList(salaryEntityList);
+                        Dvm.getSalaryLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             }
@@ -149,6 +171,7 @@ public class ViewLevelSyncHelper {
                     if (!debtEntityList.equals(localDebt)) {
                         Mvm.DeleteAllDebt();
                         Mvm.setDebtList(debtEntityList);
+                        Dvm.getDebtLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             }
@@ -159,6 +182,7 @@ public class ViewLevelSyncHelper {
                     if (balance != localBalance) {
                         Mvm.DeleteBalance();
                         Mvm.InsertBalance(balance);
+                        Dvm.getBankBalLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             } catch (Exception ignored) {
@@ -170,6 +194,7 @@ public class ViewLevelSyncHelper {
                     if (inHandBal != localInHandBal) {
                         Mvm.DeleteInHandBalance();
                         Mvm.InsertInHandBalance(inHandBal);
+                        Dvm.getInHandBalLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             } catch (Exception ignored) {
@@ -179,9 +204,9 @@ public class ViewLevelSyncHelper {
             try {
                 if (launchChecker.getId() != default_int_entity) {
                     if (launchChecker != localLaunchChecker) {
-                        Mvm.DeleteInHandBalance();
                         AppVm.DeleteLaunchChecker();
                         AppVm.InsertLaunchChecker(launchChecker);
+                        Dvm.getLaunchLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             } catch (Exception ignored) {
@@ -193,6 +218,7 @@ public class ViewLevelSyncHelper {
                     if (budget != localBudget) {
                         Mvm.DeleteBudget();
                         Mvm.InsertBudget(budget);
+                        Dvm.getBudgetLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             } catch (Exception ignored) {
@@ -209,6 +235,7 @@ public class ViewLevelSyncHelper {
                         SaveToCloud();
                         Mvm.DeleteAllExp();
                         Mvm.setExpList(expEntityList);
+                        Dvm.getExpLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             }
@@ -220,6 +247,7 @@ public class ViewLevelSyncHelper {
                         SaveToCloud();
                         Mvm.DeleteAllSalary();
                         Mvm.setSalaryList(salaryEntityList);
+                        Dvm.getSalaryLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             }
@@ -231,6 +259,7 @@ public class ViewLevelSyncHelper {
                         SaveToCloud();
                         Mvm.DeleteAllDebt();
                         Mvm.setDebtList(debtEntityList);
+                        Dvm.getDebtLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             }
@@ -242,6 +271,7 @@ public class ViewLevelSyncHelper {
                         SaveToCloud();
                         Mvm.DeleteBalance();
                         Mvm.InsertBalance(balance);
+                        Dvm.getBankBalLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             } catch (Exception ignored) {
@@ -254,6 +284,7 @@ public class ViewLevelSyncHelper {
                         SaveToCloud();
                         Mvm.DeleteInHandBalance();
                         Mvm.InsertInHandBalance(inHandBal);
+                        Dvm.getInHandBalLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             } catch (Exception ignored) {
@@ -264,9 +295,9 @@ public class ViewLevelSyncHelper {
                 if (launchChecker.getId() != default_int_entity) {
                     if (launchChecker != localLaunchChecker) {
                         SaveToCloud();
-                        Mvm.DeleteInHandBalance();
                         AppVm.DeleteLaunchChecker();
                         AppVm.InsertLaunchChecker(launchChecker);
+                        Dvm.getLaunchLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             } catch (Exception ignored) {
@@ -279,6 +310,7 @@ public class ViewLevelSyncHelper {
                         SaveToCloud();
                         Mvm.DeleteBudget();
                         Mvm.InsertBudget(budget);
+                        Dvm.getBudgetLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             } catch (Exception ignored) {
@@ -288,7 +320,7 @@ public class ViewLevelSyncHelper {
 
     public void SaveToCloud() {
         init();
-        Dvm.CompareAll(localExp, localSalary, localDebt, localBalance, localInHandBal,
-                localLaunchChecker, localBudget);
+        Dvm.CompareAll(localExp, localSalary, localDebt, localBalance,
+                localInHandBal, localLaunchChecker, localBudget);
     }
 }

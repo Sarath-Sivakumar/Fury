@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         vm = new ViewModelProvider(this).get(mainViewModel.class);
         dsVm = new ViewModelProvider(this).get(DataSyncViewModel.class);
         appVm = new ViewModelProvider(this).get(AppUtilViewModel.class);
+        syncHelper = new ViewLevelSyncHelper(vm, dsVm, appVm, this);
         setCurrency(savedInstanceState);
     }
 
@@ -117,8 +118,6 @@ public class MainActivity extends AppCompatActivity {
                 dsVm.setBruteForceSync(false);
             }
         });
-
-        syncHelper = new ViewLevelSyncHelper(vm, dsVm, appVm, this);
 
         dsVm.getBruteForceSync().observe(this, Boolean -> {
             if (Boolean) {
