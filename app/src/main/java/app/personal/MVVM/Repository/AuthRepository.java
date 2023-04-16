@@ -32,6 +32,8 @@ public class AuthRepository {
     private final Application application;
     private final FirebaseAuth firebaseAuth;
     private final FirebaseDatabase db = FirebaseDatabase.getInstance(Constants.DB_INSTANCE);
+    private final DatabaseReference metaDataRef = db.getReference(Constants.Metadata)
+            .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid());
     private final DatabaseReference userDataRef;
     private final DatabaseReference updateDataRef;
     private final MutableLiveData<FirebaseUser> userLiveData;
@@ -287,6 +289,7 @@ public class AuthRepository {
                     if (error == null) {
                         Log.e("Account Termination", "User data deleted.");
                         FirebaseUser user = firebaseAuth.getCurrentUser();
+                        metaDataRef.removeValue();
                         logout();
                         deleteAccount(user);
                     } else {
