@@ -220,7 +220,7 @@ public class dataSyncRepository {
                 if (snapshot.exists()) {
                     List<expEntity> expList = new ArrayList<>();
                     for (DataSnapshot ds : snapshot.getChildren()) {
-                        String id = snapshot.child(ds.getKey()).child("id")
+                        String id = snapshot.child(Objects.requireNonNull(ds.getKey())).child("id")
                                 .getValue(String.class);
                         String ExpenseAmt = snapshot.child(ds.getKey()).child("ExpenseAmt")
                                 .getValue(String.class);
@@ -236,8 +236,8 @@ public class dataSyncRepository {
                                 .getValue(String.class);
                         if (id != null && ExpenseAmt != null && day != null && expMode != null
                                 && ExpenseName != null && Date != null && Time != null) {
-                            expEntity exp = new expEntity(Integer.valueOf(id), Integer.valueOf(ExpenseAmt),
-                                    ExpenseName, Date, Time, Integer.valueOf(day), Integer.valueOf(expMode));
+                            expEntity exp = new expEntity(Integer.parseInt(id), Integer.parseInt(ExpenseAmt),
+                                    ExpenseName, Date, Time, Integer.parseInt(day), Integer.parseInt(expMode));
                             expList.add(exp);
                         } else {
                             Log.e("DataSync-Level3", "expData: null");
