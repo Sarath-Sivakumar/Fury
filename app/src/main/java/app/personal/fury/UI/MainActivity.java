@@ -150,13 +150,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void DS_NewUser() {
         Log.e("DataSync-level1", "DS_New_User_Launch: init");
-        syncHelper.Sync();
+        syncHelper.newUserSync();
         dsVm.getBruteForceSync().removeObservers(this);
     }
 
     private void DS_RegularLaunch() {
         Log.e("DataSync-level1", "DS_Regular_Launch: init");
-        syncHelper.Sync();
+        syncHelper.regularLaunchSync();
         dsVm.getBruteForceSync().removeObservers(this);
     }
 

@@ -121,7 +121,7 @@ public class ViewLevelSyncHelper {
         });
     }
 
-    public void Sync() {
+    public void newUserSync() {
         Dvm.fetchAllData();
         Dvm.getExpLiveData().observe(lifecycleOwner, expEntityList -> {
             if (expEntityList != null) {
@@ -191,6 +191,92 @@ public class ViewLevelSyncHelper {
             try {
                 if (!Objects.equals(budget.getCreationDate(), default_Error)) {
                     if (budget != localBudget) {
+                        Mvm.DeleteBudget();
+                        Mvm.InsertBudget(budget);
+                    }
+                }
+            } catch (Exception ignored) {
+            }
+        });
+    }
+
+    public void regularLaunchSync(){
+        Dvm.fetchAllData();
+        Dvm.getExpLiveData().observe(lifecycleOwner, expEntityList -> {
+            if (expEntityList != null) {
+                if (!expEntityList.get(0).getDate().equals(default_Error)) {
+                    if (!expEntityList.equals(localExp)) {
+                        SaveToCloud();
+                        Mvm.DeleteAllExp();
+                        Mvm.setExpList(expEntityList);
+                    }
+                }
+            }
+        });
+        Dvm.getSalaryLiveData().observe(lifecycleOwner, salaryEntityList -> {
+            if (salaryEntityList != null) {
+                if (!salaryEntityList.get(0).getCreationDate().equals(default_Error)) {
+                    if (!salaryEntityList.equals(localSalary)) {
+                        SaveToCloud();
+                        Mvm.DeleteAllSalary();
+                        Mvm.setSalaryList(salaryEntityList);
+                    }
+                }
+            }
+        });
+        Dvm.getDebtLiveData().observe(lifecycleOwner, debtEntityList -> {
+            if (debtEntityList != null) {
+                if (!debtEntityList.get(0).getDate().equals(default_Error)) {
+                    if (!debtEntityList.equals(localDebt)) {
+                        SaveToCloud();
+                        Mvm.DeleteAllDebt();
+                        Mvm.setDebtList(debtEntityList);
+                    }
+                }
+            }
+        });
+        Dvm.getBankBalLiveData().observe(lifecycleOwner, balance -> {
+            try {
+                if (balance.getId() != default_int_entity) {
+                    if (balance != localBalance) {
+                        SaveToCloud();
+                        Mvm.DeleteBalance();
+                        Mvm.InsertBalance(balance);
+                    }
+                }
+            } catch (Exception ignored) {
+            }
+        });
+        Dvm.getInHandBalLiveData().observe(lifecycleOwner, inHandBal -> {
+            try {
+                if (inHandBal.getId() != default_int_entity) {
+                    if (inHandBal != localInHandBal) {
+                        SaveToCloud();
+                        Mvm.DeleteInHandBalance();
+                        Mvm.InsertInHandBalance(inHandBal);
+                    }
+                }
+            } catch (Exception ignored) {
+            }
+        });
+        Dvm.getLaunchLiveData().observe(lifecycleOwner, launchChecker -> {
+            try {
+                if (launchChecker.getId() != default_int_entity) {
+                    if (launchChecker != localLaunchChecker) {
+                        SaveToCloud();
+                        Mvm.DeleteInHandBalance();
+                        AppVm.DeleteLaunchChecker();
+                        AppVm.InsertLaunchChecker(launchChecker);
+                    }
+                }
+            } catch (Exception ignored) {
+            }
+        });
+        Dvm.getBudgetLiveData().observe(lifecycleOwner, budget -> {
+            try {
+                if (!Objects.equals(budget.getCreationDate(), default_Error)) {
+                    if (budget != localBudget) {
+                        SaveToCloud();
                         Mvm.DeleteBudget();
                         Mvm.InsertBudget(budget);
                     }
