@@ -701,4 +701,10 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         syncHelper.SaveToCloud();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        syncHelper.SaveToCloud();
+    }
 }
