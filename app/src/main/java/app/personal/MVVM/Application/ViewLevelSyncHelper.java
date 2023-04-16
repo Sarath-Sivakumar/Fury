@@ -129,6 +129,7 @@ public class ViewLevelSyncHelper {
                     if (!expEntityList.equals(localExp)) {
                         Mvm.DeleteAllExp();
                         Mvm.setExpList(expEntityList);
+                        Dvm.getExpLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             }
@@ -139,6 +140,7 @@ public class ViewLevelSyncHelper {
                     if (!salaryEntityList.equals(localSalary)) {
                         Mvm.DeleteAllSalary();
                         Mvm.setSalaryList(salaryEntityList);
+                        Dvm.getSalaryLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             }
@@ -149,6 +151,7 @@ public class ViewLevelSyncHelper {
                     if (!debtEntityList.equals(localDebt)) {
                         Mvm.DeleteAllDebt();
                         Mvm.setDebtList(debtEntityList);
+                        Dvm.getDebtLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             }
@@ -159,6 +162,7 @@ public class ViewLevelSyncHelper {
                     if (balance != localBalance) {
                         Mvm.DeleteBalance();
                         Mvm.InsertBalance(balance);
+                        Dvm.getBankBalLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             } catch (Exception ignored) {
@@ -170,6 +174,7 @@ public class ViewLevelSyncHelper {
                     if (inHandBal != localInHandBal) {
                         Mvm.DeleteInHandBalance();
                         Mvm.InsertInHandBalance(inHandBal);
+                        Dvm.getInHandBalLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             } catch (Exception ignored) {
@@ -179,9 +184,9 @@ public class ViewLevelSyncHelper {
             try {
                 if (launchChecker.getId() != default_int_entity) {
                     if (launchChecker != localLaunchChecker) {
-                        Mvm.DeleteInHandBalance();
                         AppVm.DeleteLaunchChecker();
                         AppVm.InsertLaunchChecker(launchChecker);
+                        Dvm.getLaunchLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             } catch (Exception ignored) {
@@ -193,6 +198,7 @@ public class ViewLevelSyncHelper {
                     if (budget != localBudget) {
                         Mvm.DeleteBudget();
                         Mvm.InsertBudget(budget);
+                        Dvm.getBudgetLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             } catch (Exception ignored) {
@@ -209,6 +215,7 @@ public class ViewLevelSyncHelper {
                         SaveToCloud();
                         Mvm.DeleteAllExp();
                         Mvm.setExpList(expEntityList);
+                        Dvm.getExpLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             }
@@ -220,6 +227,7 @@ public class ViewLevelSyncHelper {
                         SaveToCloud();
                         Mvm.DeleteAllSalary();
                         Mvm.setSalaryList(salaryEntityList);
+                        Dvm.getSalaryLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             }
@@ -231,6 +239,7 @@ public class ViewLevelSyncHelper {
                         SaveToCloud();
                         Mvm.DeleteAllDebt();
                         Mvm.setDebtList(debtEntityList);
+                        Dvm.getDebtLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             }
@@ -242,6 +251,7 @@ public class ViewLevelSyncHelper {
                         SaveToCloud();
                         Mvm.DeleteBalance();
                         Mvm.InsertBalance(balance);
+                        Dvm.getBankBalLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             } catch (Exception ignored) {
@@ -254,6 +264,7 @@ public class ViewLevelSyncHelper {
                         SaveToCloud();
                         Mvm.DeleteInHandBalance();
                         Mvm.InsertInHandBalance(inHandBal);
+                        Dvm.getInHandBalLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             } catch (Exception ignored) {
@@ -264,9 +275,9 @@ public class ViewLevelSyncHelper {
                 if (launchChecker.getId() != default_int_entity) {
                     if (launchChecker != localLaunchChecker) {
                         SaveToCloud();
-                        Mvm.DeleteInHandBalance();
                         AppVm.DeleteLaunchChecker();
                         AppVm.InsertLaunchChecker(launchChecker);
+                        Dvm.getLaunchLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             } catch (Exception ignored) {
@@ -279,6 +290,7 @@ public class ViewLevelSyncHelper {
                         SaveToCloud();
                         Mvm.DeleteBudget();
                         Mvm.InsertBudget(budget);
+                        Dvm.getBudgetLiveData().removeObservers(lifecycleOwner);
                     }
                 }
             } catch (Exception ignored) {
@@ -288,7 +300,7 @@ public class ViewLevelSyncHelper {
 
     public void SaveToCloud() {
         init();
-        Dvm.CompareAll(localExp, localSalary, localDebt, localBalance, localInHandBal,
-                localLaunchChecker, localBudget);
+        Dvm.CompareAll(localExp, localSalary, localDebt, localBalance,
+                localInHandBal, localLaunchChecker, localBudget);
     }
 }
