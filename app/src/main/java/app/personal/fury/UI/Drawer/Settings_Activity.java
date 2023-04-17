@@ -34,6 +34,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import java.io.IOException;
 
 import app.personal.MVVM.Entity.userEntity;
+import app.personal.MVVM.Viewmodel.DataSyncViewModel;
 import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
@@ -45,6 +46,7 @@ public class Settings_Activity extends AppCompatActivity {
 
     private LoggedInUserViewModel userVM;
     private mainViewModel mainVM;
+    private DataSyncViewModel dvm;
     private ImageButton uploadPic;
     private ImageView profilePic;
     private TextView profileName;
@@ -67,6 +69,7 @@ public class Settings_Activity extends AppCompatActivity {
         setContentView(R.layout.nav_activity_settings);
         userVM = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
         mainVM = new ViewModelProvider(this).get(mainViewModel.class);
+        dvm = new ViewModelProvider(this).get(DataSyncViewModel.class);
         init();
         if (savedInstanceState == null && Commons.isConnectedToInternet(this)) {
             initAd();
@@ -356,6 +359,7 @@ public class Settings_Activity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 popupWindow.dismiss();
+                dvm.RemoveAllData();
                 Commons.clearData(mainVM);
             }
         }.start();
