@@ -56,7 +56,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:'
 
     //Push Notifications
-    implementation 'com.google.firebase:firebase-messaging:23.1.1'
+    implementation 'com.google.firebase:firebase-messaging:23.1.2'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -64,8 +64,8 @@ dependencies {
     //InterstitialAds
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.gms:play-services-ads:21.5.0'
-    implementation 'com.google.android.gms:play-services-ads-lite:21.5.0'
+    implementation 'com.google.android.gms:play-services-ads:22.0.0'
+    implementation 'com.google.android.gms:play-services-ads-lite:22.0.0'
 
     //FirebaseBoM(AutoUpdate mapped dependencies)
     implementation platform('com.google.firebase:firebase-bom:31.2.0')
@@ -83,7 +83,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     //noinspection LifecycleAnnotationProcessorWithJava8
-    annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.5.1'
+    annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.6.1'
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
@@ -91,8 +91,6 @@ dependencies {
     implementation 'org.jetbrains:annotations:15.0'
     annotationProcessor "com.github.bumptech.glide:compiler:4.11.0"
 
-    //lottieAnimation
-    implementation "com.airbnb.android:lottie:3.4.1"
     //swipeDecorator
     implementation 'it.xabaras.android:recyclerview-swipedecorator:1.4'
 
