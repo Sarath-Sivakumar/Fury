@@ -641,7 +641,13 @@ public class dataSyncRepository {
         launchChecker.setId(default_int_entity);
         launchLiveData.postValue(launchChecker);
     }
-
+    public void removeAllData(){
+        metaDataRef.removeValue((error, ref) -> {
+            if (error!=null){
+                FirebaseError.postValue(error.getMessage());
+            }
+        });
+    }
     public MutableLiveData<String> getFirebaseError() {
         return FirebaseError;
     }

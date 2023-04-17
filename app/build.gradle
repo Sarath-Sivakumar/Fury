@@ -64,8 +64,10 @@ dependencies {
     //InterstitialAds
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.gms:play-services-ads:21.5.0'
-    implementation 'com.google.android.gms:play-services-ads-lite:21.5.0'
+//    implementation 'com.google.android.gms:play-services-ads:21.5.0'
+//    implementation 'com.google.android.gms:play-services-ads-lite:21.5.0'
+    implementation 'com.google.android.gms:play-services-ads:22.0.0'
+    implementation 'com.google.android.gms:play-services-ads-lite:22.0.0'
 
     //FirebaseBoM(AutoUpdate mapped dependencies)
     implementation platform('com.google.firebase:firebase-bom:31.2.0')

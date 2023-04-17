@@ -61,6 +61,10 @@ public class DataSyncViewModel extends AndroidViewModel {
         return FirebaseError;
     }
 
+    public void RemoveAllData(){
+        dsRepo.removeAllData();
+    }
+
     public void setDefaultError() {
         dsRepo.setDefaultError();
     }
