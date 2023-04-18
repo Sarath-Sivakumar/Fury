@@ -33,6 +33,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import java.io.IOException;
 
+import app.personal.MVVM.Application.ViewLevelSyncHelper;
 import app.personal.MVVM.Entity.userEntity;
 import app.personal.MVVM.Viewmodel.DataSyncViewModel;
 import app.personal.MVVM.Viewmodel.LoggedInUserViewModel;
@@ -41,12 +42,12 @@ import app.personal.Utls.Commons;
 import app.personal.Utls.Constants;
 import app.personal.fury.R;
 import app.personal.fury.UI.User_Init.Landing;
+import app.personal.fury.UI.splash;
 
 public class Settings_Activity extends AppCompatActivity {
 
     private LoggedInUserViewModel userVM;
     private mainViewModel mainVM;
-    private DataSyncViewModel dvm;
     private ImageButton uploadPic;
     private ImageView profilePic;
     private TextView profileName;
@@ -69,7 +70,6 @@ public class Settings_Activity extends AppCompatActivity {
         setContentView(R.layout.nav_activity_settings);
         userVM = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
         mainVM = new ViewModelProvider(this).get(mainViewModel.class);
-        dvm = new ViewModelProvider(this).get(DataSyncViewModel.class);
         init();
         if (savedInstanceState == null && Commons.isConnectedToInternet(this)) {
             initAd();
@@ -358,12 +358,13 @@ public class Settings_Activity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                popupWindow.dismiss();
-                dvm.RemoveAllData();
+                ViewLevelSyncHelper.clearData();
                 Commons.clearData(mainVM);
+                popupWindow.dismiss();
+//                startActivity(new Intent(Settings_Activity.this, splash.class));
+//                finishAffinity();
             }
         }.start();
-
     }
 
     private void callPopupWindow() {

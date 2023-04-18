@@ -26,7 +26,7 @@ import app.personal.MVVM.Viewmodel.mainViewModel;
 public class ViewLevelSyncHelper {
 
     private final mainViewModel Mvm;
-    private final DataSyncViewModel Dvm;
+    private static DataSyncViewModel Dvm = null;
     private final AppUtilViewModel AppVm;
     private final LifecycleOwner lifecycleOwner;
 
@@ -39,17 +39,18 @@ public class ViewLevelSyncHelper {
     private LaunchChecker localLaunchChecker;
 
     private final MutableLiveData<Integer> initTask;
+    private Boolean isDetach;
 
-    public ViewLevelSyncHelper(mainViewModel Mvm, DataSyncViewModel Dvm,
+    public ViewLevelSyncHelper(mainViewModel Mvm, DataSyncViewModel dvm,
                                AppUtilViewModel AppVm, LifecycleOwner lifecycleOwner) {
         this.initTask = new MutableLiveData<>();
         this.initTask.postValue(0);
         this.Mvm = Mvm;
-        this.Dvm = Dvm;
+        Dvm = dvm;
         this.AppVm = AppVm;
         this.lifecycleOwner = lifecycleOwner;
 
-        Dvm.fetchAllData();
+        initObserverTerminator();
 
         this.localDebt = new ArrayList<>();
         this.localExp = new ArrayList<>();
@@ -62,6 +63,45 @@ public class ViewLevelSyncHelper {
         init();
     }
 
+    public void SaveData(){
+        if (!isDetach){
+            Log.e("DataSync-Level(VC)", "Detach is false.");
+            this.SaveToCloud();
+        }else{
+            Log.e("DataSync-Level(VC)", "Detach is true.");
+        }
+    }
+
+    public static void clearData(){
+        Dvm.RemoveAllData();
+    }
+
+    private void initObserverTerminator() {
+        Dvm.getIsDetachHelper().observeForever(Boolean -> {
+            this.isDetach = Boolean;
+            if (Boolean) {
+//                LocalVM
+                Mvm.getExp().removeObservers(lifecycleOwner);
+                Mvm.getSalary().removeObservers(lifecycleOwner);
+                Mvm.getDebt().removeObservers(lifecycleOwner);
+                Mvm.getBudget().removeObservers(lifecycleOwner);
+                Mvm.getBalance().removeObservers(lifecycleOwner);
+                Mvm.getInHandBalance().removeObservers(lifecycleOwner);
+                AppVm.getCheckerData().removeObservers(lifecycleOwner);
+//                SyncVM
+                Dvm.getBudgetLiveData().removeObservers(lifecycleOwner);
+                Dvm.getSalaryLiveData().removeObservers(lifecycleOwner);
+                Dvm.getLaunchLiveData().removeObservers(lifecycleOwner);
+                Dvm.getInHandBalLiveData().removeObservers(lifecycleOwner);
+                Dvm.getBankBalLiveData().removeObservers(lifecycleOwner);
+                Dvm.getDebtLiveData().removeObservers(lifecycleOwner);
+                Dvm.getExpLiveData().removeObservers(lifecycleOwner);
+                Log.e("DataSync-Level(VC)", "Observers Terminated.");
+                Dvm.getIsDetachHelper().removeObservers(lifecycleOwner);
+            }
+        });
+    }
+
     private void init() {
         Log.e("DataSync-Level(VC)", "Helper init.");
         Mvm.getBalance().observe(lifecycleOwner, balance -> {
@@ -69,7 +109,6 @@ public class ViewLevelSyncHelper {
                 localBalance = balance;
                 initTask.postValue(1);
             } catch (Exception ignored) {
-                Log.e("DataSync-Level(VC)", "No local bank balance");
                 initTask.postValue(1);
             }
         });
@@ -78,7 +117,6 @@ public class ViewLevelSyncHelper {
                 localInHandBal = inHandBal;
                 initTask.postValue(2);
             } catch (Exception ignored) {
-                Log.e("DataSync-Level(VC)", "No local in hand balance");
                 initTask.postValue(2);
             }
         });
@@ -87,7 +125,6 @@ public class ViewLevelSyncHelper {
                 localBudget = budget;
                 initTask.postValue(3);
             } catch (Exception ignored) {
-                Log.e("DataSync-Level(VC)", "No local budget");
                 initTask.postValue(3);
             }
         });
@@ -95,12 +132,9 @@ public class ViewLevelSyncHelper {
             try {
                 if (!expEntityList.isEmpty()) {
                     localExp = expEntityList;
-                } else {
-                    Log.e("DataSync-Level(VC)", "No local expenses");
                 }
                 initTask.postValue(4);
             } catch (Exception ignored) {
-                Log.e("DataSync-Level(VC)", "No local expenses");
                 initTask.postValue(4);
             }
         });
@@ -108,12 +142,9 @@ public class ViewLevelSyncHelper {
             try {
                 if (!salaryEntityList.isEmpty()) {
                     localSalary = salaryEntityList;
-                } else {
-                    Log.e("DataSync-Level(VC)", "No local salary");
                 }
                 initTask.postValue(5);
             } catch (Exception ignored) {
-                Log.e("DataSync-Level(VC)", "No local salary");
                 initTask.postValue(5);
             }
         });
@@ -121,12 +152,9 @@ public class ViewLevelSyncHelper {
             try {
                 if (!debtEntityList.isEmpty()) {
                     localDebt = debtEntityList;
-                } else {
-                    Log.e("DataSync-Level(VC)", "No local salary");
                 }
                 initTask.postValue(6);
             } catch (Exception ignored) {
-                Log.e("DataSync-Level(VC)", "No local debt");
                 initTask.postValue(6);
             }
         });
@@ -135,7 +163,6 @@ public class ViewLevelSyncHelper {
                 localLaunchChecker = launchChecker;
                 initTask.postValue(7);
             } catch (Exception ignored) {
-                Log.e("DataSync-Level(VC)", "Launch load error");
                 initTask.postValue(7);
             }
         });
@@ -226,13 +253,13 @@ public class ViewLevelSyncHelper {
         });
     }
 
-    public void regularLaunchSync(){
+    public void regularLaunchSync() {
         Dvm.fetchAllData();
         Dvm.getExpLiveData().observe(lifecycleOwner, expEntityList -> {
             if (expEntityList != null) {
                 if (!expEntityList.get(0).getDate().equals(default_Error)) {
                     if (!expEntityList.equals(localExp)) {
-                        SaveToCloud();
+                        SaveData();
                         Mvm.DeleteAllExp();
                         Mvm.setExpList(expEntityList);
                         Dvm.getExpLiveData().removeObservers(lifecycleOwner);
@@ -244,7 +271,7 @@ public class ViewLevelSyncHelper {
             if (salaryEntityList != null) {
                 if (!salaryEntityList.get(0).getCreationDate().equals(default_Error)) {
                     if (!salaryEntityList.equals(localSalary)) {
-                        SaveToCloud();
+                        SaveData();
                         Mvm.DeleteAllSalary();
                         Mvm.setSalaryList(salaryEntityList);
                         Dvm.getSalaryLiveData().removeObservers(lifecycleOwner);
@@ -256,7 +283,7 @@ public class ViewLevelSyncHelper {
             if (debtEntityList != null) {
                 if (!debtEntityList.get(0).getDate().equals(default_Error)) {
                     if (!debtEntityList.equals(localDebt)) {
-                        SaveToCloud();
+                        SaveData();
                         Mvm.DeleteAllDebt();
                         Mvm.setDebtList(debtEntityList);
                         Dvm.getDebtLiveData().removeObservers(lifecycleOwner);
@@ -268,7 +295,7 @@ public class ViewLevelSyncHelper {
             try {
                 if (balance.getId() != default_int_entity) {
                     if (balance != localBalance) {
-                        SaveToCloud();
+                        SaveData();
                         Mvm.DeleteBalance();
                         Mvm.InsertBalance(balance);
                         Dvm.getBankBalLiveData().removeObservers(lifecycleOwner);
@@ -281,7 +308,7 @@ public class ViewLevelSyncHelper {
             try {
                 if (inHandBal.getId() != default_int_entity) {
                     if (inHandBal != localInHandBal) {
-                        SaveToCloud();
+                        SaveData();
                         Mvm.DeleteInHandBalance();
                         Mvm.InsertInHandBalance(inHandBal);
                         Dvm.getInHandBalLiveData().removeObservers(lifecycleOwner);
@@ -294,7 +321,7 @@ public class ViewLevelSyncHelper {
             try {
                 if (launchChecker.getId() != default_int_entity) {
                     if (launchChecker != localLaunchChecker) {
-                        SaveToCloud();
+                        SaveData();
                         AppVm.DeleteLaunchChecker();
                         AppVm.InsertLaunchChecker(launchChecker);
                         Dvm.getLaunchLiveData().removeObservers(lifecycleOwner);
@@ -307,7 +334,7 @@ public class ViewLevelSyncHelper {
             try {
                 if (!Objects.equals(budget.getCreationDate(), default_Error)) {
                     if (budget != localBudget) {
-                        SaveToCloud();
+                        SaveData();
                         Mvm.DeleteBudget();
                         Mvm.InsertBudget(budget);
                         Dvm.getBudgetLiveData().removeObservers(lifecycleOwner);
@@ -318,7 +345,7 @@ public class ViewLevelSyncHelper {
         });
     }
 
-    public void SaveToCloud() {
+    private void SaveToCloud() {
         init();
         Dvm.CompareAll(localExp, localSalary, localDebt, localBalance,
                 localInHandBal, localLaunchChecker, localBudget);

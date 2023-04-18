@@ -36,18 +36,21 @@ public class dataSyncRepository {
     private final FirebaseAuth firebaseAuth;
     private final FirebaseUser firebaseUser;
 
+    private int exp = 0, debt = 0, salary = 0, bank = 0, inHand = 0, budget = 0, launch = 0;
+
     private final MutableLiveData<Boolean> bruteForceSync;
 
     private final MutableLiveData<String> FirebaseError;
     private final MutableLiveData<Boolean> SyncStatus;
+    private final MutableLiveData<Boolean> isDetachHelper;
 
-    private final MutableLiveData<List<expEntity>> expLiveData;
-    private final MutableLiveData<balanceEntity> bankBalLiveData;
-    private final MutableLiveData<inHandBalEntity> inHandBalLiveData;
-    private final MutableLiveData<List<debtEntity>> debtLiveData;
-    private final MutableLiveData<budgetEntity> budgetLiveData;
-    private final MutableLiveData<LaunchChecker> launchLiveData;
-    private final MutableLiveData<List<salaryEntity>> salaryLiveData;
+    private MutableLiveData<List<expEntity>> expLiveData;
+    private MutableLiveData<balanceEntity> bankBalLiveData;
+    private MutableLiveData<inHandBalEntity> inHandBalLiveData;
+    private MutableLiveData<List<debtEntity>> debtLiveData;
+    private MutableLiveData<budgetEntity> budgetLiveData;
+    private MutableLiveData<LaunchChecker> launchLiveData;
+    private MutableLiveData<List<salaryEntity>> salaryLiveData;
 
     private final FirebaseDatabase db = FirebaseDatabase.getInstance(Constants.DB_INSTANCE);
     private final DatabaseReference metaDataRef = db.getReference(Constants.Metadata)
@@ -66,6 +69,7 @@ public class dataSyncRepository {
         this.firebaseUser = firebaseAuth.getCurrentUser();
         this.FirebaseError = new MutableLiveData<>();
         this.bruteForceSync = new MutableLiveData<>(false);
+        this.isDetachHelper = new MutableLiveData<>();
 
         setDefaultError();
 
@@ -80,13 +84,7 @@ public class dataSyncRepository {
         this.budgetLiveData = new MutableLiveData<>();
         this.salaryLiveData = new MutableLiveData<>();
 
-        setDefaultExp();
-        setDefaultSalary();
-        setDefaultDebt();
-        setDefaultBankBalance();
-        setDefaultInHandBalance();
-        setDefaultLaunch();
-        setDefaultBudget();
+        setDefaults();
 
         fetchAll();
     }
@@ -217,35 +215,39 @@ public class dataSyncRepository {
         expDataRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    List<expEntity> expList = new ArrayList<>();
-                    for (DataSnapshot ds : snapshot.getChildren()) {
-                        String id = snapshot.child(Objects.requireNonNull(ds.getKey())).child("id")
-                                .getValue(String.class);
-                        String ExpenseAmt = snapshot.child(ds.getKey()).child("ExpenseAmt")
-                                .getValue(String.class);
-                        String day = snapshot.child(ds.getKey()).child("day")
-                                .getValue(String.class);
-                        String expMode = snapshot.child(ds.getKey()).child("expMode")
-                                .getValue(String.class);
-                        String ExpenseName = snapshot.child(ds.getKey()).child("ExpenseName")
-                                .getValue(String.class);
-                        String Date = snapshot.child(ds.getKey()).child("Date")
-                                .getValue(String.class);
-                        String Time = snapshot.child(ds.getKey()).child("Time")
-                                .getValue(String.class);
-                        if (id != null && ExpenseAmt != null && day != null && expMode != null
-                                && ExpenseName != null && Date != null && Time != null) {
-                            expEntity exp = new expEntity(Integer.parseInt(id), Integer.parseInt(ExpenseAmt),
-                                    ExpenseName, Date, Time, Integer.parseInt(day), Integer.parseInt(expMode));
-                            expList.add(exp);
-                        } else {
-                            Log.e("DataSync-Level3", "expData: null");
+                if (exp == 0) {
+                    if (snapshot.exists()) {
+                        List<expEntity> expList = new ArrayList<>();
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            String id = snapshot.child(Objects.requireNonNull(ds.getKey())).child("id")
+                                    .getValue(String.class);
+                            String ExpenseAmt = snapshot.child(ds.getKey()).child("ExpenseAmt")
+                                    .getValue(String.class);
+                            String day = snapshot.child(ds.getKey()).child("day")
+                                    .getValue(String.class);
+                            String expMode = snapshot.child(ds.getKey()).child("expMode")
+                                    .getValue(String.class);
+                            String ExpenseName = snapshot.child(ds.getKey()).child("ExpenseName")
+                                    .getValue(String.class);
+                            String Date = snapshot.child(ds.getKey()).child("Date")
+                                    .getValue(String.class);
+                            String Time = snapshot.child(ds.getKey()).child("Time")
+                                    .getValue(String.class);
+                            if (id != null && ExpenseAmt != null && day != null && expMode != null
+                                    && ExpenseName != null && Date != null && Time != null) {
+                                expEntity exp = new expEntity(Integer.parseInt(id), Integer.parseInt(ExpenseAmt),
+                                        ExpenseName, Date, Time, Integer.parseInt(day), Integer.parseInt(expMode));
+                                expList.add(exp);
+                            } else {
+                                Log.e("DataSync-Level3", "expData: null");
+                            }
+                        }
+                        if (expList.size() > 0) {
+                            expLiveData.postValue(expList);
                         }
                     }
-                    if (expList.size() > 0) {
-                        expLiveData.postValue(expList);
-                    }
+                    exp = exp + 1;
+                    Log.e("DataSync-Level3", "Exp fetch counter: "+exp);
                 }
             }
 
@@ -260,32 +262,36 @@ public class dataSyncRepository {
         salaryDataRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    List<salaryEntity> salaryList = new ArrayList<>();
-                    for (DataSnapshot ds : snapshot.getChildren()) {
-                        String id = snapshot.child(Objects.requireNonNull(ds.getKey())).child("id")
-                                .getValue(String.class);
-                        String incName = snapshot.child(Objects.requireNonNull(ds.getKey())).child("incName")
-                                .getValue(String.class);
-                        String salary = snapshot.child(Objects.requireNonNull(ds.getKey())).child("salary")
-                                .getValue(String.class);
-                        String incType = snapshot.child(Objects.requireNonNull(ds.getKey())).child("incType")
-                                .getValue(String.class);
-                        String creationDate = snapshot.child(Objects.requireNonNull(ds.getKey())).child("creationDate")
-                                .getValue(String.class);
-                        String salMode = snapshot.child(Objects.requireNonNull(ds.getKey())).child("salMode")
-                                .getValue(String.class);
+                if (salary == 0) {
+                    if (snapshot.exists()) {
+                        List<salaryEntity> salaryList = new ArrayList<>();
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            String id = snapshot.child(Objects.requireNonNull(ds.getKey())).child("id")
+                                    .getValue(String.class);
+                            String incName = snapshot.child(Objects.requireNonNull(ds.getKey())).child("incName")
+                                    .getValue(String.class);
+                            String salary = snapshot.child(Objects.requireNonNull(ds.getKey())).child("salary")
+                                    .getValue(String.class);
+                            String incType = snapshot.child(Objects.requireNonNull(ds.getKey())).child("incType")
+                                    .getValue(String.class);
+                            String creationDate = snapshot.child(Objects.requireNonNull(ds.getKey())).child("creationDate")
+                                    .getValue(String.class);
+                            String salMode = snapshot.child(Objects.requireNonNull(ds.getKey())).child("salMode")
+                                    .getValue(String.class);
 
-                        if (id != null && incName != null && salary != null && incType != null && creationDate != null && salMode != null) {
-                            salaryList.add(new salaryEntity(Integer.parseInt(id), Integer.parseInt(salary),
-                                    incName, Integer.parseInt(incType), creationDate, Integer.parseInt(salMode)));
-                        } else {
-                            Log.e("DataSync-Level3", "salaryData: null");
+                            if (id != null && incName != null && salary != null && incType != null && creationDate != null && salMode != null) {
+                                salaryList.add(new salaryEntity(Integer.parseInt(id), Integer.parseInt(salary),
+                                        incName, Integer.parseInt(incType), creationDate, Integer.parseInt(salMode)));
+                            } else {
+                                Log.e("DataSync-Level3", "salaryData: null");
+                            }
+                        }
+                        if (salaryList.size() > 0) {
+                            salaryLiveData.postValue(salaryList);
                         }
                     }
-                    if (salaryList.size() > 0) {
-                        salaryLiveData.postValue(salaryList);
-                    }
+                    salary = salary + 1;
+                    Log.e("DataSync-Level3", "Salary fetch counter: "+salary);
                 }
             }
 
@@ -300,35 +306,39 @@ public class dataSyncRepository {
         debtDataRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    List<debtEntity> debtList = new ArrayList<>();
-                    for (DataSnapshot ds : snapshot.getChildren()) {
-                        String id = snapshot.child(Objects.requireNonNull(ds.getKey()))
-                                .child("id").getValue(String.class);
-                        String Source = snapshot.child(Objects.requireNonNull(ds.getKey()))
-                                .child("Source").getValue(String.class);
-                        String date = snapshot.child(Objects.requireNonNull(ds.getKey()))
-                                .child("date").getValue(String.class);
-                        String finalDate = snapshot.child(Objects.requireNonNull(ds.getKey()))
-                                .child("finalDate").getValue(String.class);
-                        String status = snapshot.child(Objects.requireNonNull(ds.getKey()))
-                                .child("status").getValue(String.class);
-                        String Amount = snapshot.child(Objects.requireNonNull(ds.getKey()))
-                                .child("Amount").getValue(String.class);
-                        String isRepeat = snapshot.child(Objects.requireNonNull(ds.getKey()))
-                                .child("isRepeat").getValue(String.class);
-                        if (id != null && Source != null && date != null && finalDate != null && status != null
-                                && Amount != null && isRepeat != null) {
-                            debtEntity debt = new debtEntity(Integer.parseInt(id), Source, date, finalDate,
-                                    Integer.parseInt(Amount), status, Integer.parseInt(isRepeat));
-                            debtList.add(debt);
-                        } else {
-                            Log.e("DataSync-Level3", "debtData: null");
+                if (debt == 0) {
+                    if (snapshot.exists()) {
+                        List<debtEntity> debtList = new ArrayList<>();
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            String id = snapshot.child(Objects.requireNonNull(ds.getKey()))
+                                    .child("id").getValue(String.class);
+                            String Source = snapshot.child(Objects.requireNonNull(ds.getKey()))
+                                    .child("Source").getValue(String.class);
+                            String date = snapshot.child(Objects.requireNonNull(ds.getKey()))
+                                    .child("date").getValue(String.class);
+                            String finalDate = snapshot.child(Objects.requireNonNull(ds.getKey()))
+                                    .child("finalDate").getValue(String.class);
+                            String status = snapshot.child(Objects.requireNonNull(ds.getKey()))
+                                    .child("status").getValue(String.class);
+                            String Amount = snapshot.child(Objects.requireNonNull(ds.getKey()))
+                                    .child("Amount").getValue(String.class);
+                            String isRepeat = snapshot.child(Objects.requireNonNull(ds.getKey()))
+                                    .child("isRepeat").getValue(String.class);
+                            if (id != null && Source != null && date != null && finalDate != null && status != null
+                                    && Amount != null && isRepeat != null) {
+                                debtEntity debt = new debtEntity(Integer.parseInt(id), Source, date, finalDate,
+                                        Integer.parseInt(Amount), status, Integer.parseInt(isRepeat));
+                                debtList.add(debt);
+                            } else {
+                                Log.e("DataSync-Level3", "debtData: null");
+                            }
+                        }
+                        if (debtList.size() > 0) {
+                            debtLiveData.postValue(debtList);
                         }
                     }
-                    if (debtList.size() > 0) {
-                        debtLiveData.postValue(debtList);
-                    }
+                    debt = debt + 1;
+                    Log.e("DataSync-Level3", "Debt fetch counter: "+debt);
                 }
             }
 
@@ -343,17 +353,21 @@ public class dataSyncRepository {
         bankBalDataRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    String id = snapshot.child("id")
-                            .getValue(String.class);
-                    String balance = snapshot.child("balance")
-                            .getValue(String.class);
-                    if (id != null && balance != null) {
-                        balanceEntity bal = new balanceEntity(Integer.parseInt(id), Integer.parseInt(balance));
-                        bankBalLiveData.postValue(bal);
-                    } else {
-                        Log.e("DataSync-Level3", "bankBalData: null");
+                if (bank == 0) {
+                    if (snapshot.exists()) {
+                        String id = snapshot.child("id")
+                                .getValue(String.class);
+                        String balance = snapshot.child("balance")
+                                .getValue(String.class);
+                        if (id != null && balance != null) {
+                            balanceEntity bal = new balanceEntity(Integer.parseInt(id), Integer.parseInt(balance));
+                            bankBalLiveData.postValue(bal);
+                        } else {
+                            Log.e("DataSync-Level3", "bankBalData: null");
+                        }
                     }
+                    bank = bank + 1;
+                    Log.e("DataSync-Level3", "Bank fetch counter: "+bank);
                 }
             }
 
@@ -368,16 +382,20 @@ public class dataSyncRepository {
         inHandBalDataRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    String id = snapshot.child("id").getValue(String.class);
-                    String balance = snapshot.child("balance").getValue(String.class);
-                    if (id != null && balance != null) {
-                        inHandBalEntity inHandBal = new inHandBalEntity(Integer.parseInt(id),
-                                Integer.parseInt(balance));
-                        inHandBalLiveData.postValue(inHandBal);
-                    } else {
-                        Log.e("DataSync-Level3", "inHandBalData: null");
+                if (inHand == 0) {
+                    if (snapshot.exists()) {
+                        String id = snapshot.child("id").getValue(String.class);
+                        String balance = snapshot.child("balance").getValue(String.class);
+                        if (id != null && balance != null) {
+                            inHandBalEntity inHandBal = new inHandBalEntity(Integer.parseInt(id),
+                                    Integer.parseInt(balance));
+                            inHandBalLiveData.postValue(inHandBal);
+                        } else {
+                            Log.e("DataSync-Level3", "inHandBalData: null");
+                        }
                     }
+                    inHand = inHand + 1;
+                    Log.e("DataSync-Level3", "In hand fetch counter: "+inHand);
                 }
             }
 
@@ -392,20 +410,24 @@ public class dataSyncRepository {
         launchDataRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    String id = snapshot.child("id").getValue(String.class);
-                    String timesLaunched = snapshot.child("timesLaunched").getValue(String.class);
-                    if (id != null && timesLaunched != null) {
-                        LaunchChecker launchChecker = new LaunchChecker(Integer.parseInt(id),
-                                Integer.parseInt(timesLaunched));
-                        launchLiveData.postValue(launchChecker);
-                        SyncStatus.postValue(true);
-                        Log.e("DataSync-Level3", "Fetcher terminated.");
+                if (launch == 0) {
+                    if (snapshot.exists()) {
+                        String id = snapshot.child("id").getValue(String.class);
+                        String timesLaunched = snapshot.child("timesLaunched").getValue(String.class);
+                        if (id != null && timesLaunched != null) {
+                            LaunchChecker launchChecker = new LaunchChecker(Integer.parseInt(id),
+                                    Integer.parseInt(timesLaunched));
+                            launchLiveData.postValue(launchChecker);
+                            SyncStatus.postValue(true);
+                            Log.e("DataSync-Level3", "Fetcher terminated.");
+                        } else {
+                            Log.e("DataSync-Level3", "launchData: null");
+                        }
                     } else {
-                        Log.e("DataSync-Level3", "launchData: null");
+                        SyncStatus.postValue(true);
                     }
-                }else{
-                    SyncStatus.postValue(true);
+                    launch = launch + 1;
+                    Log.e("DataSync-Level3", "Launch fetch counter: "+launch);
                 }
             }
 
@@ -420,18 +442,22 @@ public class dataSyncRepository {
         budgetDataRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    String id = snapshot.child("id").getValue(String.class);
-                    String Amount = snapshot.child("Amount").getValue(String.class);
-                    String bal = snapshot.child("bal").getValue(String.class);
-                    String refreshPeriod = snapshot.child("refreshPeriod").getValue(String.class);
-                    String CreationDate = snapshot.child("CreationDate").getValue(String.class);
-                    if (id != null && Amount != null && bal != null &&
-                            refreshPeriod != null && CreationDate != null) {
-                        budgetEntity bud = new budgetEntity(Integer.parseInt(id), Integer.parseInt(Amount),
-                                Integer.parseInt(bal), Integer.parseInt(refreshPeriod), CreationDate);
-                        budgetLiveData.postValue(bud);
+                if (budget == 0) {
+                    if (snapshot.exists()) {
+                        String id = snapshot.child("id").getValue(String.class);
+                        String Amount = snapshot.child("Amount").getValue(String.class);
+                        String bal = snapshot.child("bal").getValue(String.class);
+                        String refreshPeriod = snapshot.child("refreshPeriod").getValue(String.class);
+                        String CreationDate = snapshot.child("CreationDate").getValue(String.class);
+                        if (id != null && Amount != null && bal != null &&
+                                refreshPeriod != null && CreationDate != null) {
+                            budgetEntity bud = new budgetEntity(Integer.parseInt(id), Integer.parseInt(Amount),
+                                    Integer.parseInt(bal), Integer.parseInt(refreshPeriod), CreationDate);
+                            budgetLiveData.postValue(bud);
+                        }
                     }
+                    budget = budget + 1;
+                    Log.e("DataSync-Level3", "Budget fetch counter: "+budget);
                 }
             }
 
@@ -595,59 +621,60 @@ public class dataSyncRepository {
 
     //Defaults
     private void setDefaultExp() {
-        List<expEntity> expList = new ArrayList<>();
-        expEntity exp = new expEntity();
-        exp.setDate(default_Error);
-        expList.add(0, exp);
-        expLiveData.postValue(expList);
+        expLiveData = new MutableLiveData<>();
     }
 
     private void setDefaultSalary() {
-        List<salaryEntity> salaryList = new ArrayList<>();
-        salaryEntity salary = new salaryEntity();
-        salary.setCreationDate(default_Error);
-        salaryList.add(0, salary);
-        salaryLiveData.postValue(salaryList);
+        salaryLiveData = new MutableLiveData<>();
     }
 
     private void setDefaultDebt() {
-        List<debtEntity> debtList = new ArrayList<>();
-        debtEntity debt = new debtEntity();
-        debt.setDate(default_Error);
-        debtList.add(0, debt);
-        debtLiveData.postValue(debtList);
+        debtLiveData = new MutableLiveData<>();
     }
 
     private void setDefaultBankBalance() {
-        balanceEntity balance = new balanceEntity();
-        balance.setId(default_int_entity);
-        bankBalLiveData.postValue(balance);
+        bankBalLiveData = new MutableLiveData<>();
     }
 
     private void setDefaultInHandBalance() {
-        inHandBalEntity balance = new inHandBalEntity();
-        balance.setId(default_int_entity);
-        inHandBalLiveData.postValue(balance);
+        inHandBalLiveData = new MutableLiveData<>();
     }
 
     private void setDefaultBudget() {
-        budgetEntity bud = new budgetEntity();
-        bud.setCreationDate(default_Error);
-        budgetLiveData.postValue(bud);
+        budgetLiveData = new MutableLiveData<>();
     }
 
     private void setDefaultLaunch() {
-        LaunchChecker launchChecker = new LaunchChecker();
-        launchChecker.setId(default_int_entity);
-        launchLiveData.postValue(launchChecker);
+        launchLiveData = new MutableLiveData<>();
     }
-    public void removeAllData(){
+
+    private void setDefaults() {
+        setDefaultExp();
+        setDefaultSalary();
+        setDefaultDebt();
+        setDefaultBankBalance();
+        setDefaultInHandBalance();
+        setDefaultLaunch();
+        setDefaultBudget();
+    }
+
+    public void removeAllData() {
+        setDefaults();
         metaDataRef.removeValue((error, ref) -> {
-            if (error!=null){
+            if (error != null) {
                 FirebaseError.postValue(error.getMessage());
             }
         });
     }
+
+    public void setIsDetachHelper(Boolean isDetachHelper){
+        this.isDetachHelper.postValue(isDetachHelper);
+    }
+
+    public MutableLiveData<Boolean> getIsDetachHelper() {
+        return isDetachHelper;
+    }
+
     public MutableLiveData<String> getFirebaseError() {
         return FirebaseError;
     }
@@ -691,4 +718,5 @@ public class dataSyncRepository {
     public void setBruteForceSync(boolean isBruteforce) {
         bruteForceSync.postValue(isBruteforce);
     }
+
 }
