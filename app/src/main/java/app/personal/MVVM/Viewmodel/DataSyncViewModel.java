@@ -24,14 +24,15 @@ public class DataSyncViewModel extends AndroidViewModel {
     private final MutableLiveData<String> FirebaseError;
     private final MutableLiveData<Boolean> SyncStatus;
     private final MutableLiveData<Boolean> bruteForceSync;
+    private final MutableLiveData<Boolean> isDetachHelper;
 
-    private final MutableLiveData<List<expEntity>> expLiveData;
-    private final MutableLiveData<balanceEntity> bankBalLiveData;
-    private final MutableLiveData<inHandBalEntity> inHandBalLiveData;
-    private final MutableLiveData<List<debtEntity>> debtLiveData;
-    private final MutableLiveData<budgetEntity> budgetLiveData;
-    private final MutableLiveData<LaunchChecker> launchLiveData;
-    private final MutableLiveData<List<salaryEntity>> salaryLiveData;
+    private MutableLiveData<List<expEntity>> expLiveData;
+    private MutableLiveData<balanceEntity> bankBalLiveData;
+    private MutableLiveData<inHandBalEntity> inHandBalLiveData;
+    private MutableLiveData<List<debtEntity>> debtLiveData;
+    private MutableLiveData<budgetEntity> budgetLiveData;
+    private MutableLiveData<LaunchChecker> launchLiveData;
+    private MutableLiveData<List<salaryEntity>> salaryLiveData;
 
 
     public DataSyncViewModel(@NonNull Application application) {
@@ -41,8 +42,13 @@ public class DataSyncViewModel extends AndroidViewModel {
         this.FirebaseError = dsRepo.getFirebaseError();
         this.SyncStatus = dsRepo.getSyncStatus();
         this.bruteForceSync = dsRepo.getBruteForceSync();
+        this.isDetachHelper = dsRepo.getIsDetachHelper();
 
-//        Returnable Live Data
+        getters();
+    }
+
+    private void getters() {
+//      Returnable Live Data
         this.expLiveData = dsRepo.getExpLiveData();
         this.bankBalLiveData = dsRepo.getBankBalLiveData();
         this.inHandBalLiveData = dsRepo.getInHandBalLiveData();
@@ -61,8 +67,14 @@ public class DataSyncViewModel extends AndroidViewModel {
         return FirebaseError;
     }
 
-    public void RemoveAllData(){
+    public void RemoveAllData() {
+        dsRepo.setIsDetachHelper(true);
         dsRepo.removeAllData();
+//        getters();
+    }
+
+    public void setIsDetachHelper(Boolean isDetachHelper){
+        dsRepo.setIsDetachHelper(isDetachHelper);
     }
 
     public void setDefaultError() {
@@ -75,6 +87,10 @@ public class DataSyncViewModel extends AndroidViewModel {
 
     public MutableLiveData<Boolean> getBruteForceSync() {
         return bruteForceSync;
+    }
+
+    public MutableLiveData<Boolean> getIsDetachHelper() {
+        return isDetachHelper;
     }
 
     public MutableLiveData<Boolean> getSyncStatus() {
@@ -109,7 +125,7 @@ public class DataSyncViewModel extends AndroidViewModel {
         return salaryLiveData;
     }
 
-//    Use for later
+    //    Use for later
     public void setLocalBalance(balanceEntity localBalance) {
         dsRepo.CompareBankBalance(localBalance);
     }
@@ -138,11 +154,11 @@ public class DataSyncViewModel extends AndroidViewModel {
         dsRepo.CompareSalary(salary);
     }
 
-//    Call on launch->
+    //    Call on launch->
     public void CompareAll(List<expEntity> localExp, List<salaryEntity> localSalary,
                            List<debtEntity> localDebt, balanceEntity localBalance,
                            inHandBalEntity localInHandBal, LaunchChecker localLaunchChecker,
-                           budgetEntity localBudget){
+                           budgetEntity localBudget) {
         dsRepo.CompareAll(localExp, localSalary, localDebt, localBalance, localInHandBal,
                 localLaunchChecker, localBudget);
     }

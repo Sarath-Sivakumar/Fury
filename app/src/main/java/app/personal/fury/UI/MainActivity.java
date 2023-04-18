@@ -103,10 +103,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        vm = new ViewModelProvider(this).get(mainViewModel.class);
-        dsVm = new ViewModelProvider(this).get(DataSyncViewModel.class);
-        appVm = new ViewModelProvider(this).get(AppUtilViewModel.class);
-        syncHelper = new ViewLevelSyncHelper(vm, dsVm, appVm, this);
+        if(savedInstanceState==null){
+            vm = new ViewModelProvider(this).get(mainViewModel.class);
+            dsVm = new ViewModelProvider(this).get(DataSyncViewModel.class);
+            dsVm.setIsDetachHelper(false);
+            appVm = new ViewModelProvider(this).get(AppUtilViewModel.class);
+            syncHelper = new ViewLevelSyncHelper(vm, dsVm, appVm, this);
+        }
         setCurrency(savedInstanceState);
     }
 
@@ -695,14 +698,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        syncHelper.SaveToCloud();
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
-        syncHelper.SaveToCloud();
+        syncHelper.SaveData();
     }
 }
