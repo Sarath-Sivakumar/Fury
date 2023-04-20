@@ -101,7 +101,12 @@ public class dataSyncRepository {
             fetchExp();
         } else {
             Log.e("DataSync-Level3", "Expense data match.");
-            setDefaultExp();
+            if (!localExp.isEmpty()){
+                setDefaultExp();
+            }else{
+                putExp(localExp);
+                fetchExp();
+            }
         }
     }
 
@@ -112,7 +117,12 @@ public class dataSyncRepository {
             fetchSalary();
         } else {
             Log.e("DataSync-Level3", "Salary data match.");
-            setDefaultSalary();
+            if (!localSalary.isEmpty()){
+                setDefaultSalary();
+            }else{
+                putSalary(localSalary);
+                fetchSalary();
+            }
         }
     }
 
@@ -123,7 +133,12 @@ public class dataSyncRepository {
             fetchDebt();
         } else {
             Log.e("DataSync-Level3", "Debt data match.");
-            setDefaultDebt();
+            if (!localDebt.isEmpty()){
+                setDefaultDebt();
+            }else{
+                putDebt(localDebt);
+                fetchDebt();
+            }
         }
     }
 
@@ -471,34 +486,40 @@ public class dataSyncRepository {
     //    Uploader
     private void putExp(List<expEntity> expEntityList) {
         removeExp();
-        for (expEntity exp : expEntityList) {
-            expDataRef.push().setValue(new hashUtil(exp).getExpHashMap(), (error, ref) -> {
-                if (error != null) {
-                    FirebaseError.postValue(error.getMessage());
-                }
-            });
+        if (!expEntityList.isEmpty()){
+            for (expEntity exp : expEntityList) {
+                expDataRef.push().setValue(new hashUtil(exp).getExpHashMap(), (error, ref) -> {
+                    if (error != null) {
+                        FirebaseError.postValue(error.getMessage());
+                    }
+                });
+            }
         }
     }
 
     private void putDebt(List<debtEntity> debtEntityList) {
         removeDebt();
-        for (debtEntity debt : debtEntityList) {
-            debtDataRef.push().setValue(new hashUtil(debt).getDebtHashMap(), (error, ref) -> {
-                if (error != null) {
-                    FirebaseError.postValue(error.getMessage());
-                }
-            });
+        if (!debtEntityList.isEmpty()){
+            for (debtEntity debt : debtEntityList) {
+                debtDataRef.push().setValue(new hashUtil(debt).getDebtHashMap(), (error, ref) -> {
+                    if (error != null) {
+                        FirebaseError.postValue(error.getMessage());
+                    }
+                });
+            }
         }
     }
 
     private void putSalary(List<salaryEntity> salaryEntityList) {
         removeSalary();
-        for (salaryEntity salary : salaryEntityList) {
-            salaryDataRef.push().setValue(new hashUtil(salary).getSalaryHashMap(), (error, ref) -> {
-                if (error != null) {
-                    FirebaseError.postValue(error.getMessage());
-                }
-            });
+        if (!salaryEntityList.isEmpty()){
+            for (salaryEntity salary : salaryEntityList) {
+                salaryDataRef.push().setValue(new hashUtil(salary).getSalaryHashMap(), (error, ref) -> {
+                    if (error != null) {
+                        FirebaseError.postValue(error.getMessage());
+                    }
+                });
+            }
         }
     }
 
