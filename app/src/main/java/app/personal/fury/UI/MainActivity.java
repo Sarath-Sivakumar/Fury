@@ -33,7 +33,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.adcolony.sdk.AdColonyAppOptions;
 import com.bumptech.glide.Glide;
+import com.google.ads.mediation.adcolony.AdColonyMediationAdapter;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
@@ -162,11 +164,24 @@ public class MainActivity extends AppCompatActivity {
         dsVm.getBruteForceSync().removeObservers(this);
     }
 
+    private void initMediationSDKs(){
+        initAdColony();
+    }
+
+    private void initAdColony(){
+        AdColonyAppOptions appOptions = AdColonyMediationAdapter.getAppOptions();
+        appOptions.setPrivacyFrameworkRequired(AdColonyAppOptions.GDPR, true);
+        appOptions.setPrivacyConsentString(AdColonyAppOptions.GDPR, "1");
+        appOptions.setPrivacyFrameworkRequired(AdColonyAppOptions.CCPA, true);
+        appOptions.setPrivacyConsentString(AdColonyAppOptions.CCPA, "1");
+    }
+
     private void OnCreate(Bundle savedInstanceState) {
         init();
         setNav();
         setUserViewModel();
         initDataSync();
+        initMediationSDKs();
         try {
             vm.getSalary().observe(this, salaryEntityList -> {
                 if (salaryEntityList != null) {
@@ -678,13 +693,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void isStoragePermissionGranted() {
+    public boolean isStoragePermissionGranted() {
         if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED) {
             Log.v("permission", "Permission is granted");
+            return true;
         } else {
             Log.v("permission", "Permission is revoked");
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            return false;
         }
     }
 

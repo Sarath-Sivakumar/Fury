@@ -97,4 +97,8 @@ dependencies {
 
     //Tap Target Prompt
     implementation 'uk.co.samuelwall:material-tap-target-prompt:3.3.2'
+
+    //Mediation
+    //AdColony
+    implementation 'com.google.ads.mediation:adcolony:4.8.0.2'
 }
