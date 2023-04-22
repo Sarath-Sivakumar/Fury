@@ -132,6 +132,8 @@ public class ViewLevelSyncHelper {
             try {
                 if (!expEntityList.isEmpty()) {
                     localExp = expEntityList;
+                }else{
+                    localExp = new ArrayList<>();
                 }
                 initTask.postValue(4);
             } catch (Exception ignored) {
@@ -142,6 +144,8 @@ public class ViewLevelSyncHelper {
             try {
                 if (!salaryEntityList.isEmpty()) {
                     localSalary = salaryEntityList;
+                }else{
+                    localSalary = new ArrayList<>();
                 }
                 initTask.postValue(5);
             } catch (Exception ignored) {
@@ -152,6 +156,8 @@ public class ViewLevelSyncHelper {
             try {
                 if (!debtEntityList.isEmpty()) {
                     localDebt = debtEntityList;
+                }else{
+                    localDebt = new ArrayList<>();
                 }
                 initTask.postValue(6);
             } catch (Exception ignored) {

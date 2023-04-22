@@ -14,7 +14,7 @@ public class Constants {
             userTable = "User_Table",
             launchChecker = "Launch_Checker",
             CustomCategory = "custom_Category",
-            APP_VERSION = "1.0.4";
+            APP_VERSION = "1.0.5";
     public static final String default_Error = "Null";
     public static final int default_int_entity = -999999999;
     //DO NOT CHANGE------------------------------------------------
