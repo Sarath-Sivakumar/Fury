@@ -22,13 +22,14 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 import app.personal.MVVM.Entity.balanceEntity;
 import app.personal.MVVM.Entity.expEntity;
+import app.personal.MVVM.Entity.inHandBalEntity;
 import app.personal.MVVM.Viewmodel.mainViewModel;
 import app.personal.Utls.Commons;
+import app.personal.Utls.Constants;
 import app.personal.Utls.linearLayoutManager;
 import app.personal.fury.R;
 import app.personal.fury.UI.Adapters.expList.expAdapter;
@@ -43,6 +44,7 @@ public class allExp extends AppCompatActivity {
     private RecyclerView.ViewHolder ViewHolder;
     private LinearLayout empty;
     private String Currency = "";
+    private int inHandBal, bankBal;
 //    Button clearAll;
 
     @Override
@@ -50,7 +52,25 @@ public class allExp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_exp);
         vm = new ViewModelProvider(this).get(mainViewModel.class);
+        initVals();
         setCurrency();
+    }
+    private void initVals(){
+        vm.getInHandBalance().observe(this, entity -> {
+            try{
+                inHandBal = entity.getBalance();
+            } catch (Exception ignored){
+                inHandBal = 0;
+            }
+        });
+
+        vm.getBalance().observe(this, entity -> {
+            try{
+                bankBal = entity.getBalance();
+            } catch(Exception ignored) {
+                bankBal = 0;
+            }
+        });
     }
 
     private void setUi() {
@@ -118,21 +138,32 @@ public class allExp extends AppCompatActivity {
         del.setOnClickListener(v -> {
             expEntity entity = adapter.getExpAt(ViewHolder.getAdapterPosition());
             float amt = entity.getExpenseAmt();
-            float oldBal = getBalance();
-            vm.DeleteBalance();
-            balanceEntity entity1 = new balanceEntity();
-//            entity1.setBalance(String.valueOf(oldBal + amt));
-            vm.InsertBalance(entity1);
-            vm.DeleteExp(adapter.getExpAt(ViewHolder.getAdapterPosition()));
+            float oldBal;
+            if (entity.getExpMode() == Constants.SAL_MODE_ACC) {
+                oldBal = getBalance();
+                vm.DeleteBalance();
+                balanceEntity entity1 = new balanceEntity();
+                entity1.setBalance((int) (oldBal + amt));
+                vm.InsertBalance(entity1);
+            } else if (entity.getExpMode() == Constants.SAL_MODE_CASH) {
+                oldBal = getInHandBalance();
+                vm.DeleteInHandBalance();
+                inHandBalEntity inHandBal = new inHandBalEntity();
+                inHandBal.setBalance((int) (oldBal + amt));
+                vm.InsertInHandBalance(inHandBal);
+            }
+            vm.DeleteExp(entity);
             adapter.clear();
             adapter.notifyDataSetChanged();
             popupWindow.dismiss();
             Commons.SnackBar(recyclerView, "Expense data deleted");
         });
+
         cancel.setOnClickListener(v -> {
-            adapter.notifyDataSetChanged();
             popupWindow.dismiss();
+            adapter.notifyDataSetChanged();
         });
+
         popupWindow.setFocusable(true);
         popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
         popupWindow.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
@@ -142,13 +173,11 @@ public class allExp extends AppCompatActivity {
     }
 
     private float getBalance() {
-        AtomicReference<Float> Balance = new AtomicReference<>();
-        vm.getBalance().observe(this, entity -> {
-            if (entity != null) {
-                Balance.set(Float.valueOf(entity.getBalance()));
-            }
-        });
-        return Balance.get();
+        return (float) bankBal;
+    }
+
+    private float getInHandBalance() {
+        return (float) inHandBal;
     }
 
     private void touchHelper() {
