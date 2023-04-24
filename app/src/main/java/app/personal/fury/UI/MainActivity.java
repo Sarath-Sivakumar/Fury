@@ -105,13 +105,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if(savedInstanceState==null){
-            vm = new ViewModelProvider(this).get(mainViewModel.class);
-            dsVm = new ViewModelProvider(this).get(DataSyncViewModel.class);
-            dsVm.setIsDetachHelper(false);
-            appVm = new ViewModelProvider(this).get(AppUtilViewModel.class);
-            syncHelper = new ViewLevelSyncHelper(vm, dsVm, appVm, this);
-        }
+        vm = new ViewModelProvider(this).get(mainViewModel.class);
+        dsVm = new ViewModelProvider(this).get(DataSyncViewModel.class);
+        dsVm.setIsDetachHelper(false);
+        appVm = new ViewModelProvider(this).get(AppUtilViewModel.class);
+        syncHelper = new ViewLevelSyncHelper(vm, dsVm, appVm, this);
         setCurrency(savedInstanceState);
     }
 
@@ -164,11 +162,11 @@ public class MainActivity extends AppCompatActivity {
         dsVm.getBruteForceSync().removeObservers(this);
     }
 
-    private void initMediationSDKs(){
+    private void initMediationSDKs() {
         initAdColony();
     }
 
-    private void initAdColony(){
+    private void initAdColony() {
         AdColonyAppOptions appOptions = AdColonyMediationAdapter.getAppOptions();
         appOptions.setPrivacyFrameworkRequired(AdColonyAppOptions.GDPR, true);
         appOptions.setPrivacyConsentString(AdColonyAppOptions.GDPR, "1");
